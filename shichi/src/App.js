@@ -6,7 +6,7 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Landing from './Components/for_push/Landing/LandingApp'
 import Home from './Components/for_push/HomePage/HomePageApp'
-
+import History from './Components/for_push/History/HistoryApp'
 
 function App() {
   return (
@@ -14,6 +14,7 @@ function App() {
       <Routes>
       <Route exact path="/" element={<Landing />} />
       <Route exact path='/home' element={<Home />} />
+      <Route exact path='/history' element={<History />} />
 
 
 
