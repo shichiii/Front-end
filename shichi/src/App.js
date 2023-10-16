@@ -5,6 +5,7 @@ import React from "react";
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Landing from './Components/for_push/Landing/LandingApp'
+import Home from './Components/for_push/HomePage/HomePageApp'
 
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
     <Router>
       <Routes>
       <Route exact path="/" element={<Landing />} />
+      <Route exact path='/home' element={<Home />} />
 
 
 
