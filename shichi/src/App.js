@@ -9,6 +9,7 @@ import Landing from "./Components/for_push/Landing/LandingApp";
 import Home from "./Components/for_push/HomePage/HomePageApp";
 import History from "./Components/for_push/History/HistoryApp";
 import CarInfoPage from "./page/CarInfoPage";
+import ProfilePage from "./page/ProfilePage";
 
 
 import Advertisement from './Components/Advertisement_selection/AdvertisementApp'
@@ -25,6 +26,7 @@ function App() {
         <Route exact path="/home" element={<Home />} />
         <Route exact path="/history" element={<History />} />
         <Route exact path="/car/:id" element={<CarInfoPage />} />
+        <Route exact path="/profile/:id" element={<ProfilePage />} />
 
 
       <Route exact path='/Advertisement' element={<Advertisement/>} />

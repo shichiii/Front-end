@@ -14,7 +14,6 @@ const Navbar = () => {
   return (
     <div className="bg-pallate-Gunmetal h-[100px]  ">
       <div className="flex justify-between items-center border-x-pallate-Gunmetal h-24 max-w-[1240px] m-auto text-white">
-       
         <img src={logo} alt="My Logo" class="w-52 w-52 md:w-64 h-64  " />
         <ul className="hidden md:flex">
           <li className="p-4">Home</li>
@@ -40,11 +39,7 @@ const Navbar = () => {
           <li className="p-4 border-b border-gray-600">About</li>
           <li className="p-4">Contact</li>
         </ul>
-        <User/>
-       
-      
-
-        
+        <User />
       </div>
     </div>
   );
