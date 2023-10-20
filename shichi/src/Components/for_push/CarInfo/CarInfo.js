@@ -3,8 +3,11 @@ import { BsFillBagFill, BsFillPersonFill, BsSnow } from "react-icons/bs";
 import { FaGasPump } from "react-icons/fa";
 import { GiCarDoor, GiGearStickPattern } from "react-icons/gi";
 import { FaLocationDot } from "react-icons/fa6";
+import { useState } from "react";
 
 function CarInfo() {
+  const [showMore, setShowMore] = useState(false);
+
   return (
     <div className="flex flex-row gap-4 p-3 rounded-2xl h-96 bg-slate-100 w-[1215px]">
       <div className="flex flex-col gap-8 items-center w-2/3 divide-y divide-stone-200 mt-4">
@@ -69,9 +72,24 @@ function CarInfo() {
             <span>
               <span className="text-green-600">✔</span> Theft Protection
             </span>
-            <span className="ml-5 text-blue-400">show 3 more</span>
+            {showMore ? (
+              <>
+                <span>
+                  <span className="text-green-600">✔</span> Theft Protection
+                </span>
+                <span>
+                  <span className="text-green-600">✔</span> Theft Protection
+                </span>
+              </>
+            ) : null}
+            <span
+              className="ml-5 text-blue-400 cursor-pointer hover:text-blue-700"
+              onClick={() => setShowMore(!showMore)}
+            >
+              {showMore ? "show 2 more" : "show less"}
+            </span>
           </div>
-          <div className="flex flex-col w-1/3 p-3 items-center justify-center gap-5">
+          <div className="flex flex-col w-1/3 p-3 justify-center gap-5">
             <span className="font-bold text-green-600 text-xs bg-green-200 p-2 rounded-sm">
               ✔ FREE cancellation before 11:00 on 17 October 2023
             </span>
