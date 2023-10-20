@@ -3,6 +3,8 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import '../Styles/for_push/login.css';
 import { useState} from "react";
+import { useNavigate } from "react-router-dom";
+
 function  Signup(){
   const [emailAddress , setEmailAddress] = useState("");
   const [password , setpassword] = useState("");
@@ -52,7 +54,9 @@ function  Signup(){
                 </Link>
             </div>
             <div class="relative">
-              <button class="bg-pallate-Dark_Sky_Blue font-medium w-full text-white rounded-md px-2 py-1">Submit</button>
+              <button class="bg-pallate-Dark_Sky_Blue font-medium w-full text-white rounded-md px-2 py-1" 
+              onClick={()=> navigate("/home")}
+              >Submit</button>
             </div>
           </div>
         </div>
