@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "../HomePage/NavBar";
+import Navbar from "../for_push/HomePage/NavBar";
 
 const NavAdvertisement = () => {
   const [isAdvertisementClicked, setIsAdvertisementClicked] = useState(true);
