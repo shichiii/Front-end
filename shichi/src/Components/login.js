@@ -16,6 +16,8 @@ function  Login(){
     setpassword(event.target.value);
   }
 
+  let navigate = useNavigate();
+
 
     return(
         <div class="min-h-screen bg-gradient-to-r from-pallate-Dark_Sky_Blue from-10%  to-pallate-Police_Blue to-90%  py-6 flex flex-col justify-center sm:py-12">
