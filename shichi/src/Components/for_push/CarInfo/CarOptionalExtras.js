@@ -2,7 +2,7 @@ import OptionalExtra from "./OptionalExtra";
 
 function CarOptionalExtras() {
   return (
-    <div className="flex flex-col gap-4 p-5 rounded h-96 bg-slate-100 w-[1215px]">
+    <div className="flex flex-col gap-4 p-5 rounded-2xl h-72 bg-slate-100 w-[1215px]">
       <div className="font-bold text-xl">Optional extras</div>
       <div className="flex flex-row justify-center items-center gap-10">
         <OptionalExtra />

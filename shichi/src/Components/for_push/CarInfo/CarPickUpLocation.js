@@ -13,7 +13,7 @@ import {
 
 function CarPickUpLocation() {
   return (
-    <div className="rounded p-5 bg-slate-100 h-96 flex flex-row w-[800px]">
+    <div className="rounded-2xl p-5 bg-slate-100 h-96 flex flex-row w-[800px]">
       <div className="flex flex-col justify-around w-2/3">
         <div className="font-bold text-slate-400 text-xs">PICK-UP</div>
         <div className="font-bold text-xl">
@@ -47,7 +47,7 @@ function CarPickUpLocation() {
           </div>
         </div>
       </div>
-      <div className="w-52 bg-slate-300 rounded relative h-full flex-1">
+      <div className="w-52 bg-slate-300 rounded-2xl relative h-full flex-1">
         {/* <MapContainer
           center={[40, 0]}
           zoom={1}
