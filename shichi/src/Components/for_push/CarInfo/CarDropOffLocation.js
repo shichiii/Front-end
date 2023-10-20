@@ -4,7 +4,7 @@ import { FaLocationDot } from "react-icons/fa6";
 
 function CarDropOffLocation() {
   return (
-    <div className="w-[400px] rounded p-5 bg-slate-100 h-96 flex flex-col justify-around">
+    <div className="w-[400px] rounded-2xl p-5 bg-slate-100 h-96 flex flex-col justify-around">
       <div className="font-bold text-slate-400 text-xs">DROP-OFF</div>
       <div className="font-bold text-xl">27 October 2023, Friday, 11:00</div>
       <div>Queenstown Airport (ZQN)</div>

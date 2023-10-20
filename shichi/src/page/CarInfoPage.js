@@ -3,20 +3,24 @@ import CarDropOffLocation from "../Components/for_push/CarInfo/CarDropOffLocatio
 import CarInfo from "../Components/for_push/CarInfo/CarInfo";
 import CarOptionalExtras from "../Components/for_push/CarInfo/CarOptionalExtras";
 import CarPickUpLocation from "../Components/for_push/CarInfo/CarPickUpLocation";
+import Navbar from "../Components/for_push/HomePage/NavBar";
 
 function CarInfoPage() {
   return (
-    <div className="bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal h-full flex justify-center">
-      <div className="flex flex-col justify-center items-center p-5 w-[1200px] gap-5">
-        <div className="flex flex-row gap-4">
-          <CarPickUpLocation />
-          <CarDropOffLocation />
+    <>
+      <Navbar />
+      <div className="bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal h-full flex justify-center">
+        <div className="flex flex-col justify-center items-center p-5 w-[1200px] gap-5">
+          <div className="flex flex-row gap-4">
+            <CarPickUpLocation />
+            <CarDropOffLocation />
+          </div>
+          <CarInfo />
+          <CarOptionalExtras />
+          <BookCar />
         </div>
-        <CarInfo />
-        <CarOptionalExtras />
-        <BookCar />
       </div>
-    </div>
+    </>
   );
 }
 

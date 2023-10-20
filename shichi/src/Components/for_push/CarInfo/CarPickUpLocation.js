@@ -2,6 +2,8 @@ import { FaGasPump } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { BiTimeFive } from "react-icons/bi";
 import { BsFillInfoCircleFill } from "react-icons/bs";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
 import {
   MapContainer,
   TileLayer,
@@ -10,10 +12,19 @@ import {
   useMap,
   useMapEvents,
 } from "react-leaflet";
+import icon from "leaflet/dist/images/marker-icon.png";
+import iconShadow from "leaflet/dist/images/marker-shadow.png";
+
+let DefaultIcon = L.icon({
+  iconUrl: icon,
+  shadowUrl: iconShadow,
+});
+
+L.Marker.prototype.options.icon = DefaultIcon;
 
 function CarPickUpLocation() {
   return (
-    <div className="rounded p-5 bg-slate-100 h-96 flex flex-row w-[800px]">
+    <div className="rounded-2xl p-5 bg-slate-100 h-96 flex flex-row w-[800px]">
       <div className="flex flex-col justify-around w-2/3">
         <div className="font-bold text-slate-400 text-xs">PICK-UP</div>
         <div className="font-bold text-xl">
@@ -47,18 +58,20 @@ function CarPickUpLocation() {
           </div>
         </div>
       </div>
-      <div className="w-52 bg-slate-300 rounded relative h-full flex-1">
-        {/* <MapContainer
+      <div className="w-52 h-full bg-slate-300 rounded-2xl">
+        <MapContainer
           center={[40, 0]}
-          zoom={1}
+          zoom={10}
           scrollWheelZoom={true}
-          className=""
+          className=" h-full"
         >
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
-          />
-        </MapContainer> */}
+          <TileLayer url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png" />
+          <Marker position={[40, 0]}>
+            <Popup>
+              <span>1</span> <span>1</span>
+            </Popup>
+          </Marker>
+        </MapContainer>
       </div>
     </div>
   );
