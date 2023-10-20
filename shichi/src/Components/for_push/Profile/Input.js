@@ -22,7 +22,7 @@ function Input({
         onChange={(e) => setValue(e.target.value)}
         type={type}
         name={name}
-        className={`flex p-1 w-full rounded-md ${
+        className={`flex p-1 w-full rounded-2xl ${
           disabled ? "text-slate-100" : "text-black"
         } outline-none px-3 text-center opacity-90 focus:opacity-100`}
         placeholder={placeholder}

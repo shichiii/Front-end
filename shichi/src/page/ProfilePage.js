@@ -46,7 +46,11 @@ function ProfilePage() {
           />
         </div>
         <button
-          className="bg-pallate-Dark_Sky_Blue text-black rounded-md font-medium w-[200px] px-6 py-3 mt-16 mx-auto"
+          className={`${
+            !isDisabled
+              ? "bg-pallate-Dark_Sky_Blue text-black"
+              : "text-pallate-Dark_Sky_Blue border-pallate-Dark_Sky_Blue border hover:text-black hover:bg-pallate-Dark_Sky_Blue"
+          } rounded-2xl font-medium w-[200px] px-6 py-3 mt-16 mx-auto transition-all duration-300`}
           onClick={() => setIsDisabled(!isDisabled)}
         >
           {isDisabled ? "Edit Profile" : "Save Changes"}
