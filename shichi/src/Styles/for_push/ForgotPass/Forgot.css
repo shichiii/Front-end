@@ -1,0 +1,15 @@
+.flipped {
+  
+    transform: rotateY(360deg);
+   
+    transition: transform 2s; 
+  }
+  .neon-button-remove {
+    color: red;
+    border: none;
+    padding: 0px 0px;
+    text-shadow: 0 0 5px rgba(223, 87, 87, 0.5);
+    animation: glow 2s infinite;
+
+  }
+  
