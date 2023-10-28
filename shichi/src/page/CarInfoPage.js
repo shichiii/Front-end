@@ -4,7 +4,7 @@ import CarInfo from "../Components/for_push/CarInfo/CarInfo";
 import CarOptionalExtras from "../Components/for_push/CarInfo/CarOptionalExtras";
 import CarPickUpLocation from "../Components/for_push/CarInfo/CarPickUpLocation";
 import Navbar from "../Components/for_push/HomePage/NavBar";
-
+import IconChat from "../Components/for_push/ChatPage/IconChat";
 function CarInfoPage() {
   return (
     <>
@@ -19,6 +19,7 @@ function CarInfoPage() {
           <CarOptionalExtras />
           <BookCar />
         </div>
+        <IconChat/>
       </div>
     </>
   );
