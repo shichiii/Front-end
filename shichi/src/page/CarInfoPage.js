@@ -3,6 +3,7 @@ import CarDropOffLocation from "../Components/for_push/CarInfo/CarDropOffLocatio
 import CarInfo from "../Components/for_push/CarInfo/CarInfo";
 import CarOptionalExtras from "../Components/for_push/CarInfo/CarOptionalExtras";
 import CarPickUpLocation from "../Components/for_push/CarInfo/CarPickUpLocation";
+import CommentSection from "../Components/for_push/Comment/CommentSection";
 import Navbar from "../Components/for_push/HomePage/NavBar";
 
 function CarInfoPage() {
@@ -18,6 +19,7 @@ function CarInfoPage() {
           <CarInfo />
           <CarOptionalExtras />
           <BookCar />
+          <CommentSection />
         </div>
       </div>
     </>
