@@ -2,6 +2,9 @@ import { useState } from "react";
 import Navbar from "../Components/for_push/HomePage/NavBar";
 import Input from "../Components/for_push/Profile/Input";
 import ProfileImage from "../Components/for_push/Profile/ProfileImage";
+import Modal from "react-modal";
+import MyComponent from "../Components/addcar/popup"
+
 
 function ProfilePage() {
   const [isDisabled, setIsDisabled] = useState(true);
@@ -55,6 +58,7 @@ function ProfilePage() {
         >
           {isDisabled ? "Edit Profile" : "Save Changes"}
         </button>
+        <MyComponent/>
       </div>
     </div>
   );

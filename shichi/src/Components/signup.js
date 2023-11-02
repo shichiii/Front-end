@@ -21,7 +21,7 @@ function  Signup(){
 
 
     return(
-        <div class="min-h-screen bg-gradient-to-r from-pallate-Dark_Sky_Blue from-10%  to-pallate-Police_Blue to-90%  py-6 flex flex-col justify-center sm:py-12">
+        <div class="min-h-screen bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal py-6 flex flex-col justify-center sm:py-12">
   <div class="relative py-3 sm:max-w-xl sm:mx-auto">
     <div
       class="absolute inset-0 bg-pallate-Dark_Sky_Blue shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl">
