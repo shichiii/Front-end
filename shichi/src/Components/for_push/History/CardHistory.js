@@ -7,27 +7,27 @@ const CardHistory = () => {
 
   useEffect(() => {
     // Fetch data from the backend using Axios
-    axios.get("YOUR_BACKEND_API_ENDPOINT")
+    axios.get("http://185.157.245.99:8000/history/customhistories") // Replace "http://api_endpoint_here" with the actual API endpoint
       .then((response) => {
         setCardData(response.data); // Assuming the response is an array of card objects
+        console.log("md",response.data)
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
   }, []); // Empty dependency array ensures the effect runs once after the initial render
 
-
   return (
     <div className="flex flex-col">
       <div className="h-auto mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
         {cardData.map((card, index) => (
           <div key={index} className="rounded-lg bg-white shadow-lg p-6">
-            <img src={placeholderImage} alt={`Card Car ${index}`} className="w-full h-32 object-cover mb-4" />
-            <h1 className="text-2xl font-bold mb-2">{card.carName}</h1>
-            <p className="text-gray-600 mb-4">{card.model}</p>
+            <img src={card.advertisement.car_images[0].image || placeholderImage} alt={`Card Car ${index}`} className="w-full h-32 object-cover mb-4" />
+            <h1 className="text-2xl font-bold mb-2">{card.advertisement.car_name}</h1>
+            <p className="text-gray-600 mb-4">{card.advertisement.car_category}</p>
             <div className="flex justify-between text-sm text-gray-500">
-              <p>{`From: ${card.from}`}</p>
-              <p>{`Date: ${card.date}`}</p>
+              <p>{`From: ${card.advertisement.location.city}, ${card.advertisement.location.state}`}</p>
+              <p>{`Date: ${card.advertisement.start_date.split('T')[0]}`}</p>
             </div>
           </div>
         ))}
