@@ -13,6 +13,7 @@ import Home from "./Components/for_push/HomePage/HomePageApp";
 import History from "./Components/for_push/History/HistoryApp";
 import CarInfoPage from "./page/CarInfoPage";
 import ProfilePage from "./page/ProfilePage";
+import Wallet  from "./Components/Wallet/WalletApp";
 
 
 import Advertisement from './Components/Advertisement_selection/AdvertisementApp'
@@ -39,6 +40,7 @@ function App() {
       <Route exact path='/Advertisement' element={<Advertisement/>} />
       <Route exact path='/forgot' element={<ForgotApp/>} />
 
+      <Route exact path='/wallet' element={<Wallet />} />
 
 
 
