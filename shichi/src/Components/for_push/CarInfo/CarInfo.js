@@ -6,7 +6,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import { useState } from "react";
 import RateCar from "./RateCar";
 
-function CarInfo() {
+function CarInfo({ car }) {
   const [showMore, setShowMore] = useState(false);
 
   return (
@@ -21,10 +21,10 @@ function CarInfo() {
           <div className="">
             <div className="flex flex-row items-baseline gap-3 mb-3">
               <h1 className="font-bold text-2xl text-pallate-Dark_Sky_Blue">
-                Toyota Aqua Hybrid
+                {car.car_name}
               </h1>
               <p className="text-sm items-center bg-pallate-Dark_Sky_Blue text-white p-1 rounded-2xl">
-                Economy
+                {car.car_category}
               </p>
             </div>
             <div className="flex flex-row gap-4 text-slate-500">
@@ -115,7 +115,7 @@ function CarInfo() {
           </div>
         </div>
       </div>
-      <RentalCost />
+      <RentalCost car={car} />
     </div>
   );
 }

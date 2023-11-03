@@ -14,6 +14,7 @@ import {
 } from "react-leaflet";
 import icon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
+import { useState } from "react";
 
 let DefaultIcon = L.icon({
   iconUrl: icon,
@@ -22,7 +23,7 @@ let DefaultIcon = L.icon({
 
 L.Marker.prototype.options.icon = DefaultIcon;
 
-function CarPickUpLocation() {
+function CarPickUpLocation({ car }) {
   return (
     <div className="rounded-2xl p-5 bg-slate-100 h-96 flex flex-row w-[800px]">
       <div className="flex flex-col justify-around w-2/3">
@@ -30,9 +31,11 @@ function CarPickUpLocation() {
         <div className="font-bold text-xl text-pallate-Dark_Sky_Blue">
           19 October 2023, Thursday, 11:00
         </div>
-        <div>Queenstown Airport (ZQN)</div>
+        <div>
+          {car?.location?.city}, {car?.location?.state}
+        </div>
         <div className="text-xs text-slate-400">
-          Address: 43 Brookes Road, Frankton, Queenstown, 9371
+          {car?.location?.city}, {car?.location?.state}
         </div>
         <div className="flex flex-row items-center gap-3 mt-5">
           <FaLocationDot fontSize={25} className="text-pallate-Dark_Sky_Blue" />
@@ -63,13 +66,21 @@ function CarPickUpLocation() {
       </div>
       <div className="w-64 h-full bg-slate-300 rounded-2xl">
         <MapContainer
-          center={[40, 0]}
+          center={[
+            +car?.location?.geo_length ? +car?.location?.geo_length : 20,
+            +car?.location?.geo_width ? +car?.location?.geo_width : 20,
+          ]}
           zoom={10}
           scrollWheelZoom={true}
           className="h-full"
         >
           <TileLayer url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png" />
-          <Marker position={[40, 0]}>
+          <Marker
+            position={[
+              +car?.location?.geo_length ? +car?.location?.geo_length : 20,
+              +car?.location?.geo_width ? +car?.location?.geo_width : 20,
+            ]}
+          >
             <Popup>
               <span>1</span> <span>1</span>
             </Popup>

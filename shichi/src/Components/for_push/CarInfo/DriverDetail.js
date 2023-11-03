@@ -4,7 +4,7 @@ function DriverDetail() {
       <div className="font-bold text-xl mb-4 text-pallate-Dark_Sky_Blue">
         Driver details
       </div>
-      <div className="">
+      <div className="mx-auto">
         <form>
           <div className="flex flex-row flex-wrap gap-5 justify-around">
             <div className="w-5/12 flex flex-col gap-3">

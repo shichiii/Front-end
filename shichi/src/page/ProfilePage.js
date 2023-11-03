@@ -3,22 +3,40 @@ import Navbar from "../Components/for_push/HomePage/NavBar";
 import Input from "../Components/for_push/Profile/Input";
 import ProfileImage from "../Components/for_push/Profile/ProfileImage";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 const baseURL = "http://185.157.245.99:8000/user/show/";
 
 function ProfilePage() {
-  const [profile, setProfile] = useState({});
+  const userId = useParams();
+
+  const [profileImage, setProfileImage] = useState();
+  const [email, setEmail] = useState("");
+  const [firstN, setFirstN] = useState("");
+  const [lastN, setLastN] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
 
   useEffect(() => {
-    axios.get(baseURL + "3/").then((response) => {
-      setProfile(response.data);
+    axios.get(baseURL + `${userId.id}/`).then((response) => {
+      setEmail(response.data.email);
+      setFirstN(response.data.first_name);
+      setLastN(response.data.last_name);
+      setProfileImage(response.data.profile_image);
+      setPhoneNumber(response.data.phone_number);
     });
-  }, []);
-  const [isDisabled, setIsDisabled] = useState(true);
+  }, [userId]);
+  const [isDisabled, setIsDisabled] = useState(false);
 
-  console.log("profile: ", profile);
-
-  useEffect(function () {}, []);
+  function editProfileHandler() {
+    axios
+      .put(`http://185.157.245.99:8000/user/update/${userId.id}/`, {
+        title: "Hello World!",
+        body: { first_name: firstN, last_name: lastN, email: email },
+      })
+      .then((response) => {
+        console.log(response.data);
+      });
+  }
 
   return (
     <div className="bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal h-screen">
@@ -32,14 +50,16 @@ function ProfilePage() {
             type="text"
             name="fName"
             label="First Name"
-            value="Hazhir"
+            value={firstN}
+            setValue={setFirstN}
             disabled={isDisabled}
           />
           <Input
             type="text"
             name="lName"
             label="Last Name"
-            value="Yousefi"
+            value={lastN}
+            setValue={setLastN}
             disabled={isDisabled}
           />
         </div>
@@ -48,14 +68,16 @@ function ProfilePage() {
             type="email"
             name="email"
             label="Email Address"
-            value="HazhirYousefi2002@gmail.com"
+            value={email}
+            setValue={setEmail}
             disabled={isDisabled}
           />
           <Input
             type="text"
             name="phoneNumber"
             label="Phone Number"
-            value="09933380344"
+            value={phoneNumber}
+            setValue={setPhoneNumber}
             disabled={isDisabled}
           />
         </div>
@@ -65,7 +87,7 @@ function ProfilePage() {
               ? "bg-pallate-Dark_Sky_Blue text-black"
               : "text-pallate-Dark_Sky_Blue border-pallate-Dark_Sky_Blue border hover:text-black hover:bg-pallate-Dark_Sky_Blue"
           } rounded-2xl font-medium w-[200px] px-6 py-3 mt-16 mx-auto transition-all duration-300`}
-          onClick={() => setIsDisabled(!isDisabled)}
+          onClick={() => editProfileHandler()}
         >
           {isDisabled ? "Edit Profile" : "Save Changes"}
         </button>
