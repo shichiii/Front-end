@@ -17,7 +17,7 @@ function CarInfoPage() {
             <CarDropOffLocation />
           </div>
           <CarInfo />
-          <CarOptionalExtras />
+          {/* <CarOptionalExtras /> */}
           <BookCar />
           <CommentSection />
         </div>

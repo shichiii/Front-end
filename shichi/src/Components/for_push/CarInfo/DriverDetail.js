@@ -1,7 +1,9 @@
 function DriverDetail() {
   return (
     <div className="w-3/5">
-      <div className="font-bold text-xl mb-4">Driver details</div>
+      <div className="font-bold text-xl mb-4 text-pallate-Dark_Sky_Blue">
+        Driver details
+      </div>
       <div className="">
         <form>
           <div className="flex flex-row flex-wrap gap-5 justify-around">

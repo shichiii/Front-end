@@ -1,10 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../Components/for_push/HomePage/NavBar";
 import Input from "../Components/for_push/Profile/Input";
 import ProfileImage from "../Components/for_push/Profile/ProfileImage";
+import axios from "axios";
+
+const baseURL = "http://185.157.245.99:8000/user/show/";
 
 function ProfilePage() {
+  const [profile, setProfile] = useState({});
+
+  useEffect(() => {
+    axios.get(baseURL + "3/").then((response) => {
+      setProfile(response.data);
+    });
+  }, []);
   const [isDisabled, setIsDisabled] = useState(true);
+
+  console.log("profile: ", profile);
+
+  useEffect(function () {}, []);
 
   return (
     <div className="bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal h-screen">

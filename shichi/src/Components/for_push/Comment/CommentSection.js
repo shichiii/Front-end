@@ -6,6 +6,9 @@ function CommentSection() {
 
   return (
     <div className="flex flex-col gap-4 p-5 rounded-2xl h-auto bg-slate-100  w-[1215px]">
+      <h1 className=" text-pallate-Dark_Sky_Blue font-bold text-xl">
+        Comment Section
+      </h1>
       <Comment name="Hazhir" comment={comment} rating={4} date="5 days ago" />
       <Comment name="Hazhir" comment={comment} rating={4} date="5 days ago" />
       <Comment name="Hazhir" comment={comment} rating={4} date="5 days ago" />

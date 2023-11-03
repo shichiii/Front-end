@@ -4,6 +4,7 @@ import { FaGasPump } from "react-icons/fa";
 import { GiCarDoor, GiGearStickPattern } from "react-icons/gi";
 import { FaLocationDot } from "react-icons/fa6";
 import { useState } from "react";
+import RateCar from "./RateCar";
 
 function CarInfo() {
   const [showMore, setShowMore] = useState(false);
@@ -19,9 +20,11 @@ function CarInfo() {
           />
           <div className="">
             <div className="flex flex-row items-baseline gap-3 mb-3">
-              <h1 className="font-bold text-2xl">Compact</h1>
-              <p className="text-sm items-center">
-                Toyota Aqua Hybrid or similar
+              <h1 className="font-bold text-2xl text-pallate-Dark_Sky_Blue">
+                Toyota Aqua Hybrid
+              </h1>
+              <p className="text-sm items-center bg-pallate-Dark_Sky_Blue text-white p-1 rounded-2xl">
+                Economy
               </p>
             </div>
             <div className="flex flex-row gap-4 text-slate-500">
@@ -48,14 +51,17 @@ function CarInfo() {
         <div className="flex flex-row">
           <div className="flex flex-col w-1/3 p-3 gap-5">
             <div className="flex flex-row items-center gap-2">
-              <FaGasPump fontSize={25} />
+              <FaGasPump fontSize={25} className="text-pallate-Dark_Sky_Blue" />
               <div className="flex flex-col">
                 <span className="font-bold text-sm">Fuel policy</span>
                 <span>Full to full</span>
               </div>
             </div>
             <div className="flex flex-row items-center gap-2">
-              <FaLocationDot fontSize={25} />
+              <FaLocationDot
+                fontSize={25}
+                className="text-pallate-Dark_Sky_Blue"
+              />
               <div className="flex flex-col">
                 <span className="font-bold text-sm">Pick-up location</span>
                 <span>Free shuttle service</span>
@@ -94,7 +100,7 @@ function CarInfo() {
               ✔ FREE cancellation before 11:00 on 17 October 2023
             </span>
             <div>
-              <div className="bg-blue-400 p-3 text-slate-200 rounded-sm w-[50px] mx-auto">
+              <div className="bg-blue-400 p-3 text-slate-200 rounded-xl w-[50px] mx-auto font-bold">
                 8.6
               </div>
               <div className="flex flex-col justify-center items-center">
@@ -104,6 +110,8 @@ function CarInfo() {
                 <span className="text-xs">131 ratings</span>
               </div>
             </div>
+
+            <RateCar />
           </div>
         </div>
       </div>

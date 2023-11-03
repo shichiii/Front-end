@@ -27,7 +27,7 @@ function CarPickUpLocation() {
     <div className="rounded-2xl p-5 bg-slate-100 h-96 flex flex-row w-[800px]">
       <div className="flex flex-col justify-around w-2/3">
         <div className="font-bold text-slate-400 text-xs">PICK-UP</div>
-        <div className="font-bold text-xl">
+        <div className="font-bold text-xl text-pallate-Dark_Sky_Blue">
           19 October 2023, Thursday, 11:00
         </div>
         <div>Queenstown Airport (ZQN)</div>
@@ -35,21 +35,24 @@ function CarPickUpLocation() {
           Address: 43 Brookes Road, Frankton, Queenstown, 9371
         </div>
         <div className="flex flex-row items-center gap-3 mt-5">
-          <FaLocationDot fontSize={25} />
+          <FaLocationDot fontSize={25} className="text-pallate-Dark_Sky_Blue" />
           <div className="flex flex-col">
             <span className="font-bold text-sm">Pick-up location</span>
             <span>Free shuttle service</span>
           </div>
         </div>
         <div className="flex flex-row items-center gap-3 mt-5">
-          <BiTimeFive fontSize={25} />
+          <BiTimeFive fontSize={25} className="text-pallate-Dark_Sky_Blue" />
           <div className="flex flex-col">
             <span className="font-bold text-sm">Business hours</span>
             <span>Thursday 08:00 - 18:00</span>
           </div>
         </div>
         <div className="flex flex-row items-center gap-3 mt-5">
-          <BsFillInfoCircleFill fontSize={25} />
+          <BsFillInfoCircleFill
+            fontSize={25}
+            className="text-pallate-Dark_Sky_Blue"
+          />
           <div className="flex flex-col">
             <span className="font-bold text-sm">Pick-up instructions</span>
             <span className="w-10/12">
