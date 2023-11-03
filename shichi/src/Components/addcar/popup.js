@@ -20,6 +20,7 @@ const MyComponent = () => {
   const [description, setDescription] = useState(null);
   const [carmodel, setCarmodel] = useState(null);
   const [category, setCategory] = useState(null);
+  const [location, setLocation] = useState(1);
   const handleCarname = (event) => {
     setCarname(event.target.value);
   };
@@ -48,22 +49,25 @@ const MyComponent = () => {
     setIsModalOpen(true);
   };
   const handleSubmit = (event) => {
+    console.log("hi1")
     event.preventDefault();
     const data = {
-      startDate,
-      endDate,
-      imgFile,
-      carname,
-      carcolor,
-      title,
-      price,
-      description,
-      carmodel,
-      category
+      location: location,
+      title: title,
+      start_date: startDate,
+      end_date: endDate,
+      price: price,
+      description: description,
+      car_images: imgFile,
+      car_name: carname,
+      car_color: carcolor,
+      car_producted_date: carmodel,
+      car_category: category
   };
-  axios.post('185.157.245.99:8000/advertisement/create/', data)
+  axios.post('http://185.157.245.99:8000/advertisement/create/', data)
     .then(response => {
-      console.log("hi")
+      console.log("hi2");
+      console.log(response);
       // Handle the server response if needed
     })
     .catch(error => {
@@ -178,7 +182,12 @@ const MyComponent = () => {
       <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-last-name">
         Car Model
       </label>
-      <input class="appearance-none block w-full bg-pallate-Police_Blue opacity-50 text-grey-darker border border-grey-lighter rounded py-3 px-4" id="grid-last-name" type="text" onChange={handleCarmodel}/>
+      <DatePicker
+    id="start-date"
+    selected={startDate}
+    onChange={date => setCarmodel(date)}
+    className="appearance-none block w-full bg-pallate-Police_Blue opacity-50 text-grey-darker border border-red rounded py-3 px-4 mb-3"
+  />
     </div>
     <div className="md:w-1/2 px-3">
   <label className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" htmlFor="category">
