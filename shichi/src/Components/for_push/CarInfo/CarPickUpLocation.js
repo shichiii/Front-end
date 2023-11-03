@@ -58,12 +58,12 @@ function CarPickUpLocation() {
           </div>
         </div>
       </div>
-      <div className="w-52 h-full bg-slate-300 rounded-2xl">
+      <div className="w-64 h-full bg-slate-300 rounded-2xl">
         <MapContainer
           center={[40, 0]}
           zoom={10}
           scrollWheelZoom={true}
-          className=" h-full"
+          className="h-full"
         >
           <TileLayer url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png" />
           <Marker position={[40, 0]}>
