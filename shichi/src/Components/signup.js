@@ -13,7 +13,6 @@ function  Signup(){
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("enter")
     try{
       const response = await axios.post("http://185.157.245.99:8000/user/signup/", {
         email : emailAddress,

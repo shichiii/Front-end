@@ -15,7 +15,24 @@ function  Login(){
   const handlePassword = (event) => {
     setpassword(event.target.value);
   }
-
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    try{
+      const response = await axios.post("http://185.157.245.99:8000/user/login/", {
+        email : emailAddress,
+        password : password,
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      navigate("/home");
+      console.log(response.data);
+    }catch(error){
+      console.error(error);
+    }
+  }
   let navigate = useNavigate();
 
 
@@ -43,7 +60,7 @@ function  Login(){
             </div>
             <div class="relative">
               <button class="bg-pallate-Dark_Sky_Blue font-medium w-full text-white rounded-md px-2 py-1" 
-              onClick={()=> navigate("/home")}
+              onClick={(handleSubmit)}
               >Submit</button>
             </div>
             <div onClick={()=> navigate("/forgot")} className="text-white text-sm text-center hover:text-pallate-Dark_Sky_Blue cursor-pointer">
