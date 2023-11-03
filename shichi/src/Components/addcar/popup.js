@@ -1,14 +1,31 @@
-import React, { useState } from "react";
+import React from "react";
+import { useState } from "react";
 import Modal from "react-modal";
-// import CarLocation from "../addcar/location";
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { detectOverflow } from '@popperjs/core';
+import CarLocation from "../../Components/addcar/location";
+
 
 const MyComponent = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const [imgFile, setImgfile] = useState(null);
+  const [carname, setCarname] = usestate(null);
+  const [carcolor, setCarcolor] = usestate(null);
+  const [title, setTitle] = usestate(null);
+  const [price,setPrice] = useState(null);
+  const [description, setDescription] = usestate(null);
+  const [carmodel, setCarmodel] = useState(null);
+  const [category, setCategory] = useState(null);
 
   const openModal = () => {
     setIsModalOpen(true);
   };
-
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  }
   const closeModal = () => {
     setIsModalOpen(false);
   };
@@ -80,14 +97,28 @@ const MyComponent = () => {
     </div>
   </div>
   <div class="-mx-3 md:flex mb-6">
-  <div class="md:w-1/2 px-3 mb-6 md:mb-0">
-    <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="start-date">Start Date</label>
-    <input class="appearance-none block w-full bg-pallate-Police_Blue opacity-50 text-grey-darker border border-red rounded py-3 px-4 mb-3" id="start-date" type="text"/>
-  </div>
-  <div class="md:w-1/2 px-3">
-    <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="end-date">End Date</label>
-    <input class="appearance-none block w-full bg-pallate-Police_Blue opacity-50 text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" id="end-date" type="text"/>
-  </div>
+  <div className="md:w-1/2 px-3 mb-6 md:mb-0">
+  <label className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" htmlFor="start-date">
+    Start Date
+  </label>
+  <DatePicker
+    id="start-date"
+    selected={startDate}
+    onChange={date => setStartDate(date)}
+    className="appearance-none block w-full bg-pallate-Police_Blue opacity-50 text-grey-darker border border-red rounded py-3 px-4 mb-3"
+  />
+</div>
+<div className="md:w-1/2 px-3">
+  <label className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" htmlFor="end-date">
+    End Date
+  </label>
+  <DatePicker
+    id="end-date"
+    selected={endDate}
+    onChange={date => setEndDate(date)}
+    className="appearance-none block w-full bg-pallate-Police_Blue opacity-50 text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3"
+  />
+</div>
   <div class="md:w-1/2 px-3">
     <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="end-date">Price</label>
     <input class="appearance-none block w-full bg-pallate-Police_Blue opacity-50 text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" id="end-date" type="number" min="0"/>
@@ -104,11 +135,35 @@ const MyComponent = () => {
       </label>
       <input class="appearance-none block w-full bg-pallate-Police_Blue opacity-50 text-grey-darker border border-grey-lighter rounded py-3 px-4" id="grid-last-name" type="text"/>
     </div>
+    <div className="md:w-1/2 px-3">
+  <label className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" htmlFor="category">
+    Category
+  </label>
+  <select className="appearance-none block w-full bg-pallate-Police_Blue opacity-50 text-grey-darker border border-grey-lighter rounded py-3 px-4" id="category">
+    <option value="">Select a category</option>
+    <option value="option1">economy</option>
+    <option value="option2"> luxuxry </option>
+    <option value="option3">compact</option>
+    <option value="option3">offroad</option>
+    <option value="option3">hybrid</option>
+    <option value="option3">electric</option>
+    <option value="option3">truck</option>
+    <option value="option3">convertible</option>
+    <option value="option3">paasanger van</option>
+    <option value="option3">mini van</option>
+    <option value="option3">others</option>
+    {/* Add more options as needed */}
+  </select>
+</div>
+  </div>
+  <div class="-mx-3 md:flex mb-6">
+    <CarLocation/>
   </div>
 </div>
 
         {/* Close button */}
-        <button onClick={closeModal}>Close</button>
+        {/* <button onClick={closeModal}>Close</button> */}
+        <button onClick={handleSubmit}>Submit</button> 
       </Modal>
     </div>
   );
