@@ -1,7 +1,9 @@
 function CostSummary() {
   return (
     <div className="flex flex-col w-2/5">
-      <div className="font-bold text-xl mb-4">Summary</div>
+      <div className="font-bold text-xl mb-4 text-pallate-Dark_Sky_Blue">
+        Summary
+      </div>
       <div className="p-3 border border-pallate-Dark_Sky_Blue rounded-2xl flex flex-col divide-y divide-stone-200 h-full">
         <div className="flex flex-col justify-center p-3">
           <div className="flex flex-row justify-between items-center">
