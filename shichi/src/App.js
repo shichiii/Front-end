@@ -10,13 +10,13 @@ import Advertisement from './Components/Advertisement_selection/AdvertisementApp
 import ForgotApp from "./Components/for_push/ForgotPass/ForgotApp";
 import Login from './Components/login';
 import Signup from './Components/signup';
+import ForgotApp from "./Components/for_push/ForgotPass/ForgotApp";
+import Addacr from './Components/addcar/Img'
 
 const ProtectedRoute = ({ element }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
 
-import ForgotApp from "./Components/for_push/ForgotPass/ForgotApp";
-import Addacr from './Components/addcar/Img'
 
   // useEffect to check the user's authentication status, adjust accordingly
   useEffect(() => {
