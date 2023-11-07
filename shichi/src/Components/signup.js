@@ -15,6 +15,22 @@ const Signup = () => {
   const [lastname, setlastname] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setpassword] = useState("");
+  const[emailAddressError , setEmailAddressError] = useState(true);
+  const[passwordError , setPasswordError] = useState(true);
+  const[passwordLengthError , setPasswordLengthError] = useState(true);
+  const[passwordContainsDigitError, setPasswordContainsDigitError] = useState(true);
+  
+
+  const validPasswordLength = new RegExp(
+    /^.{5,10}$/
+  );
+  const validPassowrdContainsDigit = new RegExp(
+    /^(?=.*\d).+$/
+  );
+  const validEmailAddress = new RegExp(
+    /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+  );
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,11 +57,45 @@ const Signup = () => {
   };
 
   const handleEmail = (event) => {
-    setEmailAddress(event.target.value);
-  };
+    if(event.target.value === "")
+    {
+      setEmailAddressError("Please enter email");
+    }
+    else if(!validEmailAddress.test(event.target.value)){
+      setEmailAddressError("Invalid email");
+    }
+    else{
+      setEmailAddressError(false);
+      setEmailAddress(event.target.value);
+    }
+  }
+
+
   const handlePassword = (event) => {
-    setpassword(event.target.value);
-  };
+    if(event.target.value === ""){
+      setPasswordError("Please enter password");
+    }
+    else {
+      setPasswordError(false);
+    }
+    if(!  validPassowrdContainsDigit.test(event.target.value) && event.target.value !== ""){
+      setPasswordContainsDigitError("password must contain digit.");
+    }
+    else{
+      setPasswordContainsDigitError(false);
+    }
+    if(!  validPasswordLength.test(event.target.value) && event.target.value !== ""){
+      setPasswordLengthError("password must have 5 to 10 characters");
+    }
+    else{
+      setPasswordLengthError(false);
+    }
+    if(passwordError === false && !validPasswordLength.test(event.target.value) === false && passwordContainsDigitError === false){
+      setpassword(event.target.value);
+    }
+  }
+
+  
   const handleFirstname = (event) => {
     setfirstname(event.target.value);
   };
