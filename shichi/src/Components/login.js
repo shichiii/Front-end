@@ -11,11 +11,11 @@ import logo2 from "../Static/whitelogowithouttext270.svg";
 const Login = () => {
     const [emailAddress , setEmailAddress] = useState("");
     const [password , setpassword] = useState("");
-  
-  
+
     const handleEmail = (event) => {
       setEmailAddress(event.target.value);
-    }
+    };
+    
     const handlePassword = (event) => {
       setpassword(event.target.value);
     }
