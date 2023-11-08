@@ -15,10 +15,10 @@ const Signup = () => {
   const [lastname, setlastname] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setpassword] = useState("");
-  const[emailAddressError , setEmailAddressError] = useState(true);
-  const[passwordError , setPasswordError] = useState(true);
-  const[passwordLengthError , setPasswordLengthError] = useState(true);
-  const[passwordContainsDigitError, setPasswordContainsDigitError] = useState(true);
+  const [emailAddressError , setEmailAddressError] = useState(true);
+  const [passwordError , setPasswordError] = useState(true);
+  const [passwordLengthError , setPasswordLengthError] = useState(true);
+  const [passwordContainsDigitError, setPasswordContainsDigitError] = useState(true);
   
 
   const validPasswordLength = new RegExp(
@@ -34,6 +34,7 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
     try {
       const response = await axios.post(
         "http://185.157.245.99:8000/user/signup/",
@@ -78,7 +79,7 @@ const Signup = () => {
     else {
       setPasswordError(false);
     }
-    if(!  validPassowrdContainsDigit.test(event.target.value) && event.target.value !== ""){
+    if(! validPassowrdContainsDigit.test(event.target.value) && event.target.value !== ""){
       setPasswordContainsDigitError("password must contain digit.");
     }
     else{
