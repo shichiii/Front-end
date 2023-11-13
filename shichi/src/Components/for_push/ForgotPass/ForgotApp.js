@@ -16,12 +16,38 @@ const ForgotApp = () => {
   const handleCardFlip = () => {
     setFlipped(!isFlipped);
     if (!isRotating) {
-      // چرخش 180 درجه بعد از کلیک
       setLogoRotation(logoRotation + 180);
       setLogo2Rotation(logo2Rotation + 180);
-
-      // شروع چرخش هر 1 ثانیه
       setIsRotating(true);
+  
+      // Prepare the request body
+      const requestBody = {
+        email: emailValue,
+      };
+  
+      // Send the email value to the API
+      fetch('http://185.157.245.99:8000/user/password-reset/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody),
+      })
+        .then(response => {
+          if (response.ok) {
+            // Email sent successfully, handle the response accordingly
+            // For example, display a success message to the user
+            console.log('Email sent successfully');
+          } else {
+            // Handle the error case
+            // For example, display an error message to the user
+            console.error('Failed to send email');
+          }
+        })
+        .catch(error => {
+          // Handle any network or other errors
+          console.error('Error:', error);
+        });
     }
   };
 
@@ -33,7 +59,6 @@ const ForgotApp = () => {
         e.target.value !== ""
     );
   };
-
   useEffect(() => {
     let rotationInterval;
 
