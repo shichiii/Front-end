@@ -50,6 +50,8 @@ const Signup = () => {
           },
         }
       );
+      const token = response.data.token;
+      localStorage.setItem("token", token); 
       navigate("/home");
       console.log(response.data);
     } catch (error) {

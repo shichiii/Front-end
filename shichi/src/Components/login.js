@@ -19,15 +19,17 @@ const Login = () => {
     const handlePassword = (event) => {
       setpassword(event.target.value);
     }
+
     const handleSubmit = async (e) => {
       e.preventDefault();
-      
+      const token = localStorage.getItem("token");
       try{
         const response = await axios.post("http://185.157.245.99:8000/user/login/", {
           email : emailAddress,
           password : password,
         }, {
           headers: {
+            Authorization: `JWT ${token}`,
             'Content-Type': 'application/json',
           },
         });
