@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import logo from "../Static/whitelogowithouttext90.svg";
 import logo2 from "../Static/whitelogowithouttext270.svg";
+import Toast from './toast';
 
 const Signup = () => {
   const [firstname, setfirstname] = useState("");
@@ -19,6 +20,7 @@ const Signup = () => {
   const [passwordError , setPasswordError] = useState(true);
   const [passwordLengthError , setPasswordLengthError] = useState(true);
   const [passwordContainsDigitError, setPasswordContainsDigitError] = useState(true);
+  const [showToast, setShowToast] = useState(false);
   
 
   const validPasswordLength = new RegExp(
@@ -51,13 +53,20 @@ const Signup = () => {
         }
       );
       const token = response.data.token;
-      localStorage.setItem("token", token); 
-      navigate("/home");
+      localStorage.setItem("token", token);
+      setShowToast(true); 
+      navigate("/login");
       console.log(response.data);
     } catch (error) {
       console.error(error);
     }
   };
+
+
+  const dismissToast = () => {
+    setShowToast(false);
+  };
+
 
   const handleEmail = (event) => {
     if(event.target.value === "")
@@ -81,22 +90,24 @@ const Signup = () => {
     else {
       setPasswordError(false);
     }
-    if(! validPassowrdContainsDigit.test(event.target.value) && event.target.value !== ""){
+    if(!validPassowrdContainsDigit.test(event.target.value) && event.target.value !== ""){
       setPasswordContainsDigitError("password must contain digit.");
     }
     else{
       setPasswordContainsDigitError(false);
     }
-    if(!  validPasswordLength.test(event.target.value) && event.target.value !== ""){
+    if(!validPasswordLength.test(event.target.value) && event.target.value !== ""){
       setPasswordLengthError("password must have 5 to 10 characters");
     }
     else{
       setPasswordLengthError(false);
     }
-    if(passwordError === false && !validPasswordLength.test(event.target.value) === false && passwordContainsDigitError === false){
+    if(passwordError === false && !validPasswordLength.test(event.target.value) === false && passwordContainsDigitError === false && passwordLengthError === false){
       setpassword(event.target.value);
     }
   }
+
+
 
   
   const handleFirstname = (event) => {
@@ -157,6 +168,12 @@ const Signup = () => {
                 autoComplete="off"
               />
             </div>
+            {/* <div>
+              <span className="text-blue-600 text-[15px] neon-button-remove">{setPasswordError}</span>
+              <span className="text-blue-600 text-[15px] neon-button-remove">{setPasswordContainsDigitError}</span>
+              <span className="text-blue-600 text-[15px] neon-button-remove">{setPasswordLengthError}</span>
+
+            </div> */}
             <div className="flex items-center border-b border-pallate-Dark_Sky_Blue py-2">
               <HiLockClosed className="mr-1" />
               <input
@@ -168,6 +185,11 @@ const Signup = () => {
                 onChange={handlePassword}
                 autoComplete="off"
               />
+
+            </div>
+            <div>
+              <span className="text-blue-600 text-[15px] neon-button-remove">{emailAddressError}</span>
+
             </div>
           </form>
           <div>
@@ -190,7 +212,13 @@ const Signup = () => {
         <div className="grid"> <img src={logo2} alt="My Logo" class="w-6 mb-24" />
         <img src={logo2} alt="My Logo" class="w-6 mb-24" />
        </div>
-       
+       {showToast && (
+        <Toast
+          id="signup-toast"
+          message="Signup successful!"
+          dismissToast={dismissToast}
+        />
+      )}
       </div>
       
     </div>
