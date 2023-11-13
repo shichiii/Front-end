@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 import IconChat from "../Components/for_push/ChatPage/IconChat";
+import CarImageSlider from "../Components/for_push/CarInfo/CarImageSlider";
 function CarInfoPage() {
   const adv = useParams();
   const [refreshComment, setRefreshComment] = useState(false);
@@ -34,6 +35,7 @@ function CarInfoPage() {
             <CarDropOffLocation car={car} />
           </div>
           <CarInfo adv={adv.id} car={car} />
+          <CarImageSlider />
           {/* <CarOptionalExtras /> */}
           <BookCar adv={adv.id} />
           <AddComment adv={adv.id} setRefreshComment={setRefreshComment} />
