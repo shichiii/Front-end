@@ -28,7 +28,7 @@ function CarInfoPage() {
     <>
       <Navbar />
       <div className="bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal h-full flex justify-center">
-        <div className="flex flex-col justify-center items-center p-5 w-[1200px] gap-5">
+        <div className="flex flex-col justify-center items-center p-5 w-[1200px] gap-5 font-mono text-white">
           <div className="flex flex-row gap-4">
             <CarPickUpLocation car={car} />
             <CarDropOffLocation car={car} />
@@ -43,7 +43,7 @@ function CarInfoPage() {
             setRefreshComment={setRefreshComment}
           />
         </div>
-        <IconChat/>
+        <IconChat />
       </div>
     </>
   );
