@@ -30,8 +30,9 @@ function ProfilePage() {
   function editProfileHandler() {
     axios
       .put(`http://185.157.245.99:8000/user/update/${userId.id}/`, {
-        title: "Hello World!",
-        body: { first_name: firstN, last_name: lastN, email: email },
+        first_name: firstN,
+        last_name: lastN,
+        email: email,
       })
       .then((response) => {
         console.log(response.data);
