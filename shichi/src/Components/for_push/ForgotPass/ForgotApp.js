@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from "react";
+import axios from 'axios';
 
 import "../../../Styles/for_push/ForgotPass/Forgot.css";
 import logo from "../../../Static/whitelogowithouttext90.svg";
@@ -12,6 +13,37 @@ const ForgotApp = () => {
   const [logoRotation, setLogoRotation] = useState(0);
   const [logo2Rotation, setLogo2Rotation] = useState(0);
   const [isRotating, setIsRotating] = useState(false);
+  const token = localStorage.getItem("token");
+  const handleCode = () => {
+    const token = localStorage.getItem("token");
+    // Prepare the request body
+    const requestBody = {
+      email: emailValue,
+    };
+  
+    axios
+    .post('http://185.157.245.99:8000/user/password-reset/', requestBody, {
+      headers: {
+        Authorization: `JWT ${token}`,
+        'Content-Type': 'application/json',
+      },
+    })
+    .then(response => {
+      // Handle the response accordingly
+      // For example, display a success message to the user
+      console.log('Email sent successfully');
+      // Assuming the API response contains a verification code
+      const verificationCode = response.data.verificationCode;
+      // Perform the necessary actions with the verification code
+      // (e.g., storing it in state or displaying it to the user)
+    })
+    .catch(error => {
+      // Handle any errors
+      // For example, display an error message to the user
+      console.error('Failed to send email:', error);
+    });
+  };
+
 
   const handleCardFlip = () => {
     setFlipped(!isFlipped);
@@ -19,35 +51,6 @@ const ForgotApp = () => {
       setLogoRotation(logoRotation + 180);
       setLogo2Rotation(logo2Rotation + 180);
       setIsRotating(true);
-  
-      // Prepare the request body
-      const requestBody = {
-        email: emailValue,
-      };
-  
-      // Send the email value to the API
-      fetch('http://185.157.245.99:8000/user/password-reset/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(requestBody),
-      })
-        .then(response => {
-          if (response.ok) {
-            // Email sent successfully, handle the response accordingly
-            // For example, display a success message to the user
-            console.log('Email sent successfully');
-          } else {
-            // Handle the error case
-            // For example, display an error message to the user
-            console.error('Failed to send email');
-          }
-        })
-        .catch(error => {
-          // Handle any network or other errors
-          console.error('Error:', error);
-        });
     }
   };
 
@@ -154,6 +157,7 @@ const ForgotApp = () => {
               <div>
                 <button
                   onClick={handleCardFlip}
+                  onChange = {handleCode}
                   className="bg-pallate-Dark_Sky_Blue hover-bg-transparent w-full text-[20px] hover:text-pallate-Dark_Sky_Blue duration-300 text-white font-mono px-10 py-1 rounded-[400px]"
                 >
                   Receive Code
