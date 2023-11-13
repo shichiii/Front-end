@@ -10,6 +10,7 @@ import Navbar from "../Components/for_push/HomePage/NavBar";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+import IconChat from "../Components/for_push/ChatPage/IconChat";
 function CarInfoPage() {
   const adv = useParams();
   const [refreshComment, setRefreshComment] = useState(false);
@@ -42,6 +43,7 @@ function CarInfoPage() {
             setRefreshComment={setRefreshComment}
           />
         </div>
+        <IconChat/>
       </div>
     </>
   );
