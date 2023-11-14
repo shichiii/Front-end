@@ -11,10 +11,25 @@ import logo2 from "../Static/whitelogowithouttext270.svg";
 const Login = () => {
     const [emailAddress , setEmailAddress] = useState("");
     const [password , setpassword] = useState("");
+    const [emailAddressError , setEmailAddressError] = useState(true);
+
+    const validEmailAddress = new RegExp(
+      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+    );
 
     const handleEmail = (event) => {
-      setEmailAddress(event.target.value);
-    };
+      if(event.target.value === "")
+      {
+        setEmailAddressError("Please enter email");
+      }
+      else if(!validEmailAddress.test(event.target.value)){
+        setEmailAddressError("Invalid email");
+      }
+      else{
+        setEmailAddressError(false);
+        setEmailAddress(event.target.value);
+      }
+    }
     
     const handlePassword = (event) => {
       setpassword(event.target.value);
@@ -45,7 +60,7 @@ const Login = () => {
     <div className="bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal">
       <div className="flex items-center justify-center h-screen">
       <img src={logo} alt="My Logo" class="w-6 mt-52 " />
-        <div className="max-w-[450px] mima  rounded-2xl h-[320px] justify-center neon-button text-3xl  font-bold font-mono text-white w-full text-center flex flex-col bg-pallate-Dark_Sky_Blue bg-opacity-30 lg:bg-opacity-20">
+        <div className="max-w-[450px] mima  rounded-2xl h-[420px] justify-center neon-button text-3xl  font-bold font-mono text-white w-full text-center flex flex-col bg-pallate-Dark_Sky_Blue bg-opacity-30 lg:bg-opacity-20">
          <div >LogIn</div>
           <div className="text-[30px] font-mono font-normal text-center">
            
@@ -83,6 +98,7 @@ const Login = () => {
             forgot password?
                 </Link>
             </div>
+            <span className="text-blue-600 text-[15px] neon-button-remove">{emailAddressError}</span>
             <div>
               <button onClick={(handleSubmit)} className="bg-pallate-Dark_Sky_Blue hover:bg-transparent hover:text-pallate-Dark_Sky_Blue duration-300 w-full text-[20px] hover.text-pallate-Dark_Sky_Blue  text-white font-mono px-10 py-1 rounded-[400px]">
                 Login
