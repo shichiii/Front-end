@@ -124,7 +124,7 @@ const Signup = () => {
       
       <div className="flex items-center justify-center h-screen">
       <img src={logo} alt="My Logo" class="w-6 mt-64 " />
-        <div className="max-w-[450px] mima rounded-2xl h-[390px] justify-center neon-button text-3xl fnt-bold font-mono text-white w-full text-center flex flex-col bg-pallate-Dark_Sky_Blue bg-opacity-30 lg:bg-opacity-20">
+        <div className="max-w-[450px] mima rounded-2xl h-[490px] justify-center neon-button text-3xl fnt-bold font-mono text-white w-full text-center flex flex-col bg-pallate-Dark_Sky_Blue bg-opacity-30 lg:bg-opacity-20">
           
 
           <div className="text-[30px] font-mono font-normal text-center">
@@ -168,12 +168,6 @@ const Signup = () => {
                 autoComplete="off"
               />
             </div>
-            {/* <div>
-              <span className="text-blue-600 text-[15px] neon-button-remove">{setPasswordError}</span>
-              <span className="text-blue-600 text-[15px] neon-button-remove">{setPasswordContainsDigitError}</span>
-              <span className="text-blue-600 text-[15px] neon-button-remove">{setPasswordLengthError}</span>
-
-            </div> */}
             <div className="flex items-center border-b border-pallate-Dark_Sky_Blue py-2">
               <HiLockClosed className="mr-1" />
               <input
@@ -188,9 +182,11 @@ const Signup = () => {
 
             </div>
             <div>
-              <span className="text-blue-600 text-[15px] neon-button-remove">{emailAddressError}</span>
-
-            </div>
+              <span className="text-blue-600 text-[15px] neon-button-remove">{emailAddressError}</span><br></br>
+              <span className="text-blue-600 text-[15px] neon-button-remove">{passwordError}</span>
+              <span className="text-blue-600 text-[15px] neon-button-remove">{passwordContainsDigitError}</span><br></br>
+              <span className="text-blue-600 text-[15px] neon-button-remove">{passwordLengthError}</span>
+              </div>
           </form>
           <div>
             <Link
