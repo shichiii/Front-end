@@ -171,20 +171,20 @@ const Img = () => {
             )}
           </div>
 
-          <Card className="mt-10 h-[500px] m-5  md:mb-64 rounded-2xl bg-pallate-Dark_Sky_Blue bg-opacity-30 border-pallate-persian_green backdrop-blur-sm">
+          <div className="mt-10 h-[500px] m-5 p-10 border-2 border-white md:mb-64 rounded-2xl bg-pallate-Dark_Sky_Blue bg-opacity-30 border-pallate-persian_green backdrop-blur-sm">
             <div className="grid grid-cols-1">
               <div className="grid h-[300px] md:grid-cols-1 md:gap-2 sm:grid-cols-1 sm:gap-2">
               <Map />
               </div>
             </div>
-          </Card>
+          </div>
         </div>
         <div
           className={`mx-auto  mio ${
             scrollEnabled ? "overflow-y-auto h-[500px]" : ""
           }`}
         >
-          <Card className=" mt-24 m-5  rounded-2xl   bg-pallate-Dark_Sky_Blue bg-opacity-30  backdrop-blur-sm">
+          <div className=" mt-24 m-5  rounded-2xl p-10 border-2 border-white  bg-pallate-Dark_Sky_Blue bg-opacity-30  backdrop-blur-sm">
             <div className="grid grid-cols-1">
               <div className="grid md:grid-cols-1 md:gap-2 sm:grid-cols-1 sm:gap-2">
                 <div className="grid gap-10 p-2 justify-center justify-items-center ">
@@ -460,7 +460,7 @@ const Img = () => {
                 Submit
               </button>
             </div>
-          </Card>
+          </div>
         </div>
       </div>
       <Footer />
