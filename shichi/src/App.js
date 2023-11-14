@@ -20,6 +20,7 @@ import Advertisement from './Components/Advertisement_selection/AdvertisementApp
 
 
 import ForgotApp from "./Components/for_push/ForgotPass/ForgotApp";
+import Addacr from './Components/addcar/Img'
 
 function App() {
   return (
@@ -39,6 +40,9 @@ function App() {
 
       <Route exact path='/Advertisement' element={<Advertisement/>} />
       <Route exact path='/forgot' element={<ForgotApp/>} />
+      <Route exact path='/advertise' element={<Addacr/>} />
+    
+      
 
       <Route exact path='/wallet' element={<Wallet />} />
 
