@@ -34,8 +34,8 @@ import Footer from "../for_push/HomePage/Footer";
 import imgValue from "../../Static/110.png";
 import { BsDropletHalf } from "react-icons/bs";
 const Img = () => {
-  const [selectedImages, setSelectedImages] = React.useState([]);
-  const [selectedImage, setSelectedImage] = React.useState(null);
+  const [selectedImages, setSelectedImages] = useState([]);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const handleImageChange = (event) => {
     const files = event.target.files;
@@ -82,19 +82,37 @@ const Img = () => {
     console.log(`Deleted image URL: ${deletedImageUrl}`);
   };
 
-  const [carName, setCarName] = React.useState(""); // New state for car name
-  const [carFuel, setCarFuel] = React.useState("");
-  const [gearbox, setgearbox] = React.useState("");
-  const [description, setdescription] = React.useState("");
-  const [cooler, setCooler] = React.useState("");
-  const [cityValue, setCityValue] = React.useState("");
-  const [colorsvalue, setCoolersvalue] = React.useState("");
-  const [category, setCategory] = React.useState(""); // New state for car name
+  const [carName, setCarName] = useState(""); // New state for car name
+  const [carFuel, setCarFuel] = useState("");
+  const [gearbox, setgearbox] = useState("");
+  const [description, setdescription] = useState("");
+  const [cooler, setCooler] = useState("");
+  const [cityValue, setCityValue] = useState("");
+  const [colorsvalue, setCoolersvalue] = useState("");
+  const [category, setCategory] = useState(""); // New state for car name
   const [startdate, setStartday] = useState("");
   const [enddate, setEnddate] = useState("");
+  const [seatnumbers, setSeatnumbers] = useState('');
+  const [doornumbers, setDoornumbers] = useState('');
+  const [price, setPrice] = useState('');
+  const [productyear, setProductyear] = useState("");
 
-  const [showDescription, setShowDescription] = React.useState(false);
-  const [scrollEnabled, setScrollEnabled] = React.useState(false);
+  const [showDescription, setShowDescription] = useState(false);
+  const [scrollEnabled, setScrollEnabled] = useState(false);
+  const handleProductyear = (event) =>
+  {
+    setProductyear(event.target.value);
+  }
+  const handlePrice = (event) =>
+  {
+    setPrice(event.target.value);
+  }
+  const handleDoornumbers = (event) => {
+    setDoornumbers(event.target.value); 
+  };
+  const handleSeatnumbers = (event) => {
+    setSeatnumbers(event.target.value); 
+  };
   const handlestartdate = (event) =>
   {
     setStartday(event.target.value);
@@ -132,6 +150,30 @@ const Img = () => {
   //handle submit function
   const handleSubmit = async() =>
   {
+    try {
+      const data = {
+        location: 123,
+        start_date: startdate,
+        end_date: enddate,
+        price: price,
+        description: description,
+        car_images: selectedImages,
+        car_name: carName,
+        car_color: colorsvalue,
+        car_produced_date: productyear,
+        car_seat_count: seatnumbers,
+        car_door_count: doornumbers,
+        car_Is_cooler: cooler,
+        car_gearbox: gearbox,
+        car_fuel: carFuel,
+        car_category: category
+      };
+    const response = await axios.post('http://185.157.245.99:8000/advertisement/create/', data);
+    console.log(response.data);
+  } catch (error) {
+    // Handle any errors that occurred during the request
+    console.error(error);
+  }
 
   }
   function handleKeyPress(event) {
@@ -307,6 +349,7 @@ const Img = () => {
                           class=" w-full  gap-4 mr-auto ml-auto border-pallate-persian_green disabled:opacity-80 rounded-lg bg-pallate-celeste_light focus:ring-pallate-persian_green focus:border-pallate-persian_green pl-8 p-2 "
                           placeholder=""
                           min={1}
+                          onChange={handleDoornumbers}
                           onKeyPress={handleKeyPress}
                           required
                         ></input>
@@ -371,6 +414,7 @@ const Img = () => {
                           class=" w-full  gap-4 mr-auto ml-auto border-pallate-persian_green disabled:opacity-80 rounded-lg bg-pallate-celeste_light focus:ring-pallate-persian_green focus:border-pallate-persian_green pl-8 p-2 "
                           placeholder=""
                           min={1}
+                          onChange={handleSeatnumbers}
                           onKeyPress={handleKeyPress}
                           required
                         ></input>
@@ -384,11 +428,12 @@ const Img = () => {
                           <span class="text-pallate-persian_green"></span>
                         </div>
                         <input
-                          type="number"
+                          type="date"
                           id="visitors"
                           class=" w-full  gap-4 mr-auto ml-auto border-pallate-persian_green disabled:opacity-80 rounded-lg bg-pallate-celeste_light focus:ring-pallate-persian_green focus:border-pallate-persian_green pl-8 p-2 "
                           placeholder=""
                           min={1}
+                          onChange={handleProductyear} 
                           onKeyPress={handleKeyPress}
                           required
                         ></input>
@@ -401,16 +446,16 @@ const Img = () => {
                         <label className="m-1">Departure Date:</label>
                       </div>
                       <div
-  class="relative mb-3"
-  id="datepicker-disable-past"
-  data-te-input-wrapper-init>
-  <input
-  onClick={handlestartdate}
-    type="date"
-    class="peer block min-h-[auto] w-full bg-white rounded-lg border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
-    placeholder="Select a date" />
+                        class="relative mb-3"
+                        id="datepicker-disable-past"
+                        data-te-input-wrapper-init>
+                        <input
+                        onClick={handlestartdate}
+                          type="date"
+                          class="peer block min-h-[auto] w-full bg-white rounded-lg border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
+                          placeholder="Select a date" />
 
-</div>
+                      </div>
                     </div>
                     <div className="">
                       <div className="flex justify-start items-center pl-1 text-white">
@@ -419,16 +464,16 @@ const Img = () => {
                         
                       </div>                      
                       <div
-  class="relative mb-3"
-  id="datepicker-disable-past"
-  data-te-input-wrapper-init>
-  <input
-  onClick={handleenddate}
-    type="date"
-    class="peer block min-h-[auto] w-full bg-white rounded-lg border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
-    placeholder="Select a date" />
-  
-</div>
+                        class="relative mb-3"
+                        id="datepicker-disable-past"
+                        data-te-input-wrapper-init>
+                        <input
+                        onClick={handleenddate}
+                          type="date"
+                          class="peer block min-h-[auto] w-full bg-white rounded-lg border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
+                          placeholder="Select a date" />
+                        
+                      </div>
 
                     </div>
                   </div>
@@ -452,6 +497,7 @@ const Img = () => {
                   className="w-full gap-4 mr-auto ml-auto border-pallate-persian_green disabled:opacity-80 rounded-lg bg-pallate-celeste_light focus:ring-pallate-persian_green focus:border-pallate-persian_green pl-8 p-2"
                   placeholder=""
                   min={1}
+                  onChange={handlePrice}
                   onKeyPress={handleKeyPress}
                   required
                 />
