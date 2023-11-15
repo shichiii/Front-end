@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Card, Select } from "flowbite-react";
 import { BsXLg, BsMapFill, BsCalendar } from "react-icons/bs";
 import { IoMdBoat } from "react-icons/io";
@@ -15,6 +15,11 @@ import { BsSnow3 } from "react-icons/bs";
 import { BsDoorOpenFill } from "react-icons/bs";
 import  Map  from "./Create.js";
 import { FaChair } from "react-icons/fa";
+import { WiCloudUp } from "react-icons/wi";
+import axios from 'axios';
+
+
+
 import {
   data,
   fuel,
@@ -85,10 +90,19 @@ const Img = () => {
   const [cityValue, setCityValue] = React.useState("");
   const [colorsvalue, setCoolersvalue] = React.useState("");
   const [category, setCategory] = React.useState(""); // New state for car name
+  const [startdate, setStartday] = useState("");
+  const [enddate, setEnddate] = useState("");
 
   const [showDescription, setShowDescription] = React.useState(false);
   const [scrollEnabled, setScrollEnabled] = React.useState(false);
-
+  const handlestartdate = (event) =>
+  {
+    setStartday(event.target.value);
+  }
+  const handleenddate = (event) => 
+  {
+    setEnddate(event.target.value);
+  }
   const handleCityChange = (event) => {
     setCityValue(event.target.value);
   };
@@ -114,6 +128,12 @@ const Img = () => {
     setdescription(event.target.value);
   };
 
+
+  //handle submit function
+  const handleSubmit = async() =>
+  {
+
+  }
   function handleKeyPress(event) {
     const charCode = event.which ? event.which : event.keyCode;
     const input = event.target;
@@ -181,7 +201,7 @@ const Img = () => {
         </div>
         <div
           className={`mx-auto  mio ${
-            scrollEnabled ? "overflow-y-auto h-[500px]" : ""
+            scrollEnabled ? "overflow-y-auto h-[800px]" : ""
           }`}
         >
           <div className=" mt-24 m-5  rounded-2xl p-10 border-2 border-white  bg-pallate-Dark_Sky_Blue bg-opacity-30  backdrop-blur-sm">
@@ -189,7 +209,9 @@ const Img = () => {
               <div className="grid md:grid-cols-1 md:gap-2 sm:grid-cols-1 sm:gap-2">
                 <div className="grid gap-10 p-2 justify-center justify-items-center ">
                   <div className="flex justify-start items-center">
+                  
                     <input
+                    
                       accept="image/*"
                       className="block w-full text-sm rounded-md border cursor-pointer"
                       id="user_avatar"
@@ -378,30 +400,36 @@ const Img = () => {
                         <BsCalendar className="mr-1" />
                         <label className="m-1">Departure Date:</label>
                       </div>
-                      {/* <DatePicker
-                      selected={departureDate}
-                      onChange={(date) => departureDateHandler(date)}
-                      showMonthDropdown
-                      showYearDropdown
-                      minDate={new Date()}
-                      dropdownMode="select"
-                      className="w-full md:w-80 border-pallate-persian_green disabled:opacity-80 rounded-lg bg-pallate-celeste_light focus:ring-pallate-persian_green focus:border-pallate-persian_green"
-                    /> */}
+                      <div
+  class="relative mb-3"
+  id="datepicker-disable-past"
+  data-te-input-wrapper-init>
+  <input
+  onClick={handlestartdate}
+    type="date"
+    class="peer block min-h-[auto] w-full bg-white rounded-lg border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
+    placeholder="Select a date" />
+
+</div>
                     </div>
-                    <div className="md:w-40 w-full">
+                    <div className="">
                       <div className="flex justify-start items-center pl-1 text-white">
                         <BsCalendar className="mr-1" />
                         <label className="m-1">Return Date:</label>
-                      </div>
-                      {/* <DatePicker
-                      onChange={(date) => returnDateHandler(date)}
-                      selected={returnDate}
-                      showMonthDropdown
-                      showYearDropdown
-                      minDate={departureDate}
-                      dropdownMode="select"
-                      className="w-full md:w-80 border-pallate-persian_green disabled:opacity-80 rounded-lg bg-pallate-celeste_light focus:ring-pallate-persian_green focus:border-pallate-persian_green"
-                    /> */}
+                        
+                      </div>                      
+                      <div
+  class="relative mb-3"
+  id="datepicker-disable-past"
+  data-te-input-wrapper-init>
+  <input
+  onClick={handleenddate}
+    type="date"
+    class="peer block min-h-[auto] w-full bg-white rounded-lg border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
+    placeholder="Select a date" />
+  
+</div>
+
                     </div>
                   </div>
                 </div>
@@ -456,7 +484,7 @@ const Img = () => {
               {/* <Button className="w-full mr-auto ml-auto md:w-80  rounded-xl  bg-pallate-persian_green text-pallate-persian_green hover:bg-pallate-blue_munsell">
                 Create Trip
               </Button> */}
-              <button class="w-full   bg-transparent hover:bg-pallate-Dark_Sky_Blue text-pallate-Dark_Sky_Blue font-semibold duration-300 hover:text-white py-2 px-4 border border-pallate-Dark_Sky_Blue hover:border-transparent rounded">
+              <button onClick={handleSubmit} class="w-full   bg-transparent hover:bg-pallate-Dark_Sky_Blue text-pallate-Dark_Sky_Blue font-semibold duration-300 hover:text-white py-2 px-4 border border-pallate-Dark_Sky_Blue hover:border-transparent rounded">
                 Submit
               </button>
             </div>
