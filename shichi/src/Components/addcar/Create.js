@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { MapContainer, TileLayer, useMapEvents, Marker, Popup } from 'react-leaflet';
+import axios from 'axios';
 
 const ClickableMap = () => {
   const [marker, setMarker] = useState(null);
@@ -18,13 +19,25 @@ const ClickableMap = () => {
       const latitude = marker.position[0].toFixed(6);
       const longitude = marker.position[1].toFixed(6);
 
-     
-      alert(`Latitude: ${latitude}\nLongitude: ${longitude}`);
+      const data ={
+        goe_width: latitude,
+        goe_lenght : longitude
+      };
+      createLocation(data);
     }
 
     setMarker(null);
   };
+  const createLocation = async (data) => {
+    try{
 
+    const reponse = await axios.post('http://185.157.245.99:8000/location/create/', data);
+    console.log(reponse.data);
+    }catch(error){
+      console.error(error);
+    }
+  };
+  
   const Markers = () => {
     return marker ? (
       <Marker
