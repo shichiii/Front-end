@@ -8,7 +8,7 @@
     color: red;
     border: none;
     padding: 0px 0px;
-    text-shadow: 0 0 5px rgba(223, 87, 87, 0.5);
+    text-shadow: 0 0 5px rgba(223, 87, 87, 0);
     animation: glow 2s infinite;
 
   }
