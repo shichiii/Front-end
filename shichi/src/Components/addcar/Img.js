@@ -152,7 +152,7 @@ const Img = () => {
   {
     try {
       const data = {
-        location: 123,
+        location: "3",
         start_date: startdate,
         end_date: enddate,
         price: price,

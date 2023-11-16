@@ -192,24 +192,24 @@ export const cityy = [
 export const colors = [
   {
     id:0,
-    name:'Gray'
+    name:'gray'
   },
   {
     id:1,
-    name :'Black'
+    name :'black'
   },
   {
     id:2,
-    name:'Navy blue'
+    name:'navy blue'
   }, {
     id:3,
-    name:'White'
+    name:'white'
   }, {
     id:4,
-    name:'Brown'
+    name:'brown'
   }, {
     id:5,
-    name:'Others'
+    name:'others'
   },
 
 
@@ -227,31 +227,31 @@ export const gearboxx = [
 export const fuel = [
   {
     id: 0,
-    name: "Gasoline",
+    name: 10,
   },
   {
     id: 1,
-    name: "Diesel",
+    name: 20,
   },
   {
     id: 2,
-    name: "Liquefied Natural Gas",
+    name: 30,
   },
   {
     id: 3,
-    name: "Electricity",
+    name: 40,
   },
   {
     id: 4,
-    name: "Hybrid",
+    name: 50,
   },
   {
     id: 5,
-    name: "Fuel Cell",
+    name: 60,
   },
   {
     id: 6,
-    name: "Biodiesel and Ethanol",
+    name: 70,
   },
 ];
 export const coooler = [
@@ -268,63 +268,63 @@ export const coooler = [
 export const categories = [
   {
     id: 0,
-    name: "All",
+    name: "all",
     image: all,
   },
 
   {
     id: 1,
-    name: "Economy",
+    name: "economy",
     image: economic,
   },
   {
     id: 2,
-    name: "Luxury",
+    name: "luxury",
     image: luxury,
   },
   {
     id: 3,
-    name: "Compact",
+    name: "compact",
     image: compact,
   },
   {
     id: 4,
-    name: "Offroad",
+    name: "offroad",
     image: affroad,
   },
   {
     id: 5,
-    name: "Hybrid",
+    name: "hybrid",
     image: hybrid,
   },
   {
     id: 6,
-    name: "Electric",
+    name: "electric",
     image: electric,
   },
   {
     id: 7,
-    name: "Truck",
+    name: "truck",
     image: truck,
   },
   {
     id: 8,
-    name: "Convertible",
+    name: "convertible",
     image: convertible,
   },
   {
     id: 9,
-    name: "Passenger-van",
+    name: "passenger-van",
     image: passenger,
   },
   {
     id: 10,
-    name: "Mini-van",
+    name: "mini-van",
     image: minivan,
   },
   {
     id: 11,
-    name: "Others",
+    name: "others",
     image: other,
   },
 ];
