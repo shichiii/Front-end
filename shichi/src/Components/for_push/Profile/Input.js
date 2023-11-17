@@ -5,12 +5,12 @@ function Input({
   name,
   label,
   placeholder,
-  value: defaultValue,
+  value,
+  setValue,
   onChange,
   disabled,
+  errorMessage,
 }) {
-  const [value, setValue] = useState(defaultValue);
-
   return (
     <div className="flex flex-col w-[300px]">
       <label htmlFor={name} className="mb-2 text-sm">
@@ -27,6 +27,7 @@ function Input({
         } outline-none px-3 text-center opacity-90 focus:opacity-100`}
         placeholder={placeholder}
       />
+      <span className=" text-red-400 text-sm h-2">{errorMessage}</span>
     </div>
   );
 }

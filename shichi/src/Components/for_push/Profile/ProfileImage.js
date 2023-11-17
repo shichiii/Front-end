@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import logo from "../../../Static/whitelogo.svg";
 
 function ProfileImage() {
@@ -34,7 +34,7 @@ function ProfileImage() {
         onChange={(e) => handleFileChange(e)}
       />
       <div
-        className="flex flex-col text-slate-300 hover:cursor-pointer hover:text-blue-300"
+        className="flex flex-col text-primary-600 mt-5 cursor-pointer hover:text-pallate-Dark_Sky_Blue font-bold"
         onClick={() => fileRef.current.click()}
       >
         Set a new profile photo
