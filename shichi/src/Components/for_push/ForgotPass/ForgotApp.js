@@ -13,7 +13,19 @@ const ForgotApp = () => {
   const [isRotating, setIsRotating] = useState(false);
 
   const handleCode = () => {
-   
+    console.log("hi")
+    axios.post('http://185.157.245.99:8000/user/password-reset/', {
+      email: emailValue,
+    })
+    .then((response) => {
+      // Handle the response if needed
+      console.log("hi2")
+      console.log(response.data);
+    })
+    .catch((error) => {
+      // Handle errors if any
+      console.error(error);
+    });
   };
 
   const handleCardFlip = () => {
@@ -86,8 +98,8 @@ const ForgotApp = () => {
             <div>
               <button
                disabled={emailErrorValue || emailValue.length === 0}
-                onClick={handleCardFlip}
-                onChange={handleCode}
+      
+                onClick={handleCode}
                 className="bg-pallate-Dark_Sky_Blue hover-bg-transparent w-full text-[20px] hover:text-pallate-Dark_Sky_Blue duration-300 text-white font-mono px-10 py-1 rounded-[400px]"
               >
                 Receive Code
