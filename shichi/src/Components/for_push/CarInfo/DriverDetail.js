@@ -24,7 +24,7 @@ function DriverDetail() {
               <input className="rounded-2xl outline-none py-1 px-3 border focus:border-pallate-Dark_Sky_Blue" />
             </div>
             <div className="w-3/12 flex flex-col">
-              <button className="hover:bg-pallate-Dark_Sky_Blue rounded-2xl p-3 border-pallate-Dark_Sky_Blue border transition-all duration-300 ">
+              <button className="p-1 bg-pallate-Dark_Sky_Blue hover:bg-transparent hover:text-pallate-Dark_Sky_Blue duration-300 text-white font-mono text-[20px] w-full  rounded-[400px] transition-all duration-300 ">
                 Buy Now
               </button>
             </div>

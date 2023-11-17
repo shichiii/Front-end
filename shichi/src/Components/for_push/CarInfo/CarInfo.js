@@ -10,7 +10,7 @@ function CarInfo({ car }) {
   const [showMore, setShowMore] = useState(false);
 
   return (
-    <div className="flex flex-row gap-4 p-3 rounded-2xl h-96 bg-slate-100 w-[1215px]">
+    <div className="flex flex-row gap-4 p-3 rounded-2xl h-96 bg-pallate-Dark_Sky_Blue bg-opacity-30 lg:bg-opacity-20 w-[1215px]">
       <div className="flex flex-col gap-8 items-center w-2/3 divide-y divide-stone-200 mt-4">
         <div className="flex flex-row gap-4 justify-center items-center">
           <img

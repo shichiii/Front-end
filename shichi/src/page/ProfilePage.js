@@ -2,8 +2,15 @@ import { useEffect, useState } from "react";
 import Navbar from "../Components/for_push/HomePage/NavBar";
 import Input from "../Components/for_push/Profile/Input";
 import ProfileImage from "../Components/for_push/Profile/ProfileImage";
+
+import Modal from "react-modal";
+import MyComponent from "../Components/addcar/popup";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 // import Modal from "react-modal";
 // import MyComponent from "../Components/addcar/popup"
+
 
 import axios from "axios";
 import { useParams } from "react-router-dom";
@@ -29,26 +36,34 @@ function ProfilePage() {
     });
   }, [userId]);
   const [isDisabled, setIsDisabled] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const notify = () => toast.success("Changes have been saved");
 
   function editProfileHandler() {
+    setIsLoading(true);
     axios
       .put(`http://185.157.245.99:8000/user/update/${userId.id}/`, {
-        title: "Hello World!",
-        body: { first_name: firstN, last_name: lastN, email: email },
+        first_name: firstN,
+        last_name: lastN,
+        email: email,
       })
       .then((response) => {
         console.log(response.data);
+        setIsLoading(false);
+        notify();
       });
   }
 
   return (
     <div className="bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal h-screen">
+      <ToastContainer position="bottom-left" theme="dark" pauseOnHover />
       <Navbar />
-      <div className=" mx-auto w-[800px] flex flex-row justify-center items-center mt-10 flex-wrap text-slate-300">
+      <div className=" mx-auto w-[800px] flex flex-row rounded-2xl justify-center p-10 items-center mt-10 flex-wrap text-slate-300 font-bold font-mono bg-pallate-Dark_Sky_Blue bg-opacity-30 lg:bg-opacity-20">
         <div className="w-full">
           <ProfileImage />
         </div>
-        <div className="w-full flex flex-row gap-20 items-center justify-center mt-10">
+        <div className="w-full flex flex-row gap-10 items-center justify-center mt-10">
           <Input
             type="text"
             name="fName"
@@ -56,6 +71,7 @@ function ProfilePage() {
             value={firstN}
             setValue={setFirstN}
             disabled={isDisabled}
+            errorMessage={!firstN ? "first name cannot be empty" : null}
           />
           <Input
             type="text"
@@ -64,17 +80,18 @@ function ProfilePage() {
             value={lastN}
             setValue={setLastN}
             disabled={isDisabled}
+            errorMessage={!lastN ? "last name cannot be empty" : null}
           />
         </div>
-        <div className="w-full flex flex-row gap-20 items-center justify-center mt-7">
-          <Input
+        <div className="w-full flex flex-row gap-20 items-center justify-center mt-4">
+          {/* <Input
             type="email"
             name="email"
             label="Email Address"
             value={email}
             setValue={setEmail}
             disabled={isDisabled}
-          />
+          /> */}
           <Input
             type="text"
             name="phoneNumber"
@@ -82,20 +99,36 @@ function ProfilePage() {
             value={phoneNumber}
             setValue={setPhoneNumber}
             disabled={isDisabled}
+            errorMessage={
+              !phoneNumber || phoneNumber.length === 11
+                ? null
+                : "phoneNumber is not valid"
+            }
           />
         </div>
         <button
           className={`${
-            !isDisabled
-              ? "bg-pallate-Dark_Sky_Blue text-black"
-              : "text-pallate-Dark_Sky_Blue border-pallate-Dark_Sky_Blue border hover:text-black hover:bg-pallate-Dark_Sky_Blue"
-          } rounded-2xl font-medium w-[200px] px-6 py-3 mt-16 mx-auto transition-all duration-300`}
+            !isLoading
+              ? "bg-pallate-Dark_Sky_Blue hover:bg-transparent hover:text-pallate-Dark_Sky_Blue  text-white"
+              : "text-pallate-Dark_Sky_Blue bg-transparent"
+          } p-1  font-mono text-[20px] w-1/3  rounded-[400px] font-medium px-6 py-3 mt-12 mx-auto transition-all duration-300`}
           onClick={() => editProfileHandler()}
+          disabled={
+            isLoading ||
+            !firstN ||
+            !lastN ||
+            (!phoneNumber && phoneNumber?.length !== 11)
+              ? true
+              : false
+          }
         >
-          {isDisabled ? "Edit Profile" : "Save Changes"}
+          {isLoading ? "Saving..." : "Save Changes"}
         </button>
+
         {/* <MyComponent/> */}
+
       </div>
+      {/* <MyComponent /> */}
     </div>
   );
 }

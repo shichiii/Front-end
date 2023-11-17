@@ -19,7 +19,7 @@ function AddComment({ adv, setRefreshComment }) {
   }
 
   return (
-    <div className="flex flex-col gap-4 p-5 rounded-2xl h-auto bg-slate-100  w-[1215px]">
+    <div className="flex flex-col gap-4 p-5 rounded-2xl h-auto bg-pallate-Dark_Sky_Blue bg-opacity-30 lg:bg-opacity-20  w-[1215px]">
       <h1 className=" text-pallate-Dark_Sky_Blue font-bold text-xl">
         Add your comment
       </h1>
@@ -31,7 +31,7 @@ function AddComment({ adv, setRefreshComment }) {
       />
       <button
         onClick={commentHandler}
-        className="hover:bg-pallate-Dark_Sky_Blue rounded-2xl p-3 border-pallate-Dark_Sky_Blue border transition-all duration-300 w-3/12 mx-auto"
+        className="p-1 bg-pallate-Dark_Sky_Blue hover:bg-transparent hover:text-pallate-Dark_Sky_Blue  text-white font-mono text-[20px]  rounded-[400px] transition-all duration-300 w-3/12 mx-auto"
       >
         Submit
       </button>
