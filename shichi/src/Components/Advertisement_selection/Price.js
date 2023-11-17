@@ -57,10 +57,14 @@ const Price = () => {
 		
 		<button className='px-4 py-3 w-full flex  rounded-md bg-pallate-Gunmetal bg-opacity-50 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm'>
 			<BsCalendar className='text-[25px] p-1'/>start
+			<input type='date' >
+			</input>
 		</button>
 
 		<button className='px-4 py-3 w-full flex  rounded-md bg-pallate-Gunmetal bg-opacity-50 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm'>
 			<BsCalendar className='text-[25px] p-1'/>End
+			<input type='date' >
+			</input>
 		</button>
 		<button class="bg-pallate-Police_Blue hover:bg-pallate-Dark_Sky_Blue text-pallate-Dark_Sky_Blue font-semibold duration-300 hover:text-white py-2 px-4 border border-pallate-Dark_Sky_Blue hover:border-transparent rounded">
             Submit
