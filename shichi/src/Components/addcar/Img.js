@@ -150,10 +150,27 @@ const Img = () => {
 
   const [showDescription, setShowDescription] = useState(false);
   const [scrollEnabled, setScrollEnabled] = useState(false);
-  const handleProductyear = (event) =>
-  {
-    setProductyear(event.target.value);
-  }
+  const handleProductyear = (event) => {
+    const rawDate = event.target.value;
+  
+    
+    const dateObject = new Date(rawDate);
+  
+  
+    const year = dateObject.getFullYear();
+    const month = dateObject.getMonth() + 1; 
+    const day = dateObject.getDate();
+  
+   
+    const formattedDate = `${year}-${month}-${day}`;
+  
+   
+    console.log(formattedDate);
+  
+   
+    setProductyear(formattedDate);
+  };
+  
   const handlePrice = (event) =>
   {
     setPrice(event.target.value);
@@ -164,12 +181,49 @@ const Img = () => {
   const handleSeatnumbers = (event) => {
     setSeatnumbers(event.target.value); 
   };
-  const handlestartdate = (event) =>{
-    setStartdate (event.target.value);
-  }
-  const handleenddate = (event) => {
-    setEnddate(event.target.value);
-  }
+ 
+
+const handlestartdate = (event) => {
+  const rawDate = event.target.value;
+
+ 
+  const dateObject = new Date(rawDate);
+
+  const year = dateObject.getFullYear();
+  const month = dateObject.getMonth() + 1;
+  const day = dateObject.getDate();
+
+  const formattedDate = `${year}-${month}-${day}`;
+
+
+  console.log(formattedDate);
+
+
+  setStartdate(formattedDate);
+};
+
+const handleenddate = (event) => {
+  const rawDate = event.target.value;
+
+
+  const dateObject = new Date(rawDate);
+
+  const year = dateObject.getFullYear();
+  const month = dateObject.getMonth() + 1; 
+  const day = dateObject.getDate();
+
+
+  const formattedDate = `${year}-${month}-${day}`;
+
+
+  console.log(formattedDate);
+
+
+  setEnddate(formattedDate);
+};
+
+
+
   const handleCityChange = (event) => {
     setCityValue(event.target.value);
   };
