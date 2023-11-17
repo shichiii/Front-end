@@ -51,7 +51,9 @@ const Login = () => {
         }
       );
       navigate("/home");
+      // localStorage.setItem('accessTokenCustomer',res.data.access);
       console.log(response.data);
+      // console.log(localStorage.setItem('accessTokenCustomer',res.data.access));
     } catch (error) {
       console.error(error);
     }
