@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Card, Select } from "flowbite-react";
 import { BsXLg, BsMapFill, BsCalendar } from "react-icons/bs";
 import { IoMdBoat } from "react-icons/io";
@@ -37,25 +37,6 @@ const Img = () => {
   const [selectedImages, setSelectedImages] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const postData = async (images) => {
-    try {
-      const formData = new FormData();
-      images.forEach((image, index) => {
-        formData.append(`images[${index}]`, image.image);
-        formData.append(`indexes[${index}]`, index + 1);
-      });
-  
-      const response = await axios.post('http://185.157.245.99:8000/carimage/create/', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-  
-      console.log(response.data); // Handle the response from the backend as needed
-    } catch (error) {
-      console.error(error); // Handle any errors that occur during the request
-    }
-  };
 
   const handleImageChange = (event) => {
     const files = event.target.files;
@@ -76,7 +57,6 @@ const Img = () => {
           setSelectedImage(images[0].image);
         }
         setSelectedImages([...selectedImages, ...images.map((img) => img.image)]);
-        postData(images);
       });
     }
   };
@@ -102,34 +82,6 @@ const Img = () => {
     // Handle any additional logic related to the deleted image URL
     console.log(`Deleted image URL: ${deletedImageUrl}`);
   };
-
-
-
-  // const postData = async (selectedImages) => {
-  //   try {
-  //     const formData = new FormData();
-  
-  //     selectedImages.forEach((image, index) => {
-  //       formData.append(`images[${index}][image]`, image.file);
-  //       formData.append(`images[${index}][index]`, image.index);
-  //     });
-  
-  //     const response = await axios.post(
-  //       'http://185.157.245.99:8000/carimage/create/',
-  //       formData,
-  //       {
-  //         headers: {
-  //           'Content-Type': 'multipart/form-data',
-  //         },
-  //       }
-  //     );
-  
-  //     console.log(response.data); // Handle the response data as needed
-  //   } catch (error) {
-  //     console.error('Error:', error);
-  //     // Handle the error
-  //   }
-  // };
 
 
 
@@ -258,52 +210,59 @@ const handleenddate = (event) => {
   }
   //id of the location
   const [id, setId] = useState("");
-  const getData = async () => {
-    try {
-      const response = await axios.get('http://185.157.245.99:8000/location/list/'); // Replace with your API endpoint
-  
-      const lastObject = response.data[response.data.length - 1];
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await axios.get('http://185.157.245.99:8000/location/list/'); 
 
-    // Extract the ID value from the last object
-      setId(lastObject.id); 
-      console.log('ID:', id);
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
+        const lastObject = response.data[response.data.length - 1];
+
+        // Extract the ID value from the last object
+        setId(lastObject.id);
+        console.log('ID:', id);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    getData();
+  }, []);
   
-  getData();
   //handle submit function
-  const handleSubmit = async() =>
-  {
+  const handleSubmit = async () => {
     try {
       const formattedstartdate = formatDate(startdate);
       const formattedenddate = formatDate(enddate);
-      const data = {
-        location: id, 
-        start_date: formattedstartdate,
-        end_date: formattedenddate,
-        price: price,
-        description: description,
-        car_images: selectedImages,
-        car_name: carName,
-        car_color: colorsvalue,
-        car_produced_date: productyear,
-        car_seat_count: seatnumbers,
-        car_door_count: doornumbers,
-        car_Is_cooler: cooler,
-        car_gearbox: gearbox,
-        car_fuel: carFuel,
-        car_category: category
-      };
-    const response = await axios.post('http://185.157.245.99:8000/advertisement/create/', data);
-    console.log(response.data);
-  } catch (error) {
-    // Handle any errors that occurred during the request
-    console.error(error);
-  }
-
-  }
+      const formData = new FormData();
+  
+      formData.append('car_image2', selectedImage);
+      formData.append('location', id);
+      formData.append('start_date', formattedstartdate);
+      formData.append('end_date', formattedenddate);
+      formData.append('price', price);
+      formData.append('description', description);
+      formData.append('car_name', carName);
+      formData.append('car_color', colorsvalue);
+      formData.append('car_produced_date', productyear);
+      formData.append('car_seat_count', seatnumbers);
+      formData.append('car_door_count', doornumbers);
+      formData.append('car_Is_cooler', cooler);
+      formData.append('car_gearbox', gearbox);
+      formData.append('car_fuel', carFuel);
+      formData.append('car_category', category);
+  
+      const response = await axios.post('http://185.157.245.99:8000/advertisement/create/', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+  
+      console.log(response.data);
+    } catch (error) {
+      // Handle any errors that occurred during the request
+      console.error(error);
+    }
+  };
   function handleKeyPress(event) {
     const charCode = event.which ? event.which : event.keyCode;
     const input = event.target;
