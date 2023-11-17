@@ -11,11 +11,7 @@ import ForgotApp from "./Components/for_push/ForgotPass/ForgotApp";
 import Login from './Components/login';
 import Signup from './Components/signup';
 
-const ProtectedRoute = ({ element, isLoggedIn }) => {
-  return isLoggedIn ? element : <Navigate to="/" />;
-};
-
-function App() {
+const ProtectedRoute = ({ element }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // useEffect to check the user's authentication status, adjust accordingly
@@ -23,8 +19,14 @@ function App() {
     // Your authentication logic here to set isLoggedIn
     // For example, you might check if the user has a valid token
     // Set setIsLoggedIn(true) if the user is authenticated
+    const accessToken = localStorage.getItem("token");
+    setIsLoggedIn(accessToken !== null);
   }, []);
 
+  return isLoggedIn ? element : <Navigate to="/" />;
+};
+
+function App() {
   return (
     <Router>
       <Routes>
@@ -33,31 +35,12 @@ function App() {
         <Route path='/forgot' element={<ForgotApp />} />
         <Route path='/' element={<Landing />} />
 
-
-        <Route
-          path="/home"
-          element={<ProtectedRoute element={<Home />} isLoggedIn={isLoggedIn} />}
-        />
-        <Route
-          path="/history"
-          element={<ProtectedRoute element={<History />} isLoggedIn={isLoggedIn} />}
-        />
-        <Route
-          path="/car/:id"
-          element={<ProtectedRoute element={<CarInfoPage />} isLoggedIn={isLoggedIn} />}
-        />
-        <Route
-          path="/profile/:id"
-          element={<ProtectedRoute element={<ProfilePage />} isLoggedIn={isLoggedIn} />}
-        />
-        <Route
-          path='/Advertisement'
-          element={<ProtectedRoute element={<Advertisement />} isLoggedIn={isLoggedIn} />}
-        />
-        <Route
-          path='/wallet'
-          element={<ProtectedRoute element={<Wallet />} isLoggedIn={isLoggedIn} />}
-        />
+        <Route path="/home" element={<ProtectedRoute element={<Home />} />} />
+        <Route path="/history" element={<ProtectedRoute element={<History />} />} />
+        <Route path="/car/:id" element={<ProtectedRoute element={<CarInfoPage />} />} />
+        <Route path="/profile/:id" element={<ProtectedRoute element={<ProfilePage />} />} />
+        <Route path='/Advertisement' element={<ProtectedRoute element={<Advertisement />} />} />
+        <Route path='/wallet' element={<ProtectedRoute element={<Wallet />} />} />
       </Routes>
     </Router>
   );

@@ -6,6 +6,7 @@ const User = ({Image}) => {
   const [open, setOpen] = useState(false);
   const menuRef = useRef();
   const imgRef = useRef();
+
   window.addEventListener("click", (e)=>{
     if(e.target !== menuRef.current && e.target !== imgRef.current) {
         setOpen(false);
