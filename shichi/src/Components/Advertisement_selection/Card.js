@@ -1,15 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
-import { data } from "./Data";
+// Assuming your backend API endpoint
+const API_ENDPOINT = "185.157.245.99/swagger/advertisement/list/";
 
 const Card = () => {
+  const [cardData, setCardData] = useState([]);
+
+  useEffect(() => {
+    // Fetch data from the backend when the component mounts
+    axios
+      .get(API_ENDPOINT)
+      .then((response) => {
+        setCardData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []); // Empty dependency array means this effect runs once when the component mounts
+
   return (
     <div>
-       <h1 className="text-pallate-Dark_Sky_Blue   border-2 border-pallate-Dark_Sky_Blue p-3 rounded-md font-bold text-4xl text-center">
+      <h1 className="text-pallate-Dark_Sky_Blue border-2 border-pallate-Dark_Sky_Blue p-3 rounded-md font-bold text-4xl text-center">
         Result For ....
       </h1>
-      <div className="flex flex-wrap justify-center bg-pallate-Dark_Sky_Blue bg-opacity-30 m-4 h-[600px] overflow-y-auto  rounded-md mr-10 ml-10 ">
-        {data.map((item, index) => (
+      <div className="flex flex-wrap justify-center bg-pallate-Dark_Sky_Blue bg-opacity-30 m-4 h-[600px] overflow-y-auto rounded-md mr-10 ml-10">
+        {cardData.map((item, index) => (
           <div key={index} className="p-4 max-w-[450px]">
             <div className="flex rounded-lg h-full border-2 border-pallate-Dark_Sky_Blue bg-pallate-Gunmetal bg-opacity-30 p-8 flex-col">
               <div className="flex items-center mb-3">
@@ -17,13 +33,13 @@ const Card = () => {
                   <svg
                     fill="none"
                     stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     className="w-5 h-5"
                     viewBox="0 0 24 24"
                   >
-                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                    <path d="M22 12h-4l-3 9-9-18 3 9H2"></path>
                   </svg>
                 </div>
                 <h2 className="text-white dark:text-white text-lg font-medium">
@@ -45,15 +61,15 @@ const Card = () => {
                 />
                 <a
                   href="#"
-                  className="mt-3 text-black dark:text-white  hover:text-pallate-Gunmetal hover:font-bold inline-flex animate-bounce items-center"
+                  className="mt-3 text-black dark:text-white hover:text-pallate-Gunmetal hover:font-bold inline-flex animate-bounce items-center"
                 >
                   Learn More
                   <svg
                     fill="none"
                     stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     className="w-4 h-4 ml-2"
                     viewBox="0 0 24 24"
                   >
