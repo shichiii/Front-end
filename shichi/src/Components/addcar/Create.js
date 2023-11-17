@@ -20,8 +20,8 @@ const ClickableMap = () => {
       const longitude = marker.position[1].toFixed(6);
 
       const data ={
-        goe_width: latitude,
-        goe_lenght : longitude
+        geo_width: latitude,
+        geo_length : longitude
       };
       createLocation(data);
     }
@@ -37,7 +37,7 @@ const ClickableMap = () => {
       console.error(error);
     }
   };
-  
+
   const Markers = () => {
     return marker ? (
       <Marker

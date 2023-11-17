@@ -37,29 +37,50 @@ const Img = () => {
   const [selectedImages, setSelectedImages] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
 
+  const postData = async (images) => {
+    try {
+      const formData = new FormData();
+      images.forEach((image, index) => {
+        formData.append(`images[${index}]`, image.image);
+        formData.append(`indexes[${index}]`, index + 1);
+      });
+  
+      const response = await axios.post('http://185.157.245.99:8000/carimage/create/', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+  
+      console.log(response.data); // Handle the response from the backend as needed
+    } catch (error) {
+      console.error(error); // Handle any errors that occur during the request
+    }
+  };
+
   const handleImageChange = (event) => {
     const files = event.target.files;
-
+  
     if (files) {
       const newImages = Array.from(files).map((file) => {
         const reader = new FileReader();
         return new Promise((resolve) => {
           reader.onloadend = () => {
-            resolve(reader.result);
+            resolve({ image: reader.result });
           };
           reader.readAsDataURL(file);
         });
       });
-
+  
       Promise.all(newImages).then((images) => {
         if (selectedImages.length === 0) {
-          // If no image is selected, set the first image as the selected image
-          setSelectedImage(images[0]);
+          setSelectedImage(images[0].image);
         }
-        setSelectedImages([...selectedImages, ...images]);
+        setSelectedImages([...selectedImages, ...images.map((img) => img.image)]);
+        postData(images);
       });
     }
   };
+
 
   const handleDeleteImage = (index) => {
     const updatedImages = [...selectedImages];
@@ -82,6 +103,36 @@ const Img = () => {
     console.log(`Deleted image URL: ${deletedImageUrl}`);
   };
 
+
+
+  // const postData = async (selectedImages) => {
+  //   try {
+  //     const formData = new FormData();
+  
+  //     selectedImages.forEach((image, index) => {
+  //       formData.append(`images[${index}][image]`, image.file);
+  //       formData.append(`images[${index}][index]`, image.index);
+  //     });
+  
+  //     const response = await axios.post(
+  //       'http://185.157.245.99:8000/carimage/create/',
+  //       formData,
+  //       {
+  //         headers: {
+  //           'Content-Type': 'multipart/form-data',
+  //         },
+  //       }
+  //     );
+  
+  //     console.log(response.data); // Handle the response data as needed
+  //   } catch (error) {
+  //     console.error('Error:', error);
+  //     // Handle the error
+  //   }
+  // };
+
+
+
   const [carName, setCarName] = useState(""); // New state for car name
   const [carFuel, setCarFuel] = useState("");
   const [gearbox, setgearbox] = useState("");
@@ -90,7 +141,7 @@ const Img = () => {
   const [cityValue, setCityValue] = useState("");
   const [colorsvalue, setCoolersvalue] = useState("");
   const [category, setCategory] = useState(""); // New state for car name
-  const [startdate, setStartday] = useState("");
+  const [startdate, setStartdate] = useState("");
   const [enddate, setEnddate] = useState("");
   const [seatnumbers, setSeatnumbers] = useState('');
   const [doornumbers, setDoornumbers] = useState('');
@@ -113,12 +164,10 @@ const Img = () => {
   const handleSeatnumbers = (event) => {
     setSeatnumbers(event.target.value); 
   };
-  const handlestartdate = (event) =>
-  {
-    setStartday(event.target.value);
+  const handlestartdate = (event) =>{
+    setStartdate (event.target.value);
   }
-  const handleenddate = (event) => 
-  {
+  const handleenddate = (event) => {
     setEnddate(event.target.value);
   }
   const handleCityChange = (event) => {
@@ -145,16 +194,41 @@ const Img = () => {
   const handleDescriptionChange = (event) => {
     setdescription(event.target.value);
   };
-
-
+  const padZero = (number) => {
+    return String(number).padStart(2, '0');
+  }
+  //date format
+  const formatDate = (date) => {
+    const [year, month, day] = date.split('-');
+    return `${year}-${padZero(month)}-${padZero(day)}`;
+  }
+  //id of the location
+  let id;
+  const getData = async () => {
+    try {
+      const response = await axios.get('http://185.157.245.99:8000/location/list/'); // Replace with your API endpoint
+  
+      // Extract the ID value from the response
+      id = response.data.id;
+  
+      // Use the ID value as needed
+      console.log('ID:', id);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+  
+  getData();
   //handle submit function
   const handleSubmit = async() =>
   {
     try {
+      const formattedstartdate = formatDate(startdate);
+      const formattedenddate = formatDate(enddate);
       const data = {
-        location: "3",
-        start_date: startdate,
-        end_date: enddate,
+        location: id, 
+        start_date: formattedstartdate,
+        end_date: formattedenddate,
         price: price,
         description: description,
         car_images: selectedImages,
