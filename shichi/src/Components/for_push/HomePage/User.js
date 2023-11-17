@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { Route } from "react-router-dom";
 
-const User = () => {
+const User = ({Image}) => {
   const Menu = ["Edit Profile", "History" , "LogOut"];
   const [open, setOpen] = useState(false);
   const menuRef = useRef();
@@ -16,7 +16,7 @@ const User = () => {
       <img
       ref={imgRef}
       onClick={() => setOpen(!open)}
-        src="https://tecdn.b-cdn.net/img/new/avatars/1.webp"
+        src={Image}
         class="bg-pallate-Gunmetal h-20 w-full cursor-pointer p-2 rounded-full shadow-lg"
         alt="Avatar"
       />
