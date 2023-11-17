@@ -257,15 +257,15 @@ const handleenddate = (event) => {
     return `${year}-${padZero(month)}-${padZero(day)}`;
   }
   //id of the location
-  let id;
+  const [id, setId] = useState("");
   const getData = async () => {
     try {
       const response = await axios.get('http://185.157.245.99:8000/location/list/'); // Replace with your API endpoint
   
-      // Extract the ID value from the response
-      id = response.data.id;
-  
-      // Use the ID value as needed
+      const lastObject = response.data[response.data.length - 1];
+
+    // Extract the ID value from the last object
+      setId(lastObject.id); 
       console.log('ID:', id);
     } catch (error) {
       console.error('Error:', error);
