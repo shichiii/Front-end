@@ -8,7 +8,9 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import logo from "../Static/whitelogowithouttext90.svg";
 import logo2 from "../Static/whitelogowithouttext270.svg";
-import Toast from "./toast";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import { BsPatchExclamation } from "react-icons/bs";
 const Signup = () => {
   const [firstname, setfirstname] = useState("");
@@ -20,7 +22,7 @@ const Signup = () => {
   const [passwordLengthError, setPasswordLengthError] = useState(false);
   const [passwordContainsDigitError, setPasswordContainsDigitError] =
     useState(false);
-  const [showToast, setShowToast] = useState(false);
+  
 
   const validPasswordLength = new RegExp(/^.{5,10}$/);
   const validPassowrdContainsDigit = new RegExp(/^(?=.*\d).+$/);
@@ -48,7 +50,8 @@ const Signup = () => {
       );
       const token = response.data.token;
       localStorage.setItem("token", token);
-      setShowToast(true);
+      //alert("hi")
+      toast.success("Success Notification !");
       navigate("/login");
       console.log(response.data);
     } catch (error) {
@@ -56,9 +59,7 @@ const Signup = () => {
     }
   };
 
-  const dismissToast = () => {
-    setShowToast(false);
-  };
+ 
 
   const handleEmail = (event) => {
     if (event.target.value === "") {
@@ -113,6 +114,8 @@ const Signup = () => {
   let navigate = useNavigate();
 
   return (
+     
+    
     <div className="bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal">
       <div className="flex items-center justify-center h-screen">
         <img src={logo} alt="My Logo" class="w-6 mt-64 " />
@@ -239,6 +242,7 @@ const Signup = () => {
             >
               Sign Up
             </button>
+            <ToastContainer />
           </div>
         </div>
         <div className="grid">
@@ -246,15 +250,10 @@ const Signup = () => {
           <img src={logo2} alt="My Logo" class="w-6 mb-24" />
           <img src={logo2} alt="My Logo" class="w-6 mb-24" />
         </div>
-        {showToast && (
-          <Toast
-            id="signup-toast"
-            message="Signup successful!"
-            dismissToast={dismissToast}
-          />
-        )}
+       
       </div>
     </div>
+
   );
 };
 
