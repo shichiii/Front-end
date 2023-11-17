@@ -24,9 +24,8 @@ function RateCar() {
 
   return (
     <>
-      <div
-        className="font-sm underline text-pallate-Dark_Sky_Blue cursor-pointer items-center flex justify-center button
-            "
+      {/* <div
+        className="font-sm underline text-pallate-Dark_Sky_Blue cursor-pointer items-center flex justify-center button"
         id="one"
         onClick={openHandler}
       >
@@ -45,11 +44,9 @@ function RateCar() {
             />
           </div>
         </div>
-      </div>
+      </div> */}
+      <Rate />
     </>
-    // <div className="w-[500px] h-[500px] rounded-2xl bg-slate-200">
-    //   <Rate />
-    // </div>
   );
 }
 
