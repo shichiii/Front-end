@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import PropTypes from 'prop-types';
 
 const Search = ({ history }) => {
@@ -9,13 +7,17 @@ const Search = ({ history }) => {
 
   const handleSearch = async () => {
     try {
-      const response = await axios.get(`http://185.157.245.99:8000/advertisement/search/?car_name=${carName}`);
-
+      const response = await axios.get(`http://185.157.245.99:8000/advertisement/search/?car_name=${encodeURIComponent(carName)}`);
+  
       if (response.data.length === 0) {
-        toast.error('No search results found');
+        alert("No car found");
       } else {
-
-        history.push('/advertisement', { results: response.data });
+        const foundCar = response.data.find((car) => car.car_name === carName);
+        if (foundCar) {
+          history.push('/advertisement', { results: [foundCar] });
+        } else {
+          alert("No car found");
+        }
       }
     } catch (error) {
       console.error('Error occurred:', error);
@@ -55,7 +57,6 @@ const Search = ({ history }) => {
           </div>
         </div>
       </div>
-      <ToastContainer position='bottom-right' />
     </div>
   );
 };
