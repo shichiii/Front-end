@@ -14,6 +14,10 @@ import Signup from './Components/signup';
 const ProtectedRoute = ({ element }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+
+import ForgotApp from "./Components/for_push/ForgotPass/ForgotApp";
+import Addacr from './Components/addcar/Img'
+
   // useEffect to check the user's authentication status, adjust accordingly
   useEffect(() => {
     // Your authentication logic here to set isLoggedIn
@@ -26,10 +30,37 @@ const ProtectedRoute = ({ element }) => {
   return isLoggedIn ? element : <Navigate to="/" />;
 };
 
+
 function App() {
   return (
     <Router>
       <Routes>
+
+
+
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
+
+        <Route exact path="/" element={<Landing />} />
+        <Route exact path="/home" element={<Home />} />
+        <Route exact path="/history" element={<History />} />
+        <Route exact path="/car/:id" element={<CarInfoPage />} />
+        <Route exact path="/profile/:id" element={<ProfilePage />} />
+
+
+      <Route exact path='/Advertisement' element={<Advertisement/>} />
+      <Route exact path='/forgot' element={<ForgotApp/>} />
+      <Route exact path='/advertise' element={<Addacr/>} />
+    
+      
+
+      <Route exact path='/wallet' element={<Wallet />} />
+
+
+
+
+
+
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path='/forgot' element={<ForgotApp />} />
@@ -41,6 +72,7 @@ function App() {
         <Route path="/profile/:id" element={<ProtectedRoute element={<ProfilePage />} />} />
         <Route path='/Advertisement' element={<ProtectedRoute element={<Advertisement />} />} />
         <Route path='/wallet' element={<ProtectedRoute element={<Wallet />} />} />
+
       </Routes>
     </Router>
   );
