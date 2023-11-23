@@ -20,7 +20,7 @@ function Comment({ image, name, comment, rating, date }) {
   };
 
   return (
-    <div className="flex flex-col h-auto w-full bg-slate-50 rounded-2xl shadow-lg gap-2 p-3 pb-5">
+    <div className="flex flex-col h-auto w-full bg-pallate-Dark_Sky_Blue bg-opacity-30 lg:bg-opacity-20 rounded-2xl shadow-lg gap-2 p-3 pb-5">
       <div className="flex flex-row gap-4">
         <img
           // onClick={() => setOpen(!open)}
