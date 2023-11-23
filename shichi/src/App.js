@@ -6,17 +6,23 @@ import History from "./Components/for_push/History/HistoryApp";
 import CarInfoPage from "./page/CarInfoPage";
 import ProfilePage from "./page/ProfilePage";
 import Wallet from "./Components/Wallet/WalletApp";
+//import logo from './logo.svg';
+import './App.css';
+import React from "react";
+// import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
+import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Advertisement from './Components/Advertisement_selection/AdvertisementApp'
 import ForgotApp from "./Components/for_push/ForgotPass/ForgotApp";
 import Login from './Components/login';
 import Signup from './Components/signup';
+import ForgotApp from "./Components/for_push/ForgotPass/ForgotApp";
+import Addacr from './Components/addcar/Img'
 
 const ProtectedRoute = ({ element }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
 
-import ForgotApp from "./Components/for_push/ForgotPass/ForgotApp";
-import Addacr from './Components/addcar/Img'
 
   // useEffect to check the user's authentication status, adjust accordingly
   useEffect(() => {
@@ -29,6 +35,8 @@ import Addacr from './Components/addcar/Img'
 
   return isLoggedIn ? element : <Navigate to="/" />;
 };
+import Landing from './Components/for_push/Landing/LandingApp'
+import Home from './Components/for_push/HomePage/HomePageApp'
 
 
 function App() {
@@ -55,6 +63,10 @@ function App() {
       
 
       <Route exact path='/wallet' element={<Wallet />} />
+
+      <Route exact path='/Advertisement' element={<Advertisement/>} />
+      <Route exact path="/" element={<Landing />} />
+      <Route exact path='/home' element={<Home />} />
 
 
 
