@@ -14,15 +14,19 @@ import logo2 from "../Static/whitelogowithouttext270.svg";
 
 import { BsPatchExclamation } from "react-icons/bs";
 const Signup = () => {
+  const [error, setError] = useState('');
   const [firstname, setfirstname] = useState("");
   const [lastname, setlastname] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setpassword] = useState("");
+  const [confirmpassword, setConfirmpassword] = useState("");
   const [emailAddressError, setEmailAddressError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [passwordLengthError, setPasswordLengthError] = useState(false);
   const [passwordContainsDigitError, setPasswordContainsDigitError] =
     useState(false);
+
+  
 
   const validPasswordLength = new RegExp(/^.{5,10}$/);
   const validPassowrdContainsDigit = new RegExp(/^(?=.*\d).+$/);
@@ -32,7 +36,10 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    if (password !== confirmpassword) {
+      setError('Passwords do not match');
+      return;
+    }
     try {
       const response = await axios.post(
         "http://185.157.245.99:8000/user/signup/",
@@ -101,6 +108,9 @@ const Signup = () => {
       setpassword(event.target.value);
     }
   };
+  const handleConfirmpassword = (event) => {
+    setConfirmpassword(event.target.value);
+  }
 
   const handleFirstname = (event) => {
     setfirstname(event.target.value);
@@ -266,7 +276,7 @@ const Signup = () => {
                     className="appearance-none text-sm text-white bg-transparent border-none w-full py-1 px-2 leading-tight focus:outline-none bg-pallate-celeste_light text-start input-focus"
                     type="password"
                     placeholder="Confirm Password"
-                    onChange={handlePassword}
+                    onChange={handleConfirmpassword}
                     autoComplete="off"
                   />
                 </div>
@@ -280,6 +290,7 @@ const Signup = () => {
                 </Link>
               </div>
               <div>
+              {error && <p>{error}</p>}
                 <button
                   disabled={
                     emailAddressError ||
