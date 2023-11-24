@@ -35,9 +35,7 @@ function App() {
       <Route exact path='/Advertisement' element={<Advertisement/>} />
       <Route exact path='/forgot' element={<ForgotApp/>} />
       <Route exact path='/wallet' element={<Wallet />} />
-      <Route exact path='/fail' element={<Fail />} />
-      <Route exact path='/success' element={<Loading />} />
-      <Route exact path ='/reset' element={<ResetPass />} />
+
 
 
 

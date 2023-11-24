@@ -19,27 +19,9 @@ const Signup = () => {
   const [lastname, setlastname] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setpassword] = useState("");
-  const [confirmpassword, setConfirmpassword] = useState("");
-  const [emailAddressError, setEmailAddressError] = useState(false);
-  const [passwordError, setPasswordError] = useState(false);
-  const [passwordLengthError, setPasswordLengthError] = useState(false);
-  const [passwordContainsDigitError, setPasswordContainsDigitError] =
-    useState(false);
-
-  
-
-  const validPasswordLength = new RegExp(/^.{5,10}$/);
-  const validPassowrdContainsDigit = new RegExp(/^(?=.*\d).+$/);
-  const validEmailAddress = new RegExp(
-    /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-  );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (password !== confirmpassword) {
-      setError('Passwords do not match');
-      return;
-    }
     try {
       const response = await axios.post(
         "http://185.157.245.99:8000/user/signup/",
@@ -108,10 +90,6 @@ const Signup = () => {
       setpassword(event.target.value);
     }
   };
-  const handleConfirmpassword = (event) => {
-    setConfirmpassword(event.target.value);
-  }
-
   const handleFirstname = (event) => {
     setfirstname(event.target.value);
   };
@@ -146,189 +124,71 @@ const Signup = () => {
                 SignUp
               </div>
 
-              <form className="w-72 text-[40px] pt-7 text-white">
-                <div className="flex items-center text-[40px] border-b border-pallate-Dark_Sky_Blue py-2">
-                  <BsPersonFill className="mr-1" />
-                  <input
-                    id="firstname"
-                    name="firstname"
-                    className=" appearance-none text-sm text-white bg-transparent border-none w-full py-1 px-2 leading-tight focus:outline-none bg-pallate-celeste_light text-start input-focus"
-                    type="text"
-                    placeholder="FirstName"
-                    onChange={handleFirstname}
-                    autoComplete="off"
-                  />
-                </div>
-                <div className="flex items-center border-b border-pallate-Dark_Sky_Blue py-2">
-                  <BsPersonFill className="mr-1" />
-                  <input
-                    id="lastname"
-                    name="lastname"
-                    className="appearance-none text-sm text-white bg-transparent border-none w-full py-1 px-2 leading-tight focus:outline-none bg-pallate-celeste_light text-start input-focus"
-                    type="text"
-                    placeholder="LastName"
-                    onChange={handleLastname}
-                    autoComplete="off"
-                  />
-                </div>
-                <div className="flex items-center border-b border-pallate-Dark_Sky_Blue py-2">
-                  <BsEnvelopeFill className="mr-1" />
-                  <div className="group flex ">
-                    <span className="w-60 scale-0 rounded-md    absolute bg-pallate-Dark_Sky_Blue opacity-90  text-xs text-black group-hover:scale-100">
-                      {emailAddressError && (
-                        <span className="text-red-500 text-xs font-bold w-[700px] neon-button-remove">
-                          {emailAddressError}
-                        </span>
-                      )}
-                    </span>
-                    {emailAddressError && (
-                      <BsPatchExclamation className="ml-2 text-red-500" />
-                    )}
-                  </div>
-                  <input
-                    id="email"
-                    name="email"
-                    className="appearance-none text-sm text-white bg-transparent border-none w-full py-1 px-2 leading-tight focus:outline-none bg-pallate-celeste_light text-start input-focus"
-                    type="email"
-                    placeholder="Email"
-                    onChange={handleEmail}
-                    autoComplete="off"
-                  />
-                </div>
-
-                <div className="flex items-center  border-b border-pallate-Dark_Sky_Blue py-2 ">
-                  <HiLockClosed className="mr-1 group" />{" "}
-                  <div className="group flex ">
-                    <span className="w-60 scale-0 rounded-md  absolute bg-pallate-Dark_Sky_Blue opacity-90  text-xs text-black group-hover:scale-100">
-                      {passwordError && (
-                        <span className="text-blue-600 text-xs font-bold w-[700px] neon-button-remove">
-                          {passwordError}
-                        </span>
-                      )}
-
-                      {passwordContainsDigitError && (
-                        <span className="text-blue-600 text-xs font-bold w-[700px] neon-button-remove">
-                          {passwordContainsDigitError}
-                        </span>
-                      )}
-
-                      {passwordLengthError && (
-                        <span className="text-blue-600 text-xs font-bold w-[700px] neon-button-remove">
-                          {passwordLengthError}
-                        </span>
-                      )}
-                    </span>
-                    {passwordError && (
-                      <BsPatchExclamation className="ml-2 text-red-500" />
-                    )}
-                    {passwordContainsDigitError && (
-                      <BsPatchExclamation className="ml-2 text-red-500" />
-                    )}
-                    {passwordLengthError && (
-                      <BsPatchExclamation className="ml-2 text-red-500" />
-                    )}
-                  </div>
-                  <input
-                    id="password"
-                    name="password"
-                    className="appearance-none text-sm text-white bg-transparent border-none w-full py-1 px-2 leading-tight focus:outline-none bg-pallate-celeste_light text-start input-focus"
-                    type="password"
-                    placeholder="Password"
-                    onChange={handlePassword}
-                    autoComplete="off"
-                  />
-                </div>
-                <div className="flex items-center  border-b border-pallate-Dark_Sky_Blue py-2 ">
-                  <HiLockClosed className="mr-1 group" />{" "}
-                  <div className="group flex ">
-                    <span className="w-60 scale-0 rounded-md  absolute bg-pallate-Dark_Sky_Blue opacity-90  text-xs text-black group-hover:scale-100">
-                      {passwordError && (
-                        <span className="text-blue-600 text-xs font-bold w-[700px] neon-button-remove">
-                          {passwordError}
-                        </span>
-                      )}
-
-                      {passwordContainsDigitError && (
-                        <span className="text-blue-600 text-xs font-bold w-[700px] neon-button-remove">
-                          {passwordContainsDigitError}
-                        </span>
-                      )}
-
-                      {passwordLengthError && (
-                        <span className="text-blue-600 text-xs font-bold w-[700px] neon-button-remove">
-                          {passwordLengthError}
-                        </span>
-                      )}
-                    </span>
-                    {passwordError && (
-                      <BsPatchExclamation className="ml-2 text-red-500" />
-                    )}
-                    {passwordContainsDigitError && (
-                      <BsPatchExclamation className="ml-2 text-red-500" />
-                    )}
-                    {passwordLengthError && (
-                      <BsPatchExclamation className="ml-2 text-red-500" />
-                    )}
-                  </div>
-                  <input
-                    id="confirmpassword"
-                    name="confirmpassword"
-                    className="appearance-none text-sm text-white bg-transparent border-none w-full py-1 px-2 leading-tight focus:outline-none bg-pallate-celeste_light text-start input-focus"
-                    type="password"
-                    placeholder="Confirm Password"
-                    onChange={handleConfirmpassword}
-                    autoComplete="off"
-                  />
-                </div>
-              </form>
-              <div>
-                <Link
-                  to="/Login"
-                  className="hover:bg-transparent hover:text-white hover:font-bold duration-300 m-3 hover:bg-AteneoBlue-400 focus:bg-AteneoBlue-500 inline-block text-sm text-white align-baseline py-2.5 w-full rounded bg-AteneoBlue-500 text-center focus:text-white"
-                >
-                  Already have an account? Login!
-                </Link>
-              </div>
-              <div>
-              {error && <p>{error}</p>}
-                <button
-                  disabled={
-                    emailAddressError ||
-                    passwordContainsDigitError ||
-                    passwordError ||
-                    passwordLengthError ||
-                    firstname.length === 0 ||
-                    lastname.length === 0 ||
-                    emailAddress.length === 0 ||
-                    password.length === 0
-                  }
-                  onClick={handleSubmit}
-                  className="bg-pallate-Dark_Sky_Blue hover:bg-transparent hover:text-pallate-Dark_Sky_Blue duration-300 w-full text-[20px] hover.text-pallate-Dark_Sky_Blue text-white font-mono px-10 py-1 rounded-[400px]"
-                >
-                  Sign Up
-                </button>
-                {/* <ToastContainer /> */}
-              </div>
-            </div>
-
-            <div class="relative group">
-              <img
-                src={img}
-                alt="img"
-                class="w-[500px]  h-full hidden rounded-r-2xl md:block transform group-hover:-translate-y-12 2xl:group-hover:-translate-y-12 transition-all duration-1000 lg:duration-700 ease-in-out"
+          <form className="w-full max-w-sm pt-7">
+            <div className="flex items-center border-b border-pallate-Dark_Sky_Blue py-2">
+              <BsPersonFill className="mr-1" />
+              <input
+                id="firstname"
+                name="firstname"
+                className=" appearance-none text-sm text-white bg-transparent border-none w-full py-1 px-2 leading-tight focus:outline-none bg-pallate-celeste_light text-center input-focus"
+                type="text"
+                placeholder="FirstName"
+                onChange={handleFirstname}
+                autoComplete="off"
               />
-
-              {isLargeScreen && (
-                <div class="absolute bottom-10 right-6 p-6 bg-opacity-0 bg-purple-400 group-hover:bg-opacity-20 2xl:group-hover:backdrop-blur-sm drop-shadow-lg md:block rounded-lg group-hover:-translate-y-16 2xl:group-hover:-translate-x-12 transition-all duration-1000 lg:duration-700 ease-in-out">
-                  <span class="text-white text-xl opacity-0 group-hover:opacity-100">
-                    You can confidently rent out
-                    <br />
-                    your car or rent the car of your choice. <br />
-                    Just trust Shichi and get started.
-                  </span>
-                </div>
-              )}
             </div>
+            <div className="flex items-center border-b border-pallate-Dark_Sky_Blue py-2">
+              <BsPersonFill className="mr-1" />
+              <input
+                id="lastname"
+                name="lastname"
+                className="appearance-none text-sm text-white bg-transparent border-none w-full py-1 px-2 leading-tight focus:outline-none bg-pallate-celeste_light text-center input-focus"
+                type="text"
+                placeholder="LastName"
+                onChange={handleLastname}
+                autoComplete="off"
+              />
+            </div>
+            <div className="flex items-center border-b border-pallate-Dark_Sky_Blue py-2">
+              <BsEnvelopeFill className="mr-1" />
+              <input
+                id="email"
+                name="email"
+                className="appearance-none text-sm text-white bg-transparent border-none w-full py-1 px-2 leading-tight focus:outline-none bg-pallate-celeste_light text-center input-focus"
+                type="email"
+                placeholder="Email"
+                onChange={handleEmail}
+                autoComplete="off"
+              />
+            </div>
+            <div className="flex items-center border-b border-pallate-Dark_Sky_Blue py-2">
+              <HiLockClosed className="mr-1" />
+              <input
+                id="password"
+                name="password"
+                className="appearance-none text-sm text-white bg-transparent border-none w-full py-1 px-2 leading-tight focus:outline-none bg-pallate-celeste_light text-center input-focus"
+                type="password"
+                placeholder="Password"
+                onChange={handlePassword}
+                autoComplete="off"
+              />
+            </div>
+          </form>
+          <div>
+            <Link
+              to="/Login"
+              className="hover:bg-transparent hover:text-white hover:font-bold duration-300 m-3 hover:bg-AteneoBlue-400 focus:bg-AteneoBlue-500 inline-block text-sm text-white align-baseline py-2.5 w-full rounded bg-AteneoBlue-500 text-center focus:text-white"
+            >
+              Already have an account? Login!
+            </Link>
+          </div>
+          <div>
+            <button
+              onClick={handleSubmit}
+              className="bg-pallate-Dark_Sky_Blue hover:bg-transparent hover:text-pallate-Dark_Sky_Blue duration-300 w-full text-[20px] hover.text-pallate-Dark_Sky_Blue text-white font-mono px-10 py-1 rounded-[400px]"
+            >
+              Sign Up
+            </button>
           </div>
         </div>
       </body>

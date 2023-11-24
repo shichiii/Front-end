@@ -14,6 +14,7 @@ import axios from "axios";
 import { BsPatchExclamation } from "react-icons/bs";
 const ResetPass = () => {
   const token = localStorage.getItem("token");
+ 
   const [password, setpassword] = useState("");
   const [passwordError, setPasswordError] = useState(false);
   const [passwordLengthError, setPasswordLengthError] = useState(false);
