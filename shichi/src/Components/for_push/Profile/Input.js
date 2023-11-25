@@ -9,6 +9,7 @@ function Input({
   setValue,
   onChange,
   disabled,
+  errorMessage,
 }) {
   return (
     <div className="flex flex-col w-[300px]">
@@ -26,6 +27,7 @@ function Input({
         } outline-none px-3 text-center opacity-90 focus:opacity-100`}
         placeholder={placeholder}
       />
+      <span className=" text-red-400 text-sm h-2">{errorMessage}</span>
     </div>
   );
 }

@@ -1,7 +1,5 @@
 {
   "dependencies": {
-    "leaflet": "^1.9.4",
-    "leaflet-draw": "^1.0.4",
-    "react-leaflet": "^3.2.5"
+    "react-toastify": "^9.1.3"
   }
 }
