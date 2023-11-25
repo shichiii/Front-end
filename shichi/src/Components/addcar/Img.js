@@ -173,9 +173,6 @@ const handleenddate = (event) => {
 
   setEnddate(formattedDate);
 };
-
-
-
   const handleCityChange = (event) => {
     setCityValue(event.target.value);
   };
@@ -208,26 +205,10 @@ const handleenddate = (event) => {
     const [year, month, day] = date.split('-');
     return `${year}-${padZero(month)}-${padZero(day)}`;
   }
-  //id of the location
-  const [id, setId] = useState("");
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const response = await axios.get('http://185.157.245.99:8000/location/list/'); 
+  // location data
+  const latitude = localStorage.getItem('latitude');
+  const longitude = localStorage.getItem('longitude');
 
-        const lastObject = response.data[response.data.length - 1];
-
-        // Extract the ID value from the last object
-        setId(lastObject.id);
-        console.log('ID:', id);
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    };
-
-    getData();
-  }, []);
-  
   //handle submit function
   const handleSubmit = async () => {
     try {
@@ -235,8 +216,6 @@ const handleenddate = (event) => {
       const formattedenddate = formatDate(enddate);
       const formData = new FormData();
   
-      formData.append('car_image2', selectedImage);
-      formData.append('location', id);
       formData.append('start_date', formattedstartdate);
       formData.append('end_date', formattedenddate);
       formData.append('price', price);

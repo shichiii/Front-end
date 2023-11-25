@@ -18,25 +18,26 @@ const ClickableMap = () => {
     if (marker) {
       const latitude = marker.position[0].toFixed(6);
       const longitude = marker.position[1].toFixed(6);
-
-      const data ={
-        geo_width: latitude,
-        geo_length : longitude
-      };
-      createLocation(data);
+      localStorage.setItem('latitude', latitude);
+      localStorage.setItem('longitude', longitude);
+      // const data ={
+      //   geo_width: latitude,
+      //   geo_length : longitude
+      // };
+      //createLocation(data);
     }
 
     setMarker(null);
   };
-  const createLocation = async (data) => {
-    try{
+  // const createLocation = async (data) => {
+  //   try{
 
-    const reponse = await axios.post('http://185.157.245.99:8000/location/create/', data);
-    console.log(reponse.data);
-    }catch(error){
-      console.error(error);
-    }
-  };
+  //   const reponse = await axios.post('http://185.157.245.99:8000/location/create/', data);
+  //   console.log(reponse.data);
+  //   }catch(error){
+  //     console.error(error);
+  //   }
+  // };
 
   const Markers = () => {
     return marker ? (
