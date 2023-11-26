@@ -37,7 +37,7 @@ function App() {
       <Route exact path='/wallet' element={<Wallet />} />
       <Route exact path='/fail' element={<Fail />} />
       <Route exact path='/success' element={<Loading />} />
-      <Route exact path='/reset' element={<ResetPass />} />
+      <Route exact path='/reset/:token' element={<ResetPass />} />
 
 
 
