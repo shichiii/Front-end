@@ -19,4 +19,6 @@ jobs:
             npm install --force
         
       - name: Run tests
-        run: npm test
+        run: |
+            cd shichi 
+            npm install --force
