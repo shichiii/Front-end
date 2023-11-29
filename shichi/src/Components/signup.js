@@ -9,12 +9,14 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import logo from "../Static/whitelogowithouttext90.svg";
 import logo2 from "../Static/whitelogowithouttext270.svg";
+import { Alert, AlertTitle } from '@material-ui/lab';
 // import { ToastContainer, toast } from "react-toastify";
 // import "react-toastify/dist/ReactToastify.css";
 
 import { BsPatchExclamation } from "react-icons/bs";
 const Signup = () => {
   const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   const [firstname, setfirstname] = useState("");
   const [lastname, setlastname] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
@@ -55,9 +57,10 @@ const Signup = () => {
       );
       const token = response.data.token;
       localStorage.setItem("token", token);
-      //alert("hi")
-      // toast.success("Success Notification !");
-      navigate("/login");
+      setSuccessMessage('Registration successful!');
+      setTimeout(() => {
+        navigate('/login');
+      }, 5000);
       console.log(response.data);
     } catch (error) {
       console.error(error);
@@ -279,6 +282,15 @@ const Signup = () => {
                 </div>
               </form>
               <div>
+                {successMessage && (
+                  <Alert severity="success">
+                    <AlertTitle>Success</AlertTitle>
+                    {successMessage}
+                  </Alert>
+                )}
+              </div>
+
+              <div>
                 <Link
                   to="/Login"
                   className="hover:bg-transparent hover:text-white hover:font-bold duration-300 m-3 hover:bg-AteneoBlue-400 focus:bg-AteneoBlue-500 inline-block text-sm text-white align-baseline py-2.5 w-full rounded bg-AteneoBlue-500 text-center focus:text-white"
@@ -307,7 +319,6 @@ const Signup = () => {
                 {/* <ToastContainer /> */}
               </div>
             </div>
-
             <div class="relative group">
               <img
                 src={img}
