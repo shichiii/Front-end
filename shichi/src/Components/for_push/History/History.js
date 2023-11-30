@@ -2,7 +2,30 @@ import React from "react";
 import { info } from "./Data";
 import { FaImage } from "react-icons/fa6";
 import { MdDriveFileRenameOutline } from "react-icons/md";
+import axios from 'axios';
 const History = () => {
+  const token = localStorage.getItem("token");
+  axios.get('http://185.157.245.99:8000/history/customhistories',
+  {
+    headers: {
+      Authorization: `JWT ${token}`,
+      "Content-Type": "application/json",
+    },
+  })
+  .then((response) => {
+    // Handle the response data
+    const data = response.data;
+    console.log(data);
+
+    // Process the data and update your application state accordingly
+    // ...
+  })
+  .catch((error) => {
+    // Handle any errors that occur during the request
+    console.error('Error fetching data:', error);
+  });
+
+
   return (
     <div className="bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal ">
       <div className="overflow-hidden rounded-lg p-10">
