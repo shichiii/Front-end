@@ -42,23 +42,64 @@ const Img = () => {
     const files = event.target.files;
   
     if (files) {
-      const newImages = Array.from(files).map((file) => {
-        const reader = new FileReader();
+      const newImages = Array.from(files).map((file, index) => {
         return new Promise((resolve) => {
+          const reader = new FileReader();
           reader.onloadend = () => {
-            resolve({ image: reader.result });
+            resolve({ image: reader.result, number: index + 1 });
           };
           reader.readAsDataURL(file);
         });
       });
   
       Promise.all(newImages).then((images) => {
+        const updatedImages = [
+          ...selectedImages,
+          ...images.map((img) => ({
+            image: img.image,
+            number: img.number
+          }))
+        ];
+  
         if (selectedImages.length === 0) {
-          setSelectedImage(images[0].image);
+          setSelectedImage(updatedImages[0].image);
         }
-        setSelectedImages([...selectedImages, ...images.map((img) => img.image)]);
+  
+        setSelectedImages(updatedImages);
+  
+        const formData = new FormData();
+        updatedImages.forEach((img) => {
+          const file = dataURLtoFile(img.image, `image${img.number}`);
+          formData.append('image', file);
+          formData.append('index', img.number);
+        });
+  
+        axios
+          .post('http://185.157.245.99:8000/carimage/create/', formData)
+          .then((response) => {
+            console.log('Images uploaded successfully:', response.data);
+          })
+          .catch((error) => {
+            console.error('Error uploading images:', error);
+          });
       });
     }
+  };
+  
+  // Helper function to convert base64 data URL to a File object
+  const dataURLtoFile = (dataURL, filename) => {
+    const arr = dataURL.split(',');
+    const mime = arr[0].match(/:(.*?);/)[1];
+    const extension = mime.split('/')[1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    const file = new File([u8arr], `${filename}.${extension}`, { type: mime });
+  
+    return file;
   };
 
 
@@ -209,13 +250,16 @@ const handleenddate = (event) => {
   const latitude = localStorage.getItem('latitude');
   const longitude = localStorage.getItem('longitude');
 
+
   //handle submit function
   const handleSubmit = async () => {
     try {
       const formattedstartdate = formatDate(startdate);
       const formattedenddate = formatDate(enddate);
       const formData = new FormData();
-  
+      formData.append('location_geo_width',latitude );
+      formData.append('location_geo_length', longitude);
+      formData.append('location_state',cityValue);
       formData.append('start_date', formattedstartdate);
       formData.append('end_date', formattedenddate);
       formData.append('price', price);
@@ -284,7 +328,7 @@ const handleenddate = (event) => {
                 <div key={index} className="relative">
                   <img
                     className="rounded-xl"
-                    src={image}
+                    src={image.image}
                     alt={`Selected avatar ${index + 1}`}
                   />
                   <Button
