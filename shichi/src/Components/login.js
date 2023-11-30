@@ -9,10 +9,13 @@ import axios from "axios";
 import logo from "../Static/whitelogowithouttext90.svg";
 import logo2 from "../Static/whitelogowithouttext270.svg";
 import { BsPatchExclamation } from "react-icons/bs";
+import { useContext } from "react";
+import AuthContext from "../Context/AuthContext";
 const Login = () => {
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setpassword] = useState("");
   const [emailAddressError, setEmailAddressError] = useState(false);
+  const {authTokens, setAuthTokens} = useContext(AuthContext)
 
   const validEmailAddress = new RegExp(
     /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
@@ -50,8 +53,9 @@ const Login = () => {
           },
         }
       );
+      setAuthTokens(response.data.access);
       navigate("/home");
-      // localStorage.setItem('accessTokenCustomer',res.data.access);
+
       console.log(response.data);
       // console.log(localStorage.setItem('accessTokenCustomer',res.data.access));
     } catch (error) {

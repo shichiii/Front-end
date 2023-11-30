@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from "react-router-dom";
 import Landing from "./Components/for_push/Landing/LandingApp";
 import Home from "./Components/for_push/HomePage/HomePageApp";
 import History from "./Components/for_push/History/HistoryApp";
@@ -10,82 +10,99 @@ import Wallet from "./Components/Wallet/WalletApp";
 import './App.css';
 // import React from "react";
 // import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
-import './App.css';
 // import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Advertisement from './Components/Advertisement_selection/AdvertisementApp'
 import ForgotApp from "./Components/for_push/ForgotPass/ForgotApp";
 import Login from './Components/login';
 import Signup from './Components/signup';
 import Addacr from './Components/addcar/Img'
+import AuthContext, { AuthProvider } from "./Context/AuthContext";
 
-const ProtectedRoute = ({ element }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+const PrivateRoute = ({ element }) => {
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
 
 
   // useEffect to check the user's authentication status, adjust accordingly
-  useEffect(() => {
-    // Your authentication logic here to set isLoggedIn
-    // For example, you might check if the user has a valid token
-    // Set setIsLoggedIn(true) if the user is authenticated
-    const accessToken = localStorage.getItem("token");
-    setIsLoggedIn(accessToken !== null);
-  }, []);
+  // useEffect(() => {
+  //   // Your authentication logic here to set isLoggedIn
+  //   // For example, you might check if the user has a valid token
+  //   // Set setIsLoggedIn(true) if the user is authenticated
+  //   const accessToken = localStorage.getItem("token");
+  //   console.log(accessToken);
+  //   setIsLoggedIn(accessToken !== null);
+  // }, []);
+  const {authTokens, setAuthTokens} = useContext(AuthContext)
 
-  return isLoggedIn ? element : <Navigate to="/" />;
+
+  return authTokens ? <Outlet /> : <Navigate to="/" />;
 };
 
+// const PrivateRoute = () => {
+//   const user = useContext(AuthContext)?.user;
+//   return user ? <Outlet /> : <Navigate to="/login" />;
+// };
 
 
 function App() {
   return (
     <Router>
+    <AuthProvider>
       <Routes>
 
 
-
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
-
-        <Route exact path="/" element={<Landing />} />
-        <Route exact path="/home" element={<Home />} />
-        <Route exact path="/history" element={<History />} />
-        <Route exact path="/car/:id" element={<CarInfoPage />} />
-        <Route exact path="/profile/:id" element={<ProfilePage />} />
+        <Route element={<PrivateRoute />}>
+          <Route exact path="/home" element={<Home />} />
+          <Route exact path="/history" element={<History />} />
+          <Route exact path="/car/:id" element={<CarInfoPage />} />
+          <Route exact path="/profile/:id" element={<ProfilePage />} />
 
 
-      <Route exact path='/Advertisement' element={<Advertisement/>} />
-      <Route exact path='/forgot' element={<ForgotApp/>} />
-      <Route exact path='/advertise' element={<Addacr/>} />
-    
-      
-
-      <Route exact path='/wallet' element={<Wallet />} />
-
-      <Route exact path='/Advertisement' element={<Advertisement/>} />
-      <Route exact path="/" element={<Landing />} />
-      <Route exact path='/home' element={<Home />} />
+          <Route exact path='/Advertisement' element={<Advertisement />} />
+          <Route exact path='/forgot' element={<ForgotApp />} />
+          <Route exact path='/advertise' element={<Addacr />} />
 
 
 
-
+          <Route exact path='/wallet' element={<Wallet />} />
+        </Route>
+        
 
 
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path='/forgot' element={<ForgotApp />} />
-        <Route path='/' element={<Landing />} />
 
-        <Route path="/home" element={<ProtectedRoute element={<Home />} />} />
+        <Route exact path="/" element={<Landing />} />
+
+        {/* <Route exact path='/Advertisement' element={<Advertisement />} />
+        <Route exact path="/" element={<Landing />} />
+      <Route exact path='/home' element={<Home />} /> */}
+
+
+
+
+
+
+        {/* <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path='/forgot' element={<ForgotApp />} />
+      <Route path='/' element={<Landing />} /> */}
+
+        {/* <Route path="/home" element={<ProtectedRoute element={<Home />} />} />
         <Route path="/history" element={<ProtectedRoute element={<History />} />} />
         <Route path="/car/:id" element={<ProtectedRoute element={<CarInfoPage />} />} />
         <Route path="/profile/:id" element={<ProtectedRoute element={<ProfilePage />} />} />
         <Route path='/Advertisement' element={<ProtectedRoute element={<Advertisement />} />} />
-        <Route path='/wallet' element={<ProtectedRoute element={<Wallet />} />} />
+      <Route path='/wallet' element={<ProtectedRoute element={<Wallet />} />} /> */}
 
       </Routes>
+      </AuthProvider>
     </Router>
   );
 }
 
 export default App;
+
+
+
