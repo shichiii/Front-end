@@ -39,7 +39,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = localStorage.getItem("token");
+    
     try {
       const response = await axios.post(
         "http://185.157.245.99:8000/user/login/",
@@ -49,13 +49,15 @@ const Login = () => {
         },
         {
           headers: {
-            Authorization: `JWT ${token}`,
             "Content-Type": "application/json",
           },
         }
       );
+      const token = response.data.token;
+      localStorage.setItem("token", token);
       navigate("/home");
       console.log(response.data);
+      console.log(token);
     } catch (error) {
       console.error(error);
     }
