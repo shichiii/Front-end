@@ -1,4 +1,13 @@
 
+import React, { useState, useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+
+
 
 import ResetPass from "./Components/for_push/ForgotPass/ResetPass";
 
@@ -17,15 +26,19 @@ import Loading from './Components/loading';
 import Fail from './Components/fail'
 
 import Wallet from "./Components/Wallet/WalletApp";
+
+import Advertisement from "./Components/Advertisement_selection/AdvertisementApp";
+
 //import logo from './logo.svg';
 import './App.css';
 // import React from "react";
 // import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 // import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Advertisement from './Components/Advertisement_selection/AdvertisementApp'
+
 import ForgotApp from "./Components/for_push/ForgotPass/ForgotApp";
-import Login from './Components/login';
-import Signup from './Components/signup';
+import Login from "./Components/login";
+import Signup from "./Components/signup";
 
 import Img from './Components/addcar/Img';
 
@@ -38,6 +51,11 @@ const PrivateRoute = ({ element }) => {
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
 
+// <<<<<<< feature/v1.0.0/CarImageSlider
+// function App() {
+//   const [isLoggedIn, setIsLoggedIn] = useState(true);
+// =======
+// >>>>>>> Develop
 
   // useEffect to check the user's authentication status, adjust accordingly
   // useEffect(() => {
@@ -82,6 +100,7 @@ function App() {
 
 
           <Route exact path='/wallet' element={<Wallet />} />
+                     <Route exact path='/advertise' element={<Img/>} />
         </Route>
         
 
@@ -89,8 +108,9 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
 
+
         <Route exact path="/" element={<Landing />} />
-         <Route exact path='/advertise' element={<Img/>} />
+
 
         {/* <Route exact path='/Advertisement' element={<Advertisement />} />
         <Route exact path="/" element={<Landing />} />
@@ -131,6 +151,7 @@ function App() {
         <Route path="/profile/:id" element={<ProtectedRoute element={<ProfilePage />} />} />
         <Route path='/Advertisement' element={<ProtectedRoute element={<Advertisement />} />} />
       <Route path='/wallet' element={<ProtectedRoute element={<Wallet />} />} /> */}
+
 
       </Routes>
       </AuthProvider>

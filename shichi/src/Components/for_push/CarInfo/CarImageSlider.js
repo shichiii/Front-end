@@ -30,10 +30,19 @@ const slideImages = [
   },
 ];
 
-function CarImageSlider() {
+function CarImageSlider({ images }) {
   return (
     <div className="slide-container bg-pallate-Dark_Sky_Blue bg-opacity-30 lg:bg-opacity-20 w-[1215px] rounded-2xl p-5">
       <Slide>
+        {/* {images.map((image, index) => (
+          <div key={index}>
+            <img
+              src={image}
+              alt="ssdf"
+              class="w-auto mx-auto rounded-2xl h-[500px]"
+            />
+          </div>
+        ))} */}
         {slideImages.map((slideImage, index) => (
           <div key={index}>
             <img

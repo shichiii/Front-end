@@ -35,7 +35,7 @@ function CarInfoPage() {
             <CarDropOffLocation car={car} />
           </div>
           <CarInfo adv={adv.id} car={car} />
-          <CarImageSlider />
+          <CarImageSlider images={car.car_images} />
           {/* <CarOptionalExtras /> */}
           <BookCar adv={adv.id} />
           <AddComment adv={adv.id} setRefreshComment={setRefreshComment} />
