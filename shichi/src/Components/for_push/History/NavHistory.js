@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../HomePage/NavBar";
-import HistoryMainPage from "./HistoryMainPage";
+import { TbHistoryToggle } from "react-icons/tb";
+
 const NavHistory = () => {
   const [isAdvertisementClicked, setIsAdvertisementClicked] = useState(true);
   const [isRentalClicked, setIsRentalClicked] = useState(false);
@@ -29,7 +30,7 @@ const NavHistory = () => {
             isAdvertisementClicked ? 'border-b-4 border-white' : ''
           }`}
         >
-          Advertisement History
+          <TbHistoryToggle className="m-1"/>Advertisement History
         </div>
         <div
           onClick={handleRentalClick}
@@ -37,7 +38,7 @@ const NavHistory = () => {
             isRentalClicked ? 'border-b-4 border-white' : ''
           }`}
         >
-          Rental History
+         <TbHistoryToggle className="m-1"/> Rental History
         </div>
       </div>
     

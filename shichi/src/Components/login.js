@@ -1,64 +1,275 @@
+import img from "../Static/Frame.svg";
 import React from "react";
-import axios from "axios";
-import '../Styles/for_push/login.css';
-import { useState} from "react";
+import { BsPersonFill } from "react-icons/bs";
+import { HiLockClosed } from "react-icons/hi";
+import { BsEnvelopeFill } from "react-icons/bs";
+import { Link } from "react-router-dom";
+
+import { useEffect, useState } from "react";
+
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import logo from "../Static/whitelogowithouttext90.svg";
+import logo2 from "../Static/whitelogowithouttext270.svg";
 
-function  Login(){
-  const [emailAddress , setEmailAddress] = useState("");
-  const [password , setpassword] = useState("");
+// import { ToastContainer, toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
 
+
+import { BsPatchExclamation } from "react-icons/bs";
+import { useContext } from "react";
+import AuthContext from "../Context/AuthContext";
+
+const Login = () => {
+  const [emailAddress, setEmailAddress] = useState("");
+  const [password, setpassword] = useState("");
+  const [emailAddressError, setEmailAddressError] = useState(false);
+
+  const {authTokens, setAuthTokens} = useContext(AuthContext)
+
+
+  const validEmailAddress = new RegExp(
+    /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+  );
 
   const handleEmail = (event) => {
-    setEmailAddress(event.target.value);
-  }
+    if (event.target.value === "") {
+      setEmailAddressError("Please enter email");
+    } else if (!validEmailAddress.test(event.target.value)) {
+      setEmailAddressError("Invalid email");
+    } else {
+      setEmailAddressError(false);
+      setEmailAddress(event.target.value);
+    }
+  };
+
   const handlePassword = (event) => {
     setpassword(event.target.value);
-  }
+  };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://185.157.245.99:8000/user/login/",
+        {
+          email: emailAddress,
+          password: password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+// <<<<<<< feature/v1.0.0/NewAddAdvertise
+//       const token = response.data.access;
+//       localStorage.setItem("token", token);
+// =======
+
+//       navigate("/home");
+//       console.log(response.data);
+
+      setAuthTokens(response.data.access);
+
+      navigate("/home");
+
+      // console.log(response.data);
+      // console.log('login token',token);
+      // console.log(localStorage.setItem('accessTokenCustomer',res.data.access));
+
+    } catch (error) {
+      console.error(error);
+    }
+  };
   let navigate = useNavigate();
+// <<<<<<< feature/v1.0.0/newloginsignup
+  const [isLargeScreen, setIsLargeScreen] = useState(true);
 
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth > 768);
+    };
 
-    return(
-        <div class="min-h-screen bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal py-6 flex flex-col justify-center sm:py-12">
-  <div class="relative py-3 sm:max-w-xl sm:mx-auto">
-    <div
-      class="absolute inset-0 bg-pallate-Dark_Sky_Blue shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl">
-    </div>
-    <div class="relative px-4 py-10 bg-pallate-Police_Blue shadow-lg sm:rounded-3xl sm:p-20">
+    window.addEventListener("resize", checkScreenSize);
 
-      <div class="max-w-md mx-auto">
-        <div>
-          <h1 class="text-2xl text-white font-semibold">Login</h1>
-        </div>
-        <div class="divide-y divide-gray-200">
-          <div class="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
-            <div class="relative">
-              <input autocomplete="off" id="email" name="email" type="text" class="rounded-md peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="Email address" onChange={handleEmail}/>
-              <label for="email" class=" absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-6 peer-focus:text-gray-600 peer-focus:text-sm ">Email Address</label>
+    checkScreenSize();
+
+    return () => {
+      window.removeEventListener("resize", checkScreenSize);
+    };
+  }, []);
+  return (
+    <div>
+      <body>
+        <div class="flex items-center justify-center min-h-screen bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal">
+          <div class="relative flex flex-col  bg-transparent  md:bg-pallate-Dark_Sky_Blue md:bg-opacity-20  shadow-2xl rounded-2xl md:flex-row md:space-y-0">
+            <div class="flex flex-col justify-center   bg-pallate-Dark_Sky_Blue md:bg-opacity-20 md:bg-purple-300 bg-opacity-20 rounded-2xl border-pallate-Dark_Sky_Blue p-8 md:p-14">
+              <div className="text-[40px] font-mono font-normal text-center text-white">
+                LogIn
+              </div>
+
+              <div className="text-[30px] text-white font-mono font-normal text-center">
+                <form className="w-full max-w-sm pt-8">
+                  <div className="flex items-center border-b border-pallate-Dark_Sky_Blue py-2">
+                    <BsEnvelopeFill className="mr-1" />
+                    <div className="group flex ">
+                      <span className="w-60 scale-0 rounded-md   absolute bg-pallate-Dark_Sky_Blue opacity-90  text-xs text-black group-hover:scale-100">
+                        {emailAddressError && (
+                          <span className="text-red-500 text-xs font-bold w-[700px] neon-button-remove">
+                            {emailAddressError}
+                          </span>
+                        )}
+                      </span>
+                      {emailAddressError && (
+                        <BsPatchExclamation className="ml-2 text-red-500" />
+                      )}
+                    </div>
+                    <input
+                      id="email"
+                      name="email"
+                      className="appearance-none text-sm text-white bg-transparent border-none w-full py-1 px-2 leading-tight focus:outline-none bg-pallate-celeste_light text-start" // Added text-center to center the text
+                      type="email"
+                      placeholder="Email"
+                      onChange={handleEmail}
+                      autoComplete="off"
+                    />
+                  </div>
+                  <div className="flex items-center border-b border-pallate-Dark_Sky_Blue py-2">
+                    <HiLockClosed className="mr-1" />
+                    <input
+                      id="password"
+                      name="password"
+                      className="appearance-none text-sm text-white bg-transparent border-none w-full  py-1 px-2 leading-tight focus:outline-none bg-pallate-celeste_light text-start" // Added text-center to center the text
+                      type="password"
+                      placeholder="Password"
+                      onChange={handlePassword}
+                      autoComplete="off"
+                    />
+                  </div>
+                </form>
+                <div>
+                  <Link
+                    to="/forgot"
+                    className="hover:bg-transparent hover:text-white hover:font-bold duration-300 m-3 hover:bg-AteneoBlue-400 focus:bg-AteneoBlue-500 inline-block text-sm text-white align-baseline py-2.5 w-full rounded bg-AteneoBlue-500 text-center focus:text-white"
+                  >
+                    forgot password?
+                  </Link>
+
+                  <button
+                    disabled={
+                      emailAddressError ||
+                      emailAddress.length === 0 ||
+                      password.length === 0
+                    }
+                    onClick={handleSubmit}
+                    className="bg-pallate-Dark_Sky_Blue hover:bg-transparent hover:text-pallate-Dark_Sky_Blue duration-300 w-full text-[20px] hover.text-pallate-Dark_Sky_Blue  text-white font-mono px-10 py-1 rounded-[400px]"
+                  >
+                    Login
+                  </button>
+                </div>
+              </div>
             </div>
-            <div class="relative">
-              <input autocomplete="off" id="password" name="password" type="password" class="rounded-md peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="Password"   onChange={handlePassword}/>
-              <label for="password" class="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-4.5 peer-focus:text-gray-600 peer-focus:text-sm">Password</label>
-            </div>
-            <div class="relative">
-              <button class="bg-pallate-Dark_Sky_Blue font-medium w-full text-white rounded-md px-2 py-1" 
-              onClick={()=> navigate("/home")}
-              >Submit</button>
-            </div>
-            <div onClick={()=> navigate("/forgot")} className="text-white text-sm text-center hover:text-pallate-Dark_Sky_Blue cursor-pointer">
-              forgot password?
+
+            <div class="relative group">
+              <img
+                src={img}
+                alt="img"
+                class="w-[500px]  h-full hidden rounded-r-2xl md:block transform group-hover:-translate-y-5 2xl:group-hover:-translate-y-5 transition-all duration-1000 lg:duration-700 ease-in-out"
+              />
+
+              {isLargeScreen && (
+                <div class="absolute bottom-10 right-6 p-6 bg-opacity-0 bg-purple-400 group-hover:bg-opacity-20 2xl:group-hover:backdrop-blur-sm  drop-shadow-lg md:block rounded-lg group-hover:-translate-y-16 2xl:group-hover:-translate-x-12 transition-all duration-1000 lg:duration-700 ease-in-out">
+                  <span class="text-white text-xl opacity-0 group-hover:opacity-100">
+                    You can confidently rent out
+                    <br />
+                    your car or rent the car of your choice. <br />
+                    Just trust Shichi and get started.
+                  </span>
+                </div>
+              )}
             </div>
           </div>
         </div>
-      </div>
+      </body>
+{/* // ======= */}
 
+{/* //   return (
+//     <div className="bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal">
+//       <div className="flex items-center justify-center h-screen">
+//         <img src={logo} alt="My Logo" class="w-6 mt-52 " />
+//         <div className="max-w-[450px] mima  rounded-2xl h-[420px] justify-center neon-button text-3xl  font-bold font-mono text-white w-full text-center flex flex-col bg-pallate-Dark_Sky_Blue bg-opacity-30 lg:bg-opacity-20">
+//           <div>LogIn</div>
+//           <div className="text-[30px] font-mono font-normal text-center">
+//             <form className="w-full max-w-sm pt-8">
+//               <div className="flex items-center border-b border-pallate-Dark_Sky_Blue py-2">
+//                 <BsEnvelopeFill className="mr-1" />
+//                 <div className="group flex ">
+//                   <span className="w-60 scale-0 rounded-md  h-8  absolute bg-pallate-Dark_Sky_Blue opacity-90  text-xs text-black group-hover:scale-100">
+//                     {emailAddressError && (
+//                       <span className="text-blue-600 text-xs font-bold w-[700px] neon-button-remove">
+//                         {emailAddressError}
+//                       </span>
+//                     )}
+//                   </span>
+//                   {emailAddressError && (
+//                     <BsPatchExclamation className="ml-2 text-red-500" />
+//                   )}
+//                 </div>
+//                 <input
+//                   id="email"
+//                   name="email"
+//                   className="appearance-none text-sm text-white bg-transparent border-none w-full py-1 px-2 leading-tight focus:outline-none bg-pallate-celeste_light text-end" // Added text-center to center the text
+//                   type="email"
+//                   placeholder="Email"
+//                   onChange={handleEmail}
+//                   autoComplete="off"
+//                 />
+//               </div>
+//               <div className="flex items-center border-b border-pallate-Dark_Sky_Blue py-2">
+//                 <HiLockClosed className="mr-1" />
+//                 <input
+//                   id="password"
+//                   name="password"
+//                   className="appearance-none text-sm text-white bg-transparent border-none w-full  py-1 px-2 leading-tight focus:outline-none bg-pallate-celeste_light text-end" // Added text-center to center the text
+//                   type="password"
+//                   placeholder="Password"
+//                   onChange={handlePassword}
+//                   autoComplete="off"
+//                 />
+//               </div>
+//             </form>
+//             <div>
+//               <Link
+//                 to="/forgot"
+//                 className="hover:bg-transparent hover:text-white hover:font-bold duration-300 m-3 hover:bg-AteneoBlue-400 focus:bg-AteneoBlue-500 inline-block text-sm text-white align-baseline py-2.5 w-full rounded bg-AteneoBlue-500 text-center focus:text-white"
+//               >
+//                 forgot password?
+//               </Link>
 
-
+//               <button
+//                 disabled={
+//                   emailAddressError ||
+//                   emailAddress.length === 0 ||
+//                   password.length === 0
+//                 }
+//                 onClick={handleSubmit}
+//                 className="bg-pallate-Dark_Sky_Blue hover:bg-transparent hover:text-pallate-Dark_Sky_Blue duration-300 w-full text-[20px] hover.text-pallate-Dark_Sky_Blue  text-white font-mono px-10 py-1 rounded-[400px]"
+//               >
+//                 Login
+//               </button>
+//             </div>
+//           </div>
+//         </div>
+//         <div className="grid">
+//           {" "}
+//           <img src={logo2} alt="My Logo" class="w-6 mb-16" />
+//           <img src={logo2} alt="My Logo" class="w-6 mb-16" />
+//         </div>
+//       </div>
+// >>>>>>> Develop */}
     </div>
-  </div>
-</div>
+  );
+};
 
-    )
-}
 export default Login;

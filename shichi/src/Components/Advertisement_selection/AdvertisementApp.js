@@ -1,14 +1,18 @@
 import React from 'react'
-import NavAdvertisement from './NavAdvertisement.js'
-import AdvertisementCard from './AdvertisementCard'
-
-const AdvertisementApp = () => {
+import Navbar from '../for_push/HomePage/NavBar'
+import Footer from '../for_push/HomePage/Footer'
+import CardApp from './CardApp'
+const AdvertisementAppFinal = () => {
   return (
-    <div className='bg-cyan-800'>
-        <NavAdvertisement/>
-        <AdvertisementCard/>
+    <div>
+      <Navbar/>
+      <CardApp />
+      
+        <Footer/>
+      
+      {/* <Footer/> */}
     </div>
   )
 }
 
-export default AdvertisementApp
+export default AdvertisementAppFinal

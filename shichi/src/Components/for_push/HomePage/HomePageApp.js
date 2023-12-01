@@ -5,7 +5,10 @@ import Hero from './Hero'
 import Banner from './Banner'
 import Footer from './Footer'
 import Search from './Search'
-
+import Process from './Process'
+import BannerCategory2 from './BannerCategory2'
+import BannerCategory from './BannerCategory'
+import BannerCategory1 from './BannerCategory1'
 const HomePageApp = () => {
   return (
     <div >
@@ -14,8 +17,13 @@ const HomePageApp = () => {
        
         <Hero/> 
         <Banner/>
-        {/* <Analys/> */}
-      <Search/>
+        <Process/>
+        <Search/>
+        <BannerCategory2/>
+        <BannerCategory/>
+        <BannerCategory1/>
+        
+     
         <Footer/>
       
       

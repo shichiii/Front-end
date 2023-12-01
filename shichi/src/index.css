@@ -43,3 +43,11 @@ code {
 :global(.leaflet-popup-content-wrapper) {
   border-left: 5px solid var(--color-brand--2);
 }
+
+
+img {
+  content: attr(alt); /* Display alt text instead of the image */
+  /* Additional styles to control the appearance of the alt text */
+  /* For example, you can set font size, color, etc. */
+  font-size: 30px;
+}
