@@ -26,8 +26,12 @@ import Advertisement from './Components/Advertisement_selection/AdvertisementApp
 import ForgotApp from "./Components/for_push/ForgotPass/ForgotApp";
 import Login from './Components/login';
 import Signup from './Components/signup';
+
+import Img from './Components/addcar/Img';
+
 import Addacr from './Components/addcar/Img'
 import AuthContext, { AuthProvider } from "./Context/AuthContext";
+
 
 
 const PrivateRoute = ({ element }) => {
@@ -86,6 +90,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
 
         <Route exact path="/" element={<Landing />} />
+         <Route exact path='/advertise' element={<Img/>} />
 
         {/* <Route exact path='/Advertisement' element={<Advertisement />} />
         <Route exact path="/" element={<Landing />} />
@@ -96,6 +101,12 @@ function App() {
         <Route exact path="/profile/:id" element={<ProfilePage />} />
       <Route exact path='/Advertisement' element={<Advertisement/>} />
       <Route exact path='/forgot' element={<ForgotApp/>} />
+
+      <Route exact path='/advertise' element={<Img/>} />
+    
+      
+
+
       <Route exact path='/wallet' element={<Wallet />} />
       <Route exact path='/fail' element={<Fail />} />
       <Route exact path='/success' element={<Loading />} />

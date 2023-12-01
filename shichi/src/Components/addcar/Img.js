@@ -40,25 +40,80 @@ const Img = () => {
 
   const handleImageChange = (event) => {
     const files = event.target.files;
-  
+    const token = localStorage.getItem("token");
     if (files) {
-      const newImages = Array.from(files).map((file) => {
-        const reader = new FileReader();
+      const newImages = Array.from(files).map((file, index) => {
         return new Promise((resolve) => {
+          const reader = new FileReader();
           reader.onloadend = () => {
-            resolve({ image: reader.result });
+            resolve({ image: reader.result, number: index + 1 });
           };
           reader.readAsDataURL(file);
         });
       });
   
       Promise.all(newImages).then((images) => {
+        const updatedImages = [
+          ...selectedImages,
+          ...images.map((img) => ({
+            image: img.image,
+            number: img.number,
+          })),
+        ];
+  
         if (selectedImages.length === 0) {
-          setSelectedImage(images[0].image);
+          setSelectedImage(updatedImages[0].image);
         }
-        setSelectedImages([...selectedImages, ...images.map((img) => img.image)]);
+  
+        setSelectedImages(updatedImages);
+  
+        const formData = new FormData();
+        updatedImages.forEach((img) => {
+          const file = dataURLtoFile(img.image, `image${img.number}`);
+          formData.append("image", file);
+          formData.append("index", img.number);
+        });
+  
+        axios
+          .post("http://185.157.245.99:8000/carimage/create/", formData, {
+            headers: {
+              Authorization: `JWT ${token}`,
+            },
+          })
+          .then((response) => {
+            console.log("Images uploaded successfully:", response.data);
+          })
+          .catch((error) => {
+            console.error("Error uploading images:", error);
+          });
       });
     }
+  };
+  const handleFormSubmit = () => {
+    const token = localStorage.getItem("token");
+    // Add any validation or checks here before calling handleSubmit
+  
+    const files = document.getElementById("fileInput").files;
+    if (files.length > 0) {
+      handleImageChange({ target: { files } });
+    }
+  };
+  
+  
+  // Helper function to convert base64 data URL to a File object
+  const dataURLtoFile = (dataURL, filename) => {
+    const arr = dataURL.split(',');
+    const mime = arr[0].match(/:(.*?);/)[1];
+    const extension = mime.split('/')[1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    const file = new File([u8arr], `${filename}.${extension}`, { type: mime });
+  
+    return file;
   };
 
 
@@ -173,9 +228,6 @@ const handleenddate = (event) => {
 
   setEnddate(formattedDate);
 };
-
-
-
   const handleCityChange = (event) => {
     setCityValue(event.target.value);
   };
@@ -208,35 +260,39 @@ const handleenddate = (event) => {
     const [year, month, day] = date.split('-');
     return `${year}-${padZero(month)}-${padZero(day)}`;
   }
-  //id of the location
-  const [id, setId] = useState("");
+  // location data
+  const latitude = localStorage.getItem('latitude');
+  const longitude = localStorage.getItem('longitude');
+  //get image data
+  const [lastId, setLastId] = useState(null);
   useEffect(() => {
-    const getData = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get('http://185.157.245.99:8000/location/list/'); 
+        const response = await fetch('http://185.157.245.99:8000/carimage/list/');
+        const data = await response.json();
+        const lastItem = data[data.length - 1]; 
 
-        const lastObject = response.data[response.data.length - 1];
-
-        // Extract the ID value from the last object
-        setId(lastObject.id);
-        console.log('ID:', id);
+        setLastId(lastItem.id);
       } catch (error) {
-        console.error('Error:', error);
+        console.error('Error fetching data:', error);
       }
     };
 
-    getData();
+    fetchData();
   }, []);
-  
   //handle submit function
-  const handleSubmit = async () => {
+  const handleSubmit = async (id) => {
+    const token = localStorage.getItem("token");
     try {
       const formattedstartdate = formatDate(startdate);
       const formattedenddate = formatDate(enddate);
       const formData = new FormData();
-  
-      formData.append('car_image2', selectedImage);
-      formData.append('location', id);
+      formData.append('owner_id',18);
+      formData.append('car_images', lastId);
+      console.log('id', lastId);
+      formData.append('location_geo_width',latitude );
+      formData.append('location_geo_length', longitude);
+      formData.append('location_state',cityValue);
       formData.append('start_date', formattedstartdate);
       formData.append('end_date', formattedenddate);
       formData.append('price', price);
@@ -253,16 +309,20 @@ const handleenddate = (event) => {
   
       const response = await axios.post('http://185.157.245.99:8000/advertisement/create/', formData, {
         headers: {
+          Authorization: `JWT ${token}`,
           'Content-Type': 'multipart/form-data',
         },
       });
-  
+      console.log(token)
       console.log(response.data);
     } catch (error) {
       // Handle any errors that occurred during the request
       console.error(error);
+      console.log('login token',token);
     }
   };
+
+
   function handleKeyPress(event) {
     const charCode = event.which ? event.which : event.keyCode;
     const input = event.target;
@@ -305,7 +365,7 @@ const handleenddate = (event) => {
                 <div key={index} className="relative">
                   <img
                     className="rounded-xl"
-                    src={image}
+                    src={image.image}
                     alt={`Selected avatar ${index + 1}`}
                   />
                   <Button
