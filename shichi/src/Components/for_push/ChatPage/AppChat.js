@@ -6,31 +6,47 @@ import SingleChat from "./SingleChat";
 import SendMessage from "./SendMessage";
 import axios from "axios";
 
-const BASE = "http://127.0.0.1:8000/chat/messages/2/";
+const BASE = "http://185.157.245.99:8000/chat/messages/1/";
+const authToken =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAxNTMxMTg3LCJpYXQiOjE3MDE0NDQ3ODcsImp0aSI6IjUyZDlkMzQ5OTJiNDQ3NjhiNGM1YTI5NzFiMWNhMDlmIiwidXNlcl9pZCI6Nn0.w6_aG4i_4sI3uJlRLj5hJc8QrN46IIXOQ6vdRq_ZSH4";
 
 function App() {
   const [messages, setMessages] = useState([]);
   const WS_URL = "ws://185.157.245.99:8000/ws/chat/1/";
-  const client = new W3CWebSocket(WS_URL);
-  client.onopen = () => {
-    console.log("WebSocket Client Connected");
-  };
-  client.onmessage = (message) => {
-    const dataFromServer = JSON.parse(message.data);
-    if (dataFromServer) {
-      setMessages([...messages, dataFromServer]);
-    }
-  };
+  const client = new W3CWebSocket(WS_URL, undefined, undefined, {
+    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAxNTMxMTg3LCJpYXQiOjE3MDE0NDQ3ODcsImp0aSI6IjUyZDlkMzQ5OTJiNDQ3NjhiNGM1YTI5NzFiMWNhMDlmIiwidXNlcl9pZCI6Nn0.w6_aG4i_4sI3uJlRLj5hJc8QrN46IIXOQ6vdRq_ZSH4`,
+  });
+  useEffect(function () {
+    client.onopen = () => {
+      console.log("WebSocket Client Connected");
+    };
+
+    client.onmessage = (message) => {
+      const dataFromServer = JSON.parse(message.data);
+      if (dataFromServer) {
+        setMessages((messages) => [...messages, dataFromServer]);
+      }
+    };
+  }, []);
 
   function sendMessageHandler(message) {
     client.send(JSON.stringify({ message: message }));
   }
 
-  // useEffect(() => {
-  //   axios.get(BASE).then((response) => {
-  //     console.log(response.data);
-  //   });
-  // }, []);
+  console.log("messages: ", messages);
+
+  useEffect(function () {
+    async function getMessages() {
+      await axios.get(BASE).then(async (response) => {
+        const ar = [];
+        await response.data.map(async (element) => {
+          ar.push({ message: element.content });
+        });
+        setMessages([...messages, ...ar]);
+      });
+    }
+    getMessages();
+  }, []);
 
   // const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(
   //   WS_URL,
