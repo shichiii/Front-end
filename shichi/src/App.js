@@ -1,4 +1,16 @@
 
+//import logo from './logo.svg';
+import "./App.css";
+import React from "react";
+// import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
+import "./App.css";
+import Login from "./Components/login";
+import Signup from "./Components/signup";
+import NotFound from "./Components/for_push/History/404/notfound";
+import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+
 import React, { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
@@ -15,11 +27,17 @@ import ResetPass from "./Components/for_push/ForgotPass/ResetPass";
 import React, { useState, useEffect, useContext } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from "react-router-dom";
 
+
 import Landing from "./Components/for_push/Landing/LandingApp";
 import Home from "./Components/for_push/HomePage/HomePageApp";
 import History from "./Components/for_push/History/HistoryApp";
 import CarInfoPage from "./page/CarInfoPage";
 import ProfilePage from "./page/ProfilePage";
+
+import Wallet from "./Components/Wallet/WalletApp";
+
+import Advertisement from "./Components/Advertisement_selection/AdvertisementApp";
+
 
 
 import Loading from './Components/loading';
@@ -86,6 +104,7 @@ function App() {
       <Routes>
 
 
+
         <Route element={<PrivateRoute />}>
           <Route exact path="/home" element={<Home />} />
           <Route exact path="/history" element={<History />} />
@@ -101,12 +120,14 @@ function App() {
 
           <Route exact path='/wallet' element={<Wallet />} />
                      <Route exact path='/advertise' element={<Img/>} />
+                               <Route exact path="*" element={<NotFound />}/>
         </Route>
         
 
 
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+
 
 
         <Route exact path="/" element={<Landing />} />
@@ -119,6 +140,7 @@ function App() {
         <Route exact path="/history" element={<History />} />
         <Route exact path="/car/:id" element={<CarInfoPage />} />
         <Route exact path="/profile/:id" element={<ProfilePage />} />
+
       <Route exact path='/Advertisement' element={<Advertisement/>} />
       <Route exact path='/forgot' element={<ForgotApp/>} />
 
@@ -151,6 +173,7 @@ function App() {
         <Route path="/profile/:id" element={<ProtectedRoute element={<ProfilePage />} />} />
         <Route path='/Advertisement' element={<ProtectedRoute element={<Advertisement />} />} />
       <Route path='/wallet' element={<ProtectedRoute element={<Wallet />} />} /> */}
+
 
 
       </Routes>

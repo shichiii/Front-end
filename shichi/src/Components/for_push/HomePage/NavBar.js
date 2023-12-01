@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
+
+import NavWallet from "../../Wallet/NavWallet";
+
 import { Link } from "react-router-dom";  // Import Link from react-router-dom
 
 import logo from "../../../Static/whitelogo.svg";
@@ -82,7 +85,14 @@ const NavBar = () => {
             <li className="p-4">Contact</li>
           </Link>
         </ul>
+
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <NavWallet />
+          <User />
+        </div>
+
         <User Image={image} UserName={user.name} />  {/* Pass the user name to User component */}
+
       </div>
     </div>
   );
