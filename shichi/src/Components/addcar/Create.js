@@ -16,8 +16,8 @@ const ClickableMap = () => {
 
   const handleMarkerClick = () => {
     if (marker) {
-      const latitude = marker.position[0].toFixed(6).toString();
-      const longitude = marker.position[1].toFixed(6).toString();
+      const latitude = marker.position[0].toFixed(6);
+      const longitude = marker.position[1].toFixed(6);
       // localStorage.setItem('latitude', latitude);
       // localStorage.setItem('longitude', longitude);
       const storedlatitude = localStorage.getItem('latitude');

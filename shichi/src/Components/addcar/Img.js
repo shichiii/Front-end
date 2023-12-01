@@ -287,6 +287,7 @@ const handleenddate = (event) => {
       const formattedstartdate = formatDate(startdate);
       const formattedenddate = formatDate(enddate);
       const formData = new FormData();
+      formData.append('owner_id',18);
       formData.append('car_images', lastId);
       console.log('id', lastId);
       formData.append('location_geo_width',latitude );
