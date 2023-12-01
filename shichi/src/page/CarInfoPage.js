@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 import IconChat from "../Components/for_push/ChatPage/IconChat";
+import CarImageSlider from "../Components/for_push/CarInfo/CarImageSlider";
 function CarInfoPage() {
   const adv = useParams();
   const [refreshComment, setRefreshComment] = useState(false);
@@ -28,12 +29,13 @@ function CarInfoPage() {
     <>
       <Navbar />
       <div className="bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal h-full flex justify-center">
-        <div className="flex flex-col justify-center items-center p-5 w-[1200px] gap-5">
+        <div className="flex flex-col justify-center items-center p-5 w-[1200px] gap-5 font-mono text-white">
           <div className="flex flex-row gap-4">
             <CarPickUpLocation car={car} />
             <CarDropOffLocation car={car} />
           </div>
           <CarInfo adv={adv.id} car={car} />
+          <CarImageSlider />
           {/* <CarOptionalExtras /> */}
           <BookCar adv={adv.id} />
           <AddComment adv={adv.id} setRefreshComment={setRefreshComment} />
@@ -43,7 +45,7 @@ function CarInfoPage() {
             setRefreshComment={setRefreshComment}
           />
         </div>
-        <IconChat/>
+        <IconChat />
       </div>
     </>
   );

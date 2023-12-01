@@ -1,11 +1,14 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useContext } from "react";
 import { Route } from "react-router-dom";
+import AuthContext from "../../../Context/AuthContext";
 
-const User = () => {
+const User = ({Image}) => {
   const Menu = ["Edit Profile", "History" , "LogOut"];
   const [open, setOpen] = useState(false);
   const menuRef = useRef();
   const imgRef = useRef();
+  const {authTokens, setAuthTokens, logoutUser} = useContext(AuthContext)
+
   window.addEventListener("click", (e)=>{
     if(e.target !== menuRef.current && e.target !== imgRef.current) {
         setOpen(false);
@@ -16,7 +19,7 @@ const User = () => {
       <img
       ref={imgRef}
       onClick={() => setOpen(!open)}
-        src="https://tecdn.b-cdn.net/img/new/avatars/1.webp"
+        src={Image}
         class="bg-pallate-Gunmetal h-20 w-full cursor-pointer p-2 rounded-full shadow-lg"
         alt="Avatar"
       />
@@ -25,7 +28,12 @@ const User = () => {
           {Menu.map((meno) => (
             <li
             ref={menuRef}
-             onClick={() => setOpen(false)}
+            onClick={() => {
+              if(meno === "LogOut"){
+                logoutUser()
+              }
+              setOpen(false);
+            }}
              className="cursor-pointer hover:bg-pallate-Dark_Sky_Blue p-2 rounded-lg"  key = {meno}>{meno} </li>
           ))}
         </ul>
