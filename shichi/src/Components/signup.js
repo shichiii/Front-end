@@ -48,8 +48,6 @@ const Signup = () => {
           },
         }
       );
-      const token = response.data.token;
-      localStorage.setItem("token", token);
       //alert("hi")
       toast.success("Success Notification !");
       navigate("/login");

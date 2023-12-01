@@ -35,7 +35,6 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = localStorage.getItem("token");
     try {
       const response = await axios.post(
         "http://185.157.245.99:8000/user/login/",
@@ -45,14 +44,16 @@ const Login = () => {
         },
         {
           headers: {
-            Authorization: `JWT ${token}`,
             "Content-Type": "application/json",
           },
         }
       );
+      const token = response.data.access;
+      localStorage.setItem("token", token);
       navigate("/home");
       // localStorage.setItem('accessTokenCustomer',res.data.access);
       console.log(response.data);
+      console.log('login token',token);
       // console.log(localStorage.setItem('accessTokenCustomer',res.data.access));
     } catch (error) {
       console.error(error);

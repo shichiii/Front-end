@@ -40,7 +40,7 @@ const Img = () => {
 
   const handleImageChange = (event) => {
     const files = event.target.files;
-  
+    const token = localStorage.getItem("token");
     if (files) {
       const newImages = Array.from(files).map((file, index) => {
         return new Promise((resolve) => {
@@ -57,8 +57,8 @@ const Img = () => {
           ...selectedImages,
           ...images.map((img) => ({
             image: img.image,
-            number: img.number
-          }))
+            number: img.number,
+          })),
         ];
   
         if (selectedImages.length === 0) {
@@ -70,21 +70,35 @@ const Img = () => {
         const formData = new FormData();
         updatedImages.forEach((img) => {
           const file = dataURLtoFile(img.image, `image${img.number}`);
-          formData.append('image', file);
-          formData.append('index', img.number);
+          formData.append("image", file);
+          formData.append("index", img.number);
         });
   
         axios
-          .post('http://185.157.245.99:8000/carimage/create/', formData)
+          .post("http://185.157.245.99:8000/carimage/create/", formData, {
+            headers: {
+              Authorization: `JWT ${token}`,
+            },
+          })
           .then((response) => {
-            console.log('Images uploaded successfully:', response.data);
+            console.log("Images uploaded successfully:", response.data);
           })
           .catch((error) => {
-            console.error('Error uploading images:', error);
+            console.error("Error uploading images:", error);
           });
       });
     }
   };
+  const handleFormSubmit = () => {
+    const token = localStorage.getItem("token");
+    // Add any validation or checks here before calling handleSubmit
+  
+    const files = document.getElementById("fileInput").files;
+    if (files.length > 0) {
+      handleImageChange({ target: { files } });
+    }
+  };
+  
   
   // Helper function to convert base64 data URL to a File object
   const dataURLtoFile = (dataURL, filename) => {
@@ -249,14 +263,32 @@ const handleenddate = (event) => {
   // location data
   const latitude = localStorage.getItem('latitude');
   const longitude = localStorage.getItem('longitude');
+  //get image data
+  const [lastId, setLastId] = useState(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://185.157.245.99:8000/carimage/list/');
+        const data = await response.json();
+        const lastItem = data[data.length - 1]; 
 
+        setLastId(lastItem.id);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
 
+    fetchData();
+  }, []);
   //handle submit function
-  const handleSubmit = async () => {
+  const handleSubmit = async (id) => {
+    const token = localStorage.getItem("token");
     try {
       const formattedstartdate = formatDate(startdate);
       const formattedenddate = formatDate(enddate);
       const formData = new FormData();
+      formData.append('car_images', lastId);
+      console.log('id', lastId);
       formData.append('location_geo_width',latitude );
       formData.append('location_geo_length', longitude);
       formData.append('location_state',cityValue);
@@ -276,16 +308,20 @@ const handleenddate = (event) => {
   
       const response = await axios.post('http://185.157.245.99:8000/advertisement/create/', formData, {
         headers: {
+          Authorization: `JWT ${token}`,
           'Content-Type': 'multipart/form-data',
         },
       });
-  
+      console.log(token)
       console.log(response.data);
     } catch (error) {
       // Handle any errors that occurred during the request
       console.error(error);
+      console.log('login token',token);
     }
   };
+
+
   function handleKeyPress(event) {
     const charCode = event.which ? event.which : event.keyCode;
     const input = event.target;
