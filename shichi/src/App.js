@@ -1,23 +1,14 @@
 
 //import logo from './logo.svg';
 import "./App.css";
-import React from "react";
 // import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import "./App.css";
 import Login from "./Components/login";
 import Signup from "./Components/signup";
 import NotFound from "./Components/for_push/History/404/notfound";
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 
-import React, { useState, useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
 
 
 
@@ -43,26 +34,22 @@ import Advertisement from "./Components/Advertisement_selection/AdvertisementApp
 import Loading from './Components/loading';
 import Fail from './Components/fail'
 
-import Wallet from "./Components/Wallet/WalletApp";
-
-import Advertisement from "./Components/Advertisement_selection/AdvertisementApp";
+// import  ResetPass from "./Components/for_push/ForgotPass/ResetPass"
 
 //import logo from './logo.svg';
 import './App.css';
 // import React from "react";
 // import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 // import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Advertisement from './Components/Advertisement_selection/AdvertisementApp'
 
 import ForgotApp from "./Components/for_push/ForgotPass/ForgotApp";
-import Login from "./Components/login";
-import Signup from "./Components/signup";
+
 
 import Img from './Components/addcar/Img';
 
 import Addacr from './Components/addcar/Img'
 import AuthContext, { AuthProvider } from "./Context/AuthContext";
-
+// import Loading from './Components'
 
 
 const PrivateRoute = ({ element }) => {
@@ -121,6 +108,9 @@ function App() {
           <Route exact path='/wallet' element={<Wallet />} />
                      <Route exact path='/advertise' element={<Img/>} />
                                <Route exact path="*" element={<NotFound />}/>
+                               <Route exact path='/fail' element={<Fail />} />
+      <Route exact path='/success' element={<Loading />} />
+      <Route exact path='/reset/:token' element={<ResetPass />} />
         </Route>
         
 

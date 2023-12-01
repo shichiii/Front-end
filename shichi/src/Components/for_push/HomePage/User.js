@@ -40,6 +40,22 @@ const User = ({ firstName, lastName, id, avatarPath }) => {
 
   }
 
+  const historyUser = () => {
+    const token = localStorage.getItem("token");
+    let user = null;
+    if (token !== "null" &&  token !== null ) {
+      user = jwtDecode(token); // decode your token here
+    }
+    // console.log("heloooooooooooooooooooooooooo");
+    // console.log(user);
+    // localStorage.setItem('token', token);
+    // dispatch(actions.authSuccess(token, user));
+    // console.log("/////////////////////")
+    // console.log(user)
+    navigate("/history")
+
+  }
+
 
   const [userId, setUserId] = useState(0);
   const [firstname, setFirstN] = useState("");
@@ -144,6 +160,10 @@ const User = ({ firstName, lastName, id, avatarPath }) => {
                 }
                 if (meno === "Edit Profile") {
                   editprofileuser();
+                  // alert("=============")
+                }
+                if (meno === "History") {
+                  historyUser();
                   // alert("=============")
                 }
                 setOpen(false);

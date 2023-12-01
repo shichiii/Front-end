@@ -88,10 +88,9 @@ const NavBar = () => {
 
         <div style={{ display: "flex", alignItems: "center" }}>
           <NavWallet />
-          <User />
+          <User Image={image} UserName={user.name} />  {/* Pass the user name to User component */}
         </div>
 
-        <User Image={image} UserName={user.name} />  {/* Pass the user name to User component */}
 
       </div>
     </div>

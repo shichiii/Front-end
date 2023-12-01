@@ -36,7 +36,7 @@ const Features = () => {
               </button>
             </div>
            
-// =======
+{/* // =======
 // import React, { useState } from 'react';
 // import axios from 'axios';
 // import PropTypes from 'prop-types';
@@ -93,7 +93,7 @@ const Features = () => {
 //               We care about the protection of your data. Read our{' '}
 //               <span className='text-pallate-Dark_Sky_Blue'>Privacy Policy.</span>
 //             </p>
-// >>>>>>> Develop
+// >>>>>>> Develop */}
           </div>
         </div>
       </div>
@@ -103,14 +103,14 @@ const Features = () => {
     </div>
   );
 };
-// <<<<<<< feature/v1.0.0/HomePage
+{/* // <<<<<<< feature/v1.0.0/HomePage */}
 
 export default Features;
-// =======
+{/* // =======
 
 // Search.propTypes = {
 //   history: PropTypes.object.isRequired, // Prop type validation for 'history' object
 // };
 
 // export default Search;
-// >>>>>>> Develop
+// >>>>>>> Develop */}
