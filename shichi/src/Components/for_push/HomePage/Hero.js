@@ -1,9 +1,13 @@
 import React from "react";
 import Typed from "react-typed";
 import car from "../../../Static/ar2-removebg.png";
-
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
+  let navigate = useNavigate();
+  const handleclick = (event) =>{
+    navigate("/advertise");
+  }
   return (
     <div className="text-white bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal pt-32">
       <div className="max-w-[800px]  w-full  mx-auto text-center flex flex-col justify-center">
@@ -27,7 +31,7 @@ const Hero = () => {
         <p className="md:text-2xl text-xl font-bold text-gray-500">
           "You can also rent out your own personal car."
         </p>
-        <button className="bg-pallate-Dark_Sky_Blue w-[200px] rounded-md font-medium my-6 mx-auto py-3 text-black">
+        <button onClick={handleclick} className="bg-pallate-Dark_Sky_Blue w-[200px] rounded-md font-medium my-6 mx-auto py-3 text-black">
           Get Started
         </button>
       </div>
