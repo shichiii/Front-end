@@ -3,6 +3,10 @@ import Navbar from "../Components/for_push/HomePage/NavBar";
 import Input from "../Components/for_push/Profile/Input";
 import ProfileImage from "../Components/for_push/Profile/ProfileImage";
 
+// import Modal from "react-modal";
+// import MyComponent from "../Components/addcar/popup"
+
+
 
 import Modal from "react-modal";
 // import MyComponent from "../Components/addcar/popup";
@@ -11,6 +15,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 // import Modal from "react-modal";
 // import MyComponent from "../Components/addcar/popup"
+
 
 
 
@@ -127,10 +132,14 @@ function ProfilePage() {
           {isLoading ? "Saving..." : "Save Changes"}
         </button>
 
+        {/* <MyComponent/> */}
+
+
    
 
 
         {/* <MyComponent/> */}
+
 
 
       </div>

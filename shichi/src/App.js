@@ -1,10 +1,21 @@
+
+
+import ResetPass from "./Components/for_push/ForgotPass/ResetPass";
+
+
 import React, { useState, useEffect, useContext } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from "react-router-dom";
+
 import Landing from "./Components/for_push/Landing/LandingApp";
 import Home from "./Components/for_push/HomePage/HomePageApp";
 import History from "./Components/for_push/History/HistoryApp";
 import CarInfoPage from "./page/CarInfoPage";
 import ProfilePage from "./page/ProfilePage";
+
+
+import Loading from './Components/loading';
+import Fail from './Components/fail'
+
 import Wallet from "./Components/Wallet/WalletApp";
 //import logo from './logo.svg';
 import './App.css';
@@ -45,6 +56,7 @@ const PrivateRoute = ({ element }) => {
 // };
 
 
+
 function App() {
   return (
     <Router>
@@ -77,7 +89,20 @@ function App() {
 
         {/* <Route exact path='/Advertisement' element={<Advertisement />} />
         <Route exact path="/" element={<Landing />} />
+
+        <Route exact path="/home" element={<Home />} />
+        <Route exact path="/history" element={<History />} />
+        <Route exact path="/car/:id" element={<CarInfoPage />} />
+        <Route exact path="/profile/:id" element={<ProfilePage />} />
+      <Route exact path='/Advertisement' element={<Advertisement/>} />
+      <Route exact path='/forgot' element={<ForgotApp/>} />
+      <Route exact path='/wallet' element={<Wallet />} />
+      <Route exact path='/fail' element={<Fail />} />
+      <Route exact path='/success' element={<Loading />} />
+      <Route exact path='/reset/:token' element={<ResetPass />} />
+
       <Route exact path='/home' element={<Home />} /> */}
+
 
 
 
