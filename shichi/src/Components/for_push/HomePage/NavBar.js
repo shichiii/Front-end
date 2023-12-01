@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
-
+import NavWallet from "../../Wallet/NavWallet";
 import logo from "../../../Static/whitelogo.svg";
 import User from "./User";
 
@@ -39,7 +39,10 @@ const Navbar = () => {
           <li className="p-4 border-b border-gray-600">About</li>
           <li className="p-4">Contact</li>
         </ul>
-        <User />
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <NavWallet />
+          <User />
+        </div>
       </div>
     </div>
   );
