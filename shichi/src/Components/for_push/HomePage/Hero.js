@@ -9,7 +9,7 @@ const Hero = () => {
     navigate("/advertise");
   }
   return (
-    <div className="text-white bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal pt-32">
+    <div className="text-white bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal pt-32 baghbaghooo">
       <div className="max-w-[800px]  w-full  mx-auto text-center flex flex-col justify-center">
         {/* <p className="text-[#00df9a] font-bold p-2">
           Welcome.
@@ -26,7 +26,7 @@ const Hero = () => {
             backSpeed={140}
             loop
           />
-          <img className="h-28" src={car} />
+          <img className="h-28 "id="tours-in-Seasonal" src={car} />
         </div>
         <p className="md:text-2xl text-xl font-bold text-gray-500">
           "You can also rent out your own personal car."
