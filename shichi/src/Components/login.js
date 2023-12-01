@@ -74,8 +74,8 @@ const Login = () => {
 
       navigate("/home");
 
-      console.log(response.data);
-      console.log('login token',token);
+      // console.log(response.data);
+      // console.log('login token',token);
       // console.log(localStorage.setItem('accessTokenCustomer',res.data.access));
 
     } catch (error) {
