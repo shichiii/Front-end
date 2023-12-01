@@ -188,9 +188,9 @@ const Login = () => {
           </div>
         </div>
       </body>
-// =======
+{/* // ======= */}
 
-//   return (
+{/* //   return (
 //     <div className="bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal">
 //       <div className="flex items-center justify-center h-screen">
 //         <img src={logo} alt="My Logo" class="w-6 mt-52 " />
@@ -263,7 +263,7 @@ const Login = () => {
 //           <img src={logo2} alt="My Logo" class="w-6 mb-16" />
 //         </div>
 //       </div>
-// >>>>>>> Develop
+// >>>>>>> Develop */}
     </div>
   );
 };
