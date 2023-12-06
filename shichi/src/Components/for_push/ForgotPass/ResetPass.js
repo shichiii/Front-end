@@ -7,13 +7,12 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Alert, AlertTitle } from '@material-ui/lab';
 
-// import { ToastContainer, toast } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
 
 import { BsPatchExclamation } from "react-icons/bs";
 const ResetPass = () => {
- 
+  const [successMessage, setSuccessMessage] = useState('');
   const [password, setpassword] = useState("");
   const [passwordError, setPasswordError] = useState(false);
   const [passwordLengthError, setPasswordLengthError] = useState(false);
@@ -53,7 +52,10 @@ const ResetPass = () => {
   
     try {
       const response = await axios.post(apiUrl, { new_password: newPassword });
-      navigate("/login");
+      setSuccessMessage('Password Changed successfuly!');
+      setTimeout(() => {
+        navigate('/login');
+      }, 3000);
       // Handle the response as needed
       console.log(response.data);
     } catch (error) {
@@ -213,6 +215,12 @@ const ResetPass = () => {
                   />
                 </div>
               </form>
+              {successMessage && (
+                  <Alert severity="success">
+                    <AlertTitle>Success</AlertTitle>
+                    {successMessage}
+                  </Alert>
+                )}
               <div>
               
               </div>

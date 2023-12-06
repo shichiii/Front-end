@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import logo from "../Static/whitelogowithouttext90.svg";
 import logo2 from "../Static/whitelogowithouttext270.svg";
-
+import { Alert, AlertTitle } from '@material-ui/lab';
 // import { ToastContainer, toast } from "react-toastify";
 // import "react-toastify/dist/ReactToastify.css";
 
@@ -21,6 +21,7 @@ import { useContext } from "react";
 import AuthContext from "../Context/AuthContext";
 
 const Login = () => {
+  const [successMessage, setSuccessMessage] = useState('');
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setpassword] = useState("");
   const [emailAddressError, setEmailAddressError] = useState(false);
@@ -71,8 +72,10 @@ const Login = () => {
 //       console.log(response.data);
 
       setAuthTokens(response.data.access);
-
-      navigate("/home");
+      setSuccessMessage('Login successful!');
+      setTimeout(() => {
+        navigate('/home');
+      }, 3000);
 
       // console.log(response.data);
       // console.log('login token',token);
@@ -148,6 +151,14 @@ const Login = () => {
                     />
                   </div>
                 </form>
+                <div>
+                {successMessage && (
+                  <Alert severity="success">
+                    <AlertTitle>Success</AlertTitle>
+                    {successMessage}
+                  </Alert>
+                )}
+              </div>
                 <div>
                   <Link
                     to="/forgot"
