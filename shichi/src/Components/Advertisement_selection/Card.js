@@ -2,22 +2,59 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 // Assuming your backend API endpoint
-const API_ENDPOINT = "185.157.245.99/swagger/advertisement/list/";
 
-const Card = () => {
+const Card = ({
+  search,
+  price,
+  carCategory,
+  carColor,
+  startDate,
+  endDate,
+  state,
+  category,
+}) => {
+  const API_ENDPOINT = `http://185.157.245.99:8000/advertisement/filter/?${
+    search ? `ordering=${search}` : ""
+  }${price ? `&lower_price=${price}` : ""}${price ? `&upper_price=20` : ""}${
+    carCategory ? `&car_category=${carCategory}` : ""
+  }${carColor ? `&car_color=${carColor}` : ""}${
+    startDate ? `&start_date=${startDate}` : ""
+  }${endDate ? `&end_date=${endDate}` : ""}${state ? `&state=${state}` : ""}${
+    category ? `&category=${category}` : ""
+  }`;
   const [cardData, setCardData] = useState([]);
 
   useEffect(() => {
     // Fetch data from the backend when the component mounts
-    axios
-      .get(API_ENDPOINT)
-      .then((response) => {
-        setCardData(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  }, []); // Empty dependency array means this effect runs once when the component mounts
+    if (
+      search ||
+      price ||
+      carCategory ||
+      carColor ||
+      startDate ||
+      endDate ||
+      state ||
+      category
+    ) {
+      axios
+        .get(API_ENDPOINT)
+        .then((response) => {
+          setCardData(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+        });
+    }
+  }, [
+    search,
+    price,
+    carCategory,
+    carColor,
+    startDate,
+    endDate,
+    state,
+    category,
+  ]); // Empty dependency array means this effect runs once when the component mounts
 
   return (
     <div>
