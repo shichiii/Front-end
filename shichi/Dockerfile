@@ -1,14 +1,21 @@
+
+# CMD ["npm", "start"]
+
 #Stage 1
 FROM node:17-alpine as builder
 WORKDIR /app
 COPY package.json .
 COPY package-lock.json .
-RUN npm install --force
 COPY . .
+RUN npm install --force
 RUN npm run build
 #Stage 2
-FROM nginx:1.24.0
-WORKDIR /usr/share/nginx/html
-RUN rm -rf ./*
-COPY --from=builder /app/build .
+FROM nginx:stable-alpine
+# 
+# RUN rm -rf ./*
+COPY --from=builder /app/build /usr/share/nginx/html
+COPY default.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 3000:80
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
+
