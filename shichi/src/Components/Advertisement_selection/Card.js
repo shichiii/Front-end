@@ -20,7 +20,7 @@ const Card = ({
   }${carColor ? `&car_color=${carColor}` : ""}${
     startDate ? `&start_date=${startDate}` : ""
   }${endDate ? `&end_date=${endDate}` : ""}${state ? `&state=${state}` : ""}${
-    category ? `&category=${category}` : ""
+    category ? `&car_category=${category}` : ""
   }`;
   const [cardData, setCardData] = useState([]);
 
@@ -59,7 +59,7 @@ const Card = ({
   return (
     <div>
       <h1 className="text-pallate-Dark_Sky_Blue border-2 border-pallate-Dark_Sky_Blue p-3 rounded-md font-bold text-4xl text-center">
-        Result For ....
+        Result For 
       </h1>
       <div className="flex flex-wrap justify-center bg-pallate-Dark_Sky_Blue bg-opacity-30 m-4 h-[600px] overflow-y-auto rounded-md mr-10 ml-10">
         {cardData.map((item, index) => (
@@ -80,25 +80,25 @@ const Card = ({
                   </svg>
                 </div>
                 <h2 className="text-white dark:text-white text-lg font-medium">
-                  <div>{item.name}</div>
+                  <div>{item.car_name}</div>
                   <div className="text-pallate-Dark_Sky_Blue text-sm font-medium">
-                    {item.category}-{item.price}
+                    {item.car_category}-{item.price} $
                   </div>
                 </h2>
               </div>
 
               <div className="flex flex-col justify-between flex-grow">
                 <p className="leading-relaxed text-base text-white dark:text-gray-300">
-                  {item.Description}
+                  {item.description}
                 </p>
                 <img
-                  src={item.image}
-                  alt="Description of your image"
+                  src={item.car_images}
+                  // alt="Description of your image"
                   className="mt-3 w-full rounded-lg" // Add the desired width and styling
                 />
                 <a
                   href="#"
-                  className="mt-3 text-black dark:text-white hover:text-pallate-Gunmetal hover:font-bold inline-flex animate-bounce items-center"
+                  className="mt-3 text-black dark:text-white hover:text-pallate-Gunmetal hover:font-bold inline-flex  items-center"
                 >
                   Learn More
                   <svg
