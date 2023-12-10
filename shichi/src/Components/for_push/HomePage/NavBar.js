@@ -34,7 +34,7 @@ const NavBar = () => {
   };
 
   return (
-    <div className="bg-pallate-Gunmetal h-[100px]">
+    <div className="bg-pallate-Gunmetal h-[100px] ">
       <div className="flex justify-between items-center border-x-pallate-Gunmetal h-24 max-w-[1240px] m-auto text-white">
         <Link to="/">
           <img src={logo} alt="My Logo" className="w-52 w-52 md:w-64 h-64" />
@@ -46,7 +46,7 @@ const NavBar = () => {
           <Link to="/Advertisement">
             <li className="p-4">All Cars</li>
           </Link>
-          <Link to="/addcar">
+          <Link to="/Advertise">
             <li className="p-4">Advertisement register</li>
           </Link>
           <Link to="/about">
@@ -62,7 +62,7 @@ const NavBar = () => {
         <ul
           className={
             nav
-              ? "fixed left-0 top-0 w-[45%] opacity-95 h-full border-r border-r-gray-900 bg-pallate-Dark_Sky_Blue rounded-r-[100px] ease-in-out duration-500"
+              ? "fixed left-0 top-0 fixed top-0  z-50 w-[45%] opacity-95 h-full border-r border-r-pallate-Gunmetal bg-pallate-Gunmetal rounded-r-[100px] ease-in-out duration-500"
               : "ease-in-out duration-500 fixed left-[-100%]"
           }
         >
@@ -72,11 +72,11 @@ const NavBar = () => {
           <Link to="/home">
             <li className="p-4 border-b border-gray-600">Home</li>
           </Link>
-          <Link to="/company">
-            <li className="p-4 border-b border-gray-600">Company</li>
+          <Link to="/Advertisement">
+            <li className="p-4 border-b border-gray-600">All Cars</li>
           </Link>
-          <Link to="/resources">
-            <li className="p-4 border-b border-gray-600">Resources</li>
+          <Link to="/Advertise">
+            <li className="p-4 border-b border-gray-600">Advertisement register</li>
           </Link>
           <Link to="/about">
             <li className="p-4 border-b border-gray-600">About</li>

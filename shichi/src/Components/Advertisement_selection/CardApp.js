@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Category from "./Category";
 import Card from "./Card";
-import Search from "../for_push/HomePage/Search";
+import Search from "../for_push/HomePage/newsearch";
 import Price from "./Price";
 const CardApp = () => {
   const [search, setSearch] = useState("");
@@ -16,7 +16,7 @@ const CardApp = () => {
   return (
     <div className="bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal">
       <Search search={search} setSearch={setSearch} />{" "}
-      <div className="md:flex bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal">
+      <div className="md:flex bg-gradient-to-t p-5 from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal">
         <div className="">
           <Category category={category} setCategory={setCategory} />
           <Price
