@@ -12,8 +12,7 @@ import axios from "axios";
 import logo from "../Static/whitelogowithouttext90.svg";
 import logo2 from "../Static/whitelogowithouttext270.svg";
 import { Alert, AlertTitle } from '@material-ui/lab';
-// import { ToastContainer, toast } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
+
 
 
 import { BsPatchExclamation } from "react-icons/bs";

@@ -13,11 +13,6 @@ import logo from "../Static/whitelogowithouttext90.svg";
 import logo2 from "../Static/whitelogowithouttext270.svg";
 
 import { Alert, AlertTitle } from '@material-ui/lab';
-// import { ToastContainer, toast } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
-
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 
 import { BsPatchExclamation } from "react-icons/bs";
@@ -77,9 +72,6 @@ const Signup = () => {
       }, 5000);
 
 
-      //alert("hi")
-      toast.success("Success Notification !");
-      navigate("/login");
 
       console.log(response.data);
     } catch (error) {
@@ -341,7 +333,6 @@ const Signup = () => {
                 >
                   Sign Up
                 </button>
-                {/* <ToastContainer /> */}
               </div>
             </div>
             <div class="relative group">

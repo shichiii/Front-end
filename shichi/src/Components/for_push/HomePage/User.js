@@ -77,12 +77,13 @@ const User = ({ firstName, lastName, id, avatarPath }) => {
         setFirstN(response.data.first_name);
         setLastN(response.data.last_name);
         setProfileImage(response.data.profile_image);
+        setUserId(response.data.id);
         // setPhoneNumber(response.data.phone_number);
     })
     };
   }, [userId]);
   console.log("/////////////////////")
-  console.log(firstname, lastname, profileImage)
+  console.log(firstname, lastname, profileImage,userId)
 
   // const userimage = () => {
   //   if (profileImage === null) {
