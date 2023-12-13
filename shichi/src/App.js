@@ -46,7 +46,8 @@ import ForgotApp from "./Components/for_push/ForgotPass/ForgotApp";
 
 
 import Img from './Components/addcar/Img';
-
+import Newcar from './Components/addcar/addcarapp'
+import Photo from './Components/addcar/photo'
 import Addacr from './Components/addcar/Img'
 import AuthContext, { AuthProvider } from "./Context/AuthContext";
 // import Loading from './Components'
@@ -121,8 +122,9 @@ function App() {
 
 
         <Route exact path="/" element={<Landing />} />
+        <Route path="/photo" element={<Photo />} />
 
-
+        <Route exact path='/newcar' element={<Newcar/>}/>
         {/* <Route exact path='/Advertisement' element={<Advertisement />} />
         <Route exact path="/" element={<Landing />} />
 

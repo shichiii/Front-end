@@ -200,7 +200,7 @@ export const colors = [
   },
   {
     id:2,
-    name:'navy blue'
+    name:'navy-blue'
   }, {
     id:3,
     name:'white'
