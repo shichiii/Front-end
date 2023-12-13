@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import img from '../../Static/fuck4.svg'
 import Photo from "./photo";
 import Create from "./Create";
 import { BsDropletHalf } from "react-icons/bs";
@@ -432,15 +433,40 @@ const handleenddate = (event) => {
   const handleCarFuelChange = (event) => {
     setCarFuel(event.target.value);
   };
+  const [img, setImg] = useState(require("../../Static/fuck7.svg").default);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 1300) {
+        setImg(require("../../Static/bg.svg").default);
+      } else {
+        setImg(require("../../Static/fuck7.svg").default);
+      }
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
    return (
-    <div className="bg-pallate-Gunmetal">
-      <div className="bg-pallate-Gunmetal text-pallate-Gunmetal">
+    <div style={{
+     
+      width: "100%",
+      backgroundImage: `url(${img})`, // Dynamic image URL
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+    }}   className=" ">
+      <div className="bg-pallate-Gunmetal text-pallate-Gunmetal ">
         Please Fill The Form
       </div>
 
-      <section class="max-w-4xl p-6 mx-auto rounded-3xl shadow-md bg-pallate-Dark_Sky_Blue bg-opacity-20 mt-20">
+      <section style={{  backdropFilter: "blur(8px)",}}  class="max-w-4xl p-6 mx-auto rounded-3xl shadow-md bg-pallate-Police_Blue bg-opacity-70  mt-20 ">
         <h1 class="text-xl font-bold text-white capitalize dark:text-white">
-          Account settings
+          Please Fill
         </h1>
         <form>
           <div class="grid grid-cols-1 text-white gap-6 mt-4 sm:grid-cols-2">
@@ -712,7 +738,7 @@ const handleenddate = (event) => {
       </section>
 
       <section class="max-w-4xl p-6 mx-auto   shadow-md ">
-           <div className="w-full rounded-3xl bg-pallate-Dark_Sky_Blue bg-opacity-20">
+           <div style={{  backdropFilter: "blur(8px)",}} className="w-full rounded-3xl bg-pallate-Police_Blue bg-opacity-70">
       <div className="container mx-auto h-full flex flex-col justify-center items-center p-10">
         <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {selectedImages.map((file, index) => (
