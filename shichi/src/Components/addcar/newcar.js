@@ -20,6 +20,7 @@ import Map from "./Create.js";
 import { FaChair } from "react-icons/fa";
 import { WiCloudUp } from "react-icons/wi";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 import {
   data,
   fuel,
@@ -194,7 +195,7 @@ const Newcar = () => {
   
     return file;
   };
-
+  const baseURL = "http://185.157.245.99:8000/user/show/";
 
   const handleDeleteImage = (index) => {
     const updatedImages = [...selectedImages];
@@ -360,13 +361,23 @@ const handleenddate = (event) => {
     fetchData();
   }, []);
   //handle submit function
+  const [userId, setUserId] = useState(0);
   const handleSubmit = async (id) => {
     const token = localStorage.getItem("token");
+    let user = null;
+    if(token !== "null" && token !== null){
+      user = jwtDecode(token);
+      axios.get(baseURL + `${user.user_id}/`).then((response) => {
+        setUserId(response.data.id); 
+        console.log("owner_id", response.data.id);
+        console.log("user id", userId);
+    })
+    }
     try {
       const formattedstartdate = formatDate(startdate);
       const formattedenddate = formatDate(enddate);
       const formData = new FormData();
-      formData.append('owner_id',18);
+      //formData.append('owner_id', userId);
       formData.append('car_images', lastId);
       console.log('id', lastId);
       formData.append('location_geo_width',latitude );
@@ -388,7 +399,7 @@ const handleenddate = (event) => {
   
       const response = await axios.post('http://185.157.245.99:8000/advertisement/create/', formData, {
         headers: {
-          Authorization: `JWT ${token}`,
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
         },
       });
@@ -510,17 +521,17 @@ const handleenddate = (event) => {
                   Car door Count
                 </label>
               </div>
-
-              <input
-                placeholder=""
-                min={1}
-                onChange={handleDoornumbers}
-                onKeyPress={handleKeyPress}
-                required
-                type="number"
-                id="visitors"
-                class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-              />
+ 
+  <input
+                          type="number"
+                         
+                          class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                          placeholder=""
+                          min={1}
+                          onChange={handleDoornumbers}
+                          onKeyPress={handleKeyPress}
+                          required
+                        ></input>
             </div>
             <div>
               <div className="flex">
@@ -757,7 +768,7 @@ const handleenddate = (event) => {
                   htmlFor="multi-upload-input"
                   className="relative cursor-pointer  rounded-md font-medium text-pallate-Dark_Sky_Blue hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
                 >
-                  <span className="">Upload a file</span>
+               <p className="pl-1 ">Upload a file</p>
                   {/* <input
                      htmlFor="multi-upload-input"
                     name="file-upload"
@@ -765,8 +776,8 @@ const handleenddate = (event) => {
                     className="sr-only"
                     onChange={handleImageChange}
                   /> */}
-                </label>
-                <p className="pl-1 text-white">or drag and drop</p>
+                </label>   
+                {/* <p className="pl-1 text-white">or drag and drop</p> */}
               </div>
               <p className="text-xs text-white">PNG, JPG, GIF up to 10MB</p>
             </div>
