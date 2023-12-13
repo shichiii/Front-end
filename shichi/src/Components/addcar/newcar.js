@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import img from '../../Static/fuck4.svg'
 import Photo from "./photo";
 import Create from "./Create";
 import { BsDropletHalf } from "react-icons/bs";
@@ -433,14 +432,14 @@ const handleenddate = (event) => {
   const handleCarFuelChange = (event) => {
     setCarFuel(event.target.value);
   };
-  const [img, setImg] = useState(require("../../Static/fuck7.svg").default);
+  const [img, setImg] = useState(require("../../Static/test.svg").default);
 
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 1300) {
         setImg(require("../../Static/bg.svg").default);
       } else {
-        setImg(require("../../Static/fuck7.svg").default);
+        setImg(require("../../Static/test.svg").default);
       }
     };
 
