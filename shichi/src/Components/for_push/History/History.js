@@ -5,6 +5,7 @@ import { MdDriveFileRenameOutline } from "react-icons/md";
 import axios from 'axios';
 const History = () => {
   const token = localStorage.getItem("token");
+  console.log(token);
   axios.get('http://185.157.245.99:8000/history/customhistories',
   {
     headers: {
