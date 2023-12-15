@@ -5,7 +5,7 @@ import img from "../../../Static/search.svg";
 import icon1 from "../../../Static/110.png";
 import icon2 from "../../../Static/110.png";
 import icon3 from "../../../Static/110.png";
-
+import newsearch from "./newsearch";
 const Features = ({ search, setSearch }) => {
   return (
     <div
@@ -28,20 +28,8 @@ const Features = ({ search, setSearch }) => {
                   Name.
                 </p>
               </div>
-              <div className="my-4">
-                <div className=" sm:flex-row items-center justify-between w-full">
-                  <input
-                    className="p-3 flex w-full rounded-md text-black"
-                    type="email"
-                    placeholder="Enter Car Name"
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                  />
-                  <button className="bg-pallate-Dark_Sky_Blue text-black font-medium  p-3 flex w-full rounded-md mt-2">
-                    Search
-                  </button>
-                </div>
-
+              
+              <newsearch/>
                 {/* // =======
 // import React, { useState } from 'react';
 // import axios from 'axios';
@@ -100,7 +88,7 @@ const Features = ({ search, setSearch }) => {
 //               <span className='text-pallate-Dark_Sky_Blue'>Privacy Policy.</span>
 //             </p>
 // >>>>>>> Develop */}
-              </div>
+              
             </div>
           </div>
         </div>

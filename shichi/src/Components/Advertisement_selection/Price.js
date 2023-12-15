@@ -31,7 +31,7 @@ const Price = ({
         </div>
 
         <div class="flex items-center justify-between mt-4">
-          <p class="font-medium">Filters</p>
+          <p class="font-bold text-white text-[30px]">Filters</p>
 
           <button class="bg-pallate-Police_Blue hover:bg-pallate-Dark_Sky_Blue text-pallate-Dark_Sky_Blue font-semibold duration-300 hover:text-white py-2 px-4 border border-pallate-Dark_Sky_Blue hover:border-transparent rounded">
             Reset Filter
@@ -43,7 +43,7 @@ const Price = ({
             <select
               value={carColor}
               onChange={(e) => setCarColor(e.target.value)}
-              class="px-4 py-3 w-full rounded-md  border-transparent focus:border-gray-500 bg-pallate-Gunmetal bg-opacity-50 focus:bg-white focus:ring-0 text-sm"
+              class="px-4 py-3 w-full rounded-md  border-transparent focus:border-gray-500 bg-pallate-Gunmetal bg-opacity-50 focus:bg-pallate-Gunmetal text-white focus:ring-0 text-sm"
             >
               <option value="">All Colors</option>
               <option value="Gray">Gray</option>
@@ -57,12 +57,171 @@ const Price = ({
             <select
               value={state}
               onChange={(e) => setState(e.target.value)}
-              class="px-4 py-3 w-full rounded-md bg-pallate-Gunmetal bg-opacity-50 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
+              class="px-4 py-3 w-full rounded-md bg-pallate-Gunmetal bg-opacity-50 border-transparent focus:border-gray-500 focus:bg-pallate-Gunmetal text-white focus:ring-0 text-sm"
             >
-              <option value="">All Cites</option>
-              <option value="Teshran">Teshran</option>
-              <option value="Mashhad">Mashhad</option>
-              <option value="ESfehan">ESfehan</option>
+              <option className="bg-pallate-Gunmetal text-white" value="">
+                All Cites
+              </option>
+              <option
+                className="bg-pallate-Gunmetal text-white"
+                value="Teshran"
+              >
+                Tehran
+              </option>
+              <option
+                className="bg-pallate-Gunmetal text-white"
+                value="Khorasan-Razavi"
+              >
+                Khorasan-Razavi
+              </option>
+              <option
+                className="bg-pallate-Gunmetal text-white"
+                value="Isfahan"
+              >
+                Isfahan
+              </option>
+              <option className="bg-pallate-Gunmetal text-white" value="Fars">
+                Fars
+              </option>
+              <option
+                className="bg-pallate-Gunmetal text-white"
+                value="Khuzestan"
+              >
+                Khuzestan
+              </option>
+              <option
+                className="bg-pallate-Gunmetal text-white"
+                value="Azarbaijan East"
+              >
+                Azarbaijan East
+              </option>
+              <option
+                className="bg-pallate-Gunmetal text-white"
+                value="Azarbaijan West"
+              >
+                Azarbaijan West
+              </option>
+              <option
+                className="bg-pallate-Gunmetal text-white"
+                value="Mazandaran"
+              >
+                Mazandaran
+              </option>
+              <option className="bg-pallate-Gunmetal text-white" value="Kerman">
+                Kerman
+              </option>
+              <option className="bg-pallate-Gunmetal text-white" value="Albors">
+                Albors
+              </option>
+              <option className="bg-pallate-Gunmetal text-white" value="Gilan">
+                Gilan
+              </option>
+              <option
+                className="bg-pallate-Gunmetal text-white"
+                value="Sistan-and-Baluchestan"
+              >
+                Sistan-and-Baluchestan
+              </option>
+
+              <option
+                className="bg-pallate-Gunmetal text-white"
+                value="Kermanshah"
+              >
+                Kermanshah
+              </option>
+              <option
+                className="bg-pallate-Gunmetal text-white"
+                value="Hamedan"
+              >
+                Hamedan
+              </option>
+
+              <option
+                className="bg-pallate-Gunmetal text-white"
+                value="Lorestan"
+              >
+                Lorestan
+              </option>
+              <option
+                className="bg-pallate-Gunmetal text-white"
+                value="Golestan"
+              >
+                Golestan
+              </option>
+              <option
+                className="bg-pallate-Gunmetal text-white"
+                value="Kurdistan"
+              >
+                Kurdistan
+              </option>
+
+              <option
+                className="bg-pallate-Gunmetal text-white"
+                value="Hormozgan"
+              >
+                Hormozgan
+              </option>
+              <option
+                className="bg-pallate-Gunmetal text-white"
+                value="Markazi"
+              >
+                Markazi
+              </option>
+              <option
+                className="bg-pallate-Gunmetal text-white"
+                value="Ardabil"
+              >
+                Ardabil
+              </option>
+              <option className="bg-pallate-Gunmetal text-white" value="Qazvin">
+                Qazvin
+              </option>
+
+              <option className="bg-pallate-Gunmetal text-white" value="Qom">
+                Qom
+              </option>
+              <option
+                className="bg-pallate-Gunmetal text-white"
+                value="Bushehr"
+              >
+                Bushehr
+              </option>
+              <option className="bg-pallate-Gunmetal text-white" value="Yazd">
+                Yazd
+              </option>
+              <option className="bg-pallate-Gunmetal text-white" value="Zanjan">
+                Zanjan
+              </option>
+              <option
+                className="bg-pallate-Gunmetal text-white"
+                value="Chahar-Mahaal-and-Bakhtairi"
+              >
+                Chahar-Mahaal-and-Bakhtairi
+              </option>
+              <option
+                className="bg-pallate-Gunmetal text-white"
+                value="Khorasan-North"
+              >
+                Khorasan-North
+              </option>
+              <option
+                className="bg-pallate-Gunmetal text-white"
+                value="Khorasan-South"
+              >
+                Khorasan-South
+              </option>
+              <option
+                className="bg-pallate-Gunmetal text-white"
+                value="Kohgiluyeh-and-Boyer-Ahmad"
+              >
+                Kohgiluyeh-and-Boyer-Ahmad
+              </option>
+              <option className="bg-pallate-Gunmetal text-white" value="Semnan">
+                Semnan
+              </option>
+              <option className="bg-pallate-Gunmetal text-white" value="Ilam">
+                Ilam
+              </option>
             </select>
 
             <select
@@ -88,20 +247,22 @@ const Price = ({
               <option value="4000">RM 4000</option>
             </select>
 
-            <button className="px-4 py-3 w-full flex  rounded-md bg-pallate-Gunmetal bg-opacity-50 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
+            <button className="px-4 py-3 w-full flex  rounded-md bg-pallate-Gunmetal bg-opacity-50 border-transparent focus:border-gray-500 focus:bg-pallate-Gunmetal text-white focus:ring-0 text-sm">
               <BsCalendar className="text-[25px] p-1" />
               start
               <input
+                className="bg-transparent bg-opacity-50 ml-4"
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
                 type="date"
               ></input>
             </button>
 
-            <button className="px-4 py-3 w-full flex  rounded-md bg-pallate-Gunmetal bg-opacity-50 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
+            <button className="px-4 py-3 w-full flex  rounded-md bg-pallate-Gunmetal bg-opacity-50 border-transparent focus:border-gray-500 focus:bg-pallate-Gunmetal text-white focus:ring-0 text-sm">
               <BsCalendar className="text-[25px] p-1" />
               End
               <input
+                className="bg-transparent bg-opacity-50 ml-4"
                 value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
                 type="date"
