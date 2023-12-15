@@ -170,9 +170,16 @@ const NavBar = () => {
 
         <div style={{ display: "flex", alignItems: "center" }}>
           <NavWallet />
-          <User Image={image} UserName={user.name} />{" "}
-          {/* Pass the user name to User component */}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////feature
+          <User Image={image} UserName={user.name} />  {/* Pass the user name to User component */}
         </div>
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//           <User Image={image} UserName={user.name} />{" "}
+//           {/* Pass the user name to User component */}
+//         </div>
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////develope
       </div>
     </div>
   );

@@ -24,6 +24,27 @@ const Features = ({ search, setSearch }) => {
                   You can search for the car model you want.
                 </h1>
                 <p>
+
+                  Sign up to our newsletter and stay up to dateCard model or Name.
+                </p>
+              </div>
+              <div className="my-4">
+                <div className=" sm:flex-row items-center justify-between w-full">
+                  <input
+                    className="p-3 flex w-full rounded-md text-black"
+                    type="email"
+                    placeholder="Enter Car Name"
+                  />
+                  <button className="bg-pallate-Dark_Sky_Blue text-black font-medium  p-3 flex w-full rounded-md mt-2">
+                    Search
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+/*=======
                   Sign up to our newsletter and stay up to dateCard model or
                   Name.
                 </p>
@@ -96,13 +117,9 @@ const Features = ({ search, setSearch }) => {
     </div>
   );
 };
-{
-  /* // <<<<<<< feature/v1.0.0/HomePage */
-}
-
 export default Features;
-{
-  /* // =======
+{/* // <<<<<<< feature/v1.0.0/HomePage
+
 
 // Search.propTypes = {
 //   history: PropTypes.object.isRequired, // Prop type validation for 'history' object
