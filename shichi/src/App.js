@@ -9,9 +9,6 @@ import NotFound from "./Components/for_push/History/404/notfound";
 import "./App.css";
 
 
-
-
-
 import ResetPass from "./Components/for_push/ForgotPass/ResetPass";
 
 
@@ -34,8 +31,6 @@ import Advertisement from "./Components/Advertisement_selection/AdvertisementApp
 import Loading from './Components/loading';
 import Fail from './Components/fail'
 
-// import  ResetPass from "./Components/for_push/ForgotPass/ResetPass"
-
 //import logo from './logo.svg';
 import './App.css';
 // import React from "react";
@@ -43,10 +38,7 @@ import './App.css';
 // import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 import ForgotApp from "./Components/for_push/ForgotPass/ForgotApp";
-
-
 import Img from './Components/addcar/Img';
-
 import Addacr from './Components/addcar/Img'
 import AuthContext, { AuthProvider } from "./Context/AuthContext";
 // import Loading from './Components'
@@ -105,7 +97,7 @@ function App() {
 
 
 
-          <Route exact path='/wallet' element={<Wallet />} />
+          <Route exact path='/wallet/:id' element={<Wallet />} />
                      <Route exact path='/advertise' element={<Img/>} />
                                <Route exact path="*" element={<NotFound />}/>
                                <Route exact path='/fail' element={<Fail />} />

@@ -24,6 +24,7 @@ const History = () => {
     });
   };
   const token = localStorage.getItem("token");
+//<<<<<<< feature/v1.0.0/overallfix
   const [info,setInfo] = useState([]);
   const [carImageData, setCarImageData] = useState([]);
 
@@ -106,6 +107,20 @@ const History = () => {
   // }
 
 
+//=======
+  console.log(token);
+  axios.get('http://185.157.245.99:8000/history/customhistories',
+  {
+    headers: {
+      Authorization: `JWT ${token}`,
+      "Content-Type": "application/json",
+    },
+  })
+  .then((response) => {
+    // Handle the response data
+    const data = response.data;
+    console.log(data);
+//>>>>>>> Develop
 
 
 

@@ -12,7 +12,11 @@ import { Alert, AlertTitle } from '@material-ui/lab';
 
 import { BsPatchExclamation } from "react-icons/bs";
 const ResetPass = () => {
+
   const [successMessage, setSuccessMessage] = useState('');
+//develope
+//   const token = localStorage.getItem("token");
+ 
   const [password, setpassword] = useState("");
   const [passwordError, setPasswordError] = useState(false);
   const [passwordLengthError, setPasswordLengthError] = useState(false);

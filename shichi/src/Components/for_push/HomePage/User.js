@@ -150,7 +150,7 @@ const User = ({ firstName, lastName, id, avatarPath }) => {
         class="bg-pallate-Gunmetal h-20 w-full cursor-pointer p-2 rounded-full shadow-lg"
         alt={`${firstname.charAt(0).toUpperCase()}  ${lastname.charAt(0).toUpperCase()}`}
       />
-      {open && <div className="border-white border-2 text-[10px] absolute text-white p-2 rounded-lg">
+      {open && <div className="border-white  z-50 border-2 text-[10px] absolute text-white p-2 rounded-lg">
         <ul>
           {Menu.map((meno) => (
             <li

@@ -62,24 +62,39 @@ const Login = () => {
           },
         }
       );
-// <<<<<<< feature/v1.0.0/NewAddAdvertise
-//       const token = response.data.access;
-//       localStorage.setItem("token", token);
-// =======
+// <<<<<<< feature/v1.0.0/HistoryForUser
+      const token = response.data.token;
+      localStorage.setItem("token", token);
+      navigate("/home");
+      console.log(response.data);
+      console.log(token);
+/*// =======
+// // <<<<<<< feature/v1.0.0/NewAddAdvertise
+// //       const token = response.data.access;
+// //       localStorage.setItem("token", token);
+// // =======
 
-//       navigate("/home");
-//       console.log(response.data);
+// //       navigate("/home");
+// //       console.log(response.data);
 
+//       // console.log(response.data);
+//       // console.log('login token',token);
+//       // console.log(localStorage.setItem('accessTokenCustomer',res.data.access));
+
+// >>>>>>> Develop*/
+      
+//       <<<<<<< feature/v1.0.0/overallfix
       setAuthTokens(response.data.access);
       setSuccessMessage('Login successful!');
       setTimeout(() => {
         navigate('/home');
       }, 3000);
+// =======
+//       setAuthTokens(response.data.access);
 
-      // console.log(response.data);
-      // console.log('login token',token);
-      // console.log(localStorage.setItem('accessTokenCustomer',res.data.access));
-
+//       navigate("/home");
+// >>>>>>> Develop
+      
     } catch (error) {
       console.error(error);
     }

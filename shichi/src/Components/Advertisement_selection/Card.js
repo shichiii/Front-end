@@ -1,28 +1,70 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 // Assuming your backend API endpoint
-const API_ENDPOINT = "185.157.245.99/swagger/advertisement/list/";
 
-const Card = () => {
+const Card = ({
+  search,
+  lowerPrice,
+  upperPrice,
+  carCategory,
+  carColor,
+  startDate,
+  endDate,
+  state,
+  category,
+}) => {
+  const API_ENDPOINT = `http://185.157.245.99:8000/advertisement/filter/?${
+    search ? `ordering=${search}` : ""
+  }${carCategory ? `&car_category=${carCategory}` : ""}${
+    carColor ? `&car_color=${carColor}` : ""
+  }${startDate ? `&start_date=${startDate}` : ""}${
+    endDate ? `&end_date=${endDate}` : ""
+  }${state ? `&state=${state}` : ""}${
+    category ? `&car_category=${category}` : ""
+  }${lowerPrice ? `&lower_price=${lowerPrice}` : ""}${
+    upperPrice ? `&upper_price=${upperPrice}` : ""
+  }`;
   const [cardData, setCardData] = useState([]);
-
   useEffect(() => {
     // Fetch data from the backend when the component mounts
-    axios
-      .get(API_ENDPOINT)
-      .then((response) => {
-        setCardData(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  }, []); // Empty dependency array means this effect runs once when the component mounts
+    if (
+      search ||
+      lowerPrice ||
+      upperPrice ||
+      carCategory ||
+      carColor ||
+      startDate ||
+      endDate ||
+      state ||
+      category
+    ) {
+      axios
+        .get(API_ENDPOINT)
+        .then((response) => {
+          setCardData(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+        });
+    }
+  }, [
+    search,
+    lowerPrice,
+    upperPrice,
+    carCategory,
+    carColor,
+    startDate,
+    endDate,
+    state,
+    category,
+  ]); // Empty dependency array means this effect runs once when the component mounts
 
   return (
     <div>
       <h1 className="text-pallate-Dark_Sky_Blue border-2 border-pallate-Dark_Sky_Blue p-3 rounded-md font-bold text-4xl text-center">
-        Result For ....
+        Result For
       </h1>
       <div className="flex flex-wrap justify-center bg-pallate-Dark_Sky_Blue bg-opacity-30 m-4 h-[600px] overflow-y-auto rounded-md mr-10 ml-10">
         {cardData.map((item, index) => (
@@ -43,26 +85,29 @@ const Card = () => {
                   </svg>
                 </div>
                 <h2 className="text-white dark:text-white text-lg font-medium">
-                  <div>{item.name}</div>
+                  <div>{item.car_name}</div>
                   <div className="text-pallate-Dark_Sky_Blue text-sm font-medium">
-                    {item.category}-{item.price}
+                    {item.car_category}-{item.price} $
                   </div>
                 </h2>
               </div>
 
               <div className="flex flex-col justify-between flex-grow">
                 <p className="leading-relaxed text-base text-white dark:text-gray-300">
-                  {item.Description}
+                  {item.description}
                 </p>
                 <img
-                  src={item.image}
-                  alt="Description of your image"
+                  src={item.car_images}
+                  // alt="Description of your image"
                   className="mt-3 w-full rounded-lg" // Add the desired width and styling
                 />
-                <a
-                  href="#"
-                  className="mt-3 text-black dark:text-white hover:text-pallate-Gunmetal hover:font-bold inline-flex animate-bounce items-center"
+                <Link
+                  to={`/Car/${item.id}`}
+                  className="mt-3 text-black dark:text-white
+                  hover:text-pallate-Gunmetal hover:font-bold inline-flex
+                  animate-bounce items-center"
                 >
+                  {" "}
                   Learn More
                   <svg
                     fill="none"
@@ -75,7 +120,7 @@ const Card = () => {
                   >
                     <path d="M5 12h14M12 5l7 7-7 7"></path>
                   </svg>
-                </a>
+                </Link>
               </div>
             </div>
           </div>
