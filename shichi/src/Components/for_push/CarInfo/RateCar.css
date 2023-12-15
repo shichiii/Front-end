@@ -9,19 +9,19 @@
   z-index: 100000;
   &.one {
     transform: scaleY(0.01) scaleX(0);
-    animation: unfoldIn 1s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+    animation: unfoldIn1 1s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
     .modal-background {
       .modal {
         transform: scale(0);
-        animation: zoomIn 0.5s 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+        animation: zoomIn1 0.5s 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
       }
     }
     &.out {
       transform: scale(1);
-      animation: unfoldOut 1s 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+      animation: unfoldOut1 1s 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
       .modal-background {
         .modal {
-          animation: zoomOut 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+          animation: zoomOut1 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
         }
       }
     }
@@ -30,7 +30,7 @@
     transform: scale(1);
     .modal-background {
       background: rgba(0, 0, 0, 0);
-      animation: fadeIn 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+      animation: fadeIn1 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
       .modal {
         opacity: 0;
         animation: scaleUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
@@ -42,7 +42,7 @@
     &.out {
       animation: quickScaleDown 0s 0.5s linear forwards;
       .modal-background {
-        animation: fadeOut 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+        animation: fadeOut1 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
         .modal {
           animation: scaleDown 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
         }
@@ -107,7 +107,7 @@
     transform: scale(1);
     .modal-background {
       background: rgba(0, 0, 0, 0);
-      animation: fadeIn 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+      animation: fadeIn1 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
       .modal {
         transform: translateX(-1500px);
         animation: roadRunnerIn 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
@@ -116,7 +116,7 @@
     &.out {
       animation: quickScaleDown 0s 0.5s linear forwards;
       .modal-background {
-        animation: fadeOut 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+        animation: fadeOut1 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
         .modal {
           animation: roadRunnerOut 0.5s cubic-bezier(0.165, 0.84, 0.44, 1)
             forwards;
@@ -128,16 +128,16 @@
     transform: scale(1);
     .modal-background {
       background: rgba(0, 0, 0, 0);
-      animation: fadeIn 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+      animation: fadeIn1 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
       .modal {
         background-color: transparent;
-        animation: modalFadeIn 0.5s 0.8s cubic-bezier(0.165, 0.84, 0.44, 1)
+        animation: modalfadeIn1 0.5s 0.8s cubic-bezier(0.165, 0.84, 0.44, 1)
           forwards;
         h2,
         p {
           opacity: 0;
           position: relative;
-          animation: modalContentFadeIn 0.5s 1s
+          animation: modalContentfadeIn1 0.5s 1s
             cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
         }
         .modal-svg {
@@ -151,13 +151,13 @@
     &.out {
       animation: quickScaleDown 0s 0.5s linear forwards;
       .modal-background {
-        animation: fadeOut 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+        animation: fadeOut1 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
         .modal {
-          animation: modalFadeOut 0.5s cubic-bezier(0.165, 0.84, 0.44, 1)
+          animation: modalfadeOut1 0.5s cubic-bezier(0.165, 0.84, 0.44, 1)
             forwards;
           h2,
           p {
-            animation: modalContentFadeOut 0.5s
+            animation: modalContentfadeOut1 0.5s
               cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
           }
           .modal-svg {
@@ -174,7 +174,7 @@
     transform: scale(1);
     .modal-background {
       background: rgba(0, 0, 0, 0);
-      animation: fadeIn 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+      animation: fadeIn1 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
       .modal {
         height: 75px;
         width: 75px;
@@ -186,7 +186,7 @@
         p {
           opacity: 0;
           position: relative;
-          animation: modalContentFadeIn 0.5s 1.4s linear forwards;
+          animation: modalContentfadeIn1 0.5s 1.4s linear forwards;
         }
       }
     }
@@ -202,7 +202,7 @@
           animation: killShot 1s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
           h2,
           p {
-            animation: modalContentFadeOut 0.5s 0.5
+            animation: modalContentfadeOut1 0.5s 0.5
               cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
           }
         }
@@ -284,7 +284,7 @@
   }
 }
 
-@keyframes unfoldIn {
+@keyframes unfoldIn1 {
   0% {
     transform: scaleY(0.005) scaleX(0);
   }
@@ -296,7 +296,7 @@
   }
 }
 
-@keyframes unfoldOut {
+@keyframes unfoldOut1 {
   0% {
     transform: scaleY(1) scaleX(1);
   }
@@ -308,7 +308,7 @@
   }
 }
 
-@keyframes zoomIn {
+@keyframes zoomIn1 {
   0% {
     transform: scale(0);
   }
@@ -317,7 +317,7 @@
   }
 }
 
-@keyframes zoomOut {
+@keyframes zoomOut1 {
   0% {
     transform: scale(1);
   }
@@ -326,7 +326,7 @@
   }
 }
 
-@keyframes fadeIn {
+@keyframes fadeIn1 {
   0% {
     background: rgba(0, 0, 0, 0);
   }
@@ -335,7 +335,7 @@
   }
 }
 
-@keyframes fadeOut {
+@keyframes fadeOut1 {
   0% {
     background: rgba(0, 0, 0, 0.7);
   }
@@ -519,7 +519,7 @@
   }
 }
 
-@keyframes modalFadeIn {
+@keyframes modalfadeIn1 {
   0% {
     background-color: transparent;
   }
@@ -528,7 +528,7 @@
   }
 }
 
-@keyframes modalFadeOut {
+@keyframes modalfadeOut1 {
   0% {
     background-color: white;
   }
@@ -537,7 +537,7 @@
   }
 }
 
-@keyframes modalContentFadeIn {
+@keyframes modalContentfadeIn1 {
   0% {
     opacity: 0;
     top: -20px;
@@ -548,7 +548,7 @@
   }
 }
 
-@keyframes modalContentFadeOut {
+@keyframes modalContentfadeOut1 {
   0% {
     opacity: 1;
     top: 0px;

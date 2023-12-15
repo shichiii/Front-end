@@ -1,6 +1,8 @@
 import React from "react";
 import Car from "../../Static/110.png";
+
 // import '../../Styles/Advertisment/AdvertisementCard.css'
+// import '../../../Styles/Advertisment/AdvertisementCard.css'
 // import cardcar from "";
 
 const AdvertisementCard = () => {

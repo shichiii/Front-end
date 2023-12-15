@@ -3,6 +3,7 @@ import { BsFillBagFill, BsFillPersonFill, BsSnow } from "react-icons/bs";
 import { FaGasPump } from "react-icons/fa";
 import { GiCarDoor, GiGearStickPattern } from "react-icons/gi";
 import { FaLocationDot } from "react-icons/fa6";
+import { IoIosColorPalette } from "react-icons/io";
 import { useState } from "react";
 import RateCar from "./RateCar";
 
@@ -10,9 +11,9 @@ function CarInfo({ car }) {
   const [showMore, setShowMore] = useState(false);
 
   return (
-    <div className="flex flex-row gap-4 p-3 rounded-2xl h-96 bg-slate-100 w-[1215px]">
+    <div className="flex flex-row gap-4 p-3 rounded-2xl h-96 bg-pallate-Dark_Sky_Blue bg-opacity-30 lg:bg-opacity-20 w-[1215px]">
       <div className="flex flex-col gap-8 items-center w-2/3 divide-y divide-stone-200 mt-4">
-        <div className="flex flex-row gap-4 justify-center items-center">
+        <div className="flex flex-row gap-4 justify-between items-center">
           <img
             alt="Toyota Aqua Hybrid"
             src="https://www.discovercars.com/images/car/8109/200.png"
@@ -29,21 +30,30 @@ function CarInfo({ car }) {
             </div>
             <div className="flex flex-row gap-4 text-slate-500">
               <span className="text-sm flex flex-row items-center justify-between gap-2">
-                <BsFillPersonFill />5 seats
+                <BsFillPersonFill />
+                {car.car_seat_count} seats
               </span>
               <span className="text-sm flex flex-row items-center justify-between gap-2">
                 <BsFillBagFill />1 bag
               </span>
               <span className="text-sm flex flex-row items-center justify-between gap-2">
-                <GiCarDoor />5 doors
+                <GiCarDoor />
+                {car.car_door_count} doors
               </span>
+              {car.car_Is_cooler ? (
+                <span className="text-sm flex flex-row items-center justify-between gap-2">
+                  <BsSnow />
+                  Air Conditioning
+                </span>
+              ) : null}
               <span className="text-sm flex flex-row items-center justify-between gap-2">
-                <BsSnow />
-                Air Conditioning
+                <IoIosColorPalette />
+                {car.car_color}
               </span>
+
               <span className="text-sm flex flex-row items-center justify-between gap-2">
                 <GiGearStickPattern />
-                Automatic
+                {car.car_gearbox}
               </span>
             </div>
           </div>
@@ -54,7 +64,7 @@ function CarInfo({ car }) {
               <FaGasPump fontSize={25} className="text-pallate-Dark_Sky_Blue" />
               <div className="flex flex-col">
                 <span className="font-bold text-sm">Fuel policy</span>
-                <span>Full to full</span>
+                <span>{car.car_fuel}</span>
               </div>
             </div>
             <div className="flex flex-row items-center gap-2">
@@ -110,8 +120,6 @@ function CarInfo({ car }) {
                 <span className="text-xs">131 ratings</span>
               </div>
             </div>
-
-            <RateCar />
           </div>
         </div>
       </div>
