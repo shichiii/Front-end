@@ -64,7 +64,10 @@ const NavBar = () => {
           <Link to="/Advertisement">
             <li className="p-4">All Cars</li>
           </Link>
-          <Link to="/Advertise">
+          <Link to="/advertise">
+// =======
+//           <Link to="/Advertise">
+// >>>>>>> Develop
             <li className="p-4">Advertisement register</li>
           </Link>
           <Link to="/about">
