@@ -120,6 +120,7 @@ const History = () => {
     // Handle the response data
     const data = response.data;
     console.log(data);
+  })
 //>>>>>>> Develop
 
 

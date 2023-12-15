@@ -81,7 +81,7 @@ const PrivateRoute = ({ element }) => {
 function App() {
   return (
     <Router>
-//<<<<<<< feature/v1.0.0/responsive
+{/* //<<<<<<< feature/v1.0.0/responsive */}
       <AuthProvider>
         <Routes>
           <Route element={<PrivateRoute />}>

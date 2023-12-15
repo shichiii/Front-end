@@ -65,9 +65,9 @@ const NavBar = () => {
             <li className="p-4">All Cars</li>
           </Link>
           <Link to="/advertise">
-// =======
-//           <Link to="/Advertise">
-// >>>>>>> Develop
+            {/* // =======
+            <Link to="/Advertise">
+              >>>>>>> Develop */}
             <li className="p-4">Advertisement register</li>
           </Link>
           <Link to="/about">
@@ -93,9 +93,8 @@ const NavBar = () => {
               </button>
 
               <div
-                class={`${
-                  notification ? "" : "hidden"
-                } origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-pallate-Dark_Slate_Gray ring-1 ring-black ring-opacity-5 focus:outline-none z-[10000] transition-all duration-300`}
+                class={`${notification ? "" : "hidden"
+                  } origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-pallate-Dark_Slate_Gray ring-1 ring-black ring-opacity-5 focus:outline-none z-[10000] transition-all duration-300`}
                 role="menu"
                 aria-orientation="vertical"
                 aria-labelledby="options-menu"
@@ -173,18 +172,11 @@ const NavBar = () => {
 
         <div style={{ display: "flex", alignItems: "center" }}>
           <NavWallet />
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////feature
           <User Image={image} UserName={user.name} />  {/* Pass the user name to User component */}
         </div>
-
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//           <User Image={image} UserName={user.name} />{" "}
-//           {/* Pass the user name to User component */}
-//         </div>
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////develope
-      </div>
+           {/* <User Image={image} UserName={user.name} />{" "} */}
     </div>
+    </div >
   );
 };
 
