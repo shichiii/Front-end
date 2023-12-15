@@ -2,8 +2,10 @@ import React from "react";
 import { BsCalendar } from "react-icons/bs";
 
 const Price = ({
-  price,
-  setPrice,
+  lowerPrice,
+  setLowerPrice,
+  upperPrice,
+  setUpperPrice,
   carCategory,
   setCarCategory,
   carColor,
@@ -64,8 +66,19 @@ const Price = ({
             </select>
 
             <select
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
+              value={lowerPrice}
+              onChange={(e) => setLowerPrice(e.target.value)}
+              class="px-4 py-3 w-full rounded-md bg-pallate-Gunmetal bg-opacity-50 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
+            >
+              <option value="">Any Price</option>
+              <option value="1000">RM 1000</option>
+              <option value="2000">RM 2000</option>
+              <option value="3000">RM 3000</option>
+              <option value="4000">RM 4000</option>
+            </select>
+            <select
+              value={upperPrice}
+              onChange={(e) => setUpperPrice(e.target.value)}
               class="px-4 py-3 w-full rounded-md bg-pallate-Gunmetal bg-opacity-50 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
             >
               <option value="">Any Price</option>

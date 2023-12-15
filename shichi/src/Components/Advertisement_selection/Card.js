@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 // Assuming your backend API endpoint
 
 const Card = ({
   search,
-  price,
+  lowerPrice,
+  upperPrice,
   carCategory,
   carColor,
   startDate,
@@ -15,12 +17,14 @@ const Card = ({
 }) => {
   const API_ENDPOINT = `http://185.157.245.99:8000/advertisement/filter/?${
     search ? `ordering=${search}` : ""
-  }${price ? `&lower_price=${price}` : ""}${price ? `&upper_price=20` : ""}${
-    carCategory ? `&car_category=${carCategory}` : ""
-  }${carColor ? `&car_color=${carColor}` : ""}${
-    startDate ? `&start_date=${startDate}` : ""
-  }${endDate ? `&end_date=${endDate}` : ""}${state ? `&state=${state}` : ""}${
-    category ? `&category=${category}` : ""
+  }${carCategory ? `&car_category=${carCategory}` : ""}${
+    carColor ? `&car_color=${carColor}` : ""
+  }${startDate ? `&start_date=${startDate}` : ""}${
+    endDate ? `&end_date=${endDate}` : ""
+  }${state ? `&state=${state}` : ""}${
+    category ? `&car_category=${category}` : ""
+  }${lowerPrice ? `&lower_price=${lowerPrice}` : ""}${
+    upperPrice ? `&upper_price=${upperPrice}` : ""
   }`;
   const [cardData, setCardData] = useState([]);
 
@@ -28,7 +32,8 @@ const Card = ({
     // Fetch data from the backend when the component mounts
     if (
       search ||
-      price ||
+      lowerPrice ||
+      upperPrice ||
       carCategory ||
       carColor ||
       startDate ||
@@ -47,7 +52,8 @@ const Card = ({
     }
   }, [
     search,
-    price,
+    lowerPrice,
+    upperPrice,
     carCategory,
     carColor,
     startDate,
@@ -96,10 +102,13 @@ const Card = ({
                   alt="Description of your image"
                   className="mt-3 w-full rounded-lg" // Add the desired width and styling
                 />
-                <a
-                  href="#"
-                  className="mt-3 text-black dark:text-white hover:text-pallate-Gunmetal hover:font-bold inline-flex animate-bounce items-center"
+                <Link
+                  to={`/Car/${item.id}`}
+                  className="mt-3 text-black dark:text-white
+                  hover:text-pallate-Gunmetal hover:font-bold inline-flex
+                  animate-bounce items-center"
                 >
+                  {" "}
                   Learn More
                   <svg
                     fill="none"
@@ -112,7 +121,7 @@ const Card = ({
                   >
                     <path d="M5 12h14M12 5l7 7-7 7"></path>
                   </svg>
-                </a>
+                </Link>
               </div>
             </div>
           </div>

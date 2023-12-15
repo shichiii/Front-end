@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import socket from "./Socket";
 import useWebSocket, { ReadyState } from "react-use-websocket";
 import { w3cwebsocket as W3CWebSocket } from "websocket";
@@ -8,14 +8,15 @@ import axios from "axios";
 
 const BASE = "http://185.157.245.99:8000/chat/messages/1/";
 const authToken =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAxNTMxMTg3LCJpYXQiOjE3MDE0NDQ3ODcsImp0aSI6IjUyZDlkMzQ5OTJiNDQ3NjhiNGM1YTI5NzFiMWNhMDlmIiwidXNlcl9pZCI6Nn0.w6_aG4i_4sI3uJlRLj5hJc8QrN46IIXOQ6vdRq_ZSH4";
+  "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAxNTMxMTg3LCJpYXQiOjE3MDE0NDQ3ODcsImp0aSI6IjUyZDlkMzQ5OTJiNDQ3NjhiNGM1YTI5NzFiMWNhMDlmIiwidXNlcl9pZCI6Nn0.w6_aG4i_4sI3uJlRLj5hJc8QrN46IIXOQ6vdRq_ZSH4";
 
 function App() {
   const [messages, setMessages] = useState([]);
   const WS_URL = "ws://185.157.245.99:8000/ws/chat/1/";
-  const client = new W3CWebSocket(WS_URL, undefined, undefined, {
-    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAxNTMxMTg3LCJpYXQiOjE3MDE0NDQ3ODcsImp0aSI6IjUyZDlkMzQ5OTJiNDQ3NjhiNGM1YTI5NzFiMWNhMDlmIiwidXNlcl9pZCI6Nn0.w6_aG4i_4sI3uJlRLj5hJc8QrN46IIXOQ6vdRq_ZSH4`,
-  });
+  const client = new W3CWebSocket(WS_URL, undefined, undefined, [
+    "Authorization",
+    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAyNTMxMzg2LCJpYXQiOjE3MDI0NDQ5ODYsImp0aSI6IjJkOTYzYjMzYWFhYTQ0NzQ5ODY1NjBjZGM2YzJmOGRlIiwidXNlcl9pZCI6Nn0.EnSZwsrXU1o9IRBHGL4QKg-beNUN2uTN41a7EvhckUk",
+  ]);
   useEffect(function () {
     client.onopen = () => {
       console.log("WebSocket Client Connected");
@@ -48,77 +49,38 @@ function App() {
     getMessages();
   }, []);
 
-  // const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(
-  //   WS_URL,
-  //   {
-  //     share: false,
-  //     shouldReconnect: () => true,
-  //   }
+  // const [socketUrl, setSocketUrl] = useState(
+  //   "ws://185.157.245.99:8000/ws/chat/1/"
   // );
 
-  // // Run when the connection state (readyState) changes
+  // const { sendMessage, lastMessage, readyState } = useWebSocket(socketUrl, {
+  //   protocols: ["Authorization", authToken],
+  // });
+
+  // console.log("readyState: ", readyState);
+
   // useEffect(() => {
-  //   console.log("Connection state changed");
-  //   console.log("readyState: ", readyState);
-  //   console.log("lastMessage: ", lastJsonMessage);
-  //   console.log("sendJsonMessage: ", sendJsonMessage);
-  //   // if (readyState === ReadyState.OPEN) {
-  //   //   sendJsonMessage({
-  //   //     event: "subscribe",
-  //   //     data: {
-  //   //       channel: "general-chatroom",
-  //   //     },
-  //   //   });
-  //   // }
-  // }, [readyState]);
+  //   if (lastMessage !== null) {
+  //     setMessages((prev) => prev.concat(lastMessage));
+  //   }
+  // }, [messages, setMessages]);
 
-  // // Run when a new WebSocket message is received (lastJsonMessage)
-  // useEffect(() => {
-  //   console.log(`Got a new message: ${lastJsonMessage}`);
-  // }, [lastJsonMessage]);
+  // const handleClickSendMessage = useCallback(
+  //   () => sendMessage(JSON.stringify({ message: "Hello from new shit" })),
+  //   []
+  // );
 
-  // useEffect(function () {
-  //   // socket.connect();
-  //   // console.log("socket: ", socket);
-  //   // socket.on("connection", () => console.log("connect"));
-  //   console.log("socket: ", socket);
-
-  //   socket.onopen = () => {
-  //     console.log("WebSocket connection open");
-  //     // You can send any necessary authentication or subscription messages here
-  //   };
-  //   socket.send("Connection established");
-  // }, []);
-  // const socket = io(`wss://185.157.245.99:8000/ws/chat/${1}`);
-  // console.log("socket: ", socket);
-  // useEffect(() => {
-  //   const socket = io(`wss://185.157.245.99:8000/ws/chat/${1}`, {
-  //     extraHeaders: {
-  //       Authorization:
-  //         "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAxMzM1NzI4LCJpYXQiOjE3MDEyNDkzMjgsImp0aSI6ImM5Y2YwNmE4ZjNlZjQ0YWQ4ZGIxOTgwMDU2NGJhMTZiIiwidXNlcl9pZCI6Nn0.MqX8aatFvXax6W2wwKg7CYoDucnKWpWUmQfiBtljZyk",
-  //     },
-  //   });
-  //   console.log("socket: ", socket);
-
-  //   socket.on("connect", () => {
-  //     console.log("Connected to WebSocket API");
-  //     // You can send any necessary authentication or subscription messages here
-  //   });
-
-  //   socket.on("data", (data) => {
-  //     // Handle incoming data from the WebSocket API
-  //     console.log("Received data:", data);
-  //   });
-
-  //   return () => {
-  //     // Disconnect the socket when the component unmounts
-  //     socket.disconnect();
-  //   };
-  // }, []);
+  // const connectionStatus = {
+  //   [ReadyState.CONNECTING]: "Connecting",
+  //   [ReadyState.OPEN]: "Open",
+  //   [ReadyState.CLOSING]: "Closing",
+  //   [ReadyState.CLOSED]: "Closed",
+  //   [ReadyState.UNINSTANTIATED]: "Uninstantiated",
+  // }[readyState];
 
   return (
-    <div>
-      <div class="flex flex-col rounded-lg  min-h-[500px] text-gray-800 ">
+    <div className=" z-[10000]">
+      <div class="flex flex-col rounded-lg  min-h-[700px] text-gray-800 w-[500px]">
         <div class="flex flex-col  flex-grow w-full max-w-xl bg-pallate-Police_Blue shadow-lg  rounded-t-lg  overflow-hidden">
           <div class="flex flex-col flex-grow h-0 p-4 overflow-auto rounded-lg">
             {messages.map((message) => (
@@ -241,7 +203,10 @@ function App() {
           </div>
 
           <div class="bg-pallate-Dark_Sky_Blue p-4 rounded-t-lg flex">
-            <SendMessage sendMessageHandler={sendMessageHandler} />
+            <SendMessage
+              sendMessageHandler={sendMessageHandler}
+              disabled={true}
+            />
           </div>
         </div>
       </div>

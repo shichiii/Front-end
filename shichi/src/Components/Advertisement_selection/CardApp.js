@@ -5,7 +5,8 @@ import Search from "../for_push/HomePage/Search";
 import Price from "./Price";
 const CardApp = () => {
   const [search, setSearch] = useState("");
-  const [price, setPrice] = useState();
+  const [lowerPrice, setLowerPrice] = useState();
+  const [upperPrice, setUpperPrice] = useState();
   const [carCategory, setCarCategory] = useState();
   const [carColor, setCarColor] = useState();
   const [startDate, setStartDate] = useState();
@@ -20,8 +21,10 @@ const CardApp = () => {
         <div className="">
           <Category category={category} setCategory={setCategory} />
           <Price
-            price={price}
-            setPrice={setPrice}
+            lowerPrice={lowerPrice}
+            upperPrice={upperPrice}
+            setLowerPrice={setLowerPrice}
+            setUpperPrice={setUpperPrice}
             carCategory={carCategory}
             setCarCategory={setCarCategory}
             carColor={carColor}
@@ -38,7 +41,8 @@ const CardApp = () => {
         <div className="md:w-2/3 lg:w-3/4 ">
           <Card
             search={search}
-            price={price}
+            setLowerPrice={setLowerPrice}
+            setUpperPrice={setUpperPrice}
             carCategory={carCategory}
             carColor={carColor}
             startDate={startDate}
