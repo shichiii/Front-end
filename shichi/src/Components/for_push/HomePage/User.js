@@ -40,6 +40,22 @@ const User = ({ firstName, lastName, id, avatarPath }) => {
 
   }
 
+  const historyUser = () => {
+    const token = localStorage.getItem("token");
+    let user = null;
+    if (token !== "null" &&  token !== null ) {
+      user = jwtDecode(token); // decode your token here
+    }
+    // console.log("heloooooooooooooooooooooooooo");
+    // console.log(user);
+    // localStorage.setItem('token', token);
+    // dispatch(actions.authSuccess(token, user));
+    // console.log("/////////////////////")
+    // console.log(user)
+    navigate("/history")
+
+  }
+
 
   const [userId, setUserId] = useState(0);
   const [firstname, setFirstN] = useState("");
@@ -133,7 +149,7 @@ const User = ({ firstName, lastName, id, avatarPath }) => {
         class="bg-pallate-Gunmetal h-20 w-full cursor-pointer p-2 rounded-full shadow-lg"
         alt={`${firstname.charAt(0).toUpperCase()}  ${lastname.charAt(0).toUpperCase()}`}
       />
-      {open && <div className="border-white border-2 text-[10px] absolute text-white p-2 rounded-lg">
+      {open && <div className="border-white  z-50 border-2 text-[10px] absolute text-white p-2 rounded-lg">
         <ul>
           {Menu.map((meno) => (
             <li
@@ -144,6 +160,10 @@ const User = ({ firstName, lastName, id, avatarPath }) => {
                 }
                 if (meno === "Edit Profile") {
                   editprofileuser();
+                  // alert("=============")
+                }
+                if (meno === "History") {
+                  historyUser();
                   // alert("=============")
                 }
                 setOpen(false);

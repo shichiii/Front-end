@@ -62,22 +62,30 @@ const Login = () => {
           },
         }
       );
-// <<<<<<< feature/v1.0.0/NewAddAdvertise
-//       const token = response.data.access;
-//       localStorage.setItem("token", token);
-// =======
+// <<<<<<< feature/v1.0.0/HistoryForUser
+      const token = response.data.token;
+      localStorage.setItem("token", token);
+      navigate("/home");
+      console.log(response.data);
+      console.log(token);
+/*// =======
+// // <<<<<<< feature/v1.0.0/NewAddAdvertise
+// //       const token = response.data.access;
+// //       localStorage.setItem("token", token);
+// // =======
+
+// //       navigate("/home");
+// //       console.log(response.data);
+
+//       setAuthTokens(response.data.access);
 
 //       navigate("/home");
-//       console.log(response.data);
 
-      setAuthTokens(response.data.access);
+//       // console.log(response.data);
+//       // console.log('login token',token);
+//       // console.log(localStorage.setItem('accessTokenCustomer',res.data.access));
 
-      navigate("/home");
-
-      // console.log(response.data);
-      // console.log('login token',token);
-      // console.log(localStorage.setItem('accessTokenCustomer',res.data.access));
-
+// >>>>>>> Develop*/
     } catch (error) {
       console.error(error);
     }

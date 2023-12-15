@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import RateCar from "../CarInfo/RateCar";
 import Rate from "../CarInfo/Rate";
+import { jwtDecode } from "jwt-decode";
 
 function AddComment({ adv, setRefreshComment }) {
   const [comment, setComment] = useState("");
@@ -9,11 +10,13 @@ function AddComment({ adv, setRefreshComment }) {
   const [isLoading, setIsLoading] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
 
+  const userId = jwtDecode(localStorage.getItem("token")).user_id;
+
   function commentHandler() {
     setIsLoading(true);
     axios
       .post(`http://185.157.245.99:8000/advertisement/create-comment/`, {
-        user_id: 3,
+        user_id: userId,
         text: comment,
         adv: +adv,
       })
@@ -29,7 +32,7 @@ function AddComment({ adv, setRefreshComment }) {
     setRate(rate);
     axios
       .post(`http://185.157.245.99:8000/advertisement/create-rate/`, {
-        user_id: 3,
+        user_id: userId,
         rate: rate,
         adv: +adv,
       })

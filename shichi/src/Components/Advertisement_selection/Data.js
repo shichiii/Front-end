@@ -66,73 +66,79 @@ export const data = [
   
   export const categories = [
     {
+      lable:"All",
       id: 0,
-      name: 'All',
+      name:" ",
       image: all
     },
   
   
     {
+      lable:"Economy",
       id: 1,
       name: 'Economy',
       image:economic
     },
     {
+      lable:"Luxury",
       id: 2,
       name: 'Luxury',
       image:
         luxury
     },
     {
+      lable:"Compact",
       id: 3,
       name: 'Compact',
       image:
        compact
     },
     {
+      lable:"Offroad",
       id: 4,
       name: 'Offroad',
       image: affroad
     },
     {
+      lable:"Hybrid",
       id: 5,
       name: 'Hybrid',
       image:
       hybrid
     },
     {
+      lable:"Electric",
       id: 6,
       name: 'Electric',
       image:
         electric
     },
     {
+      lable:"Truck",
       id: 7,
       name: 'Truck',
       image:truck
     },
     {
+      lable:"Convertible",
       id: 8,
       name: 'Convertible',
       image:
         convertible
     },
     {
+      lable:"Passenger-van",
         id: 9,
         name: 'Passenger-van',
         image:
           passenger
       },
       {
+        lable:"Mini-van",
         id: 10,
         name: 'Mini-van',
         image:minivan
       },
-      {
-        id: 11,
-        name: 'Others',
-        image:
-          other
-      },
+     
   ];
   
