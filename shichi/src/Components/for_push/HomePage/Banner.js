@@ -90,8 +90,8 @@ const Hero = () => {
               </ul>
             </div>
             <div class="p-4">
-              <button  onClick={() => handleCategoryClick("Economy")} class="w-full bg-pallate-Dark_Sky_Blue text-white rounded-full px-4 py-2 hover:bg-blue-200 hover:animate-pulse hover:text-black focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
-                Show Cars
+              <button  name="Economy" onClick={() => handleCategoryClick("Economy")} class="w-full bg-pallate-Dark_Sky_Blue text-white rounded-full px-4 py-2 hover:bg-blue-200 hover:animate-pulse hover:text-black focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
+                Show Economy
               </button>
             </div>
           </div>
@@ -159,7 +159,7 @@ const Hero = () => {
             </div>
             <div class="p-4">
               <button  onClick={() => handleCategoryClick("Compact")} class="w-full bg-pallate-Dark_Sky_Blue text-white rounded-full px-4 py-2 hover:bg-green-200 hover:animate-pulse hover:text-black focus:outline-none focus:shadow-outline-green active:bg-green-800">
-                Show Cars
+                Show Compact
               </button>
             </div>
           </div>
@@ -227,7 +227,7 @@ const Hero = () => {
             </div>
             <div class="p-4">
               <button  onClick={() => handleCategoryClick("Luxury")} class="w-full bg-pallate-Dark_Sky_Blue text-white rounded-full px-4 py-2  hover:bg-purple-200 hover:animate-pulse hover:text-black focus:outline-none focus:shadow-outline-purple active:bg-purple-800">
-                Show Cars
+                Show Luxury
               </button>
             </div>
           </div>
@@ -294,7 +294,7 @@ const Hero = () => {
         </div>
         <div class="p-4">
           <button  onClick={() => handleCategoryClick("Hybrid")} class="w-full bg-pallate-Dark_Sky_Blue text-white rounded-full px-4 py-2 hover:bg-blue-200 hover:animate-pulse hover:text-black focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
-            Show Cars
+            Show Hybrid
           </button>
         </div>
       </div>
@@ -362,7 +362,7 @@ const Hero = () => {
         </div>
         <div class="p-4">
           <button   onClick={() => handleCategoryClick("Electric")} class="w-full bg-pallate-Dark_Sky_Blue text-white rounded-full px-4 py-2 hover:bg-green-200 hover:animate-pulse hover:text-black focus:outline-none focus:shadow-outline-green active:bg-green-800">
-            Show Cars
+            Show Electric
           </button>
         </div>
       </div>
@@ -432,7 +432,7 @@ const Hero = () => {
         </div>
         <div class="p-4">
           <button  onClick={() => handleCategoryClick("Truck")} class="w-full bg-pallate-Dark_Sky_Blue text-white rounded-full px-4 py-2 hover:bg-purple-200 hover:animate-pulse hover:text-black focus:outline-none focus:shadow-outline-purple active:bg-purple-800">
-            Show Cars
+            Show Truck
           </button>
         </div>
       </div>
@@ -500,7 +500,7 @@ const Hero = () => {
         </div>
         <div class="p-4">
           <button onClick={() => handleCategoryClick("OffRoad")} class="w-full bg-pallate-Dark_Sky_Blue text-white rounded-full px-4 py-2 hover:bg-blue-200 hover:animate-pulse hover:text-black focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
-            Show Cars
+            Show OffRoad
           </button>
         </div>
       </div>
@@ -568,7 +568,7 @@ const Hero = () => {
         </div>
         <div class="p-4">
           <button   onClick={() => handleCategoryClick("Convertible")} class="w-full bg-pallate-Dark_Sky_Blue text-white rounded-full px-4 py-2 hover:bg-green-200 hover:animate-pulse hover:text-black focus:outline-none focus:shadow-outline-green active:bg-green-800">
-            Show Cars
+            Show Covertible
           </button>
         </div>
       </div>
@@ -638,7 +638,7 @@ const Hero = () => {
         </div>
         <div class="p-4">
           <button  onClick={() => handleCategoryClick("Minivans")} class="w-full bg-pallate-Dark_Sky_Blue text-white rounded-full px-4 py-2 hover:bg-purple-200 hover:animate-pulse hover:text-black focus:outline-none focus:shadow-outline-purple active:bg-purple-800">
-            Show Cars
+            Show Mini-van
           </button>
         </div>
       </div>
@@ -706,7 +706,7 @@ const Hero = () => {
         </div>
         <div class="p-4">
           <button    onClick={() => handleCategoryClick("Passenger vans")} class="w-full bg-pallate-Dark_Sky_Blue text-white rounded-full px-4 py-2 hover:bg-blue-200 hover:animate-pulse hover:text-black focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
-            Show Cars
+            Show Passenger-van
           </button>
         </div>
       </div>

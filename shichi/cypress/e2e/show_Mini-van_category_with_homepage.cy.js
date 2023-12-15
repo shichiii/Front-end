@@ -1,6 +1,6 @@
 
 
-describe('show_Economy_category_with_homepage', () => {
+describe('show_Mini-van_category_with_homepage', () => {
     it('Gets', () => {
       cy.visit('http://localhost:3000/')
   
@@ -11,6 +11,6 @@ describe('show_Economy_category_with_homepage', () => {
       // cy.wait()
 
 
-      cy.contains('Show Economy').click()
+      cy.contains('Show Mini-van').click()
     })
   })

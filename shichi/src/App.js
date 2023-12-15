@@ -94,7 +94,7 @@ function App() {
             <Route exact path="/forgot" element={<ForgotApp />} />
             <Route exact path="/advertise" element={<Addacr />} />
 
-            <Route exact path="/wallet" element={<Wallet />} />
+            <Route exact path='/wallet/:id' element={<Wallet />} />
 
             <Route exact path="*" element={<NotFound />} />
             <Route exact path="/fail" element={<Fail />} />

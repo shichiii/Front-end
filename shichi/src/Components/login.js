@@ -63,11 +63,11 @@ const Login = () => {
         }
       );
 // <<<<<<< feature/v1.0.0/HistoryForUser
-      const token = response.data.token;
-      localStorage.setItem("token", token);
-      navigate("/home");
-      console.log(response.data);
-      console.log(token);
+      // const token = response.data.token;
+      // localStorage.setItem("token", token);
+      // navigate("/home");
+      // console.log(response.data);
+      // console.log(token);
 /*// =======
 // // <<<<<<< feature/v1.0.0/NewAddAdvertise
 // //       const token = response.data.access;
@@ -88,7 +88,7 @@ const Login = () => {
       setSuccessMessage('Login successful!');
       setTimeout(() => {
         navigate('/home');
-      }, 3000);
+      }, 2000);
 // =======
 //       setAuthTokens(response.data.access);
 
