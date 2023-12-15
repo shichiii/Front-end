@@ -33,14 +33,12 @@ const ForgotPass = () => {
   };
 
   const handleSubmit = () => {
-    console.log("hi");
     axios
       .post("http://185.157.245.99:8000/user/password-reset/", {
         email: emailAddress,
       })
       .then((response) => {
         // Handle the response if needed
-        console.log("hi2");
         console.log(response.data);
         navigate("/success");
       })

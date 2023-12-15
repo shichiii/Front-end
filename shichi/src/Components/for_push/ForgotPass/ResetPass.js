@@ -23,13 +23,46 @@ const ResetPass = () => {
 
   const validPasswordLength = new RegExp(/^.{5,10}$/);
   const validPassowrdContainsDigit = new RegExp(/^(?=.*\d).+$/);
+  const extractTokenFromURL = () => {
+    const path = window.location.pathname; // Assuming this code is running in a browser environment
+  
+    // Extract the token from the URL path
+    const token = path.split('/reset/')[1];
+  
+    return token;
+  };
+  const extractUidbFromURL = () => {
+    const url = window.location.href; // Assuming this code is running in a browser environment
+  
+    // Extract the uidb from the URL
+    const uidbMatch = url.match(/\/reset\/([^/]+)/);
+    const uidb = uidbMatch && uidbMatch[1];
+  
+    return uidb;
+  };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    
+  
+    const newPassword = password; // Replace 'new_password' with the desired new password
+  
+    const token = extractTokenFromURL(); // You need to implement the function to extract the token from the URL
+    //const uidb = extractUidbFromURL(); 
+  
+    const apiUrl = `http://185.157.245.99:8000/user/password-reset-confirm/MTg/${token}`;
+  
+    try {
+      const response = await axios.post(apiUrl, { new_password: newPassword });
+      navigate("/login");
+      // Handle the response as needed
+      console.log(response.data);
+    } catch (error) {
+      // Handle errors
+      console.error(error);
+    }
   };
-
+  
 
   const handlePassword = (event) => {
     if (event.target.value === "") {

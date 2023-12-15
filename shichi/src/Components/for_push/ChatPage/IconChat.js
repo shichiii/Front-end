@@ -12,7 +12,7 @@ const IconChat = () => {
   };
 
   return (
-    <div>
+    <div className="z-[1000]">
       <div class="fixed bottom-0 right-0  mb-3 lg:mr-3 lg:mb-3 xl:mr-4 xl:mb-4">
         <button
           onClick={openChat}
@@ -34,19 +34,18 @@ const IconChat = () => {
           </div>
         </button>
         {isChatOpen && (
-   <div className="fixed bottom-3 right-5  flex items-center justify-center rounded-lg">
-   <div className="flex flex-col flex-grow w-full max-w-xl shadow-xl rounded-lg overflow-hidden">
-      <Chat  />
-      <button
-        onClick={closeChat}
-        className="bg-pallate-Police_Blue  text-white py-2 px-4 rounded-b-lg "
-      >
-        Close Chat
-      </button>
-    </div>
-  </div>
-)}
-
+          <div className="fixed bottom-3 right-5  flex items-center justify-center rounded-lg z-[1000]">
+            <div className="flex flex-col flex-grow w-full max-w-xl shadow-xl rounded-lg overflow-hidden">
+              <Chat />
+              <button
+                onClick={closeChat}
+                className="bg-pallate-Police_Blue  text-white py-2 px-4 rounded-b-lg "
+              >
+                Close Chat
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
