@@ -37,7 +37,7 @@ const NavBar = () => {
     setNotification(!notification);
   };
 
-  const [chatRooms, setChatRooms] = useState(null);
+  const [chatRooms, setChatRooms] = useState([]);
 
   useEffect(() => {
     axios
@@ -47,9 +47,20 @@ const NavBar = () => {
         },
       })
       .then((response) => {
-        setChatRooms(response.data);
+        response.data.map((index) => {
+          axios
+            .get(`http://185.157.245.99:8000/user/show/${index.sender}/`)
+            .then((response) => {
+              setChatRooms((chatRooms) => [
+                ...chatRooms,
+                response.data.first_name + " " + response.data.last_name,
+              ]);
+            });
+        });
       });
   }, []);
+
+  console.log("caht: ", chatRooms);
 
   return (
     <div className="bg-pallate-Gunmetal h-[100px] ">
@@ -100,39 +111,21 @@ const NavBar = () => {
                 aria-labelledby="options-menu"
               >
                 <div class="py-1 text-white" role="none">
-                  <div
-                    class="px-4 py-2 text-sm hover:bg-pallate-Dark_Sky_Blue cursor-pointer flex items-center gap-5"
-                    role="menuitem"
-                  >
-                    <img
-                      src="https://tecdn.b-cdn.net/img/new/avatars/1.webp"
-                      alt="User's Profile Picture"
-                      className="rounded-full object-cover w-[50px]"
-                    />
-                    <span className=" font-bold">Hazhir Yousefi</span>
-                  </div>
-                  <div
-                    class="px-4 py-2 text-sm hover:bg-pallate-Dark_Sky_Blue cursor-pointer flex items-center gap-5"
-                    role="menuitem"
-                  >
-                    <img
-                      src="https://tecdn.b-cdn.net/img/new/avatars/1.webp"
-                      alt="User's Profile Picture"
-                      className="rounded-full object-cover w-[50px]"
-                    />
-                    <span className=" font-bold">Hazhir Yousefi</span>
-                  </div>
-                  <div
-                    class="px-4 py-2 text-sm hover:bg-pallate-Dark_Sky_Blue cursor-pointer flex items-center gap-5"
-                    role="menuitem"
-                  >
-                    <img
-                      src="https://tecdn.b-cdn.net/img/new/avatars/1.webp"
-                      alt="User's Profile Picture"
-                      className="rounded-full object-cover w-[50px]"
-                    />
-                    <span className=" font-bold">Hazhir Yousefi</span>
-                  </div>
+                  {chatRooms?.map((chatRoom) => {
+                    return (
+                      <div
+                        class="px-4 py-2 text-sm hover:bg-pallate-Dark_Sky_Blue cursor-pointer flex items-center gap-5"
+                        role="menuitem"
+                      >
+                        <img
+                          src="https://tecdn.b-cdn.net/img/new/avatars/1.webp"
+                          alt="User's Profile Picture"
+                          className="rounded-full object-cover w-[50px]"
+                        />
+                        <span className=" font-bold">{chatRoom}</span>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>

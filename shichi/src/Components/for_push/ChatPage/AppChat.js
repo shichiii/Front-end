@@ -82,7 +82,7 @@ function App() {
             {messages.map((message) => (
               <SingleChat
                 text={message.message}
-                position={`${userId === message.sender ? "right" : "left"}`}
+                position={`${userId === message.sender ? "right" : "right"}`}
               />
             ))}
             {/* <SingleChat /> */}
