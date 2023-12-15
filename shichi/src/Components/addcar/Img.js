@@ -20,6 +20,7 @@ import axios from 'axios';
 
 
 
+
 import {
   data,
   fuel,
@@ -33,6 +34,7 @@ import Navbar from "../for_push/HomePage/NavBar";
 import Footer from "../for_push/HomePage/Footer";
 import imgValue from "../../Static/110.png";
 import { BsDropletHalf } from "react-icons/bs";
+import { jwtDecode } from "jwt-decode";
 const Img = () => {
   const [selectedImages, setSelectedImages] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -89,16 +91,6 @@ const Img = () => {
       });
     }
   };
-  const handleFormSubmit = () => {
-    const token = localStorage.getItem("token");
-    // Add any validation or checks here before calling handleSubmit
-  
-    const files = document.getElementById("fileInput").files;
-    if (files.length > 0) {
-      handleImageChange({ target: { files } });
-    }
-  };
-  
   
   // Helper function to convert base64 data URL to a File object
   const dataURLtoFile = (dataURL, filename) => {
@@ -115,7 +107,7 @@ const Img = () => {
   
     return file;
   };
-
+  const baseURL = "http://185.157.245.99:8000/user/show/";
 
   const handleDeleteImage = (index) => {
     const updatedImages = [...selectedImages];
@@ -281,13 +273,23 @@ const handleenddate = (event) => {
     fetchData();
   }, []);
   //handle submit function
+  const [userId, setUserId] = useState(0);
   const handleSubmit = async (id) => {
     const token = localStorage.getItem("token");
+    let user = null;
+    if(token !== "null" && token !== null){
+      user = jwtDecode(token);
+      axios.get(baseURL + `${user.user_id}/`).then((response) => {
+        setUserId(response.data.id); 
+        console.log("owner_id", response.data.id);
+        console.log("user id", userId);
+    })
+    }
     try {
       const formattedstartdate = formatDate(startdate);
       const formattedenddate = formatDate(enddate);
       const formData = new FormData();
-      formData.append('owner_id',18);
+      //formData.append('owner_id', userId);
       formData.append('car_images', lastId);
       console.log('id', lastId);
       formData.append('location_geo_width',latitude );
@@ -309,7 +311,7 @@ const handleenddate = (event) => {
   
       const response = await axios.post('http://185.157.245.99:8000/advertisement/create/', formData, {
         headers: {
-          Authorization: `JWT ${token}`,
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
         },
       });

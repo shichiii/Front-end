@@ -11,9 +11,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import logo from "../Static/whitelogowithouttext90.svg";
 import logo2 from "../Static/whitelogowithouttext270.svg";
+import { Alert, AlertTitle } from '@material-ui/lab';
 
-// import { ToastContainer, toast } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
 
 
 import { BsPatchExclamation } from "react-icons/bs";
@@ -21,6 +20,7 @@ import { useContext } from "react";
 import AuthContext from "../Context/AuthContext";
 
 const Login = () => {
+  const [successMessage, setSuccessMessage] = useState('');
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setpassword] = useState("");
   const [emailAddressError, setEmailAddressError] = useState(false);
@@ -77,15 +77,24 @@ const Login = () => {
 // //       navigate("/home");
 // //       console.log(response.data);
 
-//       setAuthTokens(response.data.access);
-
-//       navigate("/home");
-
 //       // console.log(response.data);
 //       // console.log('login token',token);
 //       // console.log(localStorage.setItem('accessTokenCustomer',res.data.access));
 
 // >>>>>>> Develop*/
+      
+//       <<<<<<< feature/v1.0.0/overallfix
+      setAuthTokens(response.data.access);
+      setSuccessMessage('Login successful!');
+      setTimeout(() => {
+        navigate('/home');
+      }, 3000);
+// =======
+//       setAuthTokens(response.data.access);
+
+//       navigate("/home");
+// >>>>>>> Develop
+      
     } catch (error) {
       console.error(error);
     }
@@ -156,6 +165,14 @@ const Login = () => {
                     />
                   </div>
                 </form>
+                <div>
+                {successMessage && (
+                  <Alert severity="success">
+                    <AlertTitle>Success</AlertTitle>
+                    {successMessage}
+                  </Alert>
+                )}
+              </div>
                 <div>
                   <Link
                     to="/forgot"
