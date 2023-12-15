@@ -31,8 +31,6 @@ import Advertisement from "./Components/Advertisement_selection/AdvertisementApp
 import Loading from "./Components/loading";
 import Fail from "./Components/fail";
 
-// import  ResetPass from "./Components/for_push/ForgotPass/ResetPass"
-
 //import logo from './logo.svg';
 import "./App.css";
 // import React from "react";
@@ -40,10 +38,15 @@ import "./App.css";
 // import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 import ForgotApp from "./Components/for_push/ForgotPass/ForgotApp";
+// <<<<<<< feature/v1.0.0/responsive
 
 import Newcar from "./Components/addcar/addcarapp";
 import Photo from "./Components/addcar/photo";
 import Addacr from "./Components/addcar/addcarapp";
+// =======
+// import Img from './Components/addcar/Img';
+// import Addacr from './Components/addcar/Img'
+// >>>>>>> Develop
 import AuthContext, { AuthProvider } from "./Context/AuthContext";
 // import Loading from './Components'
 
@@ -78,6 +81,7 @@ const PrivateRoute = ({ element }) => {
 function App() {
   return (
     <Router>
+//<<<<<<< feature/v1.0.0/responsive
       <AuthProvider>
         <Routes>
           <Route element={<PrivateRoute />}>
@@ -106,6 +110,45 @@ function App() {
 
           <Route exact path="/newcar" element={<Newcar />} />
           {/* <Route exact path='/Advertisement' element={<Advertisement />} />
+//=======
+    <AuthProvider>
+      <Routes>
+
+
+
+        <Route element={<PrivateRoute />}>
+          <Route exact path="/home" element={<Home />} />
+          <Route exact path="/history" element={<History />} />
+          <Route exact path="/car/:id" element={<CarInfoPage />} />
+          <Route exact path="/profile/:id" element={<ProfilePage />} />
+
+
+          <Route exact path='/Advertisement' element={<Advertisement />} />
+          <Route exact path='/forgot' element={<ForgotApp />} />
+          <Route exact path='/advertise' element={<Addacr />} />
+
+
+
+          <Route exact path='/wallet/:id' element={<Wallet />} />
+                     <Route exact path='/advertise' element={<Img/>} />
+                               <Route exact path="*" element={<NotFound />}/>
+                               <Route exact path='/fail' element={<Fail />} />
+      <Route exact path='/success' element={<Loading />} />
+      <Route exact path='/reset/:token' element={<ResetPass />} />
+        </Route>
+        
+
+
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+
+
+
+        <Route exact path="/" element={<Landing />} />
+
+
+        {/* <Route exact path='/Advertisement' element={<Advertisement />} />
+//>>>>>>> Develop
         <Route exact path="/" element={<Landing />} />
 
         <Route exact path="/home" element={<Home />} />

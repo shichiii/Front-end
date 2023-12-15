@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Comment from "./Comment";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
 function CommentSection({ refreshComment, setRefreshComment, adv }) {
   const comment =
@@ -10,6 +11,8 @@ function CommentSection({ refreshComment, setRefreshComment, adv }) {
   const [commentsNum, setCommentsNum] = useState(3);
   const [showDelayedComment, setShowDelayedComment] = useState(false);
   const [rating, setRating] = useState(null);
+
+  const userId = jwtDecode(localStorage.getItem("token")).user_id;
 
   useEffect(() => {
     axios
@@ -34,7 +37,7 @@ function CommentSection({ refreshComment, setRefreshComment, adv }) {
         .then((response) => {
           setRating(
             response.data.find(
-              (item) => item.adv === +adv && item.user_id === 3
+              (item) => item.adv === +adv && item.user_id === userId
             )?.rate
           );
         });
