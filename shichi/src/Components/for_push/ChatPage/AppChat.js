@@ -5,18 +5,16 @@ import { w3cwebsocket as W3CWebSocket } from "websocket";
 import SingleChat from "./SingleChat";
 import SendMessage from "./SendMessage";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
 const BASE = "http://185.157.245.99:8000/chat/messages/1/";
-const authToken =
-  "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAxNTMxMTg3LCJpYXQiOjE3MDE0NDQ3ODcsImp0aSI6IjUyZDlkMzQ5OTJiNDQ3NjhiNGM1YTI5NzFiMWNhMDlmIiwidXNlcl9pZCI6Nn0.w6_aG4i_4sI3uJlRLj5hJc8QrN46IIXOQ6vdRq_ZSH4";
+const authToken = `${localStorage.getItem("token")}`;
 
 function App() {
+  const userId = jwtDecode(localStorage.getItem("token")).user_id;
   const [messages, setMessages] = useState([]);
-  const WS_URL = "ws://185.157.245.99:8000/ws/chat/1/";
-  const client = new W3CWebSocket(WS_URL, undefined, undefined, [
-    "Authorization",
-    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAyNTMxMzg2LCJpYXQiOjE3MDI0NDQ5ODYsImp0aSI6IjJkOTYzYjMzYWFhYTQ0NzQ5ODY1NjBjZGM2YzJmOGRlIiwidXNlcl9pZCI6Nn0.EnSZwsrXU1o9IRBHGL4QKg-beNUN2uTN41a7EvhckUk",
-  ]);
+  const WS_URL = `ws://185.157.245.99:8000/ws/chat/1/?access_token=${authToken}`;
+  const client = new W3CWebSocket(WS_URL);
   useEffect(function () {
     client.onopen = () => {
       console.log("WebSocket Client Connected");
@@ -34,14 +32,12 @@ function App() {
     client.send(JSON.stringify({ message: message }));
   }
 
-  console.log("messages: ", messages);
-
   useEffect(function () {
     async function getMessages() {
       await axios.get(BASE).then(async (response) => {
         const ar = [];
         await response.data.map(async (element) => {
-          ar.push({ message: element.content });
+          ar.push({ message: element.content, sender: element.sender });
         });
         setMessages([...messages, ...ar]);
       });
@@ -84,7 +80,10 @@ function App() {
         <div class="flex flex-col  flex-grow w-full max-w-xl bg-pallate-Police_Blue shadow-lg  rounded-t-lg  overflow-hidden">
           <div class="flex flex-col flex-grow h-0 p-4 overflow-auto rounded-lg">
             {messages.map((message) => (
-              <SingleChat text={message.message} />
+              <SingleChat
+                text={message.message}
+                position={`${userId === message.sender ? "right" : "left"}`}
+              />
             ))}
             {/* <SingleChat /> */}
             {/* <div class="flex w-full mt-2 space-x-3 max-w-xs ml-auto justify-end">

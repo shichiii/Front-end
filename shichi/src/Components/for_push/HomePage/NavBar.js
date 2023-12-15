@@ -37,11 +37,25 @@ const NavBar = () => {
     setNotification(!notification);
   };
 
+  const [chatRooms, setChatRooms] = useState(null);
+
+  useEffect(() => {
+    axios
+      .get("http://185.157.245.99:8000/chat/chatroomMembers/", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((response) => {
+        setChatRooms(response.data);
+      });
+  }, []);
+
   return (
     <div className="bg-pallate-Gunmetal h-[100px] ">
       <div className="flex justify-between items-center border-x-pallate-Gunmetal h-24 max-w-[1240px] m-auto text-white">
         <Link to="/">
-          <img src={logo} alt="My Logo" className="w-52 w-52 md:w-64 h-64" />
+          <img src={logo} alt="My Logo" className="w-52 md:w-64 h-64" />
         </Link>
         <ul className="hidden md:flex">
           <Link to="/home">
@@ -84,24 +98,39 @@ const NavBar = () => {
                 aria-labelledby="options-menu"
               >
                 <div class="py-1 text-white" role="none">
-                  <a
-                    class="block px-4 py-2 text-sm hover:bg-gray-100"
+                  <div
+                    class="px-4 py-2 text-sm hover:bg-pallate-Dark_Sky_Blue cursor-pointer flex items-center gap-5"
                     role="menuitem"
                   >
-                    Edit
-                  </a>
-                  <a
-                    class="block px-4 py-2 text-sm hover:bg-gray-100"
+                    <img
+                      src="https://tecdn.b-cdn.net/img/new/avatars/1.webp"
+                      alt="User's Profile Picture"
+                      className="rounded-full object-cover w-[50px]"
+                    />
+                    <span className=" font-bold">Hazhir Yousefi</span>
+                  </div>
+                  <div
+                    class="px-4 py-2 text-sm hover:bg-pallate-Dark_Sky_Blue cursor-pointer flex items-center gap-5"
                     role="menuitem"
                   >
-                    View
-                  </a>
-                  <a
-                    class="block px-4 py-2 text-sm hover:bg-gray-100"
+                    <img
+                      src="https://tecdn.b-cdn.net/img/new/avatars/1.webp"
+                      alt="User's Profile Picture"
+                      className="rounded-full object-cover w-[50px]"
+                    />
+                    <span className=" font-bold">Hazhir Yousefi</span>
+                  </div>
+                  <div
+                    class="px-4 py-2 text-sm hover:bg-pallate-Dark_Sky_Blue cursor-pointer flex items-center gap-5"
                     role="menuitem"
                   >
-                    Delete
-                  </a>
+                    <img
+                      src="https://tecdn.b-cdn.net/img/new/avatars/1.webp"
+                      alt="User's Profile Picture"
+                      className="rounded-full object-cover w-[50px]"
+                    />
+                    <span className=" font-bold">Hazhir Yousefi</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -127,7 +156,9 @@ const NavBar = () => {
             <li className="p-4 border-b border-gray-600">All Cars</li>
           </Link>
           <Link to="/Advertise">
-            <li className="p-4 border-b border-gray-600">Advertisement register</li>
+            <li className="p-4 border-b border-gray-600">
+              Advertisement register
+            </li>
           </Link>
           <Link to="/about">
             <li className="p-4 border-b border-gray-600">About</li>

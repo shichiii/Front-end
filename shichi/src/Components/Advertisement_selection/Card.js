@@ -27,7 +27,6 @@ const Card = ({
     upperPrice ? `&upper_price=${upperPrice}` : ""
   }`;
   const [cardData, setCardData] = useState([]);
-
   useEffect(() => {
     // Fetch data from the backend when the component mounts
     if (

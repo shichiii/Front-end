@@ -34,16 +34,16 @@ function CarImageSlider({ images }) {
   return (
     <div className="slide-container bg-pallate-Dark_Sky_Blue bg-opacity-30 lg:bg-opacity-20 w-[1215px] rounded-2xl p-5">
       <Slide>
-        {/* {images.map((image, index) => (
+        {images.map((image, index) => (
           <div key={index}>
             <img
-              src={image}
-              alt="ssdf"
+              src={image.image}
+              alt="car Images"
               class="w-auto mx-auto rounded-2xl h-[500px]"
             />
           </div>
-        ))} */}
-        {slideImages.map((slideImage, index) => (
+        ))}
+        {/* {slideImages.map((slideImage, index) => (
           <div key={index}>
             <img
               src={slideImage.url}
@@ -51,7 +51,7 @@ function CarImageSlider({ images }) {
               class="w-auto mx-auto rounded-2xl h-[500px]"
             />
           </div>
-        ))}
+        ))} */}
       </Slide>
     </div>
   );
