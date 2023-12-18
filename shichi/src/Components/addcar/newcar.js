@@ -552,7 +552,8 @@ const handleenddate = (event) => {
                          
                           class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                           placeholder=""
-                          min={1}
+                          min={2}
+                          max={4} 
                           onChange={handleDoornumbers}
                           onKeyPress={handleKeyPress}
                           required
@@ -622,7 +623,8 @@ const handleenddate = (event) => {
                 type="number"
                 class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                 placeholder=""
-                min={1}
+                min={2}
+                max={15}
                 onChange={handleSeatnumbers}
                 onKeyPress={handleKeyPress}
                 required
@@ -707,15 +709,15 @@ const handleenddate = (event) => {
           </div>
           <div className="w-full ">
               <div className="flex justify-start items-center pl-1 text-white">
-                <BsCurrencyDollar className="mr-1" />
+                {/* <BsCurrencyDollar className="mr-1" /> */}
                 <label className="m-1">Price:</label>
               </div>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                {/* <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                   <span className="text-white">
                     <BsCurrencyDollar />
                   </span>
-                </div>
+                </div> */}
                 <input
                   type="number"
                   

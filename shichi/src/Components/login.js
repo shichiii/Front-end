@@ -21,6 +21,7 @@ import AuthContext from "../Context/AuthContext";
 
 const Login = () => {
   const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setpassword] = useState("");
   const [emailAddressError, setEmailAddressError] = useState(false);
@@ -96,6 +97,7 @@ const Login = () => {
 // >>>>>>> Develop
       
     } catch (error) {
+      setErrorMessage('Login Failed!');
       console.error(error);
     }
   };
@@ -170,6 +172,12 @@ const Login = () => {
                   <Alert severity="success">
                     <AlertTitle>Success</AlertTitle>
                     {successMessage}
+                  </Alert>
+                )}
+                {errorMessage && (
+                  <Alert severity="error">
+                    <AlertTitle>Error</AlertTitle>
+                    {errorMessage}
                   </Alert>
                 )}
               </div>

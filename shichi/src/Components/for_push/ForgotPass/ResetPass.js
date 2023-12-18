@@ -14,12 +14,14 @@ import { BsPatchExclamation } from "react-icons/bs";
 const ResetPass = () => {
 
   const [successMessage, setSuccessMessage] = useState('');
+  
 //develope
 //   const token = localStorage.getItem("token");
  
   const [password, setpassword] = useState("");
   const [passwordError, setPasswordError] = useState(false);
   const [passwordLengthError, setPasswordLengthError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const [passwordContainsDigitError, setPasswordContainsDigitError] =
     useState(false);
 
@@ -46,7 +48,6 @@ const ResetPass = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
     const newPassword = password; // Replace 'new_password' with the desired new password
   
     const token = extractTokenFromURL(); // You need to implement the function to extract the token from the URL
@@ -64,6 +65,7 @@ const ResetPass = () => {
       console.log(response.data);
     } catch (error) {
       // Handle errors
+      setErrorMessage('Passwords do not match!')
       console.error(error);
     }
   };
@@ -223,6 +225,12 @@ const ResetPass = () => {
                   <Alert severity="success">
                     <AlertTitle>Success</AlertTitle>
                     {successMessage}
+                  </Alert>
+                )}
+                {errorMessage && (
+                  <Alert severity="error">
+                    <AlertTitle>Error</AlertTitle>
+                    {errorMessage}
                   </Alert>
                 )}
               <div>

@@ -608,7 +608,7 @@ const handleenddate = (event) => {
                     </div>
                     <div className="">
                       <div className="flex justify-start items-center pl-1 text-white">
-                        <BsCalendar className="mr-1" />
+                        {/* <BsCalendar className="mr-1" /> */}
                         <label className="m-1">End Date:</label>
                         
                       </div>                      
@@ -631,15 +631,15 @@ const handleenddate = (event) => {
             </div>
             <div className="w-full ">
               <div className="flex justify-start items-center pl-1 text-white">
-                <BsCurrencyDollar className="mr-1" />
+                {/* <BsCurrencyDollar className="mr-1" />  */}
                 <label className="m-1">Price:</label>
               </div>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                  <span className="text-pallate-persian_green">
+                {/* <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"> */}
+                  {/* <span className="text-pallate-persian_green">
                     <BsCurrencyDollar />
-                  </span>
-                </div>
+                  </span> */}
+                {/* </div> */}
                 <input
                   type="number"
                   id="visitors"
