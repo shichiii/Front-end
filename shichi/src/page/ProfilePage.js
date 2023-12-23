@@ -26,7 +26,7 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-const baseURL = "http://185.157.245.99:8000/user/show/";
+const baseURL = "http://87.107.105.201:8000/user/show/";
 
 function ProfilePage() {
   const userId = useParams();
@@ -54,7 +54,7 @@ function ProfilePage() {
   function editProfileHandler() {
     setIsLoading(true);
     axios
-      .put(`http://185.157.245.99:8000/user/update/${userId.id}/`, {
+      .put(`http://87.107.105.201:8000/user/update/${userId.id}/`, {
         first_name: firstN,
         last_name: lastN,
         email: email,

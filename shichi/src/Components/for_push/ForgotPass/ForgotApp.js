@@ -7,7 +7,8 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // import { ToastContainer, toast } from "react-toastify";
 // import "react-toastify/dist/ReactToastify.css";
 
@@ -34,7 +35,7 @@ const ForgotPass = () => {
 
   const handleSubmit = () => {
     axios
-      .post("http://185.157.245.99:8000/user/password-reset/", {
+      .post("http://87.107.105.201:8000/user/password-reset/", {
         email: emailAddress,
       })
       .then((response) => {
@@ -79,7 +80,7 @@ const ForgotPass = () => {
                   <div className="flex items-center border-b border-pallate-Dark_Sky_Blue py-2">
                     <BsEnvelopeFill className="mr-1" />
                     <div className="group flex ">
-                      <span className="w-60 scale-0 rounded-md   absolute bg-pallate-Dark_Sky_Blue opacity-90  text-xs text-black group-hover:scale-100">
+                      <span className="m-[-19px] ml-[-40px] p-[2px] scale-0 rounded-md   absolute bg-pallate-Dark_Sky_Blue opacity-90  text-xs text-black group-hover:scale-100">
                         {emailAddressError && (
                           <span className="text-red-500 text-xs font-bold w-[700px] neon-button-remove">
                             {emailAddressError}

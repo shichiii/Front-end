@@ -7,8 +7,9 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Alert, AlertTitle } from '@material-ui/lab';
-
+// import { Alert, AlertTitle } from '@material-ui/lab';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { BsPatchExclamation } from "react-icons/bs";
 const ResetPass = () => {
@@ -17,7 +18,7 @@ const ResetPass = () => {
   
 //develope
 //   const token = localStorage.getItem("token");
- 
+const [confirmpassword, setConfirmpassword] = useState("");
   const [password, setpassword] = useState("");
   const [passwordError, setPasswordError] = useState(false);
   const [passwordLengthError, setPasswordLengthError] = useState(false);
@@ -53,11 +54,17 @@ const ResetPass = () => {
     const token = extractTokenFromURL(); // You need to implement the function to extract the token from the URL
     //const uidb = extractUidbFromURL(); 
   
-    const apiUrl = `http://185.157.245.99:8000/user/password-reset-confirm/MTg/${token}`;
-  
+    const apiUrl = `http://87.107.105.201:8000/user/password-reset-confirm/MTg/${token}`;
+    if (password !== confirmpassword) {
+      // setError('Passwords do not match');
+      notifypass();
+      console.log("pass")
+      
+    }
     try {
       const response = await axios.post(apiUrl, { new_password: newPassword });
-      setSuccessMessage('Password Changed successfuly!');
+      // setSuccessMessage('Password Changed successfuly!');
+      notify();
       setTimeout(() => {
         navigate('/login');
       }, 3000);
@@ -65,13 +72,26 @@ const ResetPass = () => {
       console.log(response.data);
     } catch (error) {
       // Handle errors
-      setErrorMessage('Passwords do not match!')
+      notifyfaild();
+      // setErrorMessage('Passwords do not match!')
+      
       console.error(error);
     }
   };
-  
-
-  const handlePassword = (event) => {
+  const notify = () => { toast.success(" Reset Password successful !" , {
+    position:
+    toast.POSITION.TOP_RIGHT, autoClose:3000,})
+  };
+  const notifyfaild = () =>{ toast.error(" Reset Password Faild !" , {
+    position:
+    toast.POSITION.TOP_RIGHT,})
+  };
+  const notifypass = () =>{ toast.error("Password Do Not Match !" , {
+    position:
+    toast.POSITION.TOP_RIGHT,})
+  };
+  const handlePasswordconfirm = (event) => {
+    
     if (event.target.value === "") {
       setPasswordError("Please enter password");
     } else {
@@ -89,7 +109,39 @@ const ResetPass = () => {
       !validPasswordLength.test(event.target.value) &&
       event.target.value !== ""
     ) {
-      setPasswordLengthError("password must have 5 to 10 characters");
+      setPasswordLengthError("please 5 to 10 characters");
+    } else {
+      setPasswordLengthError(false);
+    }
+    if (
+      passwordError === false &&
+      !validPasswordLength.test(event.target.value) === false &&
+      passwordContainsDigitError === false &&
+      passwordLengthError === false
+    ) {
+      setConfirmpassword(event.target.value);
+    }
+  };
+  const handlePassword = (event) => {
+    setConfirmpassword(event.target.value);
+    if (event.target.value === "") {
+      setPasswordError("Please enter password");
+    } else {
+      setPasswordError(false);
+    }
+    if (
+      !validPassowrdContainsDigit.test(event.target.value) &&
+      event.target.value !== ""
+    ) {
+      setPasswordContainsDigitError("password must contain digit.");
+    } else {
+      setPasswordContainsDigitError(false);
+    }
+    if (
+      !validPasswordLength.test(event.target.value) &&
+      event.target.value !== ""
+    ) {
+      setPasswordLengthError("please 5 to 10 characters");
     } else {
       setPasswordLengthError(false);
     }
@@ -123,6 +175,7 @@ const ResetPass = () => {
   return (
     <div>
       <body>
+      <ToastContainer  position="bottom-left" theme="light" pauseOnHover />
         <div class="flex items-center justify-center min-h-screen bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal">
           <div class="relative flex flex-col  bg-pallate-Dark_Sky_Blue bg-opacity-20  shadow-2xl rounded-2xl md:flex-row md:space-y-0">
             <div class="flex flex-col justify-center bg-purple-300 bg-opacity-20 rounded-l-2xl border-pallate-Dark_Sky_Blue p-8 md:p-14">
@@ -139,7 +192,7 @@ const ResetPass = () => {
                 <div className="flex items-center  border-b border-pallate-Dark_Sky_Blue py-2 ">
                   <HiLockClosed className="mr-1 group" />{" "}
                   <div className="group flex ">
-                    <span className="w-60 scale-0 rounded-md  absolute bg-pallate-Dark_Sky_Blue opacity-90  text-xs text-black group-hover:scale-100">
+                    <span className="m-[-19px] w-[320px] ml-[-40px] p-[2px] scale-0 rounded-md  absolute bg-pallate-Dark_Sky_Blue opacity-90  text-xs text-black group-hover:scale-100">
                       {passwordError && (
                         <span className="text-red-500 text-xs font-bold w-[700px] neon-button-remove">
                           {passwordError}
@@ -181,7 +234,7 @@ const ResetPass = () => {
                 <div className="flex items-center  border-b border-pallate-Dark_Sky_Blue py-2 ">
                   <HiLockClosed className="mr-1 group" />{" "}
                   <div className="group flex ">
-                    <span className="w-60 scale-0 rounded-md  absolute bg-pallate-Dark_Sky_Blue opacity-90  text-xs text-black group-hover:scale-100">
+                    <span className="m-[-19px] w-[320px] ml-[-40px] p-[2px] scale-0 rounded-md  absolute bg-pallate-Dark_Sky_Blue opacity-90  text-xs text-black group-hover:scale-100">
                       {passwordError && (
                         <span className="text-red-500 text-xs font-bold w-[700px] neon-button-remove">
                           {passwordError}
@@ -216,12 +269,12 @@ const ResetPass = () => {
                     className="appearance-none text-sm text-white bg-transparent border-none w-full py-1 px-2 leading-tight focus:outline-none bg-pallate-celeste_light text-start input-focus"
                     type="password"
                     placeholder="Confirm New Password"
-                    onChange={handlePassword}
+                    onChange={handlePasswordconfirm}
                     autoComplete="off"
                   />
                 </div>
               </form>
-              {successMessage && (
+              {/* {successMessage && (
                   <Alert severity="success">
                     <AlertTitle>Success</AlertTitle>
                     {successMessage}
@@ -232,7 +285,7 @@ const ResetPass = () => {
                     <AlertTitle>Error</AlertTitle>
                     {errorMessage}
                   </Alert>
-                )}
+                )} */}
               <div>
               
               </div>

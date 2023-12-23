@@ -13,7 +13,8 @@ import logo from "../Static/whitelogowithouttext90.svg";
 import logo2 from "../Static/whitelogowithouttext270.svg";
 import { Alert, AlertTitle } from '@material-ui/lab';
 
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { BsPatchExclamation } from "react-icons/bs";
 import { useContext } from "react";
@@ -28,7 +29,14 @@ const Login = () => {
 
   const {authTokens, setAuthTokens} = useContext(AuthContext)
 
-
+  const notify = () => { toast.success(" Login successful !" , {
+    position:
+    toast.POSITION.TOP_RIGHT, autoClose:3000,})
+  };
+  const notifyfaild = () =>{ toast.error(" Login Faild !" , {
+    position:
+    toast.POSITION.TOP_RIGHT,})
+  };
   const validEmailAddress = new RegExp(
     /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
   );
@@ -52,7 +60,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://185.157.245.99:8000/user/login/",
+        "http://87.107.105.201:8000/user/login/",
         {
           email: emailAddress,
           password: password,
@@ -86,10 +94,11 @@ const Login = () => {
       
 //       <<<<<<< feature/v1.0.0/overallfix
       setAuthTokens(response.data.access);
-      setSuccessMessage('Login successful!');
+      notify();
+      // setSuccessMessage('Login successful!');
       setTimeout(() => {
         navigate('/home');
-      }, 2000);
+      }, 3000);
 // =======
 //       setAuthTokens(response.data.access);
 
@@ -97,6 +106,7 @@ const Login = () => {
 // >>>>>>> Develop
       
     } catch (error) {
+      notifyfaild();
       setErrorMessage('Login Failed!');
       console.error(error);
     }
@@ -121,6 +131,7 @@ const Login = () => {
   return (
     <div>
       <body>
+      <ToastContainer  position="bottom-left" theme="light" pauseOnHover />
         <div class="flex items-center justify-center min-h-screen bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal">
           <div class="relative flex flex-col  bg-transparent  md:bg-pallate-Dark_Sky_Blue md:bg-opacity-20  shadow-2xl rounded-2xl md:flex-row md:space-y-0">
             <div class="flex flex-col justify-center   bg-pallate-Dark_Sky_Blue md:bg-opacity-20 md:bg-purple-300 bg-opacity-20 rounded-2xl border-pallate-Dark_Sky_Blue p-8 md:p-14">
@@ -133,7 +144,7 @@ const Login = () => {
                   <div className="flex items-center border-b border-pallate-Dark_Sky_Blue py-2">
                     <BsEnvelopeFill className="mr-1" />
                     <div className="group flex ">
-                      <span className="w-60 scale-0 rounded-md   absolute bg-pallate-Dark_Sky_Blue opacity-90  text-xs text-black group-hover:scale-100">
+                      <span className="m-[-19px] ml-[-40px] p-[2px] scale-0 rounded-md   absolute bg-pallate-Dark_Sky_Blue opacity-90  text-xs text-black group-hover:scale-100">
                         {emailAddressError && (
                           <span className="text-red-500 text-xs font-bold w-[700px] neon-button-remove">
                             {emailAddressError}
@@ -168,7 +179,7 @@ const Login = () => {
                   </div>
                 </form>
                 <div>
-                {successMessage && (
+                {/* {successMessage && (
                   <Alert severity="success">
                     <AlertTitle>Success</AlertTitle>
                     {successMessage}
@@ -179,7 +190,7 @@ const Login = () => {
                     <AlertTitle>Error</AlertTitle>
                     {errorMessage}
                   </Alert>
-                )}
+                )} */}
               </div>
                 <div>
                   <Link

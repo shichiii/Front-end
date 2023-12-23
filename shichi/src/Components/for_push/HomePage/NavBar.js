@@ -15,7 +15,7 @@ const NavBar = () => {
   const [image, setImage] = useState("");
   const [user, setUser] = useState({}); // State to store user information
 
-  const baseURL = "185.157.245.99:8000/user/myshow/";
+  const baseURL = "87.107.105.201:8000/user/myshow/";
 
   useEffect(() => {
     // Fetch user information from localStorage
@@ -41,7 +41,7 @@ const NavBar = () => {
 
   useEffect(() => {
     axios
-      .get("http://185.157.245.99:8000/chat/chatroomMembers/", {
+      .get("http://87.107.105.201:8000/chat/chatroomMembers/", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -49,7 +49,7 @@ const NavBar = () => {
       .then((response) => {
         response.data.map((index) => {
           axios
-            .get(`http://185.157.245.99:8000/user/show/${index.sender}/`)
+            .get(`http://87.107.105.201:8000/user/show/${index.sender}/`)
             .then((response) => {
               setChatRooms((chatRooms) => [
                 ...chatRooms,
