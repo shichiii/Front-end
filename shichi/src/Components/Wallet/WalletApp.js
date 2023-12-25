@@ -7,7 +7,7 @@ import Footer from '../for_push/HomePage/Footer'
 
 const WalletApp = () => {
   return (
-    <div>
+    <div >
         <NavBar />
         <WalletMainpage />
         <Footer/>

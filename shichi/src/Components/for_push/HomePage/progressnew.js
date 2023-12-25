@@ -17,7 +17,7 @@ const RentingProcess = () => {
   return (
   
   
-    <div class="w-full py-6 bg-pallate-Gunmetal text-white">
+    <div  class="w-full py-6 bg-pallate-Gunmetal text-white">
       <div class="flex">
         <Scroll to="carcategory" smooth={true} class="w-1/4">
           <div class="relative mb-2">
