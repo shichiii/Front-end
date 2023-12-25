@@ -3,7 +3,7 @@ import { info } from "./Data";
 import { FaImage } from "react-icons/fa6";
 import { MdDriveFileRenameOutline } from "react-icons/md";
 import axios from 'axios';
-const History = () => {
+const MyHistory = () => {
   //delete advertise request
   const deleteAdvertisement = (id) => {
     const token = localStorage.getItem("token");
@@ -217,7 +217,7 @@ const History = () => {
                         <td className="text-sm font-bold px-6 py-4 whitespace-nowrap">
                           {item.advertisement.price}
                         </td>
-                        {/* <td class="px-6 py-4 ">
+                        <td class="px-6 py-4 ">
                           <div class="flex justify-end gap-4">
                             <a x-data="{ tooltip: 'Delete' }" href="#"  onClick={() => deleteAdvertisement(item.id)}>
                               <svg
@@ -226,7 +226,7 @@ const History = () => {
                                 viewBox="0 0 24 24"
                                 stroke-width="1.5"
                                 stroke="currentColor"
-                                class="h-6 w-6 hover:text-red-500 animate-bounce"
+                                class="h-6 w-6 hover:text-red-500 "
                                 x-tooltip="tooltip"
                               >
                                 <path
@@ -243,7 +243,7 @@ const History = () => {
                                 viewBox="0 0 24 24"
                                 stroke-width="1.5"
                                 stroke="currentColor"
-                                class="h-6 w-6 hover:text-green-500 animate-bounce"
+                                class="h-6 w-6 hover:text-green-500 "
                                 x-tooltip="tooltip"
                               >
                                 <path
@@ -254,7 +254,7 @@ const History = () => {
                               </svg>
                             </a>
                           </div>
-                        </td> */}
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -268,4 +268,4 @@ const History = () => {
   );
 };
 
-export default History;
+export default MyHistory;
