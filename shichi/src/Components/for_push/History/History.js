@@ -173,12 +173,12 @@ const History = () => {
                       >
                         Price
                       </th>
-                      <th
+                      {/* <th
                         scope="col"
                         className="text-sm font-medium  px-6 py-4 text-right"
                       >
                         Edit or Delete
-                      </th>
+                      </th> */}
                     </tr>
                   </thead>
                   <tbody>
