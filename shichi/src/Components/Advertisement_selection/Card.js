@@ -105,7 +105,7 @@ const Card = ({
                   to={`/Car/${item.id}`}
                   className="mt-3 text-black dark:text-white
                   hover:text-pallate-Gunmetal hover:font-bold inline-flex
-                  animate-bounce items-center"
+                   items-center"
                 >
                   {" "}
                   Learn More

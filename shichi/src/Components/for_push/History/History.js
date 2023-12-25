@@ -3,6 +3,7 @@ import { info } from "./Data";
 import { FaImage } from "react-icons/fa6";
 import { MdDriveFileRenameOutline } from "react-icons/md";
 import axios from 'axios';
+import Footer from "../HomePage/Footer";
 const History = () => {
   //delete advertise request
   const deleteAdvertisement = (id) => {
@@ -126,7 +127,10 @@ const History = () => {
 
 
   return (
-    <div className="bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal min-h-[400px]">
+  
+
+    
+    <div className="bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal min-h-screen ">
       <div className="overflow-hidden rounded-lg p-10">
         <div className="flex flex-col">
           <div className="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
@@ -264,7 +268,9 @@ const History = () => {
           </div>
         </div>
       </div>
+     
     </div>
+ 
   );
 };
 

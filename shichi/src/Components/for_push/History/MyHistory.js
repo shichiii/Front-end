@@ -126,7 +126,7 @@ const MyHistory = () => {
 
 
   return (
-    <div className="bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal min-h-[400px]">
+    <div className="bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal min-h-screen ">
       <div className="overflow-hidden rounded-lg p-10">
         <div className="flex flex-col">
           <div className="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
