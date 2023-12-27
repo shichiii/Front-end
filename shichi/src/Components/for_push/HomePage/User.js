@@ -12,7 +12,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 
-const baseURL = "http://185.157.245.99:8000/user/show/";
+const baseURL = "http://87.107.105.201:8000/user/show/";
 
 
 const User = ({ firstName, lastName, id, avatarPath }) => {

@@ -3,8 +3,7 @@ import { info } from "./Data";
 import { FaImage } from "react-icons/fa6";
 import { MdDriveFileRenameOutline } from "react-icons/md";
 import axios from 'axios';
-import Footer from "../HomePage/Footer";
-const History = () => {
+const MyHistory = () => {
   //delete advertise request
   const deleteAdvertisement = (id) => {
     const token = localStorage.getItem("token");
@@ -127,9 +126,6 @@ const History = () => {
 
 
   return (
-  
-
-    
     <div className="bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal min-h-screen ">
       <div className="overflow-hidden rounded-lg p-10">
         <div className="flex flex-col">
@@ -177,12 +173,12 @@ const History = () => {
                       >
                         Price
                       </th>
-                      {/* <th
+                      <th
                         scope="col"
                         className="text-sm font-medium  px-6 py-4 text-right"
                       >
                         Edit or Delete
-                      </th> */}
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -221,7 +217,7 @@ const History = () => {
                         <td className="text-sm font-bold px-6 py-4 whitespace-nowrap">
                           {item.advertisement.price}
                         </td>
-                        {/* <td class="px-6 py-4 ">
+                        <td class="px-6 py-4 ">
                           <div class="flex justify-end gap-4">
                             <a x-data="{ tooltip: 'Delete' }" href="#"  onClick={() => deleteAdvertisement(item.id)}>
                               <svg
@@ -230,7 +226,7 @@ const History = () => {
                                 viewBox="0 0 24 24"
                                 stroke-width="1.5"
                                 stroke="currentColor"
-                                class="h-6 w-6 hover:text-red-500 animate-bounce"
+                                class="h-6 w-6 hover:text-red-500 "
                                 x-tooltip="tooltip"
                               >
                                 <path
@@ -247,7 +243,7 @@ const History = () => {
                                 viewBox="0 0 24 24"
                                 stroke-width="1.5"
                                 stroke="currentColor"
-                                class="h-6 w-6 hover:text-green-500 animate-bounce"
+                                class="h-6 w-6 hover:text-green-500 "
                                 x-tooltip="tooltip"
                               >
                                 <path
@@ -258,7 +254,7 @@ const History = () => {
                               </svg>
                             </a>
                           </div>
-                        </td> */}
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -268,10 +264,8 @@ const History = () => {
           </div>
         </div>
       </div>
-     
     </div>
- 
   );
 };
 
-export default History;
+export default MyHistory;

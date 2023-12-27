@@ -20,7 +20,7 @@ function CarInfoPage() {
 
   useEffect(() => {
     axios
-      .get("http://185.157.245.99:8000/advertisement/show/" + `${adv.id}/`)
+      .get("http://87.107.105.201:8000/advertisement/show/" + `${adv.id}/`)
       .then((response) => {
         setCar(response.data);
       });

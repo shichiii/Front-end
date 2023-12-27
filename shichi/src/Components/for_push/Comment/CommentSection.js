@@ -16,7 +16,7 @@ function CommentSection({ refreshComment, setRefreshComment, adv }) {
 
   useEffect(() => {
     axios
-      .get("http://185.157.245.99:8000/advertisement/list-comment/")
+      .get("http://87.107.105.201:8000/advertisement/list-comment/")
       .then((response) => {
         setComments(response.data.filter((item) => item.adv === +adv));
         setRefreshComment(false);
@@ -33,7 +33,7 @@ function CommentSection({ refreshComment, setRefreshComment, adv }) {
   useEffect(
     function () {
       axios
-        .get(`http://185.157.245.99:8000/advertisement/list-rate`)
+        .get(`http://87.107.105.201:8000/advertisement/list-rate`)
         .then((response) => {
           setRating(
             response.data.find(
