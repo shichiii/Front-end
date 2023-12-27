@@ -52,7 +52,7 @@ const ResetPass = () => {
     const token = extractTokenFromURL(); // You need to implement the function to extract the token from the URL
     //const uidb = extractUidbFromURL(); 
   
-    const apiUrl = `http://185.157.245.99:8000/user/password-reset-confirm/MTg/${token}`;
+    const apiUrl = `http://87.107.105.201:8000/user/password-reset-confirm/MTg/${token}`;
   
     try {
       const response = await axios.post(apiUrl, { new_password: newPassword });

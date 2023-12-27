@@ -8,7 +8,7 @@ const History = () => {
   const deleteAdvertisement = (id) => {
     const token = localStorage.getItem("token");
   
-    axios.delete(`http://185.157.245.99:8000/advertisement/delete/${id}`, {
+    axios.delete(`http://87.107.105.201:8000/advertisement/delete/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
@@ -31,7 +31,7 @@ const History = () => {
   const fetchCarImage = async (id) => {
     console.log("enter get image")
     try {
-      const response = await axios.get(`http://185.157.245.99:8000/carimage/show/${id}/`);
+      const response = await axios.get(`http://87.107.105.201:8000/carimage/show/${id}/`);
       console.log("image has been get")
       console.log("Image data:", response.data);
       return response.data;
@@ -46,7 +46,7 @@ const History = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://185.157.245.99:8000/history/customhistories",
+          "http://87.107.105.201:8000/history/customhistories",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -66,7 +66,7 @@ const History = () => {
             console.log("First car image ID:", firstCarImageId);
   
             if (firstCarImageId !== undefined) {
-              const imageResponse = await axios.get(`http://185.157.245.99:8000/carimage/show/${firstCarImageId}/`);
+              const imageResponse = await axios.get(`http://87.107.105.201:8000/carimage/show/${firstCarImageId}/`);
               const carImageData = imageResponse.data;
               console.log("Car image data:", carImageData);
               setCarImageData(carImageData);
@@ -109,7 +109,7 @@ const History = () => {
 
 //=======
   console.log(token);
-  axios.get('http://185.157.245.99:8000/history/customhistories',
+  axios.get('http://87.107.105.201:8000/history/customhistories',
   {
     headers: {
       Authorization: `JWT ${token}`,

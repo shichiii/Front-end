@@ -15,7 +15,7 @@ function AddComment({ adv, setRefreshComment }) {
   function commentHandler() {
     setIsLoading(true);
     axios
-      .post(`http://185.157.245.99:8000/advertisement/create-comment/`, {
+      .post(`http://87.107.105.201:8000/advertisement/create-comment/`, {
         user_id: userId,
         text: comment,
         adv: +adv,
@@ -31,7 +31,7 @@ function AddComment({ adv, setRefreshComment }) {
   function handleRate(rate) {
     setRate(rate);
     axios
-      .post(`http://185.157.245.99:8000/advertisement/create-rate/`, {
+      .post(`http://87.107.105.201:8000/advertisement/create-rate/`, {
         user_id: userId,
         rate: rate,
         adv: +adv,

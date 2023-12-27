@@ -15,7 +15,7 @@ const Card = ({
   state,
   category,
 }) => {
-  const API_ENDPOINT = `http://185.157.245.99:8000/advertisement/filter/?${
+  const API_ENDPOINT = `http://87.107.105.201:8000/advertisement/filter/?${
     search ? `ordering=${search}` : ""
   }${carCategory ? `&car_category=${carCategory}` : ""}${
     carColor ? `&car_color=${carColor}` : ""

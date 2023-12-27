@@ -7,7 +7,7 @@ import axios from "axios";
 
 const NavWallet = () => {
   const userId = useParams();
-  const baseURL = "http://185.157.245.99:8000/user/show/";
+  const baseURL = "http://87.107.105.201:8000/user/show/";
   const token = localStorage.getItem("token");
   const user = jwtDecode(token);
   const [money, setmoney] = useState(0);

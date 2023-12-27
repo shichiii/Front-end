@@ -7,7 +7,7 @@ import SendMessage from "./SendMessage";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 
-const BASE = "http://185.157.245.99:8000/chat/messages/1/";
+const BASE = "http://87.107.105.201:8000/chat/messages/1/";
 const authToken = `${localStorage.getItem("token")}`;
 
 function App() {
