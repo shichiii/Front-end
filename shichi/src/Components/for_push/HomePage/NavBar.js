@@ -15,7 +15,7 @@ const NavBar = () => {
   const [image, setImage] = useState("");
   const [user, setUser] = useState({}); // State to store user information
 
-  const baseURL = "185.157.245.99:8000/user/myshow/";
+  const baseURL = "87.107.105.201:8000/user/myshow/";
 
   useEffect(() => {
     // Fetch user information from localStorage
@@ -41,7 +41,7 @@ const NavBar = () => {
 
   useEffect(() => {
     axios
-      .get("http://185.157.245.99:8000/chat/chatroomMembers/", {
+      .get("http://87.107.105.201:8000/chat/chatroomMembers/", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -49,7 +49,7 @@ const NavBar = () => {
       .then((response) => {
         response.data.map((index) => {
           axios
-            .get(`http://185.157.245.99:8000/user/show/${index.sender}/`)
+            .get(`http://87.107.105.201:8000/user/show/${index.sender}/`)
             .then((response) => {
               setChatRooms((chatRooms) => [
                 ...chatRooms,
@@ -59,8 +59,6 @@ const NavBar = () => {
         });
       });
   }, []);
-
-  console.log("caht: ", chatRooms);
 
   return (
     <div className="bg-pallate-Gunmetal h-[100px] ">
@@ -104,28 +102,33 @@ const NavBar = () => {
               </button>
 
               <div
-                class={`${notification ? "" : "hidden"
-                  } origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-pallate-Dark_Slate_Gray ring-1 ring-black ring-opacity-5 focus:outline-none z-[10000] transition-all duration-300`}
+                class={`${
+                  notification ? "" : "hidden"
+                } origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-pallate-Dark_Slate_Gray ring-1 ring-black ring-opacity-5 focus:outline-none z-[10000] transition-all duration-300`}
                 role="menu"
                 aria-orientation="vertical"
                 aria-labelledby="options-menu"
               >
                 <div class="py-1 text-white" role="none">
-                  {chatRooms?.map((chatRoom) => {
-                    return (
-                      <div
-                        class="px-4 py-2 text-sm hover:bg-pallate-Dark_Sky_Blue cursor-pointer flex items-center gap-5"
-                        role="menuitem"
-                      >
-                        <img
-                          src="https://tecdn.b-cdn.net/img/new/avatars/1.webp"
-                          alt="User's Profile Picture"
-                          className="rounded-full object-cover w-[50px]"
-                        />
-                        <span className=" font-bold">{chatRoom}</span>
-                      </div>
-                    );
-                  })}
+                  {chatRooms.length > 0 ? (
+                    chatRooms?.map((chatRoom) => {
+                      return (
+                        <div
+                          class="px-4 py-2 text-sm hover:bg-pallate-Dark_Sky_Blue cursor-pointer flex items-center gap-5"
+                          role="menuitem"
+                        >
+                          <img
+                            src="https://tecdn.b-cdn.net/img/new/avatars/1.webp"
+                            alt="User's Profile Picture"
+                            className="rounded-full object-cover w-[50px]"
+                          />
+                          <span className=" font-bold">{chatRoom}</span>
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <span className="p-3">No ChatRooms Yet!</span>
+                  )}
                 </div>
               </div>
             </div>
@@ -165,11 +168,12 @@ const NavBar = () => {
 
         <div style={{ display: "flex", alignItems: "center" }}>
           <NavWallet />
-          <User Image={image} UserName={user.name} />  {/* Pass the user name to User component */}
+          <User Image={image} UserName={user.name} />{" "}
+          {/* Pass the user name to User component */}
         </div>
-           {/* <User Image={image} UserName={user.name} />{" "} */}
+        {/* <User Image={image} UserName={user.name} />{" "} */}
+      </div>
     </div>
-    </div >
   );
 };
 

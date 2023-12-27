@@ -16,7 +16,7 @@ function CommentSection({ refreshComment, setRefreshComment, adv }) {
 
   useEffect(() => {
     axios
-      .get("http://185.157.245.99:8000/advertisement/list-comment/")
+      .get("http://87.107.105.201:8000/advertisement/list-comment/")
       .then((response) => {
         setComments(response.data.filter((item) => item.adv === +adv));
         setRefreshComment(false);
@@ -33,7 +33,7 @@ function CommentSection({ refreshComment, setRefreshComment, adv }) {
   useEffect(
     function () {
       axios
-        .get(`http://185.157.245.99:8000/advertisement/list-rate`)
+        .get(`http://87.107.105.201:8000/advertisement/list-rate`)
         .then((response) => {
           setRating(
             response.data.find(
@@ -46,7 +46,7 @@ function CommentSection({ refreshComment, setRefreshComment, adv }) {
   );
 
   return (
-    <div className="flex flex-col gap-4 p-5 rounded-2xl h-auto bg-pallate-Dark_Sky_Blue bg-opacity-30 lg:bg-opacity-20  w-[1215px]">
+    <div className="flex flex-col gap-4 p-5 rounded-2xl h-auto bg-pallate-Dark_Sky_Blue bg-opacity-30 lg:bg-opacity-20 w-full">
       <h1 className=" text-pallate-Dark_Sky_Blue font-bold text-xl">
         Comment Section
       </h1>

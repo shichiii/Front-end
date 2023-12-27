@@ -20,39 +20,31 @@ const slideImages = [
     url: image3,
     caption: "Slide 3",
   },
-  {
-    url: image4,
-    caption: "Slide 4",
-  },
-  {
-    url: image5,
-    caption: "Slide 5",
-  },
 ];
 
 function CarImageSlider({ images }) {
   return (
-    <div className="slide-container bg-pallate-Dark_Sky_Blue bg-opacity-30 lg:bg-opacity-20 w-[1215px] rounded-2xl p-5">
-      <Slide>
-        {images?.map((image, index) => (
+    <div className="bg-pallate-Dark_Sky_Blue bg-opacity-30 lg:bg-opacity-20 rounded-2xl p-5 w-2/5 md:w-3/5 lg:w-4/5 xl:w-full flex flex-row gap-5 justify-center flex-wrap">
+      {images?.map((image, index) =>
+        image != null ? (
           <div key={index}>
             <img
-              src={image.image}
+              src={image}
               alt="car Images"
-              class="w-auto mx-auto rounded-2xl h-[500px]"
+              class="w-auto rounded-2xl object-contain h-80 mx-auto"
             />
           </div>
-        ))}
-        {/* {slideImages.map((slideImage, index) => (
-          <div key={index}>
-            <img
-              src={slideImage.url}
-              alt="ssdf"
-              class="w-auto mx-auto rounded-2xl h-[500px]"
-            />
-          </div>
-        ))} */}
-      </Slide>
+        ) : null
+      )}
+      {/* {slideImages.map((slideImage, index) => (
+        <div key={index}>
+          <img
+            src={slideImage.url}
+            alt="ssdf"
+            class="w-auto mx-auto rounded-2xl h-[500px]"
+          />
+        </div>
+      ))} */}
     </div>
   );
 }

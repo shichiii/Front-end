@@ -1,25 +1,37 @@
-import RentalCost from "./RentalCost";
-import { BsFillBagFill, BsFillPersonFill, BsSnow } from "react-icons/bs";
+import {
+  BsFillBagFill,
+  BsFillPersonFill,
+  BsInfoCircleFill,
+  BsSnow,
+} from "react-icons/bs";
 import { FaGasPump } from "react-icons/fa";
 import { GiCarDoor, GiGearStickPattern } from "react-icons/gi";
 import { FaLocationDot } from "react-icons/fa6";
 import { IoIosColorPalette } from "react-icons/io";
-import { useState } from "react";
-import RateCar from "./RateCar";
+import logo from "../../../Static/whitelogo.svg";
+import { MapContainer, Marker, TileLayer } from "react-leaflet";
+import Rate from "./Rate";
+import StarAverageRating from "./StarAverageRating";
 
 function CarInfo({ car }) {
-  const [showMore, setShowMore] = useState(false);
+  const date = new Date(car?.start_date);
+  const options = {
+    weekday: "long",
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  };
 
   return (
-    <div className="flex flex-row gap-4 p-3 rounded-2xl h-96 bg-pallate-Dark_Sky_Blue bg-opacity-30 lg:bg-opacity-20 w-[1215px]">
-      <div className="flex flex-col gap-8 items-center w-2/3 divide-y divide-stone-200 mt-4">
-        <div className="flex flex-row gap-4 justify-between items-center">
+    <div className="flex flex-row flex-wrap gap-4 p-3 rounded-2xl h-auto bg-pallate-Dark_Sky_Blue bg-opacity-30 lg:bg-opacity-20 w-full">
+      <div className="flex flex-col gap-8 items-center w-full divide-y divide-stone-200 mt-4 px-5">
+        <div className="flex flex-row gap-4 w-full">
           <img
-            alt="Toyota Aqua Hybrid"
-            src="https://www.discovercars.com/images/car/8109/200.png"
-            width="200"
+            src={logo}
+            alt="My Logo"
+            className="md:w-36 lg:w-44 xl:w-52 hidden md:block"
           />
-          <div className="">
+          <div className="flex flex-col">
             <div className="flex flex-row items-baseline gap-3 mb-3">
               <h1 className="font-bold text-2xl text-pallate-Dark_Sky_Blue">
                 {car.car_name}
@@ -28,13 +40,10 @@ function CarInfo({ car }) {
                 {car.car_category}
               </p>
             </div>
-            <div className="flex flex-row gap-4 text-slate-500">
+            <div className="flex flex-row gap-4 text-slate-400 flex-wrap">
               <span className="text-sm flex flex-row items-center justify-between gap-2">
                 <BsFillPersonFill />
                 {car.car_seat_count} seats
-              </span>
-              <span className="text-sm flex flex-row items-center justify-between gap-2">
-                <BsFillBagFill />1 bag
               </span>
               <span className="text-sm flex flex-row items-center justify-between gap-2">
                 <GiCarDoor />
@@ -58,8 +67,8 @@ function CarInfo({ car }) {
             </div>
           </div>
         </div>
-        <div className="flex flex-row">
-          <div className="flex flex-col w-1/3 p-3 gap-5">
+        <div className="flex flex-col md:flex-row w-full items-center">
+          <div className="flex flex-col w-full md:1/3 p-3 gap-5 items-center md:items-start">
             <div className="flex flex-row items-center gap-2">
               <FaGasPump fontSize={25} className="text-pallate-Dark_Sky_Blue" />
               <div className="flex flex-col">
@@ -68,62 +77,72 @@ function CarInfo({ car }) {
               </div>
             </div>
             <div className="flex flex-row items-center gap-2">
+              <BsInfoCircleFill
+                fontSize={25}
+                className="text-pallate-Dark_Sky_Blue"
+              />
+              <div className="flex flex-col">
+                <span className="font-bold text-sm">Description</span>
+                <span>{car.description}</span>
+              </div>
+            </div>
+            <div className="flex flex-row items-center gap-3 mt-2">
               <FaLocationDot
                 fontSize={25}
                 className="text-pallate-Dark_Sky_Blue"
               />
               <div className="flex flex-col">
-                <span className="font-bold text-sm">Pick-up location</span>
-                <span>Free shuttle service</span>
+                <span className="font-bold text-sm">Location</span>
+                <span>{car.location_state}</span>
               </div>
             </div>
           </div>
-          <div className="flex flex-col text-sm p-3 w-1/3 gap-2">
-            <span>
-              <span className="text-green-600">✔</span> Unlimited mileage
-            </span>
-            <span>
-              <span className="text-green-600">✔</span> Collision Damage Waiver
-            </span>
-            <span>
-              <span className="text-green-600">✔</span> Theft Protection
-            </span>
-            {showMore ? (
-              <>
-                <span>
-                  <span className="text-green-600">✔</span> Theft Protection
-                </span>
-                <span>
-                  <span className="text-green-600">✔</span> Theft Protection
-                </span>
-              </>
-            ) : null}
-            <span
-              className="ml-5 text-blue-400 cursor-pointer hover:text-blue-700"
-              onClick={() => setShowMore(!showMore)}
-            >
-              {showMore ? "show 2 more" : "show less"}
-            </span>
-          </div>
-          <div className="flex flex-col w-1/3 p-3 justify-center gap-5">
-            <span className="font-bold text-green-600 text-xs bg-green-200 p-2 rounded-sm">
-              ✔ FREE cancellation before 11:00 on 17 October 2023
-            </span>
-            <div>
-              <div className="bg-blue-400 p-3 text-slate-200 rounded-xl w-[50px] mx-auto font-bold">
-                8.6
-              </div>
-              <div className="flex flex-col justify-center items-center">
-                <span className="text border-b border-blue-400 text-blue-400">
-                  Very good
-                </span>
-                <span className="text-xs">131 ratings</span>
+          <div className="flex flex-col w-full md:1/3 p-3 gap-5 justify-around items-center md:items-start">
+            <div className="flex flex-col justify-around w-full items-center md:items-start">
+              <div className="font-bold text-slate-400 text-xs">PICK-UP</div>
+              <div className="font-bold text-xl text-pallate-Dark_Sky_Blue text-center">
+                {date.toLocaleDateString("en-us", options)}
               </div>
             </div>
+            <div className="flex flex-col justify-around w-full items-center md:items-start">
+              <div className="font-bold text-slate-400 text-xs">DROP-OFF</div>
+              <div className="font-bold text-xl text-pallate-Dark_Sky_Blue text-center">
+                {date.toLocaleDateString("en-us", options)}
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col w-full md:1/3 p-3 gap-5 justify-around">
+            <div className="flex flex-col justify-center items-center">
+              <span className="">Cost of rental</span>
+              <span className="font-bold text-2xl text-pallate-Dark_Sky_Blue">
+                $ {car.price}
+              </span>
+            </div>
+            <StarAverageRating
+              rating={car?.average_rating?.toFixed(1)}
+              className="flex flex-col"
+              messages={["Very Bad", "Bad", "Okay", "Good", "Very Good"]}
+              size={36}
+            />
           </div>
         </div>
       </div>
-      <RentalCost car={car} />
+      {/* <div className="w-full h-full bg-slate-300 rounded-2xl block">
+        {+car?.location_geo_width && +car?.location_geo_length && (
+          <MapContainer
+            center={[+car?.location_geo_width, +car?.location_geo_length]}
+            zoom={15}
+            scrollWheelZoom={true}
+            className="h-full"
+            style={{ borderRadius: "20px", display: "block" }}
+          >
+            <TileLayer url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png" />
+            <Marker
+              position={[+car?.location_geo_width, +car?.location_geo_length]}
+            ></Marker>
+          </MapContainer>
+        )}
+      </div> */}
     </div>
   );
 }

@@ -1,52 +1,54 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import { info } from "./Data";
 import { FaImage } from "react-icons/fa6";
 import { MdDriveFileRenameOutline } from "react-icons/md";
-import axios from 'axios';
+import axios from "axios";
 const History = () => {
   //delete advertise request
   const deleteAdvertisement = (id) => {
     const token = localStorage.getItem("token");
-  
-    axios.delete(`http://185.157.245.99:8000/advertisement/delete/${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    })
-    .then((response) => {
-      // Handle the successful deletion
-      console.log("Advertisement deleted successfully");
-    })
-    .catch((error) => {
-      // Handle any errors that occur during the request
-      console.error('Error deleting advertisement:', error);
-    });
+
+    axios
+      .delete(`http://87.107.105.201:8000/advertisement/delete/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        // Handle the successful deletion
+        console.log("Advertisement deleted successfully");
+      })
+      .catch((error) => {
+        // Handle any errors that occur during the request
+        console.error("Error deleting advertisement:", error);
+      });
   };
   const token = localStorage.getItem("token");
-//<<<<<<< feature/v1.0.0/overallfix
-  const [info,setInfo] = useState([]);
+  //<<<<<<< feature/v1.0.0/overallfix
+  const [info, setInfo] = useState([]);
   const [carImageData, setCarImageData] = useState([]);
 
   const fetchCarImage = async (id) => {
-    console.log("enter get image")
+    console.log("enter get image");
     try {
-      const response = await axios.get(`http://185.157.245.99:8000/carimage/show/${id}/`);
-      console.log("image has been get")
+      const response = await axios.get(
+        `http://87.107.105.201:8000/carimage/show/${id}/`
+      );
+      console.log("image has been get");
       console.log("Image data:", response.data);
       return response.data;
     } catch (error) {
-      console.error('Error fetching car image:', error);
+      console.error("Error fetching car image:", error);
       throw error;
     }
   };
-
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://185.157.245.99:8000/history/customhistories",
+          "http://87.107.105.201:8000/history/customhistories",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -57,24 +59,30 @@ const History = () => {
         const data = response.data;
         console.log(data);
         setInfo(data);
-        console.log("info", info)
+        console.log("info", info);
         if (data.length > 0) {
           const firstCarImagesArray = data[0].advertisement.car_images;
-  
+
           if (firstCarImagesArray && firstCarImagesArray.length > 0) {
             const firstCarImageId = firstCarImagesArray[0];
             console.log("First car image ID:", firstCarImageId);
-  
+
             if (firstCarImageId !== undefined) {
-              const imageResponse = await axios.get(`http://185.157.245.99:8000/carimage/show/${firstCarImageId}/`);
+              const imageResponse = await axios.get(
+                `http://87.107.105.201:8000/carimage/show/${firstCarImageId}/`
+              );
               const carImageData = imageResponse.data;
               console.log("Car image data:", carImageData);
               setCarImageData(carImageData);
             } else {
-              console.error('Image ID is undefined in the first item of the "info" array.');
+              console.error(
+                'Image ID is undefined in the first item of the "info" array.'
+              );
             }
           } else {
-            console.error('No images found in the "car_images" array of the first item.');
+            console.error(
+              'No images found in the "car_images" array of the first item.'
+            );
           }
         } else {
           console.error('The "info" array is empty.');
@@ -83,13 +91,13 @@ const History = () => {
         console.error("Error fetching data:", error);
       }
     };
-  
+
     fetchData();
   }, []);
 
   // if (Array.isArray(info) && info.length > 0) {
   //   const firstCarImageId = info[0].car_images ? info[0].car_images[0] : null;
-  
+
   //   if (firstCarImageId !== null) {
   //     fetchCarImage(firstCarImageId)
   //       .then(imageData => {
@@ -106,24 +114,21 @@ const History = () => {
   //   console.error('The "info" array is either not defined or empty.');
   // }
 
-
-//=======
+  //=======
   console.log(token);
-  axios.get('http://185.157.245.99:8000/history/customhistories',
-  {
-    headers: {
-      Authorization: `JWT ${token}`,
-      "Content-Type": "application/json",
-    },
-  })
-  .then((response) => {
-    // Handle the response data
-    const data = response.data;
-    console.log(data);
-  })
-//>>>>>>> Develop
-
-
+  axios
+    .get("http://87.107.105.201:8000/history/customhistories", {
+      headers: {
+        Authorization: `JWT ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+    .then((response) => {
+      // Handle the response data
+      const data = response.data;
+      console.log(data);
+    });
+  //>>>>>>> Develop
 
   return (
     <div className="bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal ">
@@ -182,12 +187,12 @@ const History = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {info.map((item, index) => ( 
+                    {info.map((item, index) => (
                       <tr
                         key={index}
                         className="border-b text-white hover:bg-pallate-Dark_Sky_Blue hover:bg-opacity-20 cursor-pointer"
                       >
-                      {item.carImageData && item.carImageData.length > 0 ? (
+                        {item.carImageData && item.carImageData.length > 0 ? (
                           <td className="px-6 py-4">
                             <img
                               className="w-96 h-auto"
@@ -219,7 +224,11 @@ const History = () => {
                         </td>
                         <td class="px-6 py-4 ">
                           <div class="flex justify-end gap-4">
-                            <a x-data="{ tooltip: 'Delete' }" href="#"  onClick={() => deleteAdvertisement(item.id)}>
+                            <a
+                              x-data="{ tooltip: 'Delete' }"
+                              href="#"
+                              onClick={() => deleteAdvertisement(item.id)}
+                            >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"

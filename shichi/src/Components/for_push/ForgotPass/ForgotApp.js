@@ -34,7 +34,7 @@ const ForgotPass = () => {
 
   const handleSubmit = () => {
     axios
-      .post("http://185.157.245.99:8000/user/password-reset/", {
+      .post("http://87.107.105.201:8000/user/password-reset/", {
         email: emailAddress,
       })
       .then((response) => {
@@ -119,8 +119,6 @@ const ForgotPass = () => {
                 alt="img"
                 class="w-[500px]  h-full hidden rounded-r-2xl md:block"
               />
-
-             
             </div>
           </div>
         </div>
