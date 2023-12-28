@@ -15,7 +15,7 @@ import { fuel, categories, coooler, cityy, colors, gearboxx } from "./Data.js";
 const Newcar = () => {
   const [selectedImages, setSelectedImages] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
-  
+
   const handleFileChange = (event) => {
     const files = event.target.files;
 
@@ -31,8 +31,8 @@ const Newcar = () => {
       ]);
     }
   };
-  console.log("images",selectedImages)
-  
+  console.log("images", selectedImages);
+
   const handleDelete = (index) => {
     setSelectedImages((prevFiles) => {
       const newFiles = [...prevFiles];
@@ -52,8 +52,6 @@ const Newcar = () => {
       formData.append("files", file);
     });
   };
-
-
 
   // Helper function to convert base64 data URL to a File object
   const dataURLtoFile = (dataURL, filename) => {
@@ -93,14 +91,14 @@ const Newcar = () => {
     console.log(`Deleted image URL: ${deletedImageUrl}`);
   };
 
-  const [carName, setCarName] = useState(""); 
+  const [carName, setCarName] = useState("");
   const [carFuel, setCarFuel] = useState("");
   const [gearbox, setgearbox] = useState("");
   const [description, setdescription] = useState("");
   const [cooler, setCooler] = useState("");
   const [cityValue, setCityValue] = useState("");
   const [colorsvalue, setCoolersvalue] = useState("");
-  const [category, setCategory] = useState(""); 
+  const [category, setCategory] = useState("");
   const [startdate, setStartdate] = useState("");
   const [enddate, setEnddate] = useState("");
   const [seatnumbers, setSeatnumbers] = useState("");
@@ -186,15 +184,15 @@ const Newcar = () => {
   const longitude = localStorage.getItem("longitude");
   //handle submit function
   const handleSubmit = async (id) => {
-    console.log("enter handlesubmit")
+    console.log("enter handlesubmit");
     const token = localStorage.getItem("token");
     try {
       const formattedstartdate = formatDate(startdate);
       const formattedenddate = formatDate(enddate);
       const formData = new FormData();
-      formData.append("car_image1",selectedImages[0]); 
-      formData.append("car_image2",selectedImages[1]);
-      formData.append("car_image3",selectedImages[2]); 
+      formData.append("car_image1", selectedImages[0]);
+      formData.append("car_image2", selectedImages[1]);
+      formData.append("car_image3", selectedImages[2]);
       formData.append("location_geo_width", latitude);
       formData.append("location_geo_length", longitude);
       formData.append("location_state", cityValue);
@@ -270,13 +268,14 @@ const Newcar = () => {
   }, []);
   return (
     <div
-      style={{
-        width: "100%",
-        backgroundImage: `url(${img})`, // Dynamic image URL
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-      className=" "
+    style={{
+      width: "100%",
+      height: selectedImages && selectedImages.length > 0 ? "1790px" : undefined,
+      backgroundImage: `url(${img})`, // Dynamic image URL
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+    }}
+    className=" "
     >
       <div className="bg-pallate-Gunmetal text-pallate-Gunmetal ">
         Please Fill The Form
@@ -534,10 +533,10 @@ const Newcar = () => {
                   {selectedImages.map((file, index) => (
                     <div
                       key={index}
-                      className="relative h-36 mb-3 w-full p-3 rounded-lg bg-cover bg-center"
+                      className="relative h-48 mb-3 w-full p-3 rounded-lg bg-cover bg-center"
                     >
                       <img
-                        src={file.image}
+                        src={URL.createObjectURL(file)}
                         alt={`Selected File ${index + 1}`}
                         className="w-full h-full object-cover rounded-lg"
                       />
@@ -590,7 +589,6 @@ const Newcar = () => {
                         >
                           <p className="pl-1 ">Upload 3 files</p>
                         </label>
-                        
                       </div>
                       <p className="text-xs text-white">
                         PNG, JPG, GIF up to 10MB
@@ -611,7 +609,7 @@ const Newcar = () => {
           </div>
           <div class="flex justify-end">
             <button
-              type = 'button'
+              type="button"
               onClick={handleSubmit}
               class="w-full   bg-transparent hover:bg-pallate-Dark_Sky_Blue text-pallate-Dark_Sky_Blue font-semibold duration-300 hover:text-white py-2 px-4 border border-pallate-Dark_Sky_Blue hover:border-transparent rounded"
             >
