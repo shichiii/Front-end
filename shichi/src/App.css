@@ -36,3 +36,7 @@
     transform: rotate(360deg);
   }
 }
+
+.react-slideshow-container .default-nav {
+  width: 20px !important;
+}

@@ -13,13 +13,10 @@ import { BsFillPeopleFill } from "react-icons/bs";
 import { BsPersonFillCheck } from "react-icons/bs";
 import { BsSnow3 } from "react-icons/bs";
 import { BsDoorOpenFill } from "react-icons/bs";
-import  Map  from "./Create.js";
+import Map from "./Create.js";
 import { FaChair } from "react-icons/fa";
 import { WiCloudUp } from "react-icons/wi";
-import axios from 'axios';
-
-
-
+import axios from "axios";
 
 import {
   data,
@@ -39,7 +36,6 @@ const Img = () => {
   const [selectedImages, setSelectedImages] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
 
-
   const handleImageChange = (event) => {
     const files = event.target.files;
     const token = localStorage.getItem("token");
@@ -53,7 +49,7 @@ const Img = () => {
           reader.readAsDataURL(file);
         });
       });
-  
+
       Promise.all(newImages).then((images) => {
         const updatedImages = [
           ...selectedImages,
@@ -62,20 +58,20 @@ const Img = () => {
             number: img.number,
           })),
         ];
-  
+
         if (selectedImages.length === 0) {
           setSelectedImage(updatedImages[0].image);
         }
-  
+
         setSelectedImages(updatedImages);
-  
+
         const formData = new FormData();
         updatedImages.forEach((img) => {
           const file = dataURLtoFile(img.image, `image${img.number}`);
           formData.append("image", file);
           formData.append("index", img.number);
         });
-  
+
         axios
           .post("http://87.107.105.201:8000/carimage/create/", formData, {
             headers: {
@@ -91,12 +87,12 @@ const Img = () => {
       });
     }
   };
-  
+
   // Helper function to convert base64 data URL to a File object
   const dataURLtoFile = (dataURL, filename) => {
-    const arr = dataURL.split(',');
+    const arr = dataURL.split(",");
     const mime = arr[0].match(/:(.*?);/)[1];
-    const extension = mime.split('/')[1];
+    const extension = mime.split("/")[1];
     const bstr = atob(arr[1]);
     let n = bstr.length;
     const u8arr = new Uint8Array(n);
@@ -104,7 +100,7 @@ const Img = () => {
       u8arr[n] = bstr.charCodeAt(n);
     }
     const file = new File([u8arr], `${filename}.${extension}`, { type: mime });
-  
+
     return file;
   };
   const baseURL = "http://87.107.105.201:8000/user/show/";
@@ -130,8 +126,6 @@ const Img = () => {
     console.log(`Deleted image URL: ${deletedImageUrl}`);
   };
 
-
-
   const [carName, setCarName] = useState(""); // New state for car name
   const [carFuel, setCarFuel] = useState("");
   const [gearbox, setgearbox] = useState("");
@@ -142,84 +136,70 @@ const Img = () => {
   const [category, setCategory] = useState(""); // New state for car name
   const [startdate, setStartdate] = useState("");
   const [enddate, setEnddate] = useState("");
-  const [seatnumbers, setSeatnumbers] = useState('');
-  const [doornumbers, setDoornumbers] = useState('');
-  const [price, setPrice] = useState('');
+  const [seatnumbers, setSeatnumbers] = useState("");
+  const [doornumbers, setDoornumbers] = useState("");
+  const [price, setPrice] = useState("");
   const [productyear, setProductyear] = useState("");
 
   const [showDescription, setShowDescription] = useState(false);
   const [scrollEnabled, setScrollEnabled] = useState(false);
   const handleProductyear = (event) => {
     const rawDate = event.target.value;
-  
-    
+
     const dateObject = new Date(rawDate);
-  
-  
+
     const year = dateObject.getFullYear();
-    const month = dateObject.getMonth() + 1; 
+    const month = dateObject.getMonth() + 1;
     const day = dateObject.getDate();
-  
-   
+
     const formattedDate = `${year}-${month}-${day}`;
-  
-   
+
     console.log(formattedDate);
-  
-   
+
     setProductyear(formattedDate);
   };
-  
-  const handlePrice = (event) =>
-  {
+
+  const handlePrice = (event) => {
     setPrice(event.target.value);
-  }
+  };
   const handleDoornumbers = (event) => {
-    setDoornumbers(event.target.value); 
+    setDoornumbers(event.target.value);
   };
   const handleSeatnumbers = (event) => {
-    setSeatnumbers(event.target.value); 
+    setSeatnumbers(event.target.value);
   };
- 
 
-const handlestartdate = (event) => {
-  const rawDate = event.target.value;
+  const handlestartdate = (event) => {
+    const rawDate = event.target.value;
 
- 
-  const dateObject = new Date(rawDate);
+    const dateObject = new Date(rawDate);
 
-  const year = dateObject.getFullYear();
-  const month = dateObject.getMonth() + 1;
-  const day = dateObject.getDate();
+    const year = dateObject.getFullYear();
+    const month = dateObject.getMonth() + 1;
+    const day = dateObject.getDate();
 
-  const formattedDate = `${year}-${month}-${day}`;
+    const formattedDate = `${year}-${month}-${day}`;
 
+    console.log(formattedDate);
 
-  console.log(formattedDate);
+    setStartdate(formattedDate);
+  };
 
+  const handleenddate = (event) => {
+    const rawDate = event.target.value;
 
-  setStartdate(formattedDate);
-};
+    const dateObject = new Date(rawDate);
 
-const handleenddate = (event) => {
-  const rawDate = event.target.value;
+    const year = dateObject.getFullYear();
+    const month = dateObject.getMonth() + 1;
+    const day = dateObject.getDate();
 
+    const formattedDate = `${year}-${month}-${day}`;
 
-  const dateObject = new Date(rawDate);
+    console.log(formattedDate);
 
-  const year = dateObject.getFullYear();
-  const month = dateObject.getMonth() + 1; 
-  const day = dateObject.getDate();
-
-
-  const formattedDate = `${year}-${month}-${day}`;
-
-
-  console.log(formattedDate);
-
-
-  setEnddate(formattedDate);
-};
+    setEnddate(formattedDate);
+  };
   const handleCityChange = (event) => {
     setCityValue(event.target.value);
   };
@@ -245,28 +225,34 @@ const handleenddate = (event) => {
     setdescription(event.target.value);
   };
   const padZero = (number) => {
-    return String(number).padStart(2, '0');
-  }
+    return String(number).padStart(2, "0");
+  };
   //date format
   const formatDate = (date) => {
-    const [year, month, day] = date.split('-');
+    const [year, month, day] = date.split("-");
     return `${year}-${padZero(month)}-${padZero(day)}`;
-  }
+  };
   // location data
-  const latitude = localStorage.getItem('latitude');
-  const longitude = localStorage.getItem('longitude');
+  const latitude = localStorage.getItem("latitude");
+  const longitude = localStorage.getItem("longitude");
   //get image data
   const [lastId, setLastId] = useState(null);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://87.107.105.201:8000/carimage/list/');
+
+        const response = await fetch(
+          "http://87.107.105.201:8000/carimage/list/"
+        );
+
+       // const response = await fetch('http://87.107.105.201:8000/carimage/list/');
+
         const data = await response.json();
-        const lastItem = data[data.length - 1]; 
+        const lastItem = data[data.length - 1];
 
         setLastId(lastItem.id);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     };
 
@@ -277,19 +263,51 @@ const handleenddate = (event) => {
   const handleSubmit = async (id) => {
     const token = localStorage.getItem("token");
     let user = null;
-    if(token !== "null" && token !== null){
+    if (token !== "null" && token !== null) {
       user = jwtDecode(token);
       axios.get(baseURL + `${user.user_id}/`).then((response) => {
-        setUserId(response.data.id); 
+        setUserId(response.data.id);
         console.log("owner_id", response.data.id);
         console.log("user id", userId);
-    })
+      });
     }
     try {
       const formattedstartdate = formatDate(startdate);
       const formattedenddate = formatDate(enddate);
       const formData = new FormData();
       //formData.append('owner_id', userId);
+
+      formData.append("car_images", lastId);
+      console.log("id", lastId);
+      formData.append("location_geo_width", latitude);
+      formData.append("location_geo_length", longitude);
+      formData.append("location_state", cityValue);
+      formData.append("start_date", formattedstartdate);
+      formData.append("end_date", formattedenddate);
+      formData.append("price", price);
+      formData.append("description", description);
+      formData.append("car_name", carName);
+      formData.append("car_color", colorsvalue);
+      formData.append("car_produced_date", productyear);
+      formData.append("car_seat_count", seatnumbers);
+      formData.append("car_door_count", doornumbers);
+      formData.append("car_Is_cooler", cooler);
+      formData.append("car_gearbox", gearbox);
+      formData.append("car_fuel", carFuel);
+      formData.append("car_category", category);
+
+      const response = await axios.post(
+        "http://87.107.105.201:8000/advertisement/create/",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log(token);
+/*
       formData.append('car_images', lastId);
       console.log('id', lastId);
       formData.append('location_geo_width',latitude );
@@ -316,14 +334,14 @@ const handleenddate = (event) => {
         },
       });
       console.log(token)
+*/
       console.log(response.data);
     } catch (error) {
       // Handle any errors that occurred during the request
       console.error(error);
-      console.log('login token',token);
+      console.log("login token", token);
     }
   };
-
 
   function handleKeyPress(event) {
     const charCode = event.which ? event.which : event.keyCode;
@@ -347,7 +365,6 @@ const handleenddate = (event) => {
 
   return (
     <div>
-     
       <Navbar />
       <div className="lg:flex h-[1600px]  lg:h-[800px] bg-gradient-to-t from-pallate-Gunmetal  via-pallate-Police_Blue to-pallate-Gunmetal">
         <div className="h-[40rem] lg:w-3/6 flex flex-col ">
@@ -385,7 +402,7 @@ const handleenddate = (event) => {
           <div className="mt-10 h-[500px] m-5 p-10 border-2 border-white md:mb-64 rounded-2xl bg-pallate-Dark_Sky_Blue bg-opacity-30 border-pallate-persian_green backdrop-blur-sm">
             <div className="grid grid-cols-1">
               <div className="grid h-[300px] md:grid-cols-1 md:gap-2 sm:grid-cols-1 sm:gap-2">
-              <Map />
+                <Map />
               </div>
             </div>
           </div>
@@ -400,9 +417,7 @@ const handleenddate = (event) => {
               <div className="grid md:grid-cols-1 md:gap-2 sm:grid-cols-1 sm:gap-2">
                 <div className="grid gap-10 p-2 justify-center justify-items-center ">
                   <div className="flex justify-start items-center">
-                  
                     <input
-                    
                       accept="image/*"
                       className="block w-full text-sm rounded-md border cursor-pointer"
                       id="user_avatar"
@@ -582,7 +597,7 @@ const handleenddate = (event) => {
                           class=" w-full  gap-4 mr-auto ml-auto border-pallate-persian_green disabled:opacity-80 rounded-lg bg-pallate-celeste_light focus:ring-pallate-persian_green focus:border-pallate-persian_green pl-8 p-2 "
                           placeholder=""
                           min={1}
-                          onChange={handleProductyear} 
+                          onChange={handleProductyear}
                           onKeyPress={handleKeyPress}
                           required
                         ></input>
@@ -597,33 +612,33 @@ const handleenddate = (event) => {
                       <div
                         class="relative mb-3"
                         id="datepicker-disable-past"
-                        data-te-input-wrapper-init>
+                        data-te-input-wrapper-init
+                      >
                         <input
-                        onChange={handlestartdate}
+                          onChange={handlestartdate}
                           type="date"
                           class="peer block min-h-[auto] w-full bg-white rounded-lg border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
-                          placeholder="Select a date" />
-
+                          placeholder="Select a date"
+                        />
                       </div>
                     </div>
                     <div className="">
                       <div className="flex justify-start items-center pl-1 text-white">
                         {/* <BsCalendar className="mr-1" /> */}
                         <label className="m-1">End Date:</label>
-                        
-                      </div>                      
+                      </div>
                       <div
                         class="relative mb-3"
                         id="datepicker-disable-past"
-                        data-te-input-wrapper-init>
+                        data-te-input-wrapper-init
+                      >
                         <input
-                        onChange={handleenddate}
+                          onChange={handleenddate}
                           type="date"
                           class="peer block min-h-[auto] w-full bg-white rounded-lg border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
-                          placeholder="Select a date" />
-                        
+                          placeholder="Select a date"
+                        />
                       </div>
-
                     </div>
                   </div>
                 </div>
@@ -659,7 +674,9 @@ const handleenddate = (event) => {
                 onClick={handleTitleClick}
               >
                 <BsMapFill className="mr-1 " />
-                <label className="m-1">Description: click here to open and close</label>
+                <label className="m-1">
+                  Description: click here to open and close
+                </label>
               </div>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -679,7 +696,10 @@ const handleenddate = (event) => {
               {/* <Button className="w-full mr-auto ml-auto md:w-80  rounded-xl  bg-pallate-persian_green text-pallate-persian_green hover:bg-pallate-blue_munsell">
                 Create Trip
               </Button> */}
-              <button onClick={handleSubmit} class="w-full   bg-transparent hover:bg-pallate-Dark_Sky_Blue text-pallate-Dark_Sky_Blue font-semibold duration-300 hover:text-white py-2 px-4 border border-pallate-Dark_Sky_Blue hover:border-transparent rounded">
+              <button
+                onClick={handleSubmit}
+                class="w-full   bg-transparent hover:bg-pallate-Dark_Sky_Blue text-pallate-Dark_Sky_Blue font-semibold duration-300 hover:text-white py-2 px-4 border border-pallate-Dark_Sky_Blue hover:border-transparent rounded"
+              >
                 Submit
               </button>
             </div>

@@ -14,7 +14,7 @@ export default function NotFound() {
             But dont worry, you can find plenty of other things on our homepage.
           </p>
         <button
-            className=" w-full my-6 py-3 bg-pallate-celeste/[0.4]   hover:scale-y-105 animate-bounce hover:text-pallate-Dark_Sky_Blue hover:bg-pallate-Dark_Sky_Blue hover:bg-opacity-10 rounded-xl font-blod text-white "
+            className=" w-full my-6 py-3 bg-pallate-celeste/[0.4]   hover:scale-y-105  hover:text-pallate-Dark_Sky_Blue hover:bg-pallate-Dark_Sky_Blue hover:bg-opacity-10 rounded-xl font-blod text-white "
           onClick={()=> navigate("/home")}
           >  
             Back to Homepage
