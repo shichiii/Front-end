@@ -39,7 +39,7 @@ import "./App.css";
 
 import ForgotApp from "./Components/for_push/ForgotPass/ForgotApp";
 // <<<<<<< feature/v1.0.0/responsive
-
+import AboutUs from "./Components/AboutUs/AboutUs";
 import Newcar from "./Components/addcar/addcarapp";
 import Photo from "./Components/addcar/photo";
 import Addacr from "./Components/addcar/addcarapp";
@@ -109,6 +109,7 @@ function App() {
           <Route path="/photo" element={<Photo />} />
 
           <Route exact path="/newcar" element={<Newcar />} />
+          <Route exact path="/about" element={<AboutUs/>}/>
           {/* <Route exact path='/Advertisement' element={<Advertisement />} />
 //=======
     <AuthProvider>
