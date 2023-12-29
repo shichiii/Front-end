@@ -267,9 +267,9 @@ const Price = ({
                 type="date"
               ></input>
             </button>
-            <button class="bg-pallate-Police_Blue hover:bg-pallate-Dark_Sky_Blue text-pallate-Dark_Sky_Blue font-semibold duration-300 hover:text-white py-2 px-4 border border-pallate-Dark_Sky_Blue hover:border-transparent rounded">
+            {/* <button class="bg-pallate-Police_Blue hover:bg-pallate-Dark_Sky_Blue text-pallate-Dark_Sky_Blue font-semibold duration-300 hover:text-white py-2 px-4 border border-pallate-Dark_Sky_Blue hover:border-transparent rounded">
               Submit
-            </button>
+            </button> */}
           </div>
         </div>
       </div>

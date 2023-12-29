@@ -1,6 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import img from "../../../Static/search.svg";
-const newsearch = ({ search, setSearch }) => {
+import { Navigate , Navigation } from "react-router";
+import { useNavigate } from "react-router-dom";
+
+const Newsearch = () => {
+  let navigate = useNavigate();
+  const [search, setSearch] = useState()
+  function search_new() {
+    localStorage.setItem("search", search)
+    navigate("/Advertisement")
+  }
+
   return (
     <div>
       <div
@@ -11,7 +21,7 @@ const newsearch = ({ search, setSearch }) => {
           <img class="h-[249px] w-[473px]" src={img} alt="google Logo" />
         </div>
 
-        <div class="md:w-[584px] mx-auto mt-7 flex w-[92%] items-center rounded-full border hover:shadow-md">
+        <div class="md:w-[584px] mx-auto mt-7 flex w-[92%] items-center rounded-full border hover:shadow-md cursor-pointer">
           <div class="pl-5">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -22,6 +32,7 @@ const newsearch = ({ search, setSearch }) => {
               stroke-width="2"
             >
               <path
+                onClick={search_new}
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
@@ -68,4 +79,4 @@ const newsearch = ({ search, setSearch }) => {
   );
 };
 
-export default newsearch;
+export default Newsearch;

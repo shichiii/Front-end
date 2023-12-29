@@ -5,7 +5,7 @@ import Search from "../for_push/HomePage/newsearch";
 import Price from "./Price";
 import axios from "axios";
 const CardApp = () => {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState(localStorage.getItem("search"));
   const [lowerPrice, setLowerPrice] = useState();
   const [upperPrice, setUpperPrice] = useState();
   const [carCategory, setCarCategory] = useState();
@@ -19,7 +19,7 @@ const CardApp = () => {
     setSearch("");
     setLowerPrice("");
     setUpperPrice("");
-    setCarCategory("");
+    setCarCategory(" ");
     setCarColor("");
     setStartDate("");
     setEndDate("");

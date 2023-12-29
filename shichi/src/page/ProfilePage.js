@@ -200,25 +200,6 @@ function ProfilePage() {
           </button>
         </div>
 
-        <button
-          className={` cursor-pointer ${
-            !isLoading
-              ? "bg-pallate-Dark_Sky_Blue hover:bg-transparent hover:text-pallate-Dark_Sky_Blue  text-white"
-              : "text-pallate-Dark_Sky_Blue bg-transparent"
-          } p-1  font-mono text-[20px] w-1/3  rounded-[400px] font-medium px-6 py-3 mt-12 mx-auto transition-all duration-300`}
-          onClick={() => editProfileHandler()}
-          disabled={
-            isLoading ||
-            !firstN ||
-            !lastN ||
-            (!phoneNumber && phoneNumber?.length !== 11)
-              ? true
-              : false
-          }
-        >
-          {isLoading ? "Saving..." : "Save Changes"}
-        </button>
-
         {/* <MyComponent/> */}
 
         {/* <MyComponent/> */}
