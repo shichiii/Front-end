@@ -10,7 +10,7 @@ const HistoryApp = () => {
         {/* <Navbar/> */}
         <NavHistory/>
         
-        <History/>
+        {/* <History/> */}
       <Footer/>
     </div>
   )

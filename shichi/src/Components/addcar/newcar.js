@@ -1,43 +1,26 @@
 import React, { useEffect, useState } from "react";
-import Photo from "./photo";
 import Create from "./Create";
 import { BsDropletHalf } from "react-icons/bs";
-import { BsXLg, BsMapFill, BsCalendar } from "react-icons/bs";
-import { IoMdBoat } from "react-icons/io";
-import { BsFillAirplaneFill } from "react-icons/bs";
-import { Button, Card, Select } from "flowbite-react";
+import { BsMapFill, BsCalendar } from "react-icons/bs";
+import { Select } from "flowbite-react";
 import { BsBusFrontFill } from "react-icons/bs";
-import { BsTrainFrontFill } from "react-icons/bs";
-import { BsCurrencyDollar } from "react-icons/bs";
-import { BsFillCartPlusFill } from "react-icons/bs";
 import { BsGeoAltFill } from "react-icons/bs";
 import { BsGearFill } from "react-icons/bs";
-import { BsFillPeopleFill } from "react-icons/bs";
-import { BsPersonFillCheck } from "react-icons/bs";
 import { BsSnow3 } from "react-icons/bs";
 import { BsDoorOpenFill } from "react-icons/bs";
-import Map from "./Create.js";
 import { FaChair } from "react-icons/fa";
-import { WiCloudUp } from "react-icons/wi";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
-import {
-  data,
-  fuel,
-  categories,
-  coooler,
-  cityy,
-  colors,
-  gearboxx,
-} from "./Data.js";
+import { fuel, categories, coooler, cityy, colors, gearboxx } from "./Data.js";
 const Newcar = () => {
   const [selectedImages, setSelectedImages] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
+
   const handleFileChange = (event) => {
     const files = event.target.files;
-    setSelectedImages((prevFiles) => [...prevFiles, ...files]);
-    const token = localStorage.getItem("token");
+
     if (files) {
+
       const newImages = Array.from(files).map((file, index) => {
         return new Promise((resolve) => {
           const reader = new FileReader();
@@ -83,8 +66,20 @@ const Newcar = () => {
             console.error("Error uploading images:", error);
           });
       });
+/*
+      // Limit to the first 3 files
+      const newImages = Array.from(files).slice(0, 3);
+
+      console.log("Files:", newImages);
+
+      setSelectedImages((prevImages) => [
+        ...prevImages.slice(0, 3 - newImages.length),
+        ...newImages,
+      ]);
+*/
     }
   };
+  console.log("images", selectedImages);
 
   const handleDelete = (index) => {
     setSelectedImages((prevFiles) => {
@@ -104,18 +99,8 @@ const Newcar = () => {
     selectedImages.forEach((file) => {
       formData.append("files", file);
     });
-
-    // try {
-    //   // Make a POST request to your server with the FormData
-    //   const response = await axios.post('YOUR_UPLOAD_API_ENDPOINT', formData);
-
-    //   // Handle the response as needed (e.g., show success message)
-    //   console.log('Upload successful:', response.data);
-    // } catch (error) {
-    //   // Handle errors (e.g., show error message)
-    //   console.error('Error uploading files:', error);
-    // }
   };
+
 
   const handleImageChange = (event) => {
     const files = event.target.files;
@@ -178,6 +163,7 @@ const Newcar = () => {
     }
   };
 
+
   // Helper function to convert base64 data URL to a File object
   const dataURLtoFile = (dataURL, filename) => {
     const arr = dataURL.split(",");
@@ -216,25 +202,26 @@ const Newcar = () => {
     console.log(`Deleted image URL: ${deletedImageUrl}`);
   };
 
-  const [carName, setCarName] = useState(""); // New state for car name
+
+  const [carName, setCarName] = useState("");
   const [carFuel, setCarFuel] = useState("");
   const [gearbox, setgearbox] = useState("");
   const [description, setdescription] = useState("");
   const [cooler, setCooler] = useState("");
   const [cityValue, setCityValue] = useState("");
   const [colorsvalue, setCoolersvalue] = useState("");
-  const [category, setCategory] = useState(""); // New state for car name
+  const [category, setCategory] = useState("");
   const [startdate, setStartdate] = useState("");
   const [enddate, setEnddate] = useState("");
   const [seatnumbers, setSeatnumbers] = useState("");
   const [doornumbers, setDoornumbers] = useState("");
   const [price, setPrice] = useState("");
   const [productyear, setProductyear] = useState("");
-
   const [showDescription, setShowDescription] = useState(false);
   const [scrollEnabled, setScrollEnabled] = useState(false);
   const handleProductyear = (event) => {
     const rawDate = event.target.value;
+
 
     const dateObject = new Date(rawDate);
 
@@ -257,6 +244,7 @@ const Newcar = () => {
   };
   const handleSeatnumbers = (event) => {
     setSeatnumbers(event.target.value);
+
   };
 
   const handlestartdate = (event) => {
@@ -290,6 +278,7 @@ const Newcar = () => {
 
     setEnddate(formattedDate);
   };
+
   const handleCityChange = (event) => {
     setCityValue(event.target.value);
   };
@@ -325,11 +314,13 @@ const Newcar = () => {
   // location data
   const latitude = localStorage.getItem("latitude");
   const longitude = localStorage.getItem("longitude");
+
   //get image data
-  const [lastId, setLastId] = useState(null);
+ /* const [lastId, setLastId] = useState(null);
   useEffect(() => {
     const fetchData = async () => {
       try {
+
         const response = await fetch(
           "http://87.107.105.201:8000/carimage/list/"
         );
@@ -343,11 +334,14 @@ const Newcar = () => {
     };
 
     fetchData();
-  }, []);
+  }, []);*/
+
+  
   //handle submit function
-  const [userId, setUserId] = useState(0);
   const handleSubmit = async (id) => {
+    console.log("enter handlesubmit");
     const token = localStorage.getItem("token");
+
     let user = null;
     if (token !== "null" && token !== null) {
       user = jwtDecode(token);
@@ -357,13 +351,55 @@ const Newcar = () => {
         console.log("user id", userId);
       });
     }
+
     try {
       const formattedstartdate = formatDate(startdate);
       const formattedenddate = formatDate(enddate);
       const formData = new FormData();
+
+      formData.append("car_image1", selectedImages[0]);
+      formData.append("car_image2", selectedImages[1]);
+      formData.append("car_image3", selectedImages[2]);
+
+/*
+      
       //formData.append('owner_id', userId);
+
       formData.append("car_images", lastId);
       console.log("id", lastId);
+
+      formData.append('car_images', lastId);
+      console.log('id', lastId);
+      formData.append('location_geo_width',latitude );
+      formData.append('location_geo_length', longitude);
+      formData.append('location_state',cityValue);
+      formData.append('start_date', formattedstartdate);
+      formData.append('end_date', formattedenddate);
+      formData.append('price', price);
+      formData.append('description', description);
+      formData.append('car_name', carName);
+      formData.append('car_color', colorsvalue);
+      formData.append('car_produced_date', productyear);
+      formData.append('car_seat_count', seatnumbers);
+      formData.append('car_door_count', doornumbers);
+      formData.append('car_Is_cooler', cooler);
+      formData.append('car_gearbox', gearbox);
+      formData.append('car_fuel', carFuel);
+      formData.append('car_category', category);
+  
+      const response = await axios.post('http://87.107.105.201:8000/advertisement/create/', formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      console.log(token)*/
+
+/*      formData.append("car_images", lastId);
+      console.log("id", lastId);
+
+
+
       formData.append("location_geo_width", latitude);
       formData.append("location_geo_length", longitude);
       formData.append("location_state", cityValue);
@@ -381,6 +417,8 @@ const Newcar = () => {
       formData.append("car_fuel", carFuel);
       formData.append("car_category", category);
 
+      console.log(formData);
+
       const response = await axios.post(
         "http://87.107.105.201:8000/advertisement/create/",
         formData,
@@ -391,10 +429,14 @@ const Newcar = () => {
           },
         }
       );
+
       console.log(token);
+
+      console.log(token);*/
+
+
       console.log(response.data);
     } catch (error) {
-      // Handle any errors that occurred during the request
       console.error(error);
       console.log("login token", token);
     }
@@ -440,6 +482,7 @@ const Newcar = () => {
   }, []);
   return (
     <div
+
       style={{
         width: "100%",
         backgroundImage: `url(${img})`, // Dynamic image URL
@@ -447,6 +490,16 @@ const Newcar = () => {
         backgroundPosition: "center",
       }}
       className=" "
+
+/*    style={{
+      width: "100%",
+      height: selectedImages && selectedImages.length > 0 ? "1790px" : undefined,
+      backgroundImage: `url(${img})`, // Dynamic image URL
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+    }}
+    className=" "
+*/
     >
       <div className="bg-pallate-Gunmetal text-pallate-Gunmetal ">
         Please Fill The Form
@@ -543,7 +596,12 @@ const Newcar = () => {
                 type="number"
                 class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                 placeholder=""
+
                 min={1}
+/*
+                min={2}
+                max={4}
+*/
                 onChange={handleDoornumbers}
                 onKeyPress={handleKeyPress}
                 required
@@ -613,7 +671,8 @@ const Newcar = () => {
                 type="number"
                 class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                 placeholder=""
-                min={1}
+                min={2}
+                max={15}
                 onChange={handleSeatnumbers}
                 onKeyPress={handleKeyPress}
                 required
@@ -683,6 +742,7 @@ const Newcar = () => {
           </div>
           <div className="w-full ">
             <div className="flex justify-start items-center pl-1 text-white">
+
               <BsCurrencyDollar className="mr-1" />
               <label className="m-1">Price:</label>
             </div>
@@ -755,16 +815,110 @@ const Newcar = () => {
             <div className="flex w-full justify-center">
               {/* <div className="w-4/12 lg:w-3/12 border border-gray-300 rounded-r-md flex items-center justify-between">
             <span className="p-2">{selectedFiles.length === 1 ? '1 file selected' : `${selectedFiles.length} files selected`}</span>
-            <button
-              onClick={handleDeleteAll}
-              className={`p-2 ${selectedFiles.length === 0 ? 'hidden' : ''}`}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="fill-current text-red-700 w-3 h-3" viewBox="0 0 320 512">
-                <path
-                  d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"
+/*
+              <label className="m-1">Price:</label>
+            </div>
+            <div className="relative">
+              <input
+                type="number"
+                className="bg-pallate-Gunmetal text-white w-full gap-4 mr-auto ml-auto border-pallate-persian_green disabled:opacity-80 rounded-lg bg-pallate-celeste_light focus:ring-pallate-persian_green focus:border-pallate-persian_green pl-8 p-2"
+                placeholder=""
+                min={1}
+                onChange={handlePrice}
+                onKeyPress={handleKeyPress}
+                required
+              />
+            </div>
+            <section class="max-w-4xl p-2 mx-auto mt-5 ">
+              <div className="container mx-auto h-full flex flex-col justify-center items-center px-10">
+                <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                  {selectedImages.map((file, index) => (
+                    <div
+                      key={index}
+                      className="relative h-48 mb-3 w-full p-3 rounded-lg bg-cover bg-center"
+                    >
+                      <img
+                        src={URL.createObjectURL(file)}
+                        alt={`Selected File ${index + 1}`}
+                        className="w-full h-full object-cover rounded-lg"
+                      />
+                      <button
+                        onClick={() => handleDelete(index)}
+                        className="absolute top-2 right-2 p-2 bg-red-500 text-white rounded-full cursor-pointer"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="w-4 h-4 text-gray-700"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  ))}
+                </div>
+                <div className="flex w-full justify-center"></div>
+                <div>
+                  <label className="block text-sm font-medium text-white">
+                    Image
+                  </label>
+                  <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md ">
+                    <div className="space-y-1 text-center">
+                      <svg
+                        className="mx-auto h-8 w-8 text-white"
+                        stroke="currentColor"
+                        fill="none"
+                        viewBox="0 0 48 48"
+                        aria-hidden="true"
+                      >
+                        <path
+                          d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      <div className="flex text-sm text-gray-600">
+                        <label
+                          htmlFor="multi-upload-input"
+                          className="relative cursor-pointer  rounded-md font-medium text-pallate-Dark_Sky_Blue hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                        >
+                          <p className="pl-1 ">Upload 3 files</p>
+                        </label>
+                      </div>
+                      <p className="text-xs text-white">
+                        PNG, JPG, GIF up to 10MB
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <input
+                  type="file"
+                  id="multi-upload-input"
+                  className="hidden"
+                  multiple
+                  onChange={handleFileChange}
                 />
-              </svg>
+              </div>
+              <div className="preview-container"></div>
+            </section>
+          </div>
+          <div class="flex justify-end">
+*/
+            <button
+              type="button"
+              onClick={handleSubmit}
+              class="w-full   bg-transparent hover:bg-pallate-Dark_Sky_Blue text-pallate-Dark_Sky_Blue font-semibold duration-300 hover:text-white py-2 px-4 border border-pallate-Dark_Sky_Blue hover:border-transparent rounded"
+            >
+              Submit
             </button>
+
           </div> */}
             </div>
             <div>
@@ -823,6 +977,10 @@ const Newcar = () => {
             />
           </div>
         </div>
+/*
+          </div>
+        </form>
+*/
       </section>
     </div>
   );

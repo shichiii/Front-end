@@ -14,6 +14,7 @@ import { useEffect } from "react";
 
 const baseURL = "http://87.107.105.201:8000/user/show/";
 
+
 const User = ({ firstName, lastName, id, avatarPath }) => {
   const navigate = useNavigate();
   const Menu = ["Edit Profile", "History", "LogOut"];
