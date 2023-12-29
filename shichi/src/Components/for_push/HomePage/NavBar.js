@@ -60,8 +60,6 @@ const NavBar = () => {
       });
   }, []);
 
-  console.log("caht: ", chatRooms);
-
   return (
     <div className="bg-pallate-Gunmetal h-[100px] ">
       <div className="flex justify-between items-center border-x-pallate-Gunmetal h-24 max-w-[1240px] m-auto text-white">
@@ -104,28 +102,33 @@ const NavBar = () => {
               </button>
 
               <div
-                class={`${notification ? "" : "hidden"
-                  } origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-pallate-Dark_Slate_Gray ring-1 ring-black ring-opacity-5 focus:outline-none z-[10000] transition-all duration-300`}
+                class={`${
+                  notification ? "" : "hidden"
+                } origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-pallate-Dark_Slate_Gray ring-1 ring-black ring-opacity-5 focus:outline-none z-[10000] transition-all duration-300`}
                 role="menu"
                 aria-orientation="vertical"
                 aria-labelledby="options-menu"
               >
                 <div class="py-1 text-white" role="none">
-                  {chatRooms?.map((chatRoom) => {
-                    return (
-                      <div
-                        class="px-4 py-2 text-sm hover:bg-pallate-Dark_Sky_Blue cursor-pointer flex items-center gap-5"
-                        role="menuitem"
-                      >
-                        <img
-                          src="https://tecdn.b-cdn.net/img/new/avatars/1.webp"
-                          alt="User's Profile Picture"
-                          className="rounded-full object-cover w-[50px]"
-                        />
-                        <span className=" font-bold">{chatRoom}</span>
-                      </div>
-                    );
-                  })}
+                  {chatRooms.length > 0 ? (
+                    chatRooms?.map((chatRoom) => {
+                      return (
+                        <div
+                          class="px-4 py-2 text-sm hover:bg-pallate-Dark_Sky_Blue cursor-pointer flex items-center gap-5"
+                          role="menuitem"
+                        >
+                          <img
+                            src="https://tecdn.b-cdn.net/img/new/avatars/1.webp"
+                            alt="User's Profile Picture"
+                            className="rounded-full object-cover w-[50px]"
+                          />
+                          <span className=" font-bold">{chatRoom}</span>
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <span className="p-3">No ChatRooms Yet!</span>
+                  )}
                 </div>
               </div>
             </div>
@@ -165,11 +168,12 @@ const NavBar = () => {
 
         <div style={{ display: "flex", alignItems: "center" }}>
           <NavWallet />
-          <User Image={image} UserName={user.name} />  {/* Pass the user name to User component */}
+          <User Image={image} UserName={user.name} />{" "}
+          {/* Pass the user name to User component */}
         </div>
-           {/* <User Image={image} UserName={user.name} />{" "} */}
+        {/* <User Image={image} UserName={user.name} />{" "} */}
+      </div>
     </div>
-    </div >
   );
 };
 

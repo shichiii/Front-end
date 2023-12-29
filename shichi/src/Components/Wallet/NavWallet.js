@@ -1,7 +1,7 @@
-import React, { useState , useEffect} from 'react';
+import React, { useState, useEffect } from "react";
 import { FaWallet } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { jwtDecode } from 'jwt-decode'
+import { jwtDecode } from "jwt-decode";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
@@ -23,21 +23,21 @@ const NavWallet = () => {
     if (token !== "null" && token !== null) {
       const user = jwtDecode(token);
       axios.get(baseURL + `${user.user_id}/`).then((response) => {
-        console.log(response.data)
+        console.log(response.data);
         setwallet(response.data.wallet);
-      })
-    };
+      });
+    }
   }, [userId]);
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <div
+      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
       <div>
-        
-        <FaWallet onClick={handle} className='text-[30px] cursor-pointer' />
+        <FaWallet onClick={handle} className="text-[30px] cursor-pointer" />
       </div>
       <p>Wallet: ${wallett}</p>
     </div>
   );
 };
 
-
-export default NavWallet
+export default NavWallet;

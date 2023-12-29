@@ -2,13 +2,26 @@ import { useEffect, useState } from "react";
 import Navbar from "../Components/for_push/HomePage/NavBar";
 import Input from "../Components/for_push/Profile/Input";
 import ProfileImage from "../Components/for_push/Profile/ProfileImage";
+
+// import Modal from "react-modal";
+// import MyComponent from "../Components/addcar/popup"
+
 import Modal from "react-modal";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+
+// import Modal from "react-modal";
+// import MyComponent from "../Components/addcar/popup"
+
+
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import Footer from '../Components/for_push/HomePage/Footer'
 const baseURL = "http://87.107.105.201:8000/user/show/";
+
+//<<<<<<< feature/v1.1.0/CarPage
+//const baseURL = "http://87.107.105.201:8000/user/show/";
 
 
 function ProfilePage() {
@@ -36,6 +49,7 @@ function ProfilePage() {
   const notify = () => toast.success("Changes have been saved");
 
   function editProfileHandler() {
+    console.log("hello");
     setIsLoading(true);
     axios
       .put(`http://87.107.105.201:8000/user/update/${userId.id}/`, {
@@ -111,6 +125,30 @@ function ProfilePage() {
             {isLoading ? "Saving..." : "Save Changes"}
           </button>
         </div>
+
+        <button
+          className={` cursor-pointer ${
+            !isLoading
+              ? "bg-pallate-Dark_Sky_Blue hover:bg-transparent hover:text-pallate-Dark_Sky_Blue  text-white"
+              : "text-pallate-Dark_Sky_Blue bg-transparent"
+          } p-1  font-mono text-[20px] w-1/3  rounded-[400px] font-medium px-6 py-3 mt-12 mx-auto transition-all duration-300`}
+          onClick={() => editProfileHandler()}
+          disabled={
+            isLoading ||
+            !firstN ||
+            !lastN ||
+            (!phoneNumber && phoneNumber?.length !== 11)
+              ? true
+              : false
+          }
+        >
+          {isLoading ? "Saving..." : "Save Changes"}
+        </button>
+
+        {/* <MyComponent/> */}
+
+        {/* <MyComponent/> */}
+
       </div>
       <Footer />
     </div>

@@ -6,8 +6,6 @@ const Price = ({
   setLowerPrice,
   upperPrice,
   setUpperPrice,
-  carCategory,
-  setCarCategory,
   carColor,
   setCarColor,
   startDate,
@@ -16,6 +14,7 @@ const Price = ({
   setEndDate,
   state,
   setState,
+  handleReset,
 }) => {
   return (
     <div>
@@ -33,7 +32,10 @@ const Price = ({
         <div class="flex items-center justify-between mt-4">
           <p class="font-bold text-white text-[30px]">Filters</p>
 
-          <button class="bg-pallate-Police_Blue hover:bg-pallate-Dark_Sky_Blue text-pallate-Dark_Sky_Blue font-semibold duration-300 hover:text-white py-2 px-4 border border-pallate-Dark_Sky_Blue hover:border-transparent rounded">
+          <button
+            onClick={handleReset}
+            class="bg-pallate-Police_Blue hover:bg-pallate-Dark_Sky_Blue text-pallate-Dark_Sky_Blue font-semibold duration-300 hover:text-white py-2 px-4 border border-pallate-Dark_Sky_Blue hover:border-transparent rounded"
+          >
             Reset Filter
           </button>
         </div>
@@ -62,10 +64,7 @@ const Price = ({
               <option className="bg-pallate-Gunmetal text-white" value="">
                 All Cites
               </option>
-              <option
-                className="bg-pallate-Gunmetal text-white"
-                value="Teshran"
-              >
+              <option className="bg-pallate-Gunmetal text-white" value="Tehran">
                 Tehran
               </option>
               <option

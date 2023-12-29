@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import RateCar from "../CarInfo/RateCar";
 import Rate from "../CarInfo/Rate";
 import { jwtDecode } from "jwt-decode";
@@ -9,8 +9,24 @@ function AddComment({ adv, setRefreshComment }) {
   const [rate, setRate] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
+  const [hasRated, setHasRated] = useState(false);
 
   const userId = jwtDecode(localStorage.getItem("token")).user_id;
+
+  useEffect(function () {
+    async function handleUserRated() {
+      try {
+        await axios.get(
+          `http://87.107.105.201:8000/advertisement/is-rated/${userId}/${adv}/`
+        );
+      } catch (ex) {
+        console.log("ex: ", ex);
+      }
+    }
+    handleUserRated();
+  }, []);
+
+  console.log("hasrated: ", hasRated);
 
   function commentHandler() {
     setIsLoading(true);
@@ -46,8 +62,8 @@ function AddComment({ adv, setRefreshComment }) {
   }
 
   return (
-    <div className="flex flex-row gap-4 p-5 rounded-2xl h-auto bg-pallate-Dark_Sky_Blue bg-opacity-30 lg:bg-opacity-20  w-[1215px]">
-      <div className="flex flex-col w-3/5">
+    <div className="flex flex-row justify-between flex-wrap gap-4 p-5 rounded-2xl h-auto bg-pallate-Dark_Sky_Blue bg-opacity-30 lg:bg-opacity-20 w-full">
+      <div className="flex flex-col md:w-3/6 w-full">
         <h1 className=" text-pallate-Dark_Sky_Blue font-bold text-xl">
           Add your comment
         </h1>
@@ -67,7 +83,7 @@ function AddComment({ adv, setRefreshComment }) {
           </button>
         </div>
       </div>
-      <div className="flex flex-col w-2/5">
+      <div className="flex flex-col md:w-2/5 w-full">
         <h1 className=" text-pallate-Dark_Sky_Blue font-bold text-xl">
           Add your rating
         </h1>
