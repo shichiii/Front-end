@@ -10,6 +10,7 @@ import { useParams } from "react-router-dom";
 import Footer from '../Components/for_push/HomePage/Footer'
 const baseURL = "http://87.107.105.201:8000/user/show/";
 
+
 function ProfilePage() {
   const userId = useParams();
 

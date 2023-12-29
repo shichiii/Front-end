@@ -301,9 +301,13 @@ const Newcar = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
+
+        const response = await fetch('http://87.107.105.201:8000/carimage/list/');
+
+        /*const response = await fetch(
           "http://87.107.105.201:8000/carimage/list/"
-        );
+        );*/
+
         const data = await response.json();
         const lastItem = data[data.length - 1];
 
@@ -332,7 +336,37 @@ const Newcar = () => {
       const formattedstartdate = formatDate(startdate);
       const formattedenddate = formatDate(enddate);
       const formData = new FormData();
-      formData.append("car_images", lastId);
+
+      
+      //formData.append('owner_id', userId);
+      formData.append('car_images', lastId);
+      console.log('id', lastId);
+      formData.append('location_geo_width',latitude );
+      formData.append('location_geo_length', longitude);
+      formData.append('location_state',cityValue);
+      formData.append('start_date', formattedstartdate);
+      formData.append('end_date', formattedenddate);
+      formData.append('price', price);
+      formData.append('description', description);
+      formData.append('car_name', carName);
+      formData.append('car_color', colorsvalue);
+      formData.append('car_produced_date', productyear);
+      formData.append('car_seat_count', seatnumbers);
+      formData.append('car_door_count', doornumbers);
+      formData.append('car_Is_cooler', cooler);
+      formData.append('car_gearbox', gearbox);
+      formData.append('car_fuel', carFuel);
+      formData.append('car_category', category);
+  
+      const response = await axios.post('http://87.107.105.201:8000/advertisement/create/', formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      console.log(token)
+
+/*      formData.append("car_images", lastId);
       console.log("id", lastId);
       formData.append("location_geo_width", latitude);
       formData.append("location_geo_length", longitude);
@@ -361,7 +395,8 @@ const Newcar = () => {
           },
         }
       );
-      console.log(token);
+      console.log(token);*/
+
       console.log(response.data);
     } catch (error) {
       // Handle any errors that occurred during the request
