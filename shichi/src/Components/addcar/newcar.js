@@ -15,58 +15,23 @@ import { fuel, categories, coooler, cityy, colors, gearboxx } from "./Data.js";
 const Newcar = () => {
   const [selectedImages, setSelectedImages] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
+
   const handleFileChange = (event) => {
     const files = event.target.files;
-    setSelectedImages((prevFiles) => [...prevFiles, ...files]);
-    const token = localStorage.getItem("token");
+
     if (files) {
-      const newImages = Array.from(files).map((file, index) => {
-        return new Promise((resolve) => {
-          const reader = new FileReader();
-          reader.onloadend = () => {
-            resolve({ image: reader.result, number: index + 1 });
-          };
-          reader.readAsDataURL(file);
-        });
-      });
+      // Limit to the first 3 files
+      const newImages = Array.from(files).slice(0, 3);
 
-      Promise.all(newImages).then((images) => {
-        const updatedImages = [
-          ...selectedImages,
-          ...images.map((img) => ({
-            image: img.image,
-            number: img.number,
-          })),
-        ];
+      console.log("Files:", newImages);
 
-        if (selectedImages.length === 0) {
-          setSelectedImage(updatedImages[0].image);
-        }
-
-        setSelectedImages(updatedImages);
-
-        const formData = new FormData();
-        updatedImages.forEach((img) => {
-          const file = dataURLtoFile(img.image, `image${img.number}`);
-          formData.append("image", file);
-          formData.append("index", img.number);
-        });
-
-        axios
-          .post("http://87.107.105.201:8000/carimage/create/", formData, {
-            headers: {
-              Authorization: `JWT ${token}`,
-            },
-          })
-          .then((response) => {
-            console.log("Images uploaded successfully:", response.data);
-          })
-          .catch((error) => {
-            console.error("Error uploading images:", error);
-          });
-      });
+      setSelectedImages((prevImages) => [
+        ...prevImages.slice(0, 3 - newImages.length),
+        ...newImages,
+      ]);
     }
   };
+  console.log("images", selectedImages);
 
   const handleDelete = (index) => {
     setSelectedImages((prevFiles) => {
@@ -86,67 +51,6 @@ const Newcar = () => {
     selectedImages.forEach((file) => {
       formData.append("files", file);
     });
-  };
-
-  const handleImageChange = (event) => {
-    const files = event.target.files;
-    const token = localStorage.getItem("token");
-    if (files) {
-      const newImages = Array.from(files).map((file, index) => {
-        return new Promise((resolve) => {
-          const reader = new FileReader();
-          reader.onloadend = () => {
-            resolve({ image: reader.result, number: index + 1 });
-          };
-          reader.readAsDataURL(file);
-        });
-      });
-
-      Promise.all(newImages).then((images) => {
-        const updatedImages = [
-          ...selectedImages,
-          ...images.map((img) => ({
-            image: img.image,
-            number: img.number,
-          })),
-        ];
-
-        if (selectedImages.length === 0) {
-          setSelectedImage(updatedImages[0].image);
-        }
-
-        setSelectedImages(updatedImages);
-
-        const formData = new FormData();
-        updatedImages.forEach((img) => {
-          const file = dataURLtoFile(img.image, `image${img.number}`);
-          formData.append("image", file);
-          formData.append("index", img.number);
-        });
-
-        axios
-          .post("http://87.107.105.201:8000/carimage/create/", formData, {
-            headers: {
-              Authorization: `JWT ${token}`,
-            },
-          })
-          .then((response) => {
-            console.log("Images uploaded successfully:", response.data);
-          })
-          .catch((error) => {
-            console.error("Error uploading images:", error);
-          });
-      });
-    }
-  };
-  const handleFormSubmit = () => {
-    const token = localStorage.getItem("token");
-    // Add any validation or checks here before calling handleSubmit
-
-    const files = document.getElementById("fileInput").files;
-    if (files.length > 0) {
-      handleImageChange({ target: { files } });
-    }
   };
 
   // Helper function to convert base64 data URL to a File object
@@ -187,36 +91,30 @@ const Newcar = () => {
     console.log(`Deleted image URL: ${deletedImageUrl}`);
   };
 
-  const [carName, setCarName] = useState(""); // New state for car name
+  const [carName, setCarName] = useState("");
   const [carFuel, setCarFuel] = useState("");
   const [gearbox, setgearbox] = useState("");
   const [description, setdescription] = useState("");
   const [cooler, setCooler] = useState("");
   const [cityValue, setCityValue] = useState("");
   const [colorsvalue, setCoolersvalue] = useState("");
-  const [category, setCategory] = useState(""); // New state for car name
+  const [category, setCategory] = useState("");
   const [startdate, setStartdate] = useState("");
   const [enddate, setEnddate] = useState("");
   const [seatnumbers, setSeatnumbers] = useState("");
   const [doornumbers, setDoornumbers] = useState("");
   const [price, setPrice] = useState("");
   const [productyear, setProductyear] = useState("");
-
   const [showDescription, setShowDescription] = useState(false);
   const [scrollEnabled, setScrollEnabled] = useState(false);
   const handleProductyear = (event) => {
     const rawDate = event.target.value;
-
     const dateObject = new Date(rawDate);
-
     const year = dateObject.getFullYear();
     const month = dateObject.getMonth() + 1;
     const day = dateObject.getDate();
-
     const formattedDate = `${year}-${month}-${day}`;
-
     console.log(formattedDate);
-
     setProductyear(formattedDate);
   };
 
@@ -229,36 +127,24 @@ const Newcar = () => {
   const handleSeatnumbers = (event) => {
     setSeatnumbers(event.target.value);
   };
-
   const handlestartdate = (event) => {
     const rawDate = event.target.value;
-
     const dateObject = new Date(rawDate);
-
     const year = dateObject.getFullYear();
     const month = dateObject.getMonth() + 1;
     const day = dateObject.getDate();
-
     const formattedDate = `${year}-${month}-${day}`;
-
     console.log(formattedDate);
-
     setStartdate(formattedDate);
   };
-
   const handleenddate = (event) => {
     const rawDate = event.target.value;
-
     const dateObject = new Date(rawDate);
-
     const year = dateObject.getFullYear();
     const month = dateObject.getMonth() + 1;
     const day = dateObject.getDate();
-
     const formattedDate = `${year}-${month}-${day}`;
-
     console.log(formattedDate);
-
     setEnddate(formattedDate);
   };
   const handleCityChange = (event) => {
@@ -296,8 +182,10 @@ const Newcar = () => {
   // location data
   const latitude = localStorage.getItem("latitude");
   const longitude = localStorage.getItem("longitude");
+
+  
   //get image data
-  const [lastId, setLastId] = useState(null);
+ /* const [lastId, setLastId] = useState(null);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -306,7 +194,7 @@ const Newcar = () => {
 
         /*const response = await fetch(
           "http://87.107.105.201:8000/carimage/list/"
-        );*/
+        );
 
         const data = await response.json();
         const lastItem = data[data.length - 1];
@@ -318,25 +206,23 @@ const Newcar = () => {
     };
 
     fetchData();
-  }, []);
+  }, []);*/
+
+  
   //handle submit function
-  const [userId, setUserId] = useState(0);
   const handleSubmit = async (id) => {
+    console.log("enter handlesubmit");
     const token = localStorage.getItem("token");
-    let user = null;
-    if (token !== "null" && token !== null) {
-      user = jwtDecode(token);
-      axios.get(baseURL + `${user.user_id}/`).then((response) => {
-        setUserId(response.data.id);
-        console.log("owner_id", response.data.id);
-        console.log("user id", userId);
-      });
-    }
     try {
       const formattedstartdate = formatDate(startdate);
       const formattedenddate = formatDate(enddate);
       const formData = new FormData();
 
+      formData.append("car_image1", selectedImages[0]);
+      formData.append("car_image2", selectedImages[1]);
+      formData.append("car_image3", selectedImages[2]);
+
+/*
       
       //formData.append('owner_id', userId);
       formData.append('car_images', lastId);
@@ -364,10 +250,12 @@ const Newcar = () => {
           'Content-Type': 'multipart/form-data',
         },
       });
-      console.log(token)
+      console.log(token)*/
 
 /*      formData.append("car_images", lastId);
       console.log("id", lastId);
+
+
       formData.append("location_geo_width", latitude);
       formData.append("location_geo_length", longitude);
       formData.append("location_state", cityValue);
@@ -384,7 +272,7 @@ const Newcar = () => {
       formData.append("car_gearbox", gearbox);
       formData.append("car_fuel", carFuel);
       formData.append("car_category", category);
-
+      console.log(formData);
       const response = await axios.post(
         "http://87.107.105.201:8000/advertisement/create/",
         formData,
@@ -399,7 +287,6 @@ const Newcar = () => {
 
       console.log(response.data);
     } catch (error) {
-      // Handle any errors that occurred during the request
       console.error(error);
       console.log("login token", token);
     }
@@ -445,13 +332,14 @@ const Newcar = () => {
   }, []);
   return (
     <div
-      style={{
-        width: "100%",
-        backgroundImage: `url(${img})`, // Dynamic image URL
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-      className=" "
+    style={{
+      width: "100%",
+      height: selectedImages && selectedImages.length > 0 ? "1790px" : undefined,
+      backgroundImage: `url(${img})`, // Dynamic image URL
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+    }}
+    className=" "
     >
       <div className="bg-pallate-Gunmetal text-pallate-Gunmetal ">
         Please Fill The Form
@@ -690,15 +578,9 @@ const Newcar = () => {
           </div>
           <div className="w-full ">
             <div className="flex justify-start items-center pl-1 text-white">
-              {/* <BsCurrencyDollar className="mr-1" /> */}
               <label className="m-1">Price:</label>
             </div>
             <div className="relative">
-              {/* <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                  <span className="text-white">
-                    <BsCurrencyDollar />
-                  </span>
-                </div> */}
               <input
                 type="number"
                 className="bg-pallate-Gunmetal text-white w-full gap-4 mr-auto ml-auto border-pallate-persian_green disabled:opacity-80 rounded-lg bg-pallate-celeste_light focus:ring-pallate-persian_green focus:border-pallate-persian_green pl-8 p-2"
@@ -715,10 +597,10 @@ const Newcar = () => {
                   {selectedImages.map((file, index) => (
                     <div
                       key={index}
-                      className="relative h-36 mb-3 w-full p-3 rounded-lg bg-cover bg-center"
+                      className="relative h-48 mb-3 w-full p-3 rounded-lg bg-cover bg-center"
                     >
                       <img
-                        src={file.image}
+                        src={URL.createObjectURL(file)}
                         alt={`Selected File ${index + 1}`}
                         className="w-full h-full object-cover rounded-lg"
                       />
@@ -769,9 +651,8 @@ const Newcar = () => {
                           htmlFor="multi-upload-input"
                           className="relative cursor-pointer  rounded-md font-medium text-pallate-Dark_Sky_Blue hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
                         >
-                          <p className="pl-1 ">Upload a file</p>
+                          <p className="pl-1 ">Upload 3 files</p>
                         </label>
-                        
                       </div>
                       <p className="text-xs text-white">
                         PNG, JPG, GIF up to 10MB
@@ -787,10 +668,12 @@ const Newcar = () => {
                   onChange={handleFileChange}
                 />
               </div>
+              <div className="preview-container"></div>
             </section>
           </div>
           <div class="flex justify-end">
             <button
+              type="button"
               onClick={handleSubmit}
               class="w-full   bg-transparent hover:bg-pallate-Dark_Sky_Blue text-pallate-Dark_Sky_Blue font-semibold duration-300 hover:text-white py-2 px-4 border border-pallate-Dark_Sky_Blue hover:border-transparent rounded"
             >
