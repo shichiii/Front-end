@@ -46,7 +46,7 @@ function CommentSection({ refreshComment, setRefreshComment, adv }) {
   );
 
   return (
-    <div className="flex flex-col gap-4 p-5 rounded-2xl h-auto bg-pallate-Dark_Sky_Blue bg-opacity-30 lg:bg-opacity-20  w-[1215px]">
+    <div className="flex flex-col gap-4 p-5 rounded-2xl h-auto bg-pallate-Dark_Sky_Blue bg-opacity-30 lg:bg-opacity-20 w-full">
       <h1 className=" text-pallate-Dark_Sky_Blue font-bold text-xl">
         Comment Section
       </h1>

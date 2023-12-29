@@ -11,6 +11,7 @@ const BASE = "http://87.107.105.201:8000/chat/messages/1/";
 const authToken = `${localStorage.getItem("token")}`;
 
 function App() {
+  const car_owner = 6;
   const userId = jwtDecode(localStorage.getItem("token")).user_id;
   const [messages, setMessages] = useState([]);
   const WS_URL = `ws://87.107.105.201:8000/ws/chat/1/?access_token=${authToken}`;

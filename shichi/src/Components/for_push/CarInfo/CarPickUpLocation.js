@@ -33,70 +33,51 @@ function CarPickUpLocation({ car }) {
     day: "numeric",
   };
 
+  console.log("+car?.location_geo_length", +car?.location_geo_length);
+  console.log("+car?.location_geo_width", +car?.location_geo_width);
+
   return (
     <div className="rounded-2xl p-5 bg-pallate-Dark_Sky_Blue bg-opacity-30 lg:bg-opacity-20 h-96 flex flex-row w-[800px] ">
       <div className="flex flex-col justify-around w-2/3">
-        <div className="font-bold text-slate-400 text-xs">PICK-UP</div>
-        <div className="font-bold text-xl text-pallate-Dark_Sky_Blue">
-          {/* 19 October 2023, Thursday, 11:00 */}
-          {date.toLocaleDateString("en-us", options)},{" "}
-          {date.toTimeString().split(" ")[0]}
+        <div className="flex flex-col justify-around w-2/3">
+          <div className="font-bold text-slate-400 text-xs">PICK-UP</div>
+          <div className="font-bold text-xl text-pallate-Dark_Sky_Blue">
+            {date.toLocaleDateString("en-us", options)}
+          </div>
         </div>
-        <div>
-          {/* {car?.location?.city},*/} {car?.location?.state}
+        <div className="flex flex-col justify-around w-2/3">
+          <div className="font-bold text-slate-400 text-xs">DROP-OFF</div>
+          <div className="font-bold text-xl text-pallate-Dark_Sky_Blue">
+            {date.toLocaleDateString("en-us", options)}
+          </div>
         </div>
-        {/* <div className="text-xs text-slate-400">
-           {car?.location?.state}
-        </div> */}
-        <div className="flex flex-row items-center gap-3 mt-5">
+        <div className="flex flex-row items-center gap-3 mt-2">
           <FaLocationDot fontSize={25} className="text-pallate-Dark_Sky_Blue" />
           <div className="flex flex-col">
-            <span className="font-bold text-sm">Pick-up location</span>
-            <span>Free shuttle service</span>
-          </div>
-        </div>
-        <div className="flex flex-row items-center gap-3 mt-5">
-          <BiTimeFive fontSize={25} className="text-pallate-Dark_Sky_Blue" />
-          <div className="flex flex-col">
-            <span className="font-bold text-sm">Business hours</span>
-            <span>Thursday 08:00 - 18:00</span>
-          </div>
-        </div>
-        <div className="flex flex-row items-center gap-3 mt-5">
-          <BsFillInfoCircleFill
-            fontSize={25}
-            className="text-pallate-Dark_Sky_Blue"
-          />
-          <div className="flex flex-col">
-            <span className="font-bold text-sm">Pick-up instructions</span>
-            <span className="w-10/12">
-              Once you have collected your luggage and are read
-            </span>
+            <span className="font-bold text-sm">Location</span>
+            <span>{car.location_state}</span>
           </div>
         </div>
       </div>
-      <div className="w-64 h-full bg-slate-300 rounded-2xl">
-        <MapContainer
-          center={[
-            +car?.location?.geo_length ? +car?.location?.geo_length : 20,
-            +car?.location?.geo_width ? +car?.location?.geo_width : 20,
-          ]}
-          zoom={10}
-          scrollWheelZoom={true}
-          className="h-full"
-        >
-          <TileLayer url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png" />
-          <Marker
-            position={[
-              +car?.location?.geo_length ? +car?.location?.geo_length : 20,
-              +car?.location?.geo_width ? +car?.location?.geo_width : 20,
-            ]}
+      <div className="w-96 h-full bg-slate-300 rounded-2xl">
+        {+car?.location_geo_width && +car?.location_geo_length && (
+          <MapContainer
+            center={[+car?.location_geo_width, +car?.location_geo_length]}
+            zoom={15}
+            scrollWheelZoom={true}
+            className="h-full"
+            style={{ borderRadius: "20px" }}
           >
-            <Popup>
-              <span>1</span> <span>1</span>
-            </Popup>
-          </Marker>
-        </MapContainer>
+            <TileLayer url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png" />
+            <Marker
+              position={[+car?.location_geo_width, +car?.location_geo_length]}
+            >
+              <Popup>
+                <span>1</span> <span>1</span>
+              </Popup>
+            </Marker>
+          </MapContainer>
+        )}
       </div>
     </div>
   );

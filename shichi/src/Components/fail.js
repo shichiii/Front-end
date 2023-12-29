@@ -10,7 +10,7 @@ const FailurePage = () => {
         
         <a
                   href="/forgot"
-                  className="mt-3 text-black dark:text-white  hover:text-pallate-Dark_Sky_Blue hover:font-bold inline-flex animate-bounce items-center"
+                  className="mt-3 text-black dark:text-white  hover:text-pallate-Dark_Sky_Blue hover:font-bold inline-flex  items-center"
                 >
                   Back to Previous Page
                   <svg

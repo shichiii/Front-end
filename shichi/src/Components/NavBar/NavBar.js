@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
-import { Link } from "react-router-dom";  // Import Link from react-router-dom
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 
 import logo from "../../Static/whitelogo.svg";
 import User from "../../Components/for_push/HomePage/User";
@@ -8,8 +8,8 @@ import axios from "axios";
 
 const NavBar = () => {
   const [nav, setNav] = useState(false);
-  const [image, setImage] = useState('');
-  const [user, setUser] = useState({});  // State to store user information
+  const [image, setImage] = useState("");
+  const [user, setUser] = useState({}); // State to store user information
 
   const baseURL = "87.107.105.201:8000/user/myshow/";
 
@@ -23,7 +23,6 @@ const NavBar = () => {
 
     // If user information is not in localStorage, you may fetch it from the server
     // ...
-
   }, []);
 
   const handleNav = () => {
@@ -47,10 +46,10 @@ const NavBar = () => {
             <li className="p-4">Advertisement register</li>
           </Link>
           <Link to="/about">
-          <li className="p-4">About US</li>
+            <li className="p-4">About US</li>
           </Link>
           <Link to="/contact">
-          <li className="p-4">Contact</li>
+            <li className="p-4">Contact</li>
           </Link>
         </ul>
         <div onClick={handleNav} className="block md:hidden">
@@ -82,7 +81,8 @@ const NavBar = () => {
             <li className="p-4">Contact</li>
           </Link>
         </ul>
-        <User Image={image} UserName={user.name} />  {/* Pass the user name to User component */}
+        <User Image={image} UserName={user.name} />{" "}
+        {/* Pass the user name to User component */}
       </div>
     </div>
   );

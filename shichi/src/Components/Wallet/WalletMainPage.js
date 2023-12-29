@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FaWallet } from "react-icons/fa";
 import wallet from "../../Static/wallet2.svg";
 import { useParams } from "react-router-dom";
-import { jwtDecode } from 'jwt-decode'
+import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 
 const WalletApp = () => {
@@ -18,20 +18,17 @@ const WalletApp = () => {
   const baseURL = "http://87.107.105.201:8000/user/show/";
   const [wallett, setwallet] = useState("");
 
-
-
   useEffect(() => {
     const token = localStorage.getItem("token");
     const user = null;
     if (token !== "null" && token !== null) {
       const user = jwtDecode(token);
       axios.get(baseURL + `${user.user_id}/`).then((response) => {
-        console.log(response.data)
+        console.log(response.data);
         setwallet(response.data.wallet);
-      })
-    };
+      });
+    }
   }, [userId]);
-
 
   const handleSubmit = async () => {
     // try {
@@ -47,9 +44,7 @@ const WalletApp = () => {
     //     }),
     //   });
 
-
     //   const newLink = await response.json();
-
 
     //   window.location.href = newLink;
     // } catch (error) {
@@ -58,23 +53,23 @@ const WalletApp = () => {
     const response = await axios.post(
       "http://87.107.105.201:8000/user/updatewallet/",
       {
-        Wallet : amount,
+        Wallet: amount,
       },
       {
         headers: {
-
           "Content-Type": "application/json",
-          Authorization : `Bearer ${token}`,
-                },
-              
+          Authorization: `Bearer ${token}`,
+        },
       }
-    // ).then((response) => {
-    //   console.log(response.data)
-    //   setAmount(response.data);
-    // })
+      // ).then((response) => {
+      //   console.log(response.data)
+      //   setAmount(response.data);
+      // })
     );
-    console.log("///////////sdfasrfaer/fafsrrfserfsergfsergsertgaerg//////////////$$$$$$$$$$$$$$$$$$$$$$$")
-    console.log(token)
+    console.log(
+      "///////////sdfasrfaer/fafsrrfserfsergfsergsertgaerg//////////////$$$$$$$$$$$$$$$$$$$$$$$"
+    );
+    console.log(token);
   };
 
   return (
@@ -102,18 +97,13 @@ const WalletApp = () => {
                   </p>
                 </div>
 
-
-
-
-
-
                 <div className="w-full mt-6 mr-0 mb-0 ml-0 relative space-y-8">
                   <div className="relative">
                     <p className="bg-pallate-Dark_Sky_Blue bg-opacity-90 rounded-3xl pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute">
                       Amount
                     </p>
                     <input
-                      placeholder="$"
+                      placeholder="﷼"
                       min={10000}
                       step={10000}
                       type="number"
@@ -134,14 +124,8 @@ const WalletApp = () => {
                   </div>
 
                   {/* Display total balance */}
-                  <p className="text-white">Total Balance: ${wallett}</p>
+                  <p className="text-white">Total Balance: ﷼{wallett}</p>
                 </div>
-
-
-
-
-
-
               </div>
             </div>
           </div>
