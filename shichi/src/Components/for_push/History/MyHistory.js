@@ -3,6 +3,7 @@ import { FaImage } from "react-icons/fa6";
 import axios from 'axios';
 import MyAdvertiseContent from './myadvertisepage';
 import TakeHistory from "./takehistory";
+import RentalHistory from "./rentalhistory";
 const MyHistory = () => {
   const [advertiseData, setAdvertiseData] = useState([]);
   //get all advertises
@@ -56,6 +57,7 @@ const MyHistory = () => {
     <div>
       <MyAdvertiseContent advertiseData={advertiseData} />
       <TakeHistory info={info}/>
+      <RentalHistory info={info}/> 
     </div>
   );
 };
