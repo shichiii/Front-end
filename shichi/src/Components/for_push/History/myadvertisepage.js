@@ -24,6 +24,9 @@ const MyAdvertiseContent = ({ advertiseData }) => {
           console.error('Error deleting advertisement:', error);
         });
       };
+    const editeAdvertise = (id) => {
+      window.location.href = `/editadvertise/${id}`;
+    }
 
 return (
     <div className="bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal min-h-screen ">
@@ -124,7 +127,7 @@ return (
                                 />
                               </svg>
                             </a>
-                            <a x-data="{ tooltip: 'Edite' }" href="#">
+                            <a x-data="{ tooltip: 'Edite' }" href="#" onClick={() => editeAdvertise(item.id)}>
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
