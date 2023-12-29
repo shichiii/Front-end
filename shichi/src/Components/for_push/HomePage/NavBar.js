@@ -82,9 +82,9 @@ const NavBar = () => {
           <Link to="/about">
             <li className="p-4">About US</li>
           </Link>
-          <Link to="/contact">
+          {/* <Link to="/contact">
             <li className="p-4">Contact</li>
-          </Link>
+          </Link> */}
           <li className="p-2">
             <div class="relative inline-block text-left">
               <button
@@ -161,15 +161,19 @@ const NavBar = () => {
           <Link to="/about">
             <li className="p-4 border-b border-gray-600">About</li>
           </Link>
-          <Link to="/contact">
+          {/* <Link to="/contact">
             <li className="p-4">Contact</li>
-          </Link>
+          </Link> */}
         </ul>
 
         <div style={{ display: "flex", alignItems: "center" }}>
           <NavWallet />
+{/* <<<<<<< Updated upstream */}
           <User Image={image} UserName={user.name} />{" "}
           {/* Pass the user name to User component */}
+{/* =======
+          <User Image={image} UserName={user.name} />
+>>>>>>> Stashed changes */}
         </div>
         {/* <User Image={image} UserName={user.name} />{" "} */}
       </div>

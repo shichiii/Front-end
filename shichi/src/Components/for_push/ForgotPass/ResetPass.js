@@ -22,7 +22,7 @@ const ResetPass = () => {
   //   const token = localStorage.getItem("token");
 
 
-  const [successMessage, setSuccessMessage] = useState('');
+  // const [successMessage, setSuccessMessage] = useState('');
   
 //develope
 //   const token = localStorage.getItem("token");

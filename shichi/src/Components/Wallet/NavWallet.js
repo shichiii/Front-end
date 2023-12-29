@@ -35,7 +35,7 @@ const NavWallet = () => {
       <div>
         <FaWallet onClick={handle} className="text-[30px] cursor-pointer" />
       </div>
-      <p>Wallet: ${wallett}</p>
+      <p>Wallet: {wallett}﷼</p>
     </div>
   );
 };

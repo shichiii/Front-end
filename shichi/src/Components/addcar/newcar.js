@@ -12,7 +12,10 @@ import { FaChair } from "react-icons/fa";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { fuel, categories, coooler, cityy, colors, gearboxx } from "./Data.js";
+import { BsCurrencyDollar } from "react-icons/bs";
+
 const Newcar = () => {
+    const token = localStorage.getItem("token");
   const [selectedImages, setSelectedImages] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
 
@@ -314,6 +317,7 @@ const Newcar = () => {
   // location data
   const latitude = localStorage.getItem("latitude");
   const longitude = localStorage.getItem("longitude");
+  const [userId, setUserId] = useState(null);
 
   //get image data
  /* const [lastId, setLastId] = useState(null);
@@ -435,7 +439,7 @@ const Newcar = () => {
       console.log(token);*/
 
 
-      console.log(response.data);
+    //   console.log(response.data);
     } catch (error) {
       console.error(error);
       console.log("login token", token);
@@ -910,7 +914,7 @@ const Newcar = () => {
             </section>
           </div>
           <div class="flex justify-end">
-*/
+
             <button
               type="button"
               onClick={handleSubmit}
@@ -977,10 +981,10 @@ const Newcar = () => {
             />
           </div>
         </div>
-/*
-          </div>
-        </form>
-*/
+
+          {/* </div>
+        </form> */}
+
       </section>
     </div>
   );

@@ -103,7 +103,7 @@ const WalletApp = () => {
                       Amount
                     </p>
                     <input
-                      placeholder="$"
+                      placeholder="﷼"
                       min={10000}
                       step={10000}
                       type="number"
@@ -124,7 +124,7 @@ const WalletApp = () => {
                   </div>
 
                   {/* Display total balance */}
-                  <p className="text-white">Total Balance: ${wallett}</p>
+                  <p className="text-white">Total Balance: ﷼{wallett}</p>
                 </div>
               </div>
             </div>
