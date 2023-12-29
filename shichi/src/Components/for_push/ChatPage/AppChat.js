@@ -13,7 +13,7 @@ const authToken = `${localStorage.getItem("token")}`;
 function App() {
   const userId = jwtDecode(localStorage.getItem("token")).user_id;
   const [messages, setMessages] = useState([]);
-  const WS_URL = `ws://185.157.245.99:8000/ws/chat/1/?access_token=${authToken}`;
+  const WS_URL = `ws://87.107.105.201:8000/ws/chat/1/?access_token=${authToken}`;
   const client = new W3CWebSocket(WS_URL);
   useEffect(function () {
     client.onopen = () => {
@@ -46,7 +46,7 @@ function App() {
   }, []);
 
   // const [socketUrl, setSocketUrl] = useState(
-  //   "ws://185.157.245.99:8000/ws/chat/1/"
+  //   "ws://87.107.105.201:8000/ws/chat/1/"
   // );
 
   // const { sendMessage, lastMessage, readyState } = useWebSocket(socketUrl, {

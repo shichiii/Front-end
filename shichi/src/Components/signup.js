@@ -189,7 +189,8 @@ import logo from "../Static/whitelogowithouttext90.svg";
 import logo2 from "../Static/whitelogowithouttext270.svg";
 
 import { Alert, AlertTitle } from '@material-ui/lab';
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { BsPatchExclamation } from "react-icons/bs";
 const Signup = () => {
@@ -219,7 +220,8 @@ const Signup = () => {
     e.preventDefault();
 
     if (password !== confirmpassword) {
-      setError('Passwords do not match');
+      // setError('Passwords do not match');
+      notifypass();
       return;
     }
 
@@ -242,7 +244,8 @@ const Signup = () => {
       const token = response.data.token;
       localStorage.setItem("token", token);
 
-      setSuccessMessage('Registration successful!');
+      // setSuccessMessage('Registration successful!');
+      notify();
       setTimeout(() => {
         navigate('/login');
       }, 5000);
@@ -251,6 +254,7 @@ const Signup = () => {
 
       console.log(response.data);
     } catch (error) {
+      notifyfaild();
       console.error(error);
     }
   };
@@ -286,7 +290,7 @@ const Signup = () => {
       !validPasswordLength.test(event.target.value) &&
       event.target.value !== ""
     ) {
-      setPasswordLengthError("password must have 5 to 10 characters");
+      setPasswordLengthError("please 5 to 10 characters");
     } else {
       setPasswordLengthError(false);
     }
@@ -310,6 +314,18 @@ const Signup = () => {
   const handleLastname = (event) => {
     setlastname(event.target.value);
   };
+  const notify = () => { toast.success(" SignUp successful !" , {
+    position:
+    toast.POSITION.TOP_RIGHT, autoClose:3000,})
+  };
+  const notifyfaild = () =>{ toast.error(" SignUp Faild !" , {
+    position:
+    toast.POSITION.TOP_RIGHT,})
+  };
+  const notifypass = () =>{ toast.error("Password Do Not Match !" , {
+    position:
+    toast.POSITION.TOP_RIGHT,})
+  };
 
   let navigate = useNavigate();
   const [isLargeScreen, setIsLargeScreen] = useState(true);
@@ -332,9 +348,10 @@ const Signup = () => {
     // <<<<<<< feature/v1.0.0/newloginsignup
     <div>
       <body>
+      <ToastContainer  position="bottom-left" theme="light" pauseOnHover />
         <div class="flex items-center justify-center min-h-screen bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal">
           <div class="relative flex flex-col  bg-pallate-Dark_Sky_Blue bg-opacity-20  shadow-2xl rounded-2xl md:flex-row md:space-y-0">
-            <div class="flex flex-col justify-center bg-purple-300 bg-opacity-20 rounded-l-2xl border-pallate-Dark_Sky_Blue p-8 md:p-14">
+            <div class="flex flex-col justify-center bg-purple-300 bg-opacity-20 rounded-2xl border-pallate-Dark_Sky_Blue p-8 md:p-14">
               <div className="text-[40px] font-mono font-normal text-center text-white">
                 SignUp
               </div>
@@ -367,7 +384,7 @@ const Signup = () => {
                 <div className="flex items-center border-b border-pallate-Dark_Sky_Blue py-2">
                   <BsEnvelopeFill className="mr-1" />
                   <div className="group flex ">
-                    <span className="w-60 scale-0 rounded-md    absolute bg-pallate-Dark_Sky_Blue opacity-90  text-xs text-black group-hover:scale-100">
+                    <span className="m-[-19px] ml-[-40px] p-[2px] scale-0 rounded-md    absolute bg-pallate-Dark_Sky_Blue opacity-90  text-xs text-black group-hover:scale-100">
                       {emailAddressError && (
                         <span className="text-red-500 text-xs font-bold w-[700px] neon-button-remove">
                           {emailAddressError}
@@ -392,21 +409,21 @@ const Signup = () => {
                 <div className="flex items-center  border-b border-pallate-Dark_Sky_Blue py-2 ">
                   <HiLockClosed className="mr-1 group" />{" "}
                   <div className="group flex ">
-                    <span className="w-60 scale-0 rounded-md  absolute bg-pallate-Dark_Sky_Blue opacity-90  text-xs text-black group-hover:scale-100">
+                    <span className="m-[-19px] w-[320px] ml-[-40px] p-[2px] scale-0 rounded-md  absolute bg-pallate-Dark_Sky_Blue opacity-90  text-xs text-black group-hover:scale-100">
                       {passwordError && (
-                        <span className="text-blue-600 text-xs font-bold w-[700px] neon-button-remove">
+                        <span className="text-red-500 text-xs font-bold w-[700px] neon-button-remove">
                           {passwordError}
                         </span>
                       )}
 
                       {passwordContainsDigitError && (
-                        <span className="text-blue-600 text-xs font-bold w-[700px] neon-button-remove">
+                        <span className="text-red-600 text-xs font-bold w-[700px] neon-button-remove">
                           {passwordContainsDigitError}
                         </span>
                       )}
 
                       {passwordLengthError && (
-                        <span className="text-blue-600 text-xs font-bold w-[700px] neon-button-remove">
+                        <span className="text-red-600 text-xs font-bold w-[700px] neon-button-remove">
                           {passwordLengthError}
                         </span>
                       )}
@@ -434,21 +451,21 @@ const Signup = () => {
                 <div className="flex items-center  border-b border-pallate-Dark_Sky_Blue py-2 ">
                   <HiLockClosed className="mr-1 group" />{" "}
                   <div className="group flex ">
-                    <span className="w-60 scale-0 rounded-md  absolute bg-pallate-Dark_Sky_Blue opacity-90  text-xs text-black group-hover:scale-100">
+                    <span className="m-[-19px] w-[320px] ml-[-40px] p-[2px] scale-0 rounded-md  absolute bg-pallate-Dark_Sky_Blue opacity-90  text-xs text-black group-hover:scale-100">
                       {passwordError && (
-                        <span className="text-blue-600 text-xs font-bold w-[700px] neon-button-remove">
+                        <span className="text-red-600 text-xs font-bold w-[700px] neon-button-remove">
                           {passwordError}
                         </span>
                       )}
 
                       {passwordContainsDigitError && (
-                        <span className="text-blue-600 text-xs font-bold w-[700px] neon-button-remove">
+                        <span className="text-red-600 text-xs font-bold w-[700px] neon-button-remove">
                           {passwordContainsDigitError}
                         </span>
                       )}
 
                       {passwordLengthError && (
-                        <span className="text-blue-600 text-xs font-bold w-[700px] neon-button-remove">
+                        <span className="text-red-600 text-xs font-bold w-[700px] neon-button-remove">
                           {passwordLengthError}
                         </span>
                       )}
@@ -475,12 +492,12 @@ const Signup = () => {
                 </div>
               </form>
               <div>
-                {successMessage && (
+                {/* {successMessage && (
                   <Alert severity="success">
                     <AlertTitle>Success</AlertTitle>
                     {successMessage}
                   </Alert>
-                )}
+                )} */}
               </div>
 
               <div>
@@ -501,8 +518,7 @@ const Signup = () => {
                     passwordLengthError ||
                     firstname.length === 0 ||
                     lastname.length === 0 ||
-                    emailAddress.length === 0 ||
-                    password.length === 0
+                    emailAddress.length === 0 
                   }
                   onClick={handleSubmit}
                   className="bg-pallate-Dark_Sky_Blue hover:bg-transparent hover:text-pallate-Dark_Sky_Blue duration-300 w-full text-[20px] hover.text-pallate-Dark_Sky_Blue text-white font-mono px-10 py-1 rounded-[400px]"

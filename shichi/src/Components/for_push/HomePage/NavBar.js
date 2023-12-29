@@ -16,6 +16,7 @@ const NavBar = () => {
   const [user, setUser] = useState({}); // State to store user information
 
   const baseURL = "87.107.105.201:8000/user/myshow/";
+
   useEffect(() => {
     // Fetch user information from localStorage
     const storedUser = JSON.parse(localStorage.getItem("user"));

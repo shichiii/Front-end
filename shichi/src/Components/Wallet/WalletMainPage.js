@@ -36,7 +36,7 @@ const WalletApp = () => {
   const handleSubmit = async () => {
     // try {
 
-    //   const response = await fetch("https://185.157.245.99:8000/swagger/user/updatewallet/", {
+    //   const response = await fetch("https://87.107.105.201:8000/swagger/user/updatewallet/", {
     //     method: "POST",
     //     headers: {
     //       "Content-Type": "application/json",
@@ -79,7 +79,7 @@ const WalletApp = () => {
 
   return (
     <div>
-      <div class="bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal relative lg:py-20">
+      <div class="bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal relative lg:py-20 min-h-screen">
         <div
           class="flex flex-col items-center justify-between pt-0 pr-10 pb-0 pl-10 mt-0 mr-auto mb-0 ml-auto max-w-7xl
       xl:px-5 lg:flex-row"
@@ -147,6 +147,7 @@ const WalletApp = () => {
           </div>
         </div>
       </div>
+      
     </div>
   );
 };
