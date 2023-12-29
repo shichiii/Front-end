@@ -9,7 +9,7 @@ const Hero = () => {
     navigate("/advertise");
   }
   return (
-    <div className="text-white bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal pt-32 baghbaghooo">
+    <div id="start" className="text-white bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal pt-32 baghbaghooo">
       <div className="max-w-[800px]  w-full  mx-auto text-center flex flex-col justify-center">
         {/* <p className="text-[#00df9a] font-bold p-2">
           Welcome.

@@ -2,11 +2,15 @@ import React, { useEffect, useState } from "react";
 import { info } from "./Data";
 import { FaImage } from "react-icons/fa6";
 import { MdDriveFileRenameOutline } from "react-icons/md";
-import axios from "axios";
+
+import axios from 'axios';
+import Footer from "../HomePage/Footer";
+
 const History = () => {
   //delete advertise request
   const deleteAdvertisement = (id) => {
     const token = localStorage.getItem("token");
+
 
     axios
       .delete(`http://87.107.105.201:8000/advertisement/delete/${id}`, {
@@ -23,6 +27,23 @@ const History = () => {
         // Handle any errors that occur during the request
         console.error("Error deleting advertisement:", error);
       });
+/*
+  
+    axios.delete(`http://87.107.105.201:8000/advertisement/delete/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+    .then((response) => {
+      // Handle the successful deletion
+      console.log("Advertisement deleted successfully");
+    })
+    .catch((error) => {
+      // Handle any errors that occur during the request
+      console.error('Error deleting advertisement:', error);
+    });
+*/
   };
   const token = localStorage.getItem("token");
   //<<<<<<< feature/v1.0.0/overallfix
@@ -32,10 +53,15 @@ const History = () => {
   const fetchCarImage = async (id) => {
     console.log("enter get image");
     try {
+
       const response = await axios.get(
         `http://87.107.105.201:8000/carimage/show/${id}/`
       );
       console.log("image has been get");
+/*
+      const response = await axios.get(`http://87.107.105.201:8000/carimage/show/${id}/`);
+      console.log("image has been get")
+*/
       console.log("Image data:", response.data);
       return response.data;
     } catch (error) {
@@ -68,9 +94,13 @@ const History = () => {
             console.log("First car image ID:", firstCarImageId);
 
             if (firstCarImageId !== undefined) {
+
               const imageResponse = await axios.get(
                 `http://87.107.105.201:8000/carimage/show/${firstCarImageId}/`
               );
+/*
+              const imageResponse = await axios.get(`http://87.107.105.201:8000/carimage/show/${firstCarImageId}/`);
+*/
               const carImageData = imageResponse.data;
               console.log("Car image data:", carImageData);
               setCarImageData(carImageData);
@@ -116,6 +146,7 @@ const History = () => {
 
   //=======
   console.log(token);
+
   axios
     .get("http://87.107.105.201:8000/history/customhistories", {
       headers: {
@@ -129,9 +160,29 @@ const History = () => {
       console.log(data);
     });
   //>>>>>>> Develop
+/*
+  axios.get('http://87.107.105.201:8000/history/customhistories',
+  {
+    headers: {
+      Authorization: `JWT ${token}`,
+      "Content-Type": "application/json",
+    },
+  })
+  .then((response) => {
+    // Handle the response data
+    const data = response.data;
+    console.log(data);
+  })
+//>>>>>>> Develop
+
+
+*/
 
   return (
-    <div className="bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal ">
+  
+
+    
+    <div className="bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal min-h-screen ">
       <div className="overflow-hidden rounded-lg p-10">
         <div className="flex flex-col">
           <div className="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
@@ -178,12 +229,12 @@ const History = () => {
                       >
                         Price
                       </th>
-                      <th
+                      {/* <th
                         scope="col"
                         className="text-sm font-medium  px-6 py-4 text-right"
                       >
                         Edit or Delete
-                      </th>
+                      </th> */}
                     </tr>
                   </thead>
                   <tbody>
@@ -222,7 +273,7 @@ const History = () => {
                         <td className="text-sm font-bold px-6 py-4 whitespace-nowrap">
                           {item.advertisement.price}
                         </td>
-                        <td class="px-6 py-4 ">
+                        {/* <td class="px-6 py-4 ">
                           <div class="flex justify-end gap-4">
                             <a
                               x-data="{ tooltip: 'Delete' }"
@@ -263,7 +314,7 @@ const History = () => {
                               </svg>
                             </a>
                           </div>
-                        </td>
+                        </td> */}
                       </tr>
                     ))}
                   </tbody>
@@ -273,7 +324,9 @@ const History = () => {
           </div>
         </div>
       </div>
+     
     </div>
+ 
   );
 };
 

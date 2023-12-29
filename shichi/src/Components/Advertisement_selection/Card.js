@@ -16,12 +16,26 @@ const Card = ({
   state,
 }) => {
   const API_ENDPOINT = `http://87.107.105.201:8000/advertisement/filter/?${
+
     carCategory ? `&car_category=${carCategory}` : ""
   }${carColor ? `&car_color=${carColor}` : ""}${
     startDate ? `&start_date=${startDate}` : ""
   }${endDate ? `&end_date=${endDate}` : ""}${state ? `&state=${state}` : ""}${
     lowerPrice ? `&lower_price=${lowerPrice}` : ""
   }${upperPrice ? `&upper_price=${upperPrice}` : ""}`;
+/*
+    search ? `ordering=${search}` : ""
+  }${carCategory ? `&car_category=${carCategory}` : ""}${
+    carColor ? `&car_color=${carColor}` : ""
+  }${startDate ? `&start_date=${startDate}` : ""}${
+    endDate ? `&end_date=${endDate}` : ""
+  }${state ? `&state=${state}` : ""}${
+    category ? `&car_category=${category}` : ""
+  }${lowerPrice ? `&lower_price=${lowerPrice}` : ""}${
+    upperPrice ? `&upper_price=${upperPrice}` : ""
+  }`;
+
+*/
   const [cardData, setCardData] = useState([]);
   useEffect(() => {
     // Fetch data from the backend when the component mounts
@@ -158,6 +172,7 @@ const Card = ({
                       to={`/Car/${item.id}`}
                       className="mt-3 text-black dark:text-white
                   hover:text-pallate-Gunmetal hover:font-bold inline-flex
+
                   animate-bounce items-center"
                     >
                       {" "}
@@ -176,6 +191,24 @@ const Card = ({
                     </Link>
                   </div>
                 </div>
+//=======
+                   items-center"
+                >
+                  {" "}
+                  Learn More
+                  <svg
+                    fill="none"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    className="w-4 h-4 ml-2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M5 12h14M12 5l7 7-7 7"></path>
+                  </svg>
+                </Link>
+//>>>>>>> Develop
               </div>
             ))}
       </div>
