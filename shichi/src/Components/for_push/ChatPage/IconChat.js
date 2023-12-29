@@ -1,9 +1,19 @@
 import React, { useState } from "react";
 import Chat from "./AppChat";
-const IconChat = () => {
+import axios from "axios";
+const IconChat = ({ sender, reciver }) => {
   const [isChatOpen, setIsChatOpen] = useState(false);
 
   const openChat = () => {
+    axios
+      .post("http://87.107.105.201:8000/chat/chatroom/chatroom/", {
+        name: `${sender}${reciver}`,
+        sender: sender,
+        reciver: reciver,
+      })
+      .then((response) => {
+        console.log(response.data);
+      });
     setIsChatOpen(true);
   };
 

@@ -39,26 +39,26 @@ const NavBar = () => {
 
   const [chatRooms, setChatRooms] = useState([]);
 
-  useEffect(() => {
-    axios
-      .get("http://87.107.105.201:8000/chat/chatroomMembers/", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .then((response) => {
-        response.data.map((index) => {
-          axios
-            .get(`http://87.107.105.201:8000/user/show/${index.sender}/`)
-            .then((response) => {
-              setChatRooms((chatRooms) => [
-                ...chatRooms,
-                response.data.first_name + " " + response.data.last_name,
-              ]);
-            });
-        });
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get("http://87.107.105.201:8000/chat/chatroomMembers/", {
+  //       headers: {
+  //         Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //       },
+  //     })
+  //     .then((response) => {
+  //       response.data.map((index) => {
+  //         axios
+  //           .get(`http://87.107.105.201:8000/user/show/${index.sender}/`)
+  //           .then((response) => {
+  //             setChatRooms((chatRooms) => [
+  //               ...chatRooms,
+  //               response.data.first_name + " " + response.data.last_name,
+  //             ]);
+  //           });
+  //       });
+  //     });
+  // }, []);
 
   return (
     <div className="bg-pallate-Gunmetal h-[100px] ">

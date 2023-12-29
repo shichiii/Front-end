@@ -30,19 +30,6 @@ function CarInfoPage() {
       });
   }, [adv]);
 
-  useEffect(() => {
-    axios
-      .post("http://87.107.105.201:8000/chat/chatroom/chatroom/", {
-        id: 56,
-        name: "56",
-        sender: 5,
-        reciver: 6,
-      })
-      .then((response) => {
-        console.log("response: ", response);
-      });
-  }, []);
-
   return (
     <>
       <Navbar />
@@ -84,7 +71,7 @@ function CarInfoPage() {
             setRefreshComment={setRefreshComment}
           />
         </div>
-        <IconChat />
+        <IconChat sender={userId} reciver={car.owner_id} />
       </div>
     </>
   );

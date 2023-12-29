@@ -13,21 +13,6 @@ function AddComment({ adv, setRefreshComment }) {
 
   const userId = jwtDecode(localStorage.getItem("token")).user_id;
 
-  useEffect(function () {
-    async function handleUserRated() {
-      try {
-        await axios.get(
-          `http://87.107.105.201:8000/advertisement/is-rated/${userId}/${adv}/`
-        );
-      } catch (ex) {
-        console.log("ex: ", ex);
-      }
-    }
-    handleUserRated();
-  }, []);
-
-  console.log("hasrated: ", hasRated);
-
   function commentHandler() {
     setIsLoading(true);
     axios
@@ -61,6 +46,23 @@ function AddComment({ adv, setRefreshComment }) {
       });
   }
 
+  useEffect(
+    function () {
+      axios
+        .get(`http://87.107.105.201:8000/advertisement/list-rate`)
+        .then((response) => {
+          if (
+            response.data.find(
+              (item) => item.adv === +adv && item.user_id === userId
+            )?.rate
+          ) {
+            setHasRated(true);
+          }
+        });
+    },
+    [adv]
+  );
+
   return (
     <div className="flex flex-row justify-between flex-wrap gap-4 p-5 rounded-2xl h-auto bg-pallate-Dark_Sky_Blue bg-opacity-30 lg:bg-opacity-20 w-full">
       <div className="flex flex-col md:w-3/6 w-full">
@@ -88,12 +90,16 @@ function AddComment({ adv, setRefreshComment }) {
           Add your rating
         </h1>
         <div className="flex justify-center items-center h-44 flex-col mt-5">
-          <Rate
-            className="flex flex-col"
-            onSetRating={handleRate}
-            messages={["Very Bad", "Bad", "Okay", "Good", "Very Good"]}
-            size={36}
-          />
+          {hasRated ? (
+            <p className="h-6">You have already rated to this car</p>
+          ) : (
+            <Rate
+              className="flex flex-col"
+              onSetRating={handleRate}
+              messages={["Very Bad", "Bad", "Okay", "Good", "Very Good"]}
+              size={36}
+            />
+          )}
           {showMessage ? (
             <p className="h-6">Your rating was submitted succesfuly!</p>
           ) : (
