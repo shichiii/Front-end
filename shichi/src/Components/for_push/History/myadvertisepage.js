@@ -24,33 +24,7 @@ const MyAdvertiseContent = ({ advertiseData }) => {
           console.error('Error deleting advertisement:', error);
         });
       };
-//   return (
-//     <div>
-//       <h2>My Advertise Content</h2>
-//       <table>
-//         <thead>
-//           <tr>
-//             <th>Car Name</th>
-//             <th>Car Category</th>
-//             <th>Start Date</th>
-//             <th>End Date</th>
-//             <th>Price</th>
-//           </tr>
-//         </thead>
-//         <tbody>
-//           {advertiseData.map((item) => (
-//             <tr key={item.id}>
-//               <td>{item.car_name}</td>
-//               <td>{item.car_category}</td>
-//               <td>{item.start_date}</td>
-//               <td>{item.end_date}</td>
-//               <td>{item.price}</td>
-//             </tr>
-//           ))}
-//         </tbody>
-//       </table>
-//     </div>
-//   );
+
 return (
     <div className="bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal min-h-screen ">
       <div className="overflow-hidden rounded-lg p-10">
