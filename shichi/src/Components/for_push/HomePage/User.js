@@ -154,11 +154,11 @@ const User = ({ firstName, lastName, id, avatarPath }) => {
       <img
         ref={imgRef}
         onClick={() => setOpen(!open)}
-        src={profileImage ? profileImage : "non-existent-url.jpg"}
-        class="bg-pallate-Gunmetal h-20 w-full cursor-pointer p-2 rounded-full shadow-lg"
-        alt={`${firstname.charAt(0).toUpperCase()}  ${lastname
-          .charAt(0)
-          .toUpperCase()}`}
+
+        src={profileImage? profileImage : "non-existent-url.jpg"}
+        class="bg-pallate-Gunmetal h-20 w-20 cursor-pointer p-2 rounded-full shadow-lg"
+        alt={`${firstname.charAt(0).toUpperCase()}  ${lastname.charAt(0).toUpperCase()}`}
+
       />
       {open && <div className="border-white  z-50 border-2 text-[11px] absolute text-white p-2 rounded-lg">
         <ul>
