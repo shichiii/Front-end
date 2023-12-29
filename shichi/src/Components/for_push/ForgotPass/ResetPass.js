@@ -55,12 +55,15 @@ const [confirmpassword, setConfirmpassword] = useState("");
     //const uidb = extractUidbFromURL(); 
   
     const apiUrl = `http://87.107.105.201:8000/user/password-reset-confirm/MTg/${token}`;
+
+
     if (password !== confirmpassword) {
       // setError('Passwords do not match');
       notifypass();
       console.log("pass")
       
     }
+
     try {
       const response = await axios.post(apiUrl, { new_password: newPassword });
       // setSuccessMessage('Password Changed successfuly!');
