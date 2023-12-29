@@ -24,7 +24,7 @@ const slideImages = [
 
 function CarImageSlider({ images }) {
   return (
-    <div className="bg-pallate-Dark_Sky_Blue bg-opacity-30 lg:bg-opacity-20 rounded-2xl p-5 w-2/5 md:w-3/5 lg:w-4/5 xl:w-full flex flex-row gap-5 justify-center flex-wrap">
+    <div className="bg-pallate-Dark_Sky_Blue bg-opacity-30 lg:bg-opacity-20 rounded-2xl p-5 w-full flex flex-row gap-5 justify-center flex-wrap">
       {images?.map((image, index) =>
         image != null ? (
           <div key={index}>

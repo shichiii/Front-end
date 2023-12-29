@@ -19,6 +19,9 @@ function CarInfoPage() {
   const [car, setCar] = useState({});
   const userId = jwtDecode(localStorage.getItem("token")).user_id;
 
+  console.log("Hazhir: ", userId);
+  console.log("person: ", car.owner_id);
+
   useEffect(() => {
     axios
       .get("http://87.107.105.201:8000/advertisement/show/" + `${adv.id}/`)
@@ -26,6 +29,19 @@ function CarInfoPage() {
         setCar(response.data);
       });
   }, [adv]);
+
+  useEffect(() => {
+    axios
+      .post("http://87.107.105.201:8000/chat/chatroom/chatroom/", {
+        id: 56,
+        name: "56",
+        sender: 5,
+        reciver: 6,
+      })
+      .then((response) => {
+        console.log("response: ", response);
+      });
+  }, []);
 
   return (
     <>

@@ -47,6 +47,7 @@ function ProfilePage() {
   const notify = () => toast.success("Changes have been saved");
 
   function editProfileHandler() {
+    console.log("hello");
     setIsLoading(true);
     axios
       .put(`http://87.107.105.201:8000/user/update/${userId.id}/`, {
@@ -113,7 +114,7 @@ function ProfilePage() {
           />
         </div>
         <button
-          className={`${
+          className={` cursor-pointer ${
             !isLoading
               ? "bg-pallate-Dark_Sky_Blue hover:bg-transparent hover:text-pallate-Dark_Sky_Blue  text-white"
               : "text-pallate-Dark_Sky_Blue bg-transparent"
