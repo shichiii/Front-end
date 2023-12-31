@@ -120,6 +120,8 @@ const ForgotPass = () => {
                 alt="img"
                 class="w-[500px]  h-full hidden rounded-r-2xl md:block"
               />
+
+             
             </div>
           </div>
         </div>
