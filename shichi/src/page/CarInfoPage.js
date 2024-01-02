@@ -13,6 +13,7 @@ import IconChat from "../Components/for_push/ChatPage/IconChat";
 import { jwtDecode } from "jwt-decode";
 import CarImageSlider from "../Components/for_push/CarInfo/CarImageSlider";
 import { MapContainer, Marker, TileLayer } from "react-leaflet";
+import DriverDetail from "../Components/for_push/CarInfo/DriverDetail";
 function CarInfoPage() {
   const adv = useParams();
   const [refreshComment, setRefreshComment] = useState(false);
@@ -77,6 +78,7 @@ function CarInfoPage() {
           )}
           {/* <CarOptionalExtras /> */}
           {/* {car.owner_id === userId ? null : <BookCar adv={adv.id} />} */}
+          <DriverDetail />
           <AddComment adv={adv.id} setRefreshComment={setRefreshComment} />
           <CommentSection
             adv={adv.id}

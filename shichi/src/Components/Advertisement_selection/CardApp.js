@@ -28,7 +28,7 @@ const CardApp = () => {
 
   useEffect(
     function () {
-      if (search.length > 2) {
+      if (search?.length > 2) {
         axios
           .get(
             `http://87.107.105.201:8000/advertisement/search/?search=${search}`

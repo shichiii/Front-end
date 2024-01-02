@@ -14,8 +14,15 @@ import Rate from "./Rate";
 import StarAverageRating from "./StarAverageRating";
 
 function CarInfo({ car }) {
-  const date = new Date(car?.start_date);
-  const options = {
+  const startDate = new Date(car?.start_date);
+  const options1 = {
+    weekday: "long",
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  };
+  const endDate = new Date(car?.end_date);
+  const options2 = {
     weekday: "long",
     year: "numeric",
     month: "short",
@@ -101,13 +108,13 @@ function CarInfo({ car }) {
             <div className="flex flex-col justify-around w-full items-center md:items-start">
               <div className="font-bold text-slate-400 text-xs">PICK-UP</div>
               <div className="font-bold text-xl text-pallate-Dark_Sky_Blue text-center">
-                {date.toLocaleDateString("en-us", options)}
+                {startDate.toLocaleDateString("en-us", options1)}
               </div>
             </div>
             <div className="flex flex-col justify-around w-full items-center md:items-start">
               <div className="font-bold text-slate-400 text-xs">DROP-OFF</div>
               <div className="font-bold text-xl text-pallate-Dark_Sky_Blue text-center">
-                {date.toLocaleDateString("en-us", options)}
+                {endDate.toLocaleDateString("en-us", options2)}
               </div>
             </div>
           </div>

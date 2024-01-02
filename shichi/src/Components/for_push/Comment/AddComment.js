@@ -44,22 +44,38 @@ function AddComment({ adv, setRefreshComment }) {
       });
   }
 
-  function handleRate(rate) {
+  async function handleRate(rate) {
     setRate(rate);
-    axios
+    await axios
       .post(`http://87.107.105.201:8000/advertisement/create-rate/`, {
         user_id: userId,
         rate: rate,
         adv: +adv,
       })
-      .then((response) => {
-        console.log(response.data);
+      .then(async (response) => {
         setShowMessage(true);
-        setTimeout(() => {
+        await setTimeout(() => {
           setShowMessage(false);
+        }, 3000);
+        await setTimeout(() => {
+          setHasRated(true);
         }, 3000);
       });
   }
+
+  useEffect(function () {
+    axios
+      .get(`http://87.107.105.201:8000/advertisement/list-rate`)
+      .then((response) => {
+        if (
+          response.data.find(
+            (item) => item.adv === +adv && item.user_id === userId
+          )?.rate
+        ) {
+          setHasRated(true);
+        }
+      });
+  }, []);
 
   return (
     <div className="flex flex-row justify-between flex-wrap gap-4 p-5 rounded-2xl h-auto bg-pallate-Dark_Sky_Blue bg-opacity-30 lg:bg-opacity-20 w-full">
@@ -88,12 +104,16 @@ function AddComment({ adv, setRefreshComment }) {
           Add your rating
         </h1>
         <div className="flex justify-center items-center h-44 flex-col mt-5">
-          <Rate
-            className="flex flex-col"
-            onSetRating={handleRate}
-            messages={["Very Bad", "Bad", "Okay", "Good", "Very Good"]}
-            size={36}
-          />
+          {hasRated ? (
+            <p>You have already rated this car</p>
+          ) : (
+            <Rate
+              className="flex flex-col"
+              onSetRating={handleRate}
+              messages={["Very Bad", "Bad", "Okay", "Good", "Very Good"]}
+              size={36}
+            />
+          )}
           {showMessage ? (
             <p className="h-6">Your rating was submitted succesfuly!</p>
           ) : (

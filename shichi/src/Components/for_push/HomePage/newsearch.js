@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import img from "../../../Static/search.svg";
-import { Navigate , Navigation } from "react-router";
+import { Navigate, Navigation } from "react-router";
 import { useNavigate } from "react-router-dom";
 
-const Newsearch = () => {
-  let navigate = useNavigate();
-  const [search, setSearch] = useState()
-  function search_new() {
-    localStorage.setItem("search", search)
-    navigate("/Advertisement")
-  }
+const Newsearch = ({ search, setSearch }) => {
+  // let navigate = useNavigate();
+  // function search_new() {
+  //   localStorage.setItem("search", search);
+  //   navigate("/Advertisement");
+  // }
 
   return (
     <div>
@@ -32,7 +31,7 @@ const Newsearch = () => {
               stroke-width="2"
             >
               <path
-                onClick={search_new}
+                // onClick={search_new}
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"

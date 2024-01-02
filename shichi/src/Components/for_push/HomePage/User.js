@@ -14,9 +14,8 @@ import { useEffect } from "react";
 
 const baseURL = "http://87.107.105.201:8000/user/show/";
 
-
 const User = ({ firstName, lastName, id, avatarPath }) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const Menu = ["Edit Profile", "History", "LogOut", "Delete Account"];
   const [open, setOpen] = useState(false);
   const menuRef = useRef();
@@ -59,15 +58,17 @@ const User = ({ firstName, lastName, id, avatarPath }) => {
     const user = null;
     // console.log("heloooooooooooooooooooooooooo");
     // console.log(token);
-    if (token !== "null" &&  token !== null ) {
+    if (token !== "null" && token !== null) {
       // console.log("weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
       // console.log(token)
       const user = jwtDecode(token);
-      axios.post("http://87.107.105.201:8000/user/delete/" + `${user.user_id}/`).then((response) => {
-        setUserId(response.data.id);
-    })
-    };
- }
+      axios
+        .post("http://87.107.105.201:8000/user/delete/" + `${user.user_id}/`)
+        .then((response) => {
+          setUserId(response.data.id);
+        });
+    }
+  };
 
   const [userId, setUserId] = useState(0);
   const [firstname, setFirstN] = useState("");
@@ -154,41 +155,46 @@ const User = ({ firstName, lastName, id, avatarPath }) => {
       <img
         ref={imgRef}
         onClick={() => setOpen(!open)}
-
-        src={profileImage? profileImage : "non-existent-url.jpg"}
+        onerror="this.onerror=null;this.src='placeholder_image.jpg'; this.style='display:none;'"
+        src={profileImage ? profileImage : "non-existent-url.jpg"}
         class="bg-pallate-Gunmetal h-20 w-20 cursor-pointer p-2 rounded-full shadow-lg"
-        alt={`${firstname.charAt(0).toUpperCase()}  ${lastname.charAt(0).toUpperCase()}`}
-
+        alt={`${firstname.charAt(0).toUpperCase()}  ${lastname
+          .charAt(0)
+          .toUpperCase()}`}
       />
-      {open && <div className="border-white  z-50 border-2 text-[11px] absolute text-white p-2 rounded-lg">
-        <ul>
-          {Menu.map((meno) => (
-            <li
-              ref={menuRef}
-              onClick={() => {
-                if (meno === "LogOut") {
-                  logoutUser();
-                }
-                if (meno === "Edit Profile") {
-                  editprofileuser();
-                  // alert("=============")
-                }
-                if (meno === "History") {
-                  historyUser();
-                  // alert("=============")
-                }
-                if (meno === "Delete Account") {
-                  deleteAccount();
-                  // alert("=============")
-                }
-                setOpen(false);
-              }}
-              className="cursor-pointer hover:bg-pallate-Dark_Sky_Blue p-2 rounded-lg" key={meno}>{meno} </li>
-          ))}
-        </ul>
-      </div>}
-
-
+      {open && (
+        <div className="border-white  z-50 border-2 text-[11px] absolute text-white p-2 rounded-lg">
+          <ul>
+            {Menu.map((meno) => (
+              <li
+                ref={menuRef}
+                onClick={() => {
+                  if (meno === "LogOut") {
+                    logoutUser();
+                  }
+                  if (meno === "Edit Profile") {
+                    editprofileuser();
+                    // alert("=============")
+                  }
+                  if (meno === "History") {
+                    historyUser();
+                    // alert("=============")
+                  }
+                  if (meno === "Delete Account") {
+                    deleteAccount();
+                    // alert("=============")
+                  }
+                  setOpen(false);
+                }}
+                className="cursor-pointer hover:bg-pallate-Dark_Sky_Blue p-2 rounded-lg"
+                key={meno}
+              >
+                {meno}{" "}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };
