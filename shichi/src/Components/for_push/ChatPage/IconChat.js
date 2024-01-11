@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Chat from "./AppChat";
+import AuthContext from "../../../Context/AuthContext";
 const IconChat = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const { chatRoomId, setChatRoomId } = useContext(AuthContext);
 
   const openChat = () => {
     setIsChatOpen(true);
@@ -9,7 +11,19 @@ const IconChat = () => {
 
   const closeChat = () => {
     setIsChatOpen(false);
+    setChatRoomId(0);
   };
+
+  useEffect(
+    function () {
+      if (chatRoomId !== 0) {
+        setIsChatOpen(true);
+      } else {
+        setIsChatOpen(false);
+      }
+    },
+    [chatRoomId]
+  );
 
   return (
     <div className="z-[1000]">

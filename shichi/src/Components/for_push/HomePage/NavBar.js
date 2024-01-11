@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { IoIosNotifications } from "react-icons/io";
 import NavWallet from "../../Wallet/NavWallet";
@@ -8,12 +8,17 @@ import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import logo from "../../../Static/whitelogo.svg";
 import User from "../../../Components/for_push/HomePage/User";
 import axios from "axios";
+import AuthContext from "../../../Context/AuthContext";
+import { jwtDecode } from "jwt-decode";
 
 const NavBar = () => {
   const [nav, setNav] = useState(false);
   const [notification, setNotification] = useState(false);
   const [image, setImage] = useState("");
   const [user, setUser] = useState({}); // State to store user information
+  const userId = jwtDecode(localStorage.getItem("token")).user_id;
+
+  const { setChatRoomId } = useContext(AuthContext);
 
   const baseURL = "87.107.105.201:8000/user/myshow/";
 
@@ -39,26 +44,20 @@ const NavBar = () => {
 
   const [chatRooms, setChatRooms] = useState([]);
 
-  // useEffect(() => {
-  //   axios
-  //     .get("http://87.107.105.201:8000/chat/chatroomMembers/", {
-  //       headers: {
-  //         Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //       },
-  //     })
-  //     .then((response) => {
-  //       response.data.map((index) => {
-  //         axios
-  //           .get(`http://87.107.105.201:8000/user/show/${index.sender}/`)
-  //           .then((response) => {
-  //             setChatRooms((chatRooms) => [
-  //               ...chatRooms,
-  //               response.data.first_name + " " + response.data.last_name,
-  //             ]);
-  //           });
-  //       });
-  //     });
-  // }, []);
+  useEffect(() => {
+    axios
+      .get("http://87.107.105.201:8000/chat/chatroomMembers/", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((response) => {
+        // console.log(response.data);
+        setChatRooms([...response.data]);
+      });
+  }, []);
+
+  console.log("chatRooms: ", chatRooms);
 
   return (
     <div className="bg-pallate-Gunmetal h-[100px] ">
@@ -116,13 +115,25 @@ const NavBar = () => {
                         <div
                           class="px-4 py-2 text-sm hover:bg-pallate-Dark_Sky_Blue cursor-pointer flex items-center gap-5"
                           role="menuitem"
+                          onClick={() => setChatRoomId(chatRoom.id)}
                         >
                           <img
-                            src="https://tecdn.b-cdn.net/img/new/avatars/1.webp"
+                            src={`http://87.107.105.201:8000${
+                              chatRoom.sender.id !== userId
+                                ? chatRoom.sender.profile_image
+                                : chatRoom.reciver.profile_image
+                            }`}
                             alt="User's Profile Picture"
                             className="rounded-full object-cover w-[50px]"
                           />
-                          <span className=" font-bold">{chatRoom}</span>
+                          <span className=" font-bold">
+                            {chatRoom.sender.id !== userId
+                              ? chatRoom.sender.first_name
+                              : chatRoom.reciver.first_name}{" "}
+                            {chatRoom.sender.id !== userId
+                              ? chatRoom.sender.last_name
+                              : chatRoom.reciver.last_name}
+                          </span>
                         </div>
                       );
                     })
