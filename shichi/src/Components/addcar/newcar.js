@@ -11,7 +11,10 @@ import { BsDoorOpenFill } from "react-icons/bs";
 import { FaChair } from "react-icons/fa";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 import { fuel, categories, coooler, cityy, colors, gearboxx } from "./Data.js";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Newcar = () => {
   const [selectedImages, setSelectedImages] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -182,7 +185,12 @@ const Newcar = () => {
   // location data
   const latitude = localStorage.getItem("latitude");
   const longitude = localStorage.getItem("longitude");
+  const notify = () => { toast.success(" Login successful !" , {
+    position:
+    toast.POSITION.TOP_RIGHT, autoClose:3000,})
+  };
   //handle submit function
+  let navigate = useNavigate();
   const handleSubmit = async (id) => {
     console.log("enter handlesubmit");
     const token = localStorage.getItem("token");
@@ -190,9 +198,18 @@ const Newcar = () => {
       const formattedstartdate = formatDate(startdate);
       const formattedenddate = formatDate(enddate);
       const formData = new FormData();
-      formData.append("car_image1", selectedImages[0]);
-      formData.append("car_image2", selectedImages[1]);
-      formData.append("car_image3", selectedImages[2]);
+      if (selectedImages[0] !== undefined)
+      {
+        formData.append("car_image1", selectedImages[0]);
+      }
+      if (selectedImages[1] !== undefined)
+      {
+        formData.append("car_image2", selectedImages[1]);
+      }
+      if (selectedImages[2] !== undefined)
+      {
+        formData.append("car_image3", selectedImages[2]);
+      }
       formData.append("location_geo_width", latitude);
       formData.append("location_geo_length", longitude);
       formData.append("location_state", cityValue);
@@ -222,6 +239,10 @@ const Newcar = () => {
       );
       console.log(token);
       console.log(response.data);
+      notify();
+      setTimeout(() => {
+        navigate('/Advertisement'); 
+      }, 5000);
     } catch (error) {
       console.error(error);
       console.log("login token", token);
@@ -278,6 +299,7 @@ const Newcar = () => {
       }}
       className=" "
     >
+    <ToastContainer  position="bottom-left" theme="light" pauseOnHover /> 
       <div className="bg-pallate-Gunmetal text-pallate-Gunmetal ">
         Please Fill The Form
       </div>

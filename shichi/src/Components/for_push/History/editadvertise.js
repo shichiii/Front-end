@@ -184,13 +184,12 @@ const Editcar = () => {
   const longitude = localStorage.getItem("longitude");
   //get information
   const [advertiseData, setAdvertiseData] = useState([]);
-  //get all advertises
   const {id} = useParams(); 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://87.107.105.201:8000/advertisement/list/', {
+        const response = await axios.get(`http://87.107.105.201:8000/advertisement/show/${id}`, { 
           headers: {
             Authorization: `Bearer ${token}`,
           },
