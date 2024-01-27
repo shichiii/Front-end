@@ -10,7 +10,7 @@ import { BsSnow3 } from "react-icons/bs";
 import { BsDoorOpenFill } from "react-icons/bs";
 import { FaChair } from "react-icons/fa";
 import axios from "axios";
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 import { fuel, categories, coooler, cityy, colors, gearboxx } from "./Data.js";
 const Editcar = () => {
   const [selectedImages, setSelectedImages] = useState([]);
@@ -68,7 +68,7 @@ const Editcar = () => {
 
     return file;
   };
-  const baseURL = "http://87.107.105.201:8000/user/show/";
+  const baseURL = "http://87.107.54.89:8000/user/show/";
 
   const handleDeleteImage = (index) => {
     const updatedImages = [...selectedImages];
@@ -185,37 +185,42 @@ const Editcar = () => {
   //get information
   const [advertiseData, setAdvertiseData] = useState([]);
   //get all advertises
-  const {id} = useParams(); 
+  const { id } = useParams();
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = localStorage.getItem('token');
-        const response = await axios.get('http://87.107.105.201:8000/advertisement/list/', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-  
+        const token = localStorage.getItem("token");
+        const response = await axios.get(
+          "http://87.107.54.89:8000/advertisement/list/",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
         const advertisementId = parseInt(id, 10);
-  
+
         // Filter the list to get only the advertisement with the matching id
-        const selectedAdvertise = response.data.filter(ad => ad.id === advertisementId);
-  
+        const selectedAdvertise = response.data.filter(
+          (ad) => ad.id === advertisementId
+        );
+
         if (selectedAdvertise.length > 0) {
           // If a matching advertisement is found, set the data
           setAdvertiseData(selectedAdvertise[0]);
         } else {
           // Handle the case where no matching advertisement is found
-          console.error('Advertisement not found for id:', advertisementId);
+          console.error("Advertisement not found for id:", advertisementId);
         }
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     };
-  
+
     fetchData();
   }, [id]);
-  
+
   //handle submit function
   const handleSubmit = async (id) => {
     console.log("enter handlesubmit");
@@ -245,8 +250,7 @@ const Editcar = () => {
       formData.append("car_category", category);
       console.log(formData);
       const response = await axios.put(
-        `http://87.107.105.201:8000/advertisement/update/${id}/`
-,
+        `http://87.107.54.89:8000/advertisement/update/${id}/`,
         formData,
         {
           headers: {
@@ -304,14 +308,15 @@ const Editcar = () => {
   }, []);
   return (
     <div
-    style={{
-      width: "100%",
-      height: selectedImages && selectedImages.length > 0 ? "1790px" : undefined,
-      backgroundImage: `url(${img})`, // Dynamic image URL
-      backgroundSize: "cover",
-      backgroundPosition: "center",
-    }}
-    className=" "
+      style={{
+        width: "100%",
+        height:
+          selectedImages && selectedImages.length > 0 ? "1790px" : undefined,
+        backgroundImage: `url(${img})`, // Dynamic image URL
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+      className=" "
     >
       <div className="bg-pallate-Gunmetal text-pallate-Gunmetal ">
         Please Fill The Form
@@ -646,7 +651,7 @@ const Editcar = () => {
           <div class="flex justify-end">
             <button
               type="button"
-              onClick={() => handleSubmit(id)} 
+              onClick={() => handleSubmit(id)}
               class="w-full   bg-transparent hover:bg-pallate-Dark_Sky_Blue text-pallate-Dark_Sky_Blue font-semibold duration-300 hover:text-white py-2 px-4 border border-pallate-Dark_Sky_Blue hover:border-transparent rounded"
             >
               Submit

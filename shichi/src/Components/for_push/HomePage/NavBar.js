@@ -20,7 +20,7 @@ const NavBar = () => {
 
   const { setChatRoomId } = useContext(AuthContext);
 
-  const baseURL = "87.107.105.201:8000/user/myshow/";
+  const baseURL = "87.107.54.89:8000/user/myshow/";
 
   useEffect(() => {
     // Fetch user information from localStorage
@@ -46,7 +46,7 @@ const NavBar = () => {
 
   useEffect(() => {
     axios
-      .get("http://87.107.105.201:8000/chat/chatroomMembers/", {
+      .get("http://87.107.54.89:8000/chat/chatroomMembers/", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -56,8 +56,6 @@ const NavBar = () => {
         setChatRooms([...response.data]);
       });
   }, []);
-
-  console.log("chatRooms: ", chatRooms);
 
   return (
     <div className="bg-pallate-Gunmetal h-[100px] ">
@@ -118,13 +116,13 @@ const NavBar = () => {
                           onClick={() => setChatRoomId(chatRoom.id)}
                         >
                           <img
-                            src={`http://87.107.105.201:8000${
+                            src={`http://87.107.54.89:8000${
                               chatRoom.sender.id !== userId
                                 ? chatRoom.sender.profile_image
                                 : chatRoom.reciver.profile_image
                             }`}
                             alt="User's Profile Picture"
-                            className="rounded-full object-cover w-[50px]"
+                            className="rounded-full object-cover w-[50px] h-[50px]"
                           />
                           <span className=" font-bold">
                             {chatRoom.sender.id !== userId

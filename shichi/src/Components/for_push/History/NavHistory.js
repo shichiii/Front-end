@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import Navbar from "../HomePage/NavBar";
 import { TbHistoryToggle } from "react-icons/tb";
 import AdvertisementContent from "./History";
-import RentalContent from "./History"; 
-import MyAdvertiseContent from "./MyHistory"; 
+import RentalContent from "./History";
+import MyAdvertiseContent from "./MyHistory";
 
 const NavHistory = () => {
   const [isAdvertisementClicked, setIsAdvertisementClicked] = useState(true);
