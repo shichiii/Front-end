@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 
+
 const WalletApp = () => {
   const token = localStorage.getItem("token");
   const user = jwtDecode(token);
@@ -50,8 +51,16 @@ const WalletApp = () => {
     // } catch (error) {
     //   console.error("Error updating wallet:", error);
     // }
-    const response = await axios.post(
-      "http://87.107.105.201:8000/user/updatewallet/",
+    const token = localStorage.getItem("token");
+    const user = null;
+    // console.log("heloooooooooooooooooooooooooo");
+    // console.log(token);
+    if (token !== "null" && token !== null) {
+      // console.log("weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+      // console.log(token)
+      const user = jwtDecode(token);
+    const response = await axios.put(
+      "http://87.107.105.201:8000/user/updatewallet/" + `${user.user_id}/`,
       {
         Wallet: amount,
       },
@@ -61,11 +70,13 @@ const WalletApp = () => {
           Authorization: `Bearer ${token}`,
         },
       }
+      
       // ).then((response) => {
       //   console.log(response.data)
       //   setAmount(response.data);
       // })
     );
+    }
     console.log(
       "///////////sdfasrfaer/fafsrrfserfsergfsergsertgaerg//////////////$$$$$$$$$$$$$$$$$$$$$$$"
     );
