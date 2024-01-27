@@ -10,7 +10,8 @@ import { BsSnow3 } from "react-icons/bs";
 import { BsDoorOpenFill } from "react-icons/bs";
 import { FaChair } from "react-icons/fa";
 import axios from "axios";
-import { useParams } from 'react-router-dom';
+import Navbar from "../HomePage/NavBar.js";
+import { useParams } from "react-router-dom";
 import { fuel, categories, coooler, cityy, colors, gearboxx } from "./Data.js";
 const Editcar = () => {
   const [selectedImages, setSelectedImages] = useState([]);
@@ -107,6 +108,7 @@ const Editcar = () => {
     setgearbox(advertiseData.car_gearbox)
     setStartdate(advertiseData.start_date)
     setdescription(advertiseData.description)
+    //setSelectedImages(advertiseData.car_image1)
 
   }, [advertiseData])
 
@@ -216,10 +218,10 @@ const Editcar = () => {
         setAdvertiseData(response.data);
         console.log("car data", advertiseData);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     };
-  
+
     fetchData();
   }, []); 
   
@@ -319,16 +321,19 @@ const Editcar = () => {
     };
   }, []);
   return (
+    
     <div
-    style={{
-      width: "100%",
-      height: selectedImages && selectedImages.length > 0 ? "1790px" : undefined,
-      backgroundImage: `url(${img})`, // Dynamic image URL
-      backgroundSize: "cover",
-      backgroundPosition: "center",
-    }}
-    className=" "
-    >
+      style={{
+        width: "100%",
+        height:
+          selectedImages && selectedImages.length > 0 ? "1790px" : undefined,
+        backgroundImage: `url(${img})`, // Dynamic image URL
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+      className=" "
+    ><Navbar/> 
+      
       <div className="bg-pallate-Gunmetal text-pallate-Gunmetal ">
         Please Fill The Form
       </div>
@@ -361,7 +366,7 @@ const Editcar = () => {
                 <label class="text-white dark:text-gray-200 ">Car Fuel</label>
                 <Select
                   id="fuel"
-                  value={carFuel}
+                  value={parseInt(carFuel)} 
                   onChange={handleCarFuelChange}
                   class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                 >
@@ -423,6 +428,7 @@ const Editcar = () => {
                   type="number"
                   class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                   placeholder=""
+                  value={doornumbers} 
                   min={2}
                   max={4}
                   onChange={handleDoornumbers}
@@ -514,6 +520,7 @@ const Editcar = () => {
                 <input
                   placeholder=""
                   min={1}
+                  value = {productyear}
                   onChange={handleProductyear}
                   onKeyPress={handleKeyPress}
                   required
@@ -529,6 +536,7 @@ const Editcar = () => {
 
                 <input
                   onChange={handlestartdate}
+                  value={startdate}
                   type="date"
                   class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                   placeholder="Select a date"
@@ -542,6 +550,7 @@ const Editcar = () => {
 
                 <input
                   onChange={handleenddate}
+                  value = {enddate} 
                   type="date"
                   placeholder="Select a date"
                   class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
@@ -662,7 +671,7 @@ const Editcar = () => {
           <div class="flex justify-end">
             <button
               type="button"
-              onClick={() => handleSubmit(id)} 
+              onClick={() => handleSubmit(id)}
               class="w-full   bg-transparent hover:bg-pallate-Dark_Sky_Blue text-pallate-Dark_Sky_Blue font-semibold duration-300 hover:text-white py-2 px-4 border border-pallate-Dark_Sky_Blue hover:border-transparent rounded"
             >
               Submit

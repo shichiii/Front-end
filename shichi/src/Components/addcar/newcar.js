@@ -11,6 +11,7 @@ import { BsDoorOpenFill } from "react-icons/bs";
 import { FaChair } from "react-icons/fa";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
+import Navbar from '../../../src/Components/for_push/HomePage/NavBar.js'
 import { useNavigate } from "react-router-dom";
 import { fuel, categories, coooler, cityy, colors, gearboxx } from "./Data.js";
 import { ToastContainer, toast } from "react-toastify";
@@ -71,7 +72,7 @@ const Newcar = () => {
 
     return file;
   };
-  const baseURL = "http://87.107.105.201:8000/user/show/";
+  const baseURL = "http://87.107.54.89:8000/user/show/";
 
   const handleDeleteImage = (index) => {
     const updatedImages = [...selectedImages];
@@ -228,7 +229,7 @@ const Newcar = () => {
       formData.append("car_category", category);
       console.log(formData);
       const response = await axios.post(
-        "http://87.107.105.201:8000/advertisement/create/",
+        "http://87.107.54.89:8000/advertisement/create/",
         formData,
         {
           headers: {
@@ -237,6 +238,9 @@ const Newcar = () => {
           },
         }
       );
+      setTimeout(() => {
+        navigate("/Advertisement");
+      }, 5000);
       console.log(token);
       console.log(response.data);
       notify();

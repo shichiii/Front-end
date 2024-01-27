@@ -12,11 +12,11 @@ const authToken = `${localStorage.getItem("token")}`;
 
 function App() {
   const { chatRoomId } = useContext(AuthContext);
-  const BASE = `http://87.107.105.201:8000/chat/messages/${chatRoomId}/`;
+  const BASE = `http://87.107.54.89:8000/chat/messages/${chatRoomId}/`;
   const car_owner = 6;
   const userId = jwtDecode(localStorage.getItem("token")).user_id;
   const [messages, setMessages] = useState([]);
-  const WS_URL = `ws://87.107.105.201:8000/ws/chat/${chatRoomId}/?access_token=${authToken}`;
+  const WS_URL = `ws://87.107.54.89:8000/ws/chat/${chatRoomId}/?access_token=${authToken}`;
   const client = new W3CWebSocket(WS_URL);
   useEffect(function () {
     client.onopen = () => {

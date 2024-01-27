@@ -15,7 +15,7 @@ const Card = ({
   endDate,
   state,
 }) => {
-  const API_ENDPOINT = `http://87.107.105.201:8000/advertisement/filter/?${
+  const API_ENDPOINT = `http://87.107.54.89:8000/advertisement/filter/?${
     carCategory ? `&car_category=${carCategory}` : ""
   }${carColor ? `&car_color=${carColor}` : ""}${
     startDate ? `&start_date=${startDate}` : ""

@@ -20,12 +20,11 @@ function CarInfoPage() {
   const [car, setCar] = useState({});
   const userId = jwtDecode(localStorage.getItem("token")).user_id;
 
-  console.log("Hazhir: ", userId);
-  console.log("person: ", car.owner_id);
+  console.log("adv: ", adv);
 
   useEffect(() => {
     axios
-      .get("http://87.107.105.201:8000/advertisement/show/" + `${adv.id}/`)
+      .get("http://87.107.54.89:8000/advertisement/show/" + `${adv.id}/`)
       .then((response) => {
         setCar(response.data);
       });
@@ -33,7 +32,7 @@ function CarInfoPage() {
 
   // useEffect(() => {
   //   axios
-  //     .post("http://87.107.105.201:8000/chat/chatroom/chatroom/", {
+  //     .post("http://87.107.54.89:8000/chat/chatroom/chatroom/", {
   //       id: 56,
   //       name: "56",
   //       sender: 5,
@@ -78,7 +77,7 @@ function CarInfoPage() {
           )}
           {/* <CarOptionalExtras /> */}
           {/* {car.owner_id === userId ? null : <BookCar adv={adv.id} />} */}
-          <DriverDetail />
+          {car.owner_id === userId ? null : <DriverDetail />}
           <AddComment adv={adv.id} setRefreshComment={setRefreshComment} />
           <CommentSection
             adv={adv.id}
@@ -86,7 +85,7 @@ function CarInfoPage() {
             setRefreshComment={setRefreshComment}
           />
         </div>
-        <IconChat />
+        {<IconChat />}
       </div>
     </>
   );

@@ -40,7 +40,7 @@ function DriverDetail() {
   const token = localStorage.getItem("token");
   const handleBuy = async (token, startdate, enddate) => {
     try {
-      const endpoint = "http://87.107.105.201:8000/advertisement/pay/";
+      const endpoint = "http://87.107.54.89:8000/advertisement/pay/";
 
       const payload = {
         ad_id: id,
@@ -67,7 +67,7 @@ function DriverDetail() {
     <div className="w-full h-auto bg-pallate-Dark_Sky_Blue bg-opacity-30 lg:bg-opacity-20 p-5 rounded-2xl">
       <ToastContainer position="bottom-left" theme="light" pauseOnHover />
       <div className="font-bold text-xl mb-4 text-pallate-Dark_Sky_Blue">
-        Driver details
+        Pick a Date for Purchase
       </div>
       <div className="mx-auto">
         <form>

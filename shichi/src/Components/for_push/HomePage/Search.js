@@ -61,7 +61,7 @@ const Features = ({ search, setSearch }) => {
 
 //   const handleSearch = async () => {
 //     try {
-//       const response = await axios.get(`http://87.107.105.201:8000/advertisement/search/?car_name=${encodeURIComponent(carName)}`);
+//       const response = await axios.get(`http://87.107.54.89:8000/advertisement/search/?car_name=${encodeURIComponent(carName)}`);
   
 //       if (response.data.length === 0) {
 //         alert("No car found");

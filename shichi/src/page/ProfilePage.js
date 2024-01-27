@@ -2,7 +2,6 @@ import { useEffect, useState, useRef } from "react";
 import Navbar from "../Components/for_push/HomePage/NavBar";
 import Input from "../Components/for_push/Profile/Input";
 
-
 import ProfileImage from "../Components/for_push/Profile/ProfileImage";
 
 // import Modal from "react-modal";
@@ -13,22 +12,19 @@ import Modal from "react-modal";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-
 // import Modal from "react-modal";
 // import MyComponent from "../Components/addcar/popup"
-
 
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Footer from "../Components/for_push/HomePage/Footer";
-import basic from '../Static/profile.svg'
-const baseURL = "http://87.107.105.201:8000/user/show/";
-const defaultImageUrl = basic; 
+import basic from "../Static/profile.svg";
+const baseURL = "http://87.107.54.89:8000/user/show/";
+const defaultImageUrl = basic;
 
 //<<<<<<< feature/v1.1.0/CarPage
-//const baseURL = "http://87.107.105.201:8000/user/show/";
-
+//const baseURL = "http://87.107.54.89:8000/user/show/";
 
 function ProfilePage() {
   let navigate = useNavigate();
@@ -63,7 +59,6 @@ function ProfilePage() {
       setProfileImage(response.data.profile_image);
       setPhoneNumber(response.data.phone_number);
 
-      
       setImageUrl(response.data.profile_image || defaultImageUrl);
     });
   }, [userId]);
@@ -72,11 +67,12 @@ function ProfilePage() {
   const [isLoading, setIsLoading] = useState(false);
   const token = localStorage.getItem("token");
   const notify = () => toast.success("Changes have been saved");
- const notifyfaild = () =>{ toast.error(" Faild !" , {
-    position:
-    toast.POSITION.TOP_RIGHT,})
+  const notifyfaild = () => {
+    toast.error(" Faild !", {
+      position: toast.POSITION.TOP_RIGHT,
+    });
   };
-  
+
   const setPhoneNumberr = (value) => {
     const formattedPhoneNumber =
       value.length === 1 && value !== "+" ? `+${value}` : value;
@@ -94,11 +90,11 @@ function ProfilePage() {
     formData.append("phone_number", phoneNumber);
 
     if (profileImage) {
-      formData.append("profile_image", profileImage); 
+      formData.append("profile_image", profileImage);
     }
 
     axios
-      .put(`http://87.107.105.201:8000/user/update/${userId.id}/`, formData, {
+      .put(`http://87.107.54.89:8000/user/update/${userId.id}/`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",
@@ -116,7 +112,6 @@ function ProfilePage() {
         console.error("Error updating profile:", error);
         setIsLoading(false);
         notifyfaild();
-        
       });
   }
 
@@ -203,7 +198,6 @@ function ProfilePage() {
         {/* <MyComponent/> */}
 
         {/* <MyComponent/> */}
-
       </div>
       <Footer />
     </div>
