@@ -33,7 +33,7 @@ const NavWallet = () => {
       style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
     >
       <div>
-        <FaWallet onClick={handle} className="text-[30px] cursor-pointer" />
+        <FaWallet  data-testid="wallet-icon"  onClick={handle} className="text-[30px] cursor-pointer" />
       </div>
       <p>Wallet: {wallett}﷼</p>
     </div>

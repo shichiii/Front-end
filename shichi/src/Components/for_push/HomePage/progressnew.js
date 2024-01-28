@@ -4,10 +4,35 @@ import { Link } from "react-router-dom";
 import { Link as Scroll } from "react-scroll";
 import { FiSearch } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-
+import React, { useState, useEffect } from "react";
+import { jwtDecode } from "jwt-decode";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const RentingProcess = () => {
-    let navigate = useNavigate();
+  const userId = useParams();
+  const baseURL = "http://87.107.54.89:8000/user/show/";
+  const token = localStorage.getItem("token");
+  const user = jwtDecode(token);
+  const [money, setmoney] = useState(0);
+  const [wallett, setwallet] = useState("");
+  let navigate = useNavigate();
+  const handle = () => {
+    // Use the history object to navigate to "/wallet"
+    navigate(`/wallet/${user.user_id}`);
+  };
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const user = null;
+    if (token !== "null" && token !== null) {
+      const user = jwtDecode(token);
+      axios.get(baseURL + `${user.user_id}/`).then((response) => {
+        console.log(response.data);
+        setwallet(response.data.wallet);
+      });
+    }
+  }, [userId]);
+    
     const handlefil = () =>{
         navigate("/advertisement");
       }
@@ -19,7 +44,7 @@ const RentingProcess = () => {
   
     <div  class="w-full py-6 bg-pallate-Gunmetal text-white">
       <div class="flex">
-        <Scroll to="carcategory" smooth={true} class="w-1/4">
+        <Scroll data-testid="select-category" to="carcategory" smooth={true} class="w-1/4">
           <div class="relative mb-2">
             <div class="w-10 h-10 mx-auto bg-green-500 cursor-pointer rounded-full text-lg text-white flex items-center">
               <span class="text-center text-white w-full">
@@ -33,7 +58,7 @@ const RentingProcess = () => {
           <div class="text-xs text-center md:text-base cursor-pointer">Select Category</div>
         </Scroll>
     
-        <Scroll to="to-search" smooth={true} class="w-1/4">
+        <Scroll data-testid="test-search" to="to-search" smooth={true} class="w-1/4">
           <div class="relative mb-2">
             <div class="absolute flex align-center items-center align-middle content-center" style={{ width: "calc(100% - 2.5rem - 1rem)", top: "50%", transform: "translate(-50%, -50%)" }}>
               <div class="w-full bg-gray-200 rounded items-center align-middle align-center flex-1">
@@ -53,7 +78,7 @@ const RentingProcess = () => {
           <div class="text-xs text-center md:text-base cursor-pointer">Search</div>
         </Scroll>
     
-        <div onClick={handlefil} class="w-1/4 cursor-pointer ">
+        <div data-testid="test_filter" onClick={handlefil} class="w-1/4 cursor-pointer ">
           <div class="relative mb-2">
             <div class="absolute flex align-center items-center align-middle content-center"  style={{ width: "calc(100% - 2.5rem - 1rem)", top: "50%", transform: "translate(-50%, -50%)" }}>
               <div class="w-full bg-gray-200 rounded items-center align-middle align-center flex-1">
@@ -73,7 +98,7 @@ const RentingProcess = () => {
           <div onClick={handlefil} class="cursor-pointer text-xs text-center md:text-base">Filter & all car</div>
         </div>
     
-        <div onClick={gowallet} class="w-1/4 cursor-pointer">
+        <div data-testid="wallet-icon"  onClick={handle} class="w-1/4 cursor-pointer">
           <div class="relative mb-2">
             <div class="absolute flex align-center items-center align-middle content-center"  style={{ width: "calc(100% - 2.5rem - 1rem)", top: "50%", transform: "translate(-50%, -50%)" }}>
               <div class="w-full bg-gray-200 rounded items-center align-middle align-center flex-1">
@@ -90,7 +115,7 @@ const RentingProcess = () => {
             </div>
           </div>
     
-          <div onClick={gowallet} class="text-xs cursor-pointer text-center md:text-base">Waller and Finished</div>
+          <div data-testid="wallet-icon"  onClick={handle} class="text-xs cursor-pointer text-center md:text-base">Waller and Finished</div>
         </div>
       </div>
     </div>

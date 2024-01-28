@@ -43,7 +43,7 @@ const Newsearch = () => {
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            class="w-full bg-transparent rounded-full py-[14px] pl-4 outline-none"
+            class="w-full bg-transparent rounded-full py-[14px] pl-4 outline-none text-white"
           />
           <div class="pr-5">
             <svg

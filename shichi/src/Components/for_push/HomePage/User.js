@@ -162,39 +162,37 @@ const User = ({ firstName, lastName, id, avatarPath }) => {
           .charAt(0)
           .toUpperCase()}`}
       />
-      {open && (
-        <div className="border-white  z-50 border-2 text-[11px] absolute text-white p-2 rounded-lg">
-          <ul>
-            {Menu.map((meno) => (
-              <li
-                ref={menuRef}
-                onClick={() => {
-                  if (meno === "LogOut") {
-                    logoutUser();
-                  }
-                  if (meno === "Edit Profile") {
-                    editprofileuser();
-                    // alert("=============")
-                  }
-                  if (meno === "History") {
-                    historyUser();
-                    // alert("=============")
-                  }
-                  if (meno === "Delete Account") {
-                    deleteAccount();
-                    // alert("=============")
-                  }
-                  setOpen(false);
-                }}
-                className="cursor-pointer hover:bg-pallate-Dark_Sky_Blue p-2 rounded-lg"
-                key={meno}
-              >
-                {meno}{" "}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+     {open && (
+  <div className="border-white  bg-pallate-Dark_Sky_Blue bg-opacity-10 z-50 border-2 text-[11px] absolute text-white p-2 rounded-lg">
+    <ul>
+      {Menu.map((meno) => (
+        <li
+          ref={menuRef}
+          onClick={() => {
+            if (meno === "LogOut") {
+              logoutUser();
+            }
+            if (meno === "Edit Profile") {
+              editprofileuser();
+            }
+            if (meno === "History") {
+              historyUser();
+            }
+            if (meno === "Delete Account") {
+              deleteAccount();
+            }
+            setOpen(false);
+          }}
+          className="cursor-pointer items-center text-center justify-center p-1 hover:bg-pallate-Dark_Sky_Blue  rounded-lg"
+          key={meno}
+        >
+          {meno}
+        </li>
+      ))}
+    </ul>
+  </div>
+)}
+
     </div>
   );
 };

@@ -157,7 +157,7 @@ const NavBar = () => {
             <img src={logo} alt="My Logo" className="w-64 h-64" />
           </Link>
           <Link to="/home">
-            <li className="p-4 border-b border-gray-600">Home</li>
+            <li  className="p-4 border-b border-gray-600">Home</li>
           </Link>
           <Link to="/Advertisement">
             <li className="p-4 border-b border-gray-600">All Cars</li>
