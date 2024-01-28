@@ -35,7 +35,8 @@
     "socket.io-client": "^4.7.2",
     "tw-elements": "^1.0.0",
     "web-vitals": "^2.1.4",
-    "websocket": "^1.0.34"
+    "websocket": "^1.0.34",
+    "@babel/plugin-proposal-private-property-in-object": "^7.16.5"
   },
   "scripts": {
     "start": "react-scripts start",
