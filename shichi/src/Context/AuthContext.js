@@ -14,6 +14,8 @@ export const AuthProvider = ({ children }) => {
 
   const [authTokens, setAuthTokens] = useState(initialAuthTokens);
   const [chatRoomId, setChatRoomId] = useState(0);
+  const [senderId, setSenderId] = useState(0);
+  const [chatRoomName, setChatRoomName] = useState(0);
   const [search, setSearch] = useState();
 
   useEffect(() => {
@@ -33,6 +35,10 @@ export const AuthProvider = ({ children }) => {
     logoutUser,
     chatRoomId,
     setChatRoomId,
+    chatRoomName,
+    setChatRoomName,
+    senderId,
+    setSenderId,
     search,
     setSearch,
   };
