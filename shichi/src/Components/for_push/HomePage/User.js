@@ -1,16 +1,13 @@
-import React, { useRef, useState, useContext } from "react";
+import React, { useRef, useState, useContext,useEffect } from "react";
 import { Route } from "react-router-dom";
 import AuthContext from "../../../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { jwtDecode } from "jwt-decode";
-// import MyComponent from "../Components/addcar/popup";
-// import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
 
 const baseURL = "http://87.107.54.89:8000/user/show/";
 

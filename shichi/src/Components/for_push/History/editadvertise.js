@@ -108,7 +108,7 @@ const Editcar = () => {
     setgearbox(advertiseData.car_gearbox)
     setStartdate(advertiseData.start_date)
     setdescription(advertiseData.description)
-    //setSelectedImages(advertiseData.car_image1)
+    setSelectedImages([advertiseData.car_image1, advertiseData.car_image2, advertiseData.car_image3])
 
   }, [advertiseData])
 
@@ -274,7 +274,7 @@ const Editcar = () => {
         }
       );
       console.log(token);
-
+      
       console.log(response.data);
     } catch (error) {
       console.error(error);
@@ -592,12 +592,13 @@ const Editcar = () => {
                 <div className="container mx-auto h-full flex flex-col justify-center items-center px-10">
                   <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                     {selectedImages.map((file, index) => (
+                      file ? 
                       <div
                         key={index}
                         className="relative h-48 mb-3 w-full p-3 rounded-lg bg-cover bg-center"
                       >
                         <img
-                          src={URL.createObjectURL(file)}
+                          src={(file)} 
                           alt={`Selected File ${index + 1}`}
                           className="w-full h-full object-cover rounded-lg"
                         />
@@ -619,7 +620,7 @@ const Editcar = () => {
                             />
                           </svg>
                         </button>
-                      </div>
+                      </div> : null
                     ))}
                   </div>
                   <div className="flex w-full justify-center"></div>

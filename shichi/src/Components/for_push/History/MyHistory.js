@@ -36,7 +36,7 @@ const MyHistory = () => {
           "http://87.107.54.89:8000/history/customhistories",
           {
             headers: {
-              Authorization: `Bearer ${token}`,
+              Authorization: `Bearer ${token}`, 
             },
           }
         );

@@ -45,7 +45,7 @@ function DriverDetail() {
       const payload = {
         ad_id: id,
         start_date: startdate,
-        end_date: enddate,
+        end_date: enddate, 
       };
       console.log("car id2", id);
       const headers = {
