@@ -18,12 +18,12 @@ jobs:
         run: |
           mkdir -p ~/.ssh/
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/github
-          port 9011
           chmod 600 ~/.ssh/github
           cat >>~/.ssh/config <<END
           Host target
             HostName $SSH_HOST
             User $SSH_USER
+            Port 9011
             IdentityFile ~/.ssh/github
             LogLevel ERROR
             StrictHostKeyChecking no
