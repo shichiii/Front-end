@@ -118,7 +118,7 @@ function ProfilePage() {
   return (
     <div>
       <div className="bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal min-h-screen flex flex-col ">
-        <ToastContainer position="bottom-left" theme="dark" pauseOnHover />
+        <ToastContainer position="bottom-left" theme="light" pauseOnHover />
         <Navbar />
         <div className="mx-auto xl:w-[50%] 2xl:w-[40%] flex flex-col rounded-2xl justify-center p-6 lg:p-10 items-center mt-10 flex-wrap text-slate-300 font-bold font-mono bg-pallate-Dark_Sky_Blue bg-opacity-30 lg:bg-opacity-20">
           <div className="w-full">
