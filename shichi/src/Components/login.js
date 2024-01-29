@@ -31,7 +31,7 @@ const Login = () => {
   const notify = () => {
     toast.success(" Login successful !", {
       position: toast.POSITION.TOP_RIGHT,
-      autoClose: 3000,
+      autoClose: 2000,
     });
   };
   const notifyfaild = () => {

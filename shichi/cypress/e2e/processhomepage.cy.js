@@ -27,6 +27,8 @@ describe('Login and Scroll to Category', () => {
     
         // Wait for the API response interception
       //   cy.wait('@getUser');
+      cy.wait(4000);
+
     
         // Add any additional assertions or actions specific to the Wallet page
         // For example, you can check if certain elements are present on the new page.
@@ -57,6 +59,8 @@ describe('Login and Scroll to Category', () => {
         // cy.url().should('include', './advertisement');
     
         // Add any additional assertions or actions specific to the Advertisement page
+        cy.wait(4000);
+
       });
     it('Logs in and scrolls to the "to-search" ID after clicking on Search', () => {
         // Click on the login button
@@ -83,6 +87,8 @@ describe('Login and Scroll to Category', () => {
        
     
         // Add any additional assertions or actions specific to the scrolled position
+        cy.wait(4000);
+
       });
     
     it('Logs in and scrolls to the "carcategory" ID', () => {
