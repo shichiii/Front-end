@@ -3,9 +3,9 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useParams } from "react-router-dom";
-function DriverDetail() {
-  const notifyfaild = () => {
-    toast.error(" Not Enough Money!", {
+function DriverDetail({ car }) {
+  const notifyfaild = (error) => {
+    toast.error(error ? error : " Not Enough Money!", {
       position: toast.POSITION.TOP_RIGHT,
     });
   };
@@ -58,7 +58,7 @@ function DriverDetail() {
       notify();
       // You can do something with the response here
     } catch (error) {
-      notifyfaild();
+      notifyfaild(error.response.data);
     }
   };
 
@@ -75,6 +75,8 @@ function DriverDetail() {
               <label className="text-sm">Start Date:</label>
               <input
                 type="date"
+                min={car.start_date}
+                max={enddate || car.end_date}
                 onChange={handlestartdate}
                 className="rounded-2xl outline-none py-1 px-3 border focus:border-pallate-Dark_Sky_Blue text-pallate-Police_Blue"
               />
@@ -83,6 +85,8 @@ function DriverDetail() {
               <label className="text-sm">End Date:</label>
               <input
                 type="date"
+                min={car.start_date}
+                max={car.end_date}
                 onChange={handleenddate}
                 className="rounded-2xl outline-none py-1 px-3 border focus:border-pallate-Dark_Sky_Blue text-pallate-Police_Blue"
               />

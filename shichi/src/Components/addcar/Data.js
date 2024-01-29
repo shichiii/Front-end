@@ -257,11 +257,11 @@ export const fuel = [
 export const coooler = [
   {
     id: 0,
-    name: "Yes",
+    name: "yes",
   },
   {
     id: 1,
-    name: "No",
+    name: "no",
   },
 ];
 

@@ -8,7 +8,8 @@ describe('show_Truck_category_with_homepage', () => {
       cy.get("#email").type("atranikpayan@gmail.com");
       cy.get("#password").type("atra1234", { log: false });
       cy.contains('Login').click()
-      cy.wait(5000)
+      // cy.wait()
+      cy.wait(10000);
 
       cy.contains('Show Truck').click()
     })

@@ -12,7 +12,7 @@ const MyHistory = () => {
       try {
         const token = localStorage.getItem("token");
         const response = await axios.get(
-          "http://87.107.54.89:8000/advertisement/list/",
+          "http://87.107.54.89:8000/advertisement/myadvertisement/?ordering=-id",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -55,11 +55,13 @@ const MyHistory = () => {
     fetchData();
   }, []);
 
+  console.log("infooooo: ", info);
+
   return (
     <div>
       <MyAdvertiseContent advertiseData={advertiseData} />
-      {/* <TakeHistory info={info} />
-      <RentalHistory info={info} /> */}
+      {/* <TakeHistory info={info}/>
+      <RentalHistory info={info}/>  */}
     </div>
   );
 };

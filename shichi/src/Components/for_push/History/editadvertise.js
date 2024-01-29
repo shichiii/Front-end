@@ -10,6 +10,8 @@ import { BsSnow3 } from "react-icons/bs";
 import { BsDoorOpenFill } from "react-icons/bs";
 import { FaChair } from "react-icons/fa";
 import axios from "axios";
+import Navbar from "../HomePage/NavBar.js";
+import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { fuel, categories, coooler, cityy, colors, gearboxx } from "./Data.js";
 const Editcar = () => {
@@ -90,6 +92,32 @@ const Editcar = () => {
     // Handle any additional logic related to the deleted image URL
     console.log(`Deleted image URL: ${deletedImageUrl}`);
   };
+  const [advertiseData, setAdvertiseData] = useState([]);
+
+  useEffect(
+    function () {
+      setSeatnumbers(advertiseData.car_seat_count);
+      setCarName(advertiseData.car_name);
+      setCarFuel(advertiseData.car_fuel);
+      setCategory(advertiseData.car_category);
+      setCityValue(advertiseData.location_state);
+      setCooler(advertiseData.car_Is_cooler);
+      setCoolersvalue(advertiseData.car_color);
+      setDoornumbers(advertiseData.car_door_count);
+      setEnddate(advertiseData.end_date);
+      setPrice(advertiseData.price);
+      setProductyear(advertiseData.car_produced_date);
+      setgearbox(advertiseData.car_gearbox);
+      setStartdate(advertiseData.start_date);
+      setdescription(advertiseData.description);
+      setSelectedImages([
+        advertiseData.car_image1,
+        advertiseData.car_image2,
+        advertiseData.car_image3,
+      ]);
+    },
+    [advertiseData]
+  );
 
   const [carName, setCarName] = useState("");
   const [carFuel, setCarFuel] = useState("");
@@ -183,44 +211,47 @@ const Editcar = () => {
   const latitude = localStorage.getItem("latitude");
   const longitude = localStorage.getItem("longitude");
   //get information
-  const [advertiseData, setAdvertiseData] = useState([]);
-  //get all advertises
+  console.log("advertiseData: ", advertiseData);
   const { id } = useParams();
   useEffect(() => {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem("token");
         const response = await axios.get(
-          "http://87.107.54.89:8000/advertisement/list/",
+          `http://87.107.54.89:8000/advertisement/show/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           }
         );
-
-        const advertisementId = parseInt(id, 10);
-
-        // Filter the list to get only the advertisement with the matching id
-        const selectedAdvertise = response.data.filter(
-          (ad) => ad.id === advertisementId
-        );
-
-        if (selectedAdvertise.length > 0) {
-          // If a matching advertisement is found, set the data
-          setAdvertiseData(selectedAdvertise[0]);
-        } else {
-          // Handle the case where no matching advertisement is found
-          console.error("Advertisement not found for id:", advertisementId);
-        }
+        setAdvertiseData(response.data);
+        console.log("car data", advertiseData);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
-  }, [id]);
+  }, []);
 
+  const convertImageUrlToFile = async (imageUrl) => {
+    try {
+      // Fetch the image as a blob
+      const response = await fetch(imageUrl);
+      const blob = await response.blob();
+
+      // Create a File object with a unique name (e.g., "convertedImage.jpg")
+      const convertedImageFile = new File([blob], "convertedImage.jpg", {
+        type: blob.type,
+      });
+
+      return convertedImageFile;
+    } catch (error) {
+      console.error("Error converting image URL to file:", error);
+    }
+  };
+  let navigate = useNavigate();
   //handle submit function
   const handleSubmit = async (id) => {
     console.log("enter handlesubmit");
@@ -229,9 +260,37 @@ const Editcar = () => {
       const formattedstartdate = formatDate(startdate);
       const formattedenddate = formatDate(enddate);
       const formData = new FormData();
-      formData.append("car_image1", selectedImages[0]);
-      formData.append("car_image2", selectedImages[1]);
-      formData.append("car_image3", selectedImages[2]);
+      console.log("selectedImages: ", selectedImages);
+      if (selectedImages[0]) {
+        if (isURL(selectedImages[0])) {
+          formData.append(
+            "car_image1",
+            await convertImageUrlToFile(selectedImages[0])
+          );
+        } else {
+          formData.append("car_image1", selectedImages[0]);
+        }
+      }
+      if (selectedImages[1]) {
+        if (isURL(selectedImages[1])) {
+          formData.append(
+            "car_image2",
+            await convertImageUrlToFile(selectedImages[1])
+          );
+        } else {
+          formData.append("car_image2", selectedImages[1]);
+        }
+      }
+      if (selectedImages[2]) {
+        if (isURL(selectedImages[2])) {
+          formData.append(
+            "car_image3",
+            await convertImageUrlToFile(selectedImages[2])
+          );
+        } else {
+          formData.append("car_image3", selectedImages[2]);
+        }
+      }
       formData.append("location_geo_width", latitude);
       formData.append("location_geo_length", longitude);
       formData.append("location_state", cityValue);
@@ -260,7 +319,7 @@ const Editcar = () => {
         }
       );
       console.log(token);
-
+      navigate("/Advertisement");
       console.log(response.data);
     } catch (error) {
       console.error(error);
@@ -306,6 +365,15 @@ const Editcar = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  function isURL(url) {
+    // Regular expression for a URL
+    const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
+
+    // Test the provided URL against the regex pattern
+    return urlRegex.test(url);
+  }
+
   return (
     <div
       style={{
@@ -318,10 +386,11 @@ const Editcar = () => {
       }}
       className=" "
     >
+      <Navbar />
+
       <div className="bg-pallate-Gunmetal text-pallate-Gunmetal ">
         Please Fill The Form
       </div>
-
       <section
         style={{ backdropFilter: "blur(8px)" }}
         class="max-w-4xl p-6 mx-auto rounded-3xl shadow-md bg-pallate-Police_Blue bg-opacity-70  mt-20 "
@@ -351,7 +420,7 @@ const Editcar = () => {
               <label class="text-white dark:text-gray-200 ">Car Fuel</label>
               <Select
                 id="fuel"
-                value={carFuel}
+                value={parseInt(carFuel)}
                 onChange={handleCarFuelChange}
                 class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               >
@@ -413,6 +482,7 @@ const Editcar = () => {
                 type="number"
                 class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                 placeholder=""
+                value={doornumbers}
                 min={2}
                 max={4}
                 onChange={handleDoornumbers}
@@ -486,6 +556,7 @@ const Editcar = () => {
                 placeholder=""
                 min={2}
                 max={15}
+                value={seatnumbers}
                 onChange={handleSeatnumbers}
                 onKeyPress={handleKeyPress}
                 required
@@ -503,6 +574,7 @@ const Editcar = () => {
               <input
                 placeholder=""
                 min={1}
+                value={productyear}
                 onChange={handleProductyear}
                 onKeyPress={handleKeyPress}
                 required
@@ -518,6 +590,7 @@ const Editcar = () => {
 
               <input
                 onChange={handlestartdate}
+                value={startdate}
                 type="date"
                 class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                 placeholder="Select a date"
@@ -531,6 +604,7 @@ const Editcar = () => {
 
               <input
                 onChange={handleenddate}
+                value={enddate}
                 type="date"
                 placeholder="Select a date"
                 class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
@@ -563,6 +637,7 @@ const Editcar = () => {
                 className="bg-pallate-Gunmetal text-white w-full gap-4 mr-auto ml-auto border-pallate-persian_green disabled:opacity-80 rounded-lg bg-pallate-celeste_light focus:ring-pallate-persian_green focus:border-pallate-persian_green pl-8 p-2"
                 placeholder=""
                 min={1}
+                value={price}
                 onChange={handlePrice}
                 onKeyPress={handleKeyPress}
                 required
@@ -570,37 +645,40 @@ const Editcar = () => {
             </div>
             <section class="max-w-4xl p-2 mx-auto mt-5 ">
               <div className="container mx-auto h-full flex flex-col justify-center items-center px-10">
-                <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                  {selectedImages.map((file, index) => (
-                    <div
-                      key={index}
-                      className="relative h-48 mb-3 w-full p-3 rounded-lg bg-cover bg-center"
-                    >
-                      <img
-                        src={URL.createObjectURL(file)}
-                        alt={`Selected File ${index + 1}`}
-                        className="w-full h-full object-cover rounded-lg"
-                      />
-                      <button
-                        onClick={() => handleDelete(index)}
-                        className="absolute top-2 right-2 p-2 bg-red-500 text-white rounded-full cursor-pointer"
+                <div className="w-full flex  gap-4">
+                  {selectedImages.map((file, index) =>
+                    file ? (
+                      <div
+                        key={index}
+                        className="relative h-48 mb-3 w-full p-3 rounded-lg bg-cover bg-center"
                       >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="w-4 h-4 text-gray-700"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
+                        {console.log("file: ", file)}
+                        <img
+                          src={isURL(file) ? file : URL.createObjectURL(file)}
+                          alt={`Selected File ${index + 1}`}
+                          className="w-full h-full object-cover rounded-lg"
+                        />
+                        <button
+                          onClick={() => handleDelete(index)}
+                          className="absolute top-2 right-2 p-2 bg-red-500 text-white rounded-full cursor-pointer"
                         >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                          />
-                        </svg>
-                      </button>
-                    </div>
-                  ))}
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="w-4 h-4 text-gray-700"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                            />
+                          </svg>
+                        </button>
+                      </div>
+                    ) : null
+                  )}
                 </div>
                 <div className="flex w-full justify-center"></div>
                 <div>

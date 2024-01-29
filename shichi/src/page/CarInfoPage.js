@@ -22,10 +22,14 @@ function CarInfoPage() {
   const [createdChatRoom, setCreatedChatRoom] = useState(null);
   const userId = jwtDecode(localStorage.getItem("token")).user_id;
 
-  const { chatRoomName, setChatRoomName, chatRoomId, setChatRoomId, senderId } =
-    useContext(AuthContext);
-
-  console.log("chatRoomId: ", chatRoomId);
+  const {
+    chatRoomName,
+    setChatRoomName,
+    chatRoomId,
+    setChatRoomId,
+    senderId,
+    setSenderId,
+  } = useContext(AuthContext);
 
   useEffect(() => {
     axios
@@ -44,7 +48,6 @@ function CarInfoPage() {
 
   useEffect(
     function () {
-      console.log("senderId: ", senderId);
       if (userId && chatRoomName && car.owner_id) {
         axios
           .get("http://87.107.54.89:8000/chat/chatroom/chatroom/")
@@ -69,7 +72,7 @@ function CarInfoPage() {
           });
       }
     },
-    [chatRoomName, chatRoomName, car.owner_id, senderId]
+    [chatRoomName, car.owner_id, senderId]
   );
 
   // useEffect(() => {
@@ -108,6 +111,7 @@ function CarInfoPage() {
                 await setChatRoomName(
                   `${userId}-${car.id}-${car.owner_id}-${car.car_name}`
                 );
+                await setSenderId(userId);
               });
           }
         }
@@ -151,7 +155,7 @@ function CarInfoPage() {
           )}
           {/* <CarOptionalExtras /> */}
           {/* {car.owner_id === userId ? null : <BookCar adv={adv.id} />} */}
-          {car.owner_id === userId ? null : <DriverDetail />}
+          {car.owner_id === userId ? null : <DriverDetail car={car} />}
           {car.owner_id === userId ? null : (
             <AddComment adv={adv.id} setRefreshComment={setRefreshComment} />
           )}
@@ -161,6 +165,10 @@ function CarInfoPage() {
             setRefreshComment={setRefreshComment}
           />
         </div>
+        {console.log("userId: ", userId)}
+        {console.log("car.owner_id: ", car.owner_id)}
+        {console.log("senderId: ", senderId)}
+        {console.log("chatRoomId: ", chatRoomId)}
         {(userId === car.owner_id && senderId === 0) ||
         chatRoomId === undefined ? null : (
           <IconChat />

@@ -15,8 +15,7 @@ import { Alert, AlertTitle } from "@material-ui/lab";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-import { BsPatchExclamation } from "react-icons/bs";
+import { BsPatchExclamation } from "react-icons/bs"; 
 import { useContext } from "react";
 import AuthContext from "../Context/AuthContext";
 
