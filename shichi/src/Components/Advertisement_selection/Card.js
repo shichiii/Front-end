@@ -15,8 +15,10 @@ const Card = ({
   endDate,
   state,
 }) => {
+  console.log("carCategory: ", carCategory);
+
   const API_ENDPOINT = `http://87.107.54.89:8000/advertisement/filter/?${
-    carCategory ? `&car_category=${carCategory}` : ""
+    carCategory && carCategory != " " ? `&car_category=${carCategory}` : ""
   }${carColor ? `&car_color=${carColor}` : ""}${
     startDate ? `&start_date=${startDate}` : ""
   }${endDate ? `&end_date=${endDate}` : ""}${state ? `&state=${state}` : ""}${

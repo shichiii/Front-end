@@ -48,7 +48,6 @@ function DriverDetail({car}) {
         start_date: startdate,
         end_date: enddate, 
       };
-      console.log("car id2", id);
       const headers = {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",

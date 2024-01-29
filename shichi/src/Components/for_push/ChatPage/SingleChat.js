@@ -1,4 +1,6 @@
 function SingleChat({ image, text, position }) {
+  console.log("image: ", image);
+
   return position == "right" ? (
     <div class="flex w-full mt-2 space-x-3 max-w-xs ml-auto justify-end">
       <div>
@@ -10,7 +12,7 @@ function SingleChat({ image, text, position }) {
       </div>
       <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300">
         <img
-          src="https://tecdn.b-cdn.net/img/new/avatars/1.webp"
+          src={`http://87.107.54.89:8000${image}`}
           alt="User's Profile Picture"
           className="rounded-full object-cover h-full w-full"
         />
@@ -20,7 +22,7 @@ function SingleChat({ image, text, position }) {
     <div class="flex w-full mt-2 space-x-3 max-w-xs">
       <div className="flex-shrink-0 h-10 w-10">
         <img
-          src="https://tecdn.b-cdn.net/img/new/avatars/1.webp"
+          src={`http://87.107.54.89:8000${image}`}
           alt="User's Profile Picture"
           className="rounded-full object-cover h-full w-full"
         />

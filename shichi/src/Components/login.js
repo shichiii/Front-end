@@ -53,7 +53,7 @@ const Login = () => {
       setEmailAddress(event.target.value);
     }
   };
-
+  const token = localStorage.getItem("token");
   const handlePassword = (event) => {
     setpassword(event.target.value);
   };
@@ -97,6 +97,7 @@ const Login = () => {
       //       <<<<<<< feature/v1.0.0/overallfix
       setAuthTokens(response.data.access);
       notify();
+      console.log("aloooooooooooooooooooooooooooooooooooooooo", token)
       // setSuccessMessage('Login successful!');
       setTimeout(() => {
         navigate("/home");

@@ -8,8 +8,7 @@ describe('show_Hybrid_category_with_homepage', () => {
       cy.get("#email").type("m.s.mousazade09@gmail.com")
       cy.get("#password").type("sadegh123", {log:false})
       cy.contains('Login').click()
-      // cy.wait()
-
+      cy.wait(5000)
 
       cy.contains('Show Hybrid').click()
     })

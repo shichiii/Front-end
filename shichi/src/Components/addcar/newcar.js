@@ -108,6 +108,7 @@ const Newcar = () => {
   const [seatnumbers, setSeatnumbers] = useState("");
   const [doornumbers, setDoornumbers] = useState("");
   const [price, setPrice] = useState("");
+  const [startdatetest, setstartdatetest]  = useState("");
   const [productyear, setProductyear] = useState("");
   const [showDescription, setShowDescription] = useState(false);
   const [scrollEnabled, setScrollEnabled] = useState(false);
@@ -126,13 +127,65 @@ const Newcar = () => {
     setPrice(event.target.value);
   };
   const handleDoornumbers = (event) => {
-    setDoornumbers(event.target.value);
+    let value = parseInt(event.target.value, 10);
+
+    if (isNaN(value) || value < 2) {
+      value = 2; // حداقل مقدار
+    } else if (value > 4) {
+      value = 4; // حداکثر مقدار
+    }
+
+    setDoornumbers(value.toString());
+  };
+  const handleWheeldoor = (e) => {
+    e.preventDefault();
+
+    let delta = e.deltaY;
+    let value = parseInt(doornumbers, 10);
+
+    if (delta > 0) {
+      // کاهش مقدار
+      value = Math.max(2, value - 1);
+    } else {
+      // افزایش مقدار
+      value = Math.min(4, value + 1);
+    }
+
+    setDoornumbers(value.toString());
   };
   const handleSeatnumbers = (event) => {
-    setSeatnumbers(event.target.value);
+    // setSeatnumbers(event.target.value);
+    let value = parseInt(event.target.value, 10);
+
+    if (isNaN(value) || value < 2) {
+      value = 2; // حداقل مقدار
+    } else if (value > 15) {
+      value = 15; // حداکثر مقدار
+    }
+
+    setSeatnumbers(value.toString());   
+   
+  };
+  const handleWheel = (e) => {
+    e.preventDefault();
+
+    let delta = e.deltaY;
+    let value = parseInt(seatnumbers, 10);
+
+    if (delta > 0) {
+      // کاهش مقدار
+      value = Math.max(2, value - 1);
+    } else {
+      // افزایش مقدار
+      value = Math.min(15, value + 1);
+    }
+
+    setSeatnumbers(value.toString());
   };
   const handlestartdate = (event) => {
     const rawDate = event.target.value;
+    
+    setstartdatetest(rawDate);
     const dateObject = new Date(rawDate);
     const year = dateObject.getFullYear();
     const month = dateObject.getMonth() + 1;
@@ -140,6 +193,7 @@ const Newcar = () => {
     const formattedDate = `${year}-${month}-${day}`;
     console.log(formattedDate);
     setStartdate(formattedDate);
+    
   };
   const handleenddate = (event) => {
     const rawDate = event.target.value;
@@ -276,8 +330,9 @@ const Newcar = () => {
     setCarFuel(event.target.value);
   };
   const [img, setImg] = useState(require("../../Static/test.svg").default);
-
+  const currentDate = new Date().toISOString().split("T")[0];
   useEffect(() => {
+    
     const handleResize = () => {
       if (window.innerWidth < 1300) {
         setImg(require("../../Static/bg.svg").default);
@@ -404,7 +459,9 @@ const Newcar = () => {
                 placeholder=""
                 min={2}
                 max={4}
-                onChange={handleDoornumbers}
+                value={doornumbers}
+      onChange={handleDoornumbers}
+      onWheel={handleWheel}
                 onKeyPress={handleKeyPress}
                 required
               ></input>
@@ -476,6 +533,8 @@ const Newcar = () => {
                 min={2}
                 max={15}
                 onChange={handleSeatnumbers}
+                onWheel={handleWheel}
+                value={seatnumbers}
                 onKeyPress={handleKeyPress}
                 required
               ></input>
@@ -483,20 +542,23 @@ const Newcar = () => {
 
             <div>
               <div className="flex">
-                <BsGearFill className="mr-1" />
-                <label class="text-white dark:text-gray-200">
+                <BsGearFill className="mr-1 " />
+                <label className="text-white dark:text-gray-200">
                   Car Product Year
                 </label>
               </div>
 
               <input
+              
                 placeholder=""
                 min={1}
+                max={currentDate}
                 onChange={handleProductyear}
                 onKeyPress={handleKeyPress}
                 required
                 type="date"
-                class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                
+                className="block w-full px-4 py-2 mt-2 text-white bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
             </div>
             <div>
@@ -504,13 +566,13 @@ const Newcar = () => {
                 <BsCalendar className="mr-1" />
                 <label class="text-white dark:text-gray-200">Start Date</label>
               </div>
-
               <input
-                onChange={handlestartdate}
-                type="date"
-                class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                placeholder="Select a date"
-              />
+        onChange={handlestartdate}
+        type="date"
+        min={currentDate}
+        className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+        placeholder="Select a date"
+      />
             </div>
             <div>
               <div className="flex">
@@ -518,12 +580,15 @@ const Newcar = () => {
                 <label class="text-white dark:text-gray-200">End Date</label>
               </div>
 
-              <input
-                onChange={handleenddate}
-                type="date"
-                placeholder="Select a date"
-                class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-              />
+              <input   disabled={!startdatetest} 
+          onChange={handleenddate}
+          type="date"
+          min={startdatetest}
+          // max={startdate}
+          className="block  w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+          placeholder="Select a date"
+        />
+
             </div>
             <div>
               <label class="text-white dark:text-gray-200">Description</label>
@@ -559,7 +624,7 @@ const Newcar = () => {
             </div>
             <section class="max-w-4xl p-2 mx-auto mt-5 ">
               <div className="container mx-auto h-full flex flex-col justify-center items-center px-10">
-                <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div className="w-full flex  gap-4">
                   {selectedImages.map((file, index) => (
                     <div
                       key={index}
