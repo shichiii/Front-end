@@ -69,13 +69,14 @@ const TakeHistory = ({ info }) => {
                               className="border-b text-white hover:bg-pallate-Dark_Sky_Blue hover:bg-opacity-20 cursor-pointer"
                             >
                               <td className="text-sm font-bold px-6 py-4 whitespace-nowrap">
-                                {item.advertisement.car_image1 && (
-                                  <img
-                                    src={item.advertisement.car_image1}
-                                    alt="Car"
-                                    style={{ width: "50px", height: "auto" }}
-                                  />
-                                )}
+                               
+                                 {item.car_image1 && (
+                            <img
+                              src={item.car_image1}
+                              alt="Car"
+                              style={{ width: "50px", height: "auto" }}
+                            />
+                          )}
                               </td>
                               <td className="text-sm font-bold px-6 py-4 whitespace-nowrap">
                                 {item.advertisement.car_name}
