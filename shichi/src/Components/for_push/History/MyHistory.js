@@ -10,12 +10,15 @@ const MyHistory = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = localStorage.getItem('token');
-        const response = await axios.get('http://87.107.54.89:8000/advertisement/myadvertisement/?ordering=-id', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const token = localStorage.getItem("token");
+        const response = await axios.get(
+          "http://87.107.54.89:8000/advertisement/myadvertisement/?ordering=-id",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         setAdvertiseData(response.data);
       } catch (error) {
@@ -36,7 +39,7 @@ const MyHistory = () => {
           "http://87.107.54.89:8000/history/customhistories",
           {
             headers: {
-              Authorization: `Bearer ${token}`, 
+              Authorization: `Bearer ${token}`,
             },
           }
         );
@@ -51,6 +54,8 @@ const MyHistory = () => {
 
     fetchData();
   }, []);
+
+  console.log("infooooo: ", info);
 
   return (
     <div>

@@ -22,7 +22,6 @@ function CarInfoPage() {
   const [createdChatRoom, setCreatedChatRoom] = useState(null);
   const userId = jwtDecode(localStorage.getItem("token")).user_id;
 
-
   const { chatRoomName, setChatRoomName, chatRoomId, setChatRoomId, senderId } =
     useContext(AuthContext);
 
@@ -160,6 +159,10 @@ function CarInfoPage() {
             setRefreshComment={setRefreshComment}
           />
         </div>
+        {console.log("userId: ", userId)}
+        {console.log("car.owner_id: ", car.owner_id)}
+        {console.log("senderId: ", senderId)}
+        {console.log("chatRoomId: ", chatRoomId)}
         {(userId === car.owner_id && senderId === 0) ||
         chatRoomId === undefined ? null : (
           <IconChat />

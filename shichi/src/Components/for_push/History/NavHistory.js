@@ -34,14 +34,14 @@ const NavHistory = () => {
       <div className="bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal h-24 flex w-full">
         <div
           onClick={handleAdvertisementClick}
-          className={`text-white justify-center items-center w-1/3 flex cursor-pointer ${
+          className={`text-white justify-center items-center w-1/2 flex cursor-pointer ${
             isAdvertisementClicked ? "border-b-4 border-white" : ""
           }`}
         >
           <TbHistoryToggle className="m-1" />
           Advertisement History
         </div>
-        <div
+        {/* <div
           onClick={handleRentalClick}
           className={`text-white justify-center items-center w-1/3 flex cursor-pointer ${
             isRentalClicked ? "border-b-4 border-white" : ""
@@ -49,10 +49,10 @@ const NavHistory = () => {
         >
           <TbHistoryToggle className="m-1" />
           Rental History
-        </div>
+        </div> */}
         <div
           onClick={handleMyAdvertiseClick}
-          className={`text-white justify-center items-center w-1/3 flex cursor-pointer ${
+          className={`text-white justify-center items-center w-1/2 flex cursor-pointer ${
             isMyAdvertiseClicked ? "border-b-4 border-white" : ""
           }`}
         >

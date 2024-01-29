@@ -3,10 +3,9 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useParams } from "react-router-dom";
-function DriverDetail({car}) {
-
-  const notifyfaild = () => {
-    toast.error(" Not Enough Money!", {
+function DriverDetail({ car }) {
+  const notifyfaild = (error) => {
+    toast.error(error ? error : " Not Enough Money!", {
       position: toast.POSITION.TOP_RIGHT,
     });
   };
@@ -46,7 +45,7 @@ function DriverDetail({car}) {
       const payload = {
         ad_id: id,
         start_date: startdate,
-        end_date: enddate, 
+        end_date: enddate,
       };
       const headers = {
         Authorization: `Bearer ${token}`,
@@ -59,7 +58,7 @@ function DriverDetail({car}) {
       notify();
       // You can do something with the response here
     } catch (error) {
-      notifyfaild();
+      notifyfaild(error.response.data);
     }
   };
 
@@ -77,17 +76,17 @@ function DriverDetail({car}) {
               <input
                 type="date"
                 min={car.start_date}
-                max={enddate || car.end_date} 
+                max={enddate || car.end_date}
                 onChange={handlestartdate}
                 className="rounded-2xl outline-none py-1 px-3 border focus:border-pallate-Dark_Sky_Blue text-pallate-Police_Blue"
               />
             </div>
             <div className="w-5/12 flex flex-col gap-3">
               <label className="text-sm">End Date:</label>
-              <input 
+              <input
                 type="date"
-                min={car.start_date} 
-                max={car.end_date} 
+                min={car.start_date}
+                max={car.end_date}
                 onChange={handleenddate}
                 className="rounded-2xl outline-none py-1 px-3 border focus:border-pallate-Dark_Sky_Blue text-pallate-Police_Blue"
               />

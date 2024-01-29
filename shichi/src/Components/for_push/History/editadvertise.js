@@ -11,6 +11,7 @@ import { BsDoorOpenFill } from "react-icons/bs";
 import { FaChair } from "react-icons/fa";
 import axios from "axios";
 import Navbar from "../HomePage/NavBar.js";
+import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { fuel, categories, coooler, cityy, colors, gearboxx } from "./Data.js";
 const Editcar = () => {
@@ -92,25 +93,31 @@ const Editcar = () => {
     console.log(`Deleted image URL: ${deletedImageUrl}`);
   };
   const [advertiseData, setAdvertiseData] = useState([]);
-  
-  useEffect(function () {
-    setSeatnumbers(advertiseData.car_seat_count)
-    setCarName(advertiseData.car_name)
-    setCarFuel(advertiseData.car_fuel)
-    setCategory(advertiseData.car_category)
-    setCityValue(advertiseData.location_state)
-    setCooler(advertiseData.car_Is_cooler)
-    setCoolersvalue(advertiseData.car_color)
-    setDoornumbers(advertiseData.car_door_count)
-    setEnddate(advertiseData.end_date)
-    setPrice(advertiseData.price) 
-    setProductyear(advertiseData.car_produced_date)
-    setgearbox(advertiseData.car_gearbox)
-    setStartdate(advertiseData.start_date)
-    setdescription(advertiseData.description)
-    setSelectedImages([advertiseData.car_image1, advertiseData.car_image2, advertiseData.car_image3])
 
-  }, [advertiseData])
+  useEffect(
+    function () {
+      setSeatnumbers(advertiseData.car_seat_count);
+      setCarName(advertiseData.car_name);
+      setCarFuel(advertiseData.car_fuel);
+      setCategory(advertiseData.car_category);
+      setCityValue(advertiseData.location_state);
+      setCooler(advertiseData.car_Is_cooler);
+      setCoolersvalue(advertiseData.car_color);
+      setDoornumbers(advertiseData.car_door_count);
+      setEnddate(advertiseData.end_date);
+      setPrice(advertiseData.price);
+      setProductyear(advertiseData.car_produced_date);
+      setgearbox(advertiseData.car_gearbox);
+      setStartdate(advertiseData.start_date);
+      setdescription(advertiseData.description);
+      setSelectedImages([
+        advertiseData.car_image1,
+        advertiseData.car_image2,
+        advertiseData.car_image3,
+      ]);
+    },
+    [advertiseData]
+  );
 
   const [carName, setCarName] = useState("");
   const [carFuel, setCarFuel] = useState("");
@@ -204,17 +211,20 @@ const Editcar = () => {
   const latitude = localStorage.getItem("latitude");
   const longitude = localStorage.getItem("longitude");
   //get information
-  console.log("advertiseData: ", advertiseData)
-  const {id} = useParams(); 
+  console.log("advertiseData: ", advertiseData);
+  const { id } = useParams();
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = localStorage.getItem('token');
-        const response = await axios.get(`http://87.107.54.89:8000/advertisement/show/${id}`, { 
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const token = localStorage.getItem("token");
+        const response = await axios.get(
+          `http://87.107.54.89:8000/advertisement/show/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         setAdvertiseData(response.data);
         console.log("car data", advertiseData);
       } catch (error) {
@@ -223,8 +233,25 @@ const Editcar = () => {
     };
 
     fetchData();
-  }, []); 
-  
+  }, []);
+
+  const convertImageUrlToFile = async (imageUrl) => {
+    try {
+      // Fetch the image as a blob
+      const response = await fetch(imageUrl);
+      const blob = await response.blob();
+
+      // Create a File object with a unique name (e.g., "convertedImage.jpg")
+      const convertedImageFile = new File([blob], "convertedImage.jpg", {
+        type: blob.type,
+      });
+
+      return convertedImageFile;
+    } catch (error) {
+      console.error("Error converting image URL to file:", error);
+    }
+  };
+  let navigate = useNavigate();
   //handle submit function
   const handleSubmit = async (id) => {
     console.log("enter handlesubmit");
@@ -233,18 +260,37 @@ const Editcar = () => {
       const formattedstartdate = formatDate(startdate);
       const formattedenddate = formatDate(enddate);
       const formData = new FormData();
-      if (selectedImages[0] !== undefined)
-      {
-        formData.append("car_image1", selectedImages[0]);
+      console.log("selectedImages: ", selectedImages);
+      if (selectedImages[0]) {
+        if (isURL(selectedImages[0])) {
+          formData.append(
+            "car_image1",
+            await convertImageUrlToFile(selectedImages[0])
+          );
+        } else {
+          formData.append("car_image1", selectedImages[0]);
+        }
       }
-      if (selectedImages[1] !== undefined)
-      {
-        formData.append("car_image2", selectedImages[1]);
+      if (selectedImages[1]) {
+        if (isURL(selectedImages[1])) {
+          formData.append(
+            "car_image2",
+            await convertImageUrlToFile(selectedImages[1])
+          );
+        } else {
+          formData.append("car_image2", selectedImages[1]);
+        }
       }
-      if (selectedImages[2] !== undefined)
-      {
-        formData.append("car_image3", selectedImages[2]);
-      } 
+      if (selectedImages[2]) {
+        if (isURL(selectedImages[2])) {
+          formData.append(
+            "car_image3",
+            await convertImageUrlToFile(selectedImages[2])
+          );
+        } else {
+          formData.append("car_image3", selectedImages[2]);
+        }
+      }
       formData.append("location_geo_width", latitude);
       formData.append("location_geo_length", longitude);
       formData.append("location_state", cityValue);
@@ -263,8 +309,7 @@ const Editcar = () => {
       formData.append("car_category", category);
       console.log(formData);
       const response = await axios.put(
-        `http://87.107.54.89:8000/advertisement/update/${id}/`
-,
+        `http://87.107.54.89:8000/advertisement/update/${id}/`,
         formData,
         {
           headers: {
@@ -274,7 +319,7 @@ const Editcar = () => {
         }
       );
       console.log(token);
-      
+      navigate("/Advertisement");
       console.log(response.data);
     } catch (error) {
       console.error(error);
@@ -320,8 +365,16 @@ const Editcar = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  function isURL(url) {
+    // Regular expression for a URL
+    const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
+
+    // Test the provided URL against the regex pattern
+    return urlRegex.test(url);
+  }
+
   return (
-    
     <div
       style={{
         width: "100%",
@@ -332,8 +385,9 @@ const Editcar = () => {
         backgroundPosition: "center",
       }}
       className=" "
-    ><Navbar/> 
-      
+    >
+      <Navbar />
+
       <div className="bg-pallate-Gunmetal text-pallate-Gunmetal ">
         Please Fill The Form
       </div>
@@ -341,264 +395,266 @@ const Editcar = () => {
         style={{ backdropFilter: "blur(8px)" }}
         class="max-w-4xl p-6 mx-auto rounded-3xl shadow-md bg-pallate-Police_Blue bg-opacity-70  mt-20 "
       >
-          <h1 class="text-xl font-bold text-white capitalize dark:text-white">
-            Please Fill
-          </h1>
-          <form>
-            <div class="grid grid-cols-1 text-white gap-6 mt-4 sm:grid-cols-2">
-              <div>
-                <div className="flex ">
-                  {" "}
-                  <BsBusFrontFill className="mr-1" />
-                  <label class="text-white dark:text-gray-200">Car Name</label>
-                </div>
-
-                <input
-                  type="text"
-                  value={carName}
-                  onChange={handleCarNameChange}
-                  placeholder="Enter car name"
-                  class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                />
+        <h1 class="text-xl font-bold text-white capitalize dark:text-white">
+          Please Fill
+        </h1>
+        <form>
+          <div class="grid grid-cols-1 text-white gap-6 mt-4 sm:grid-cols-2">
+            <div>
+              <div className="flex ">
+                {" "}
+                <BsBusFrontFill className="mr-1" />
+                <label class="text-white dark:text-gray-200">Car Name</label>
               </div>
 
-              <div>
-                <label class="text-white dark:text-gray-200 ">Car Fuel</label>
-                <Select
-                  id="fuel"
-                  value={parseInt(carFuel)} 
-                  onChange={handleCarFuelChange}
-                  class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                >
-                  <option>Select</option>
-                  {fuel.map((country) => {
-                    return <option>{country.name}</option>;
-                  })}
-                </Select>
+              <input
+                type="text"
+                value={carName}
+                onChange={handleCarNameChange}
+                placeholder="Enter car name"
+                class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+              />
+            </div>
+
+            <div>
+              <label class="text-white dark:text-gray-200 ">Car Fuel</label>
+              <Select
+                id="fuel"
+                value={parseInt(carFuel)}
+                onChange={handleCarFuelChange}
+                class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+              >
+                <option>Select</option>
+                {fuel.map((country) => {
+                  return <option>{country.name}</option>;
+                })}
+              </Select>
+            </div>
+
+            <div>
+              <div className="flex">
+                {" "}
+                <BsMapFill className="mr-1 " />
+                <label class="text-white dark:text-gray-200">Category</label>
               </div>
 
-              <div>
-                <div className="flex">
-                  {" "}
-                  <BsMapFill className="mr-1 " />
-                  <label class="text-white dark:text-gray-200">Category</label>
-                </div>
+              <Select
+                id="category"
+                value={category}
+                onChange={handleCategoryChange}
+                class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+              >
+                <option>Select</option>
+                {categories.map((country) => {
+                  return <option>{country.name}</option>;
+                })}
+              </Select>
+            </div>
 
-                <Select
-                  id="category"
-                  value={category}
-                  onChange={handleCategoryChange}
-                  class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                >
-                  <option>Select</option>
-                  {categories.map((country) => {
-                    return <option>{country.name}</option>;
-                  })}
-                </Select>
+            <div>
+              <div className="flex">
+                <BsSnow3 className="mr-1 " />
+                <label class="text-white dark:text-gray-200">Cooler:</label>
               </div>
 
-              <div>
-                <div className="flex">
-                  <BsSnow3 className="mr-1 " />
-                  <label class="text-white dark:text-gray-200">Cooler:</label>
-                </div>
-
-                <Select
-                  id="cooler"
-                  value={cooler}
-                  onChange={handleCoolerChange}
-                  class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                >
-                  {" "}
-                  <option>Select</option>
-                  {coooler.map((country) => {
-                    return <option>{country.name}</option>;
-                  })}
-                </Select>
-              </div>
-              <div>
-                <div className="flex">
-                  <BsDoorOpenFill className="mr-1" />{" "}
-                  <label class="text-white dark:text-gray-200">
-                    Car door Count
-                  </label>
-                </div>
-
-                <input
-                  type="number"
-                  class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                  placeholder=""
-                  value={doornumbers} 
-                  min={2}
-                  max={4}
-                  onChange={handleDoornumbers}
-                  onKeyPress={handleKeyPress}
-                  required
-                ></input>
-              </div>
-              <div>
-                <div className="flex">
-                  <BsGeoAltFill className="mr-1 " />{" "}
-                  <label class="text-white dark:text-gray-200">City</label>
-                </div>
-
-                <select
-                  value={cityValue}
-                  onChange={handleCityChange}
-                  id="city"
-                  class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                >
-                  <option>Select</option>
-                  {cityy.map((country) => {
-                    return <option>{country.name}</option>;
-                  })}
-                </select>
-              </div>
-              <div>
-                <div className="flex">
-                  <BsDropletHalf className="mr-1" />{" "}
-                  <label class="text-white dark:text-gray-200">Colors</label>
-                </div>
-
-                <select
-                  value={colorsvalue}
-                  onChange={handlecolor}
-                  class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                >
-                  <option>Select</option>
-                  {colors.map((country) => {
-                    return <option>{country.name}</option>;
-                  })}
-                </select>
-              </div>
-              <div>
-                <div className="flex">
-                  <BsGearFill className="mr-1" />
-                  <label class="text-white dark:text-gray-200">Car Gearbox</label>
-                </div>
-
-                <select
-                  value={gearbox}
-                  onChange={handlegearbox}
-                  class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                >
-                  <option>Select</option>
-                  {gearboxx.map((country) => {
-                    return <option>{country.name}</option>;
-                  })}
-                </select>
-              </div>
-              <div>
-                <div className="flex">
-                  <FaChair />
-                  <label class="text-white dark:text-gray-200">
-                    Car Seat Count
-                  </label>
-                </div>
-
-                <input
-                  type="number"
-                  class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                  placeholder=""
-                  min={2}
-                  max={15}
-                  value={seatnumbers}
-                  onChange={handleSeatnumbers}
-                  onKeyPress={handleKeyPress}
-                  required
-                ></input>
+              <Select
+                id="cooler"
+                value={cooler}
+                onChange={handleCoolerChange}
+                class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+              >
+                {" "}
+                <option>Select</option>
+                {coooler.map((country) => {
+                  return <option>{country.name}</option>;
+                })}
+              </Select>
+            </div>
+            <div>
+              <div className="flex">
+                <BsDoorOpenFill className="mr-1" />{" "}
+                <label class="text-white dark:text-gray-200">
+                  Car door Count
+                </label>
               </div>
 
-              <div>
-                <div className="flex">
-                  <BsGearFill className="mr-1" />
-                  <label class="text-white dark:text-gray-200">
-                    Car Product Year
-                  </label>
-                </div>
-
-                <input
-                  placeholder=""
-                  min={1}
-                  value = {productyear}
-                  onChange={handleProductyear}
-                  onKeyPress={handleKeyPress}
-                  required
-                  type="date"
-                  class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                />
-              </div>
-              <div>
-                <div className="flex">
-                  <BsCalendar className="mr-1" />
-                  <label class="text-white dark:text-gray-200">Start Date</label>
-                </div>
-
-                <input
-                  onChange={handlestartdate}
-                  value={startdate}
-                  type="date"
-                  class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                  placeholder="Select a date"
-                />
-              </div>
-              <div>
-                <div className="flex">
-                  <BsCalendar className="mr-1" />{" "}
-                  <label class="text-white dark:text-gray-200">End Date</label>
-                </div>
-
-                <input
-                  onChange={handleenddate}
-                  value = {enddate} 
-                  type="date"
-                  placeholder="Select a date"
-                  class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                />
-              </div>
-              <div>
-                <label class="text-white dark:text-gray-200">Description</label>
-                <textarea
-                  value={description}
-                  onChange={handleDescriptionChange}
-                  placeholder="Write what you think is necessary ..."
-                  class="block w-full px-4 py-2 mt-2 h-[330px] text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                ></textarea>
+              <input
+                type="number"
+                class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                placeholder=""
+                value={doornumbers}
+                min={2}
+                max={4}
+                onChange={handleDoornumbers}
+                onKeyPress={handleKeyPress}
+                required
+              ></input>
+            </div>
+            <div>
+              <div className="flex">
+                <BsGeoAltFill className="mr-1 " />{" "}
+                <label class="text-white dark:text-gray-200">City</label>
               </div>
 
-              <div>
-                <label class="block text-sm font-medium text-white">Image</label>
-                <div class="mt-1  justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                  <Create />
-                </div>
+              <select
+                value={cityValue}
+                onChange={handleCityChange}
+                id="city"
+                class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+              >
+                <option>Select</option>
+                {cityy.map((country) => {
+                  return <option>{country.name}</option>;
+                })}
+              </select>
+            </div>
+            <div>
+              <div className="flex">
+                <BsDropletHalf className="mr-1" />{" "}
+                <label class="text-white dark:text-gray-200">Colors</label>
+              </div>
+
+              <select
+                value={colorsvalue}
+                onChange={handlecolor}
+                class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+              >
+                <option>Select</option>
+                {colors.map((country) => {
+                  return <option>{country.name}</option>;
+                })}
+              </select>
+            </div>
+            <div>
+              <div className="flex">
+                <BsGearFill className="mr-1" />
+                <label class="text-white dark:text-gray-200">Car Gearbox</label>
+              </div>
+
+              <select
+                value={gearbox}
+                onChange={handlegearbox}
+                class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+              >
+                <option>Select</option>
+                {gearboxx.map((country) => {
+                  return <option>{country.name}</option>;
+                })}
+              </select>
+            </div>
+            <div>
+              <div className="flex">
+                <FaChair />
+                <label class="text-white dark:text-gray-200">
+                  Car Seat Count
+                </label>
+              </div>
+
+              <input
+                type="number"
+                class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                placeholder=""
+                min={2}
+                max={15}
+                value={seatnumbers}
+                onChange={handleSeatnumbers}
+                onKeyPress={handleKeyPress}
+                required
+              ></input>
+            </div>
+
+            <div>
+              <div className="flex">
+                <BsGearFill className="mr-1" />
+                <label class="text-white dark:text-gray-200">
+                  Car Product Year
+                </label>
+              </div>
+
+              <input
+                placeholder=""
+                min={1}
+                value={productyear}
+                onChange={handleProductyear}
+                onKeyPress={handleKeyPress}
+                required
+                type="date"
+                class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+              />
+            </div>
+            <div>
+              <div className="flex">
+                <BsCalendar className="mr-1" />
+                <label class="text-white dark:text-gray-200">Start Date</label>
+              </div>
+
+              <input
+                onChange={handlestartdate}
+                value={startdate}
+                type="date"
+                class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                placeholder="Select a date"
+              />
+            </div>
+            <div>
+              <div className="flex">
+                <BsCalendar className="mr-1" />{" "}
+                <label class="text-white dark:text-gray-200">End Date</label>
+              </div>
+
+              <input
+                onChange={handleenddate}
+                value={enddate}
+                type="date"
+                placeholder="Select a date"
+                class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+              />
+            </div>
+            <div>
+              <label class="text-white dark:text-gray-200">Description</label>
+              <textarea
+                value={description}
+                onChange={handleDescriptionChange}
+                placeholder="Write what you think is necessary ..."
+                class="block w-full px-4 py-2 mt-2 h-[330px] text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+              ></textarea>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-white">Image</label>
+              <div class="mt-1  justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                <Create />
               </div>
             </div>
-            <div className="w-full ">
-              <div className="flex justify-start items-center pl-1 text-white">
-                <label className="m-1">Price:</label>
-              </div>
-              <div className="relative">
-                <input
-                  type="number"
-                  className="bg-pallate-Gunmetal text-white w-full gap-4 mr-auto ml-auto border-pallate-persian_green disabled:opacity-80 rounded-lg bg-pallate-celeste_light focus:ring-pallate-persian_green focus:border-pallate-persian_green pl-8 p-2"
-                  placeholder=""
-                  min={1}
-                  onChange={handlePrice}
-                  onKeyPress={handleKeyPress}
-                  required
-                />
-              </div>
-              <section class="max-w-4xl p-2 mx-auto mt-5 ">
-                <div className="container mx-auto h-full flex flex-col justify-center items-center px-10">
-                  <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                    {selectedImages.map((file, index) => (
-                      file ? 
+          </div>
+          <div className="w-full ">
+            <div className="flex justify-start items-center pl-1 text-white">
+              <label className="m-1">Price:</label>
+            </div>
+            <div className="relative">
+              <input
+                type="number"
+                className="bg-pallate-Gunmetal text-white w-full gap-4 mr-auto ml-auto border-pallate-persian_green disabled:opacity-80 rounded-lg bg-pallate-celeste_light focus:ring-pallate-persian_green focus:border-pallate-persian_green pl-8 p-2"
+                placeholder=""
+                min={1}
+                value={price}
+                onChange={handlePrice}
+                onKeyPress={handleKeyPress}
+                required
+              />
+            </div>
+            <section class="max-w-4xl p-2 mx-auto mt-5 ">
+              <div className="container mx-auto h-full flex flex-col justify-center items-center px-10">
+                <div className="w-full flex  gap-4">
+                  {selectedImages.map((file, index) =>
+                    file ? (
                       <div
                         key={index}
                         className="relative h-48 mb-3 w-full p-3 rounded-lg bg-cover bg-center"
                       >
+                        {console.log("file: ", file)}
                         <img
-                          src={(file)} 
+                          src={isURL(file) ? file : URL.createObjectURL(file)}
                           alt={`Selected File ${index + 1}`}
                           className="w-full h-full object-cover rounded-lg"
                         />
@@ -620,53 +676,54 @@ const Editcar = () => {
                             />
                           </svg>
                         </button>
-                      </div> : null
-                    ))}
-                  </div>
-                  <div className="flex w-full justify-center"></div>
-                  <div>
-                    <label className="block text-sm font-medium text-white">
-                      Image
-                    </label>
-                    <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md ">
-                      <div className="space-y-1 text-center">
-                        <svg
-                          className="mx-auto h-8 w-8 text-white"
-                          stroke="currentColor"
-                          fill="none"
-                          viewBox="0 0 48 48"
-                          aria-hidden="true"
-                        >
-                          <path
-                            d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                        </svg>
-                        <div className="flex text-sm text-gray-600">
-                          <label
-                            htmlFor="multi-upload-input"
-                            className="relative cursor-pointer  rounded-md font-medium text-pallate-Dark_Sky_Blue hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
-                          >
-                            <p className="pl-1 ">Upload 3 files</p>
-                          </label>
-                        </div>
-                        <p className="text-xs text-white">
-                          PNG, JPG, GIF up to 10MB
-                        </p>
                       </div>
+                    ) : null
+                  )}
+                </div>
+                <div className="flex w-full justify-center"></div>
+                <div>
+                  <label className="block text-sm font-medium text-white">
+                    Image
+                  </label>
+                  <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md ">
+                    <div className="space-y-1 text-center">
+                      <svg
+                        className="mx-auto h-8 w-8 text-white"
+                        stroke="currentColor"
+                        fill="none"
+                        viewBox="0 0 48 48"
+                        aria-hidden="true"
+                      >
+                        <path
+                          d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      <div className="flex text-sm text-gray-600">
+                        <label
+                          htmlFor="multi-upload-input"
+                          className="relative cursor-pointer  rounded-md font-medium text-pallate-Dark_Sky_Blue hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                        >
+                          <p className="pl-1 ">Upload 3 files</p>
+                        </label>
+                      </div>
+                      <p className="text-xs text-white">
+                        PNG, JPG, GIF up to 10MB
+                      </p>
                     </div>
                   </div>
-                  <input
-                    type="file"
-                    id="multi-upload-input"
-                    className="hidden"
-                    multiple
-                    onChange={handleFileChange}
-                  />
                 </div>
-                <div className="preview-container"></div>
+                <input
+                  type="file"
+                  id="multi-upload-input"
+                  className="hidden"
+                  multiple
+                  onChange={handleFileChange}
+                />
+              </div>
+              <div className="preview-container"></div>
             </section>
           </div>
           <div class="flex justify-end">

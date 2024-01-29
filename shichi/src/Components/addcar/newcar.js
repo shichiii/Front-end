@@ -11,7 +11,7 @@ import { BsDoorOpenFill } from "react-icons/bs";
 import { FaChair } from "react-icons/fa";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
-import Navbar from '../../../src/Components/for_push/HomePage/NavBar.js'
+import Navbar from "../../../src/Components/for_push/HomePage/NavBar.js";
 import { useNavigate } from "react-router-dom";
 import { fuel, categories, coooler, cityy, colors, gearboxx } from "./Data.js";
 import { ToastContainer, toast } from "react-toastify";
@@ -108,7 +108,7 @@ const Newcar = () => {
   const [seatnumbers, setSeatnumbers] = useState("");
   const [doornumbers, setDoornumbers] = useState("");
   const [price, setPrice] = useState("");
-  const [startdatetest, setstartdatetest]  = useState("");
+  const [startdatetest, setstartdatetest] = useState("");
   const [productyear, setProductyear] = useState("");
   const [showDescription, setShowDescription] = useState(false);
   const [scrollEnabled, setScrollEnabled] = useState(false);
@@ -163,8 +163,7 @@ const Newcar = () => {
       value = 15; // حداکثر مقدار
     }
 
-    setSeatnumbers(value.toString());   
-   
+    setSeatnumbers(value.toString());
   };
   const handleWheel = (e) => {
     e.preventDefault();
@@ -184,7 +183,7 @@ const Newcar = () => {
   };
   const handlestartdate = (event) => {
     const rawDate = event.target.value;
-    
+
     setstartdatetest(rawDate);
     const dateObject = new Date(rawDate);
     const year = dateObject.getFullYear();
@@ -193,7 +192,6 @@ const Newcar = () => {
     const formattedDate = `${year}-${month}-${day}`;
     console.log(formattedDate);
     setStartdate(formattedDate);
-    
   };
   const handleenddate = (event) => {
     const rawDate = event.target.value;
@@ -240,14 +238,16 @@ const Newcar = () => {
   // location data
   const latitude = localStorage.getItem("latitude");
   const longitude = localStorage.getItem("longitude");
-  const notify = () => { toast.success(" Login successful !" , {
-    position:
-    toast.POSITION.TOP_RIGHT, autoClose:3000,})
+  const notify = () => {
+    toast.success(" Advertise created successfuly!", {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 3000,
+    });
   };
   //handle submit function
   let navigate = useNavigate();
   const token = localStorage.getItem("token");
-  console.log("this is what you want",token)
+  console.log("this is what you want", token);
   const handleSubmit = async (id) => {
     console.log("enter handlesubmit");
     const token = localStorage.getItem("token");
@@ -255,16 +255,13 @@ const Newcar = () => {
       const formattedstartdate = formatDate(startdate);
       const formattedenddate = formatDate(enddate);
       const formData = new FormData();
-      if (selectedImages[0] !== undefined)
-      {
+      if (selectedImages[0] !== undefined) {
         formData.append("car_image1", selectedImages[0]);
       }
-      if (selectedImages[1] !== undefined)
-      {
+      if (selectedImages[1] !== undefined) {
         formData.append("car_image2", selectedImages[1]);
       }
-      if (selectedImages[2] !== undefined)
-      {
+      if (selectedImages[2] !== undefined) {
         formData.append("car_image3", selectedImages[2]);
       }
       formData.append("location_geo_width", latitude);
@@ -302,7 +299,7 @@ const Newcar = () => {
       console.log(response.data);
       notify();
       setTimeout(() => {
-        navigate('/Advertisement'); 
+        navigate("/Advertisement");
       }, 5000);
     } catch (error) {
       console.error(error);
@@ -332,7 +329,6 @@ const Newcar = () => {
   const [img, setImg] = useState(require("../../Static/test.svg").default);
   const currentDate = new Date().toISOString().split("T")[0];
   useEffect(() => {
-    
     const handleResize = () => {
       if (window.innerWidth < 1300) {
         setImg(require("../../Static/bg.svg").default);
@@ -361,7 +357,7 @@ const Newcar = () => {
       }}
       className=" "
     >
-    <ToastContainer  position="bottom-left" theme="light" pauseOnHover /> 
+      <ToastContainer position="bottom-left" theme="light" pauseOnHover />
       <div className="bg-pallate-Gunmetal text-pallate-Gunmetal ">
         Please Fill The Form
       </div>
@@ -434,7 +430,7 @@ const Newcar = () => {
 
               <Select
                 id="cooler"
-                value={cooler} 
+                value={cooler}
                 onChange={handleCoolerChange}
                 class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               >
@@ -460,8 +456,8 @@ const Newcar = () => {
                 min={2}
                 max={4}
                 value={doornumbers}
-      onChange={handleDoornumbers}
-      onWheel={handleWheel}
+                onChange={handleDoornumbers}
+                onWheel={handleWheel}
                 onKeyPress={handleKeyPress}
                 required
               ></input>
@@ -549,7 +545,6 @@ const Newcar = () => {
               </div>
 
               <input
-              
                 placeholder=""
                 min={1}
                 max={currentDate}
@@ -557,7 +552,6 @@ const Newcar = () => {
                 onKeyPress={handleKeyPress}
                 required
                 type="date"
-                
                 className="block w-full px-4 py-2 mt-2 text-white bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
             </div>
@@ -567,12 +561,12 @@ const Newcar = () => {
                 <label class="text-white dark:text-gray-200">Start Date</label>
               </div>
               <input
-        onChange={handlestartdate}
-        type="date"
-        min={currentDate}
-        className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-        placeholder="Select a date"
-      />
+                onChange={handlestartdate}
+                type="date"
+                min={currentDate}
+                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                placeholder="Select a date"
+              />
             </div>
             <div>
               <div className="flex">
@@ -580,15 +574,15 @@ const Newcar = () => {
                 <label class="text-white dark:text-gray-200">End Date</label>
               </div>
 
-              <input   disabled={!startdatetest} 
-          onChange={handleenddate}
-          type="date"
-          min={startdatetest}
-          // max={startdate}
-          className="block  w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-          placeholder="Select a date"
-        />
-
+              <input
+                disabled={!startdatetest}
+                onChange={handleenddate}
+                type="date"
+                min={startdatetest}
+                // max={startdate}
+                className="block  w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                placeholder="Select a date"
+              />
             </div>
             <div>
               <label class="text-white dark:text-gray-200">Description</label>
