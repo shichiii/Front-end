@@ -29,49 +29,43 @@ const WalletApp = () => {
       });
     }
   }, [userId]);
-
   const handleSubmit = async () => {
-    // try {
-
-    //   const response = await fetch("https://87.107.54.89:8000/swagger/user/updatewallet/", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({
-    //       userId,
-    //       amount: parseFloat(amount),
-    //     }),
-    //   });
-
-    //   const newLink = await response.json();
-
-    //   window.location.href = newLink;
-    // } catch (error) {
-    //   console.error("Error updating wallet:", error);
-    // }
-    const response = await axios.post(
-      "http://87.107.54.89:8000/user/updatewallet/",
-      {
-        Wallet: amount,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+    try {
+      const response = await axios.put(
+        `http://87.107.54.89:8000/user/updatewallet/${userId.id}/`,
+        {
+          wallet: amount,
         },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+  
+     
+      console.log("Success:", response.data);
+  
+     
+      const link = response.data;
+  
+     
+      window.open(link, "_blank");
+    } catch (error) {
+    
+      console.log("autoeity", `Bearer ${token}`);
+      console.error("Error updating wallet:", error);
+  
+      
+      if (error.response) {
+        console.error("Response data in error:", error.response.data);
       }
-      // ).then((response) => {
-      //   console.log(response.data)
-      //   setAmount(response.data);
-      // })
-    );
-    console.log(
-      "///////////sdfasrfaer/fafsrrfserfsergfsergsertgaerg//////////////$$$$$$$$$$$$$$$$$$$$$$$"
-    );
-    console.log(token);
+  
+    
+    }
   };
-
+  
   return (
     <div>
       <div class="bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal relative lg:py-20 min-h-screen">

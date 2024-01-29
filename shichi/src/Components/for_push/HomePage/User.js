@@ -151,13 +151,13 @@ const User = ({ firstName, lastName, id, avatarPath }) => {
   });
 
   return (
-    <div className="relative p-7">
+    <div className="relative m-10 h-20 w-20">
       <img
         ref={imgRef}
         onClick={() => setOpen(!open)}
         onerror="this.onerror=null;this.src='placeholder_image.jpg'; this.style='display:none;'"
         src={profileImage ? profileImage : "non-existent-url.jpg"}
-        class="bg-pallate-Gunmetal h-20 w-20 cursor-pointer p-2 rounded-full shadow-lg"
+        class="bg-pallate-Gunmetal h-20 w-20  cursor-pointer p-2 rounded-full shadow-lg"
         alt={`${firstname.charAt(0).toUpperCase()}  ${lastname
           .charAt(0)
           .toUpperCase()}`}

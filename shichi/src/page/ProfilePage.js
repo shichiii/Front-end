@@ -9,7 +9,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Footer from "../Components/for_push/HomePage/Footer";
-import basic from "../Static/profile.svg";
+import basic from "../Static/profilebasic.png";
 import { FaTimes } from "react-icons/fa";
 const baseURL = "http://87.107.54.89:8000/user/show/";
 const defaultImageUrl = basic;
@@ -28,7 +28,8 @@ function ProfilePage() {
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
-
+    
+    console.log("Hello: ", file)
     const reader = new FileReader();
     reader.onload = () => {
       setImageUrl(reader.result);
@@ -78,16 +79,18 @@ function ProfilePage() {
 
   function editProfileHandler() {
     setIsLoading(true);
-
+  
     const formData = new FormData();
     formData.append("first_name", firstN);
     formData.append("last_name", lastN);
     formData.append("phone_number", phoneNumber);
-
+  
     if (isImageChanged) {
+      // If isImageChanged is true, set the profile_image to "110.png"
+      // formData.append("profile_image", null); // Set profile_image to null
       formData.append("profile_image", profileImage);
     }
-
+  
     axios
       .put(`http://87.107.54.89:8000/user/update/${userId.id}/`, formData, {
         headers: {
@@ -97,24 +100,47 @@ function ProfilePage() {
       })
       .then((response) => {
         setIsLoading(false);
+        console.log("imageeeeeeeeeeeeeee", profileImage)
         notify();
-        console.log("for last",profileImage)
         setIsImageChanged(false); // Reset the flag
         setTimeout(() => {
           navigate("/home");
         }, 3000);
       })
       .catch((error) => {
-        console.log("this is for atraaaaaaaaaaaaa",profileImage)
+        console.log("imageeeeeeeeeeeeeee", profileImage)
         console.error("Error updating profile:", error);
         setIsLoading(false);
         notifyFail();
       });
   }
   const handleResetImage = () => {
-    setProfileImage(null)
-   
+    convertImageToFile(basic)
+      .then((file) => {
+        setProfileImage(file);
+      })
+
+    // setProfileImage(newFile);
+    setIsImageChanged(true); // Set the flag to indicate the image change
+    setImageUrl(defaultImageUrl); // Set the image URL to the default "110.png"
   };
+
+  const convertImageToFile = async (imagePath) => {
+    try {
+      const response = await fetch(imagePath);
+      const blob = await response.blob();
+
+      // Create a File object from the blob
+      const file = new File([blob], 'imageFileName.jpg', {
+        type: 'image/jpeg',
+      });
+
+      return file;
+    } catch (error) {
+      throw error;
+    }
+  };
+    
 
   return (
     <div>
@@ -131,7 +157,7 @@ function ProfilePage() {
               />
               <button
                         onClick={handleResetImage}
-                        className="absolute top-2 right-2 p-2 bg-red-500 text-white rounded-full cursor-pointer"
+                        className="absolute  bg-red-500 text-white rounded-full cursor-pointer"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -147,12 +173,12 @@ function ProfilePage() {
                           />
                         </svg>
                       </button>
-              <button
+              {/* <button
             className="absolute top-0 right-0 p-1 text-pallate-Dark_Sky_Blue hover:text-pallate-Gunmetal"
             onClick={handleResetImage}
           >
             <FaTimes />
-          </button>
+          </button> */}
           <input
             type="file"
             className="hidden"
