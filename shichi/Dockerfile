@@ -4,7 +4,7 @@
 #Stage 1
 FROM node:20-alpine as builder
 WORKDIR /app
-COPY package.json .
+COPY package.json . 
 COPY package-lock.json .
 COPY . .
 RUN npm install --force
