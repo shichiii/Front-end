@@ -8,7 +8,9 @@ describe('Login in your account', () => {
       cy.contains('Login').click();
       cy.wait(5000);
       cy.contains('All Cars').click();
-      cy.get('[data-testid="compact"]').first().click();
+      cy.get('[data-testid="test_githu_search_homepage"]').first().type("Supra MK4");
+
+      cy.get('[data-testid="test_githu_search_homepage buttun"]').first().click();
     //   cy.url().should('include', '/wallet/5');
   
       
