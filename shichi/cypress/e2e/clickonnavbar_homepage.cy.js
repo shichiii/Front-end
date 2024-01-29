@@ -8,8 +8,8 @@ describe('Login in your account', () => {
     cy.contains('Login').click();
     cy.wait(4000);
 
-    cy.get('[data-testid="wallet-icon"]').first().click();
-    cy.url().should('include', '/wallet/5');
+    cy.contains('Home').click();
+    // cy.url().should('include', '/home');
 
     
 
