@@ -3,7 +3,8 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useParams } from "react-router-dom";
-function DriverDetail() {
+function DriverDetail({car}) {
+
   const notifyfaild = () => {
     toast.error(" Not Enough Money!", {
       position: toast.POSITION.TOP_RIGHT,

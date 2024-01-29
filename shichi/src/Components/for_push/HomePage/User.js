@@ -49,23 +49,7 @@ const User = ({ firstName, lastName, id, avatarPath }) => {
     // console.log(user)
     navigate("/history");
   };
-
-  const deleteAccount = () => {
-    const token = localStorage.getItem("token");
-    const user = null;
-    // console.log("heloooooooooooooooooooooooooo");
-    // console.log(token);
-    if (token !== "null" && token !== null) {
-      // console.log("weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
-      // console.log(token)
-      const user = jwtDecode(token);
-      axios
-        .post("http://87.107.54.89:8000/user/delete/" + `${user.user_id}/`)
-        .then((response) => {
-          setUserId(response.data.id);
-        });
-    }
-  };
+  
 
   const [userId, setUserId] = useState(0);
   const [firstname, setFirstN] = useState("");
@@ -95,6 +79,33 @@ const User = ({ firstName, lastName, id, avatarPath }) => {
   console.log("/////////////////////");
   console.log(firstname, lastname, profileImage, userId);
 
+
+  console.log("what is the id?", userId) 
+  const deleteAccount = () => {
+    const token = localStorage.getItem("token");
+    const user = null;
+    console.log("is this working?", token)
+  if (token !== "null" && token !== null) {
+    const user = jwtDecode(token);
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    axios
+      .delete("http://87.107.54.89:8000/user/delete/" + `${user.user_id}/`, {
+        headers: headers,
+        "Content-Type": "application/json", 
+      }) 
+      .then((response) => {
+        // Handle success response
+        console.log("User deleted successfully:", response.data);
+        navigate('/') 
+      })
+      .catch((error) => {
+        // Handle errors
+        console.error('Error deleting user:', error);
+      });
+  }
+  };
   // const userimage = () => {
   //   if (profileImage === null) {
   //     // If the profile image is not available, return the initials

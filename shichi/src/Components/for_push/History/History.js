@@ -155,6 +155,12 @@ const History = () => {
       // Handle the response data
       const data = response.data;
       console.log(data);
+    }).catch((error) => {
+      if(error.response.status === 404){
+        console.log("error 404")
+      }else{
+        console.log("error" ,error.message);
+      }
     });
   //>>>>>>> Develop
   /*

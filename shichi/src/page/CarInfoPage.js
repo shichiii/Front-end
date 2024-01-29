@@ -20,7 +20,7 @@ function CarInfoPage() {
   const [car, setCar] = useState({});
   const userId = jwtDecode(localStorage.getItem("token")).user_id;
 
-  console.log("adv: ", adv);
+  console.log("adv: ", car);
 
   useEffect(() => {
     axios
@@ -77,7 +77,7 @@ function CarInfoPage() {
           )}
           {/* <CarOptionalExtras /> */}
           {/* {car.owner_id === userId ? null : <BookCar adv={adv.id} />} */}
-          {car.owner_id === userId ? null : <DriverDetail />}
+          {car.owner_id === userId ? null : <DriverDetail car={car} />}
           <AddComment adv={adv.id} setRefreshComment={setRefreshComment} />
           <CommentSection
             adv={adv.id}

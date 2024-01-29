@@ -192,6 +192,8 @@ const Newcar = () => {
   };
   //handle submit function
   let navigate = useNavigate();
+  const token = localStorage.getItem("token");
+  console.log("this is what you want",token)
   const handleSubmit = async (id) => {
     console.log("enter handlesubmit");
     const token = localStorage.getItem("token");
@@ -238,6 +240,7 @@ const Newcar = () => {
           },
         }
       );
+
       setTimeout(() => {
         navigate("/Advertisement");
       }, 5000);
