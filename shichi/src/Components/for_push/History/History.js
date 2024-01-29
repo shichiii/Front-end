@@ -145,27 +145,23 @@ const History = () => {
   console.log(token);
 
   axios
-  .get("http://87.107.54.89:8000/history/customhistories", {
-    headers: {
-      Authorization: `JWT ${token}`,
-      "Content-Type": "application/json",
-    },
-  })
-  .then((response) => {
-
-    const data = response.data;
-    console.log(data);
-  })
-  .catch((error) => {
-  
-    if (error.response.status === 404) {
-      console.log("Error 404: Resource not found");
-   
-    } else {
-      console.error("An error occurred:", error.message);
-    }
-  });
-
+    .get("http://87.107.54.89:8000/history/customhistories", {
+      headers: {
+        Authorization: `JWT ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+    .then((response) => {
+      // Handle the response data
+      const data = response.data;
+      console.log(data);
+    }).catch((error) => {
+      if(error.response.status === 404){
+        console.log("error 404")
+      }else{
+        console.log("error" ,error.message);
+      }
+    });
   //>>>>>>> Develop
   /*
   axios.get('http://87.107.54.89:8000/history/customhistories',

@@ -22,10 +22,9 @@ function CarInfoPage() {
   const [createdChatRoom, setCreatedChatRoom] = useState(null);
   const userId = jwtDecode(localStorage.getItem("token")).user_id;
 
+
   const { chatRoomName, setChatRoomName, chatRoomId, setChatRoomId, senderId } =
     useContext(AuthContext);
-
-  console.log("chatRoomId: ", chatRoomId);
 
   useEffect(() => {
     axios
@@ -151,7 +150,7 @@ function CarInfoPage() {
           )}
           {/* <CarOptionalExtras /> */}
           {/* {car.owner_id === userId ? null : <BookCar adv={adv.id} />} */}
-          {car.owner_id === userId ? null : <DriverDetail />}
+          {car.owner_id === userId ? null : <DriverDetail car={car} />}
           {car.owner_id === userId ? null : (
             <AddComment adv={adv.id} setRefreshComment={setRefreshComment} />
           )}
