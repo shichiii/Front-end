@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.16.5",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@material-tailwind/react": "^2.1.4",
@@ -37,14 +38,17 @@
     "socket.io-client": "^4.7.2",
     "tw-elements": "^1.0.0",
     "web-vitals": "^2.1.4",
-    "websocket": "^1.0.34",
-    "@babel/plugin-proposal-private-property-in-object": "^7.16.5"
+    "websocket": "^1.0.34"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts -r @cypress/instrument-cra start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "cypress run",
+    "eject": "react-scripts eject",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "dev": "start-test 3000 cy:open",
+    "e2e": "start-test 3000"
   },
   "eslintConfig": {
     "extends": [
@@ -65,6 +69,7 @@
     ]
   },
   "devDependencies": {
+    "@cypress/code-coverage": "^3.12.19",
     "cypress": "^13.6.3",
     "tailwindcss": "^3.3.3"
   }
