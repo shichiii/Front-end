@@ -1,6 +1,4 @@
-
-
-describe('show_Compact_category_with_homepage', () => {
+describe('go to advertise page with get started in home page', () => {
     it('Gets', () => {
       cy.visit('http://localhost:3000/')
   
@@ -8,9 +6,7 @@ describe('show_Compact_category_with_homepage', () => {
       cy.get("#email").type("m.s.mousazade09@gmail.com")
       cy.get("#password").type("sadegh123", {log:false})
       cy.contains('Login').click()
-      cy.wait(5000)
 
-
-      cy.contains('Show Compact').click()
+      cy.contains('All Cars').click()
     })
   })
