@@ -1,18 +1,15 @@
-import React, { useRef, useState, useContext } from "react";
+import React, { useRef, useState, useContext,useEffect } from "react";
 import { Route } from "react-router-dom";
 import AuthContext from "../../../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { jwtDecode } from "jwt-decode";
-// import MyComponent from "../Components/addcar/popup";
-// import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
 
-const baseURL = "http://87.107.105.201:8000/user/show/";
+const baseURL = "http://87.107.54.89:8000/user/show/";
 
 const User = ({ firstName, lastName, id, avatarPath }) => {
   const navigate = useNavigate();
@@ -52,23 +49,7 @@ const User = ({ firstName, lastName, id, avatarPath }) => {
     // console.log(user)
     navigate("/history");
   };
-
-  const deleteAccount = () => {
-    const token = localStorage.getItem("token");
-    const user = null;
-    // console.log("heloooooooooooooooooooooooooo");
-    // console.log(token);
-    if (token !== "null" && token !== null) {
-      // console.log("weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
-      // console.log(token)
-      const user = jwtDecode(token);
-      axios
-        .post("http://87.107.105.201:8000/user/delete/" + `${user.user_id}/`)
-        .then((response) => {
-          setUserId(response.data.id);
-        });
-    }
-  };
+  
 
   const [userId, setUserId] = useState(0);
   const [firstname, setFirstN] = useState("");
@@ -98,6 +79,33 @@ const User = ({ firstName, lastName, id, avatarPath }) => {
   console.log("/////////////////////");
   console.log(firstname, lastname, profileImage, userId);
 
+
+  console.log("what is the id?", userId) 
+  const deleteAccount = () => {
+    const token = localStorage.getItem("token");
+    const user = null;
+    console.log("is this working?", token)
+  if (token !== "null" && token !== null) {
+    const user = jwtDecode(token);
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    axios
+      .delete("http://87.107.54.89:8000/user/delete/" + `${user.user_id}/`, {
+        headers: headers,
+        "Content-Type": "application/json", 
+      }) 
+      .then((response) => {
+        // Handle success response
+        console.log("User deleted successfully:", response.data);
+        navigate('/') 
+      })
+      .catch((error) => {
+        // Handle errors
+        console.error('Error deleting user:', error);
+      });
+  }
+  };
   // const userimage = () => {
   //   if (profileImage === null) {
   //     // If the profile image is not available, return the initials
@@ -151,50 +159,48 @@ const User = ({ firstName, lastName, id, avatarPath }) => {
   });
 
   return (
-    <div className="relative p-7">
+    <div className="relative m-10 h-20 w-20">
       <img
         ref={imgRef}
         onClick={() => setOpen(!open)}
         onerror="this.onerror=null;this.src='placeholder_image.jpg'; this.style='display:none;'"
         src={profileImage ? profileImage : "non-existent-url.jpg"}
-        class="bg-pallate-Gunmetal h-20 w-20 cursor-pointer p-2 rounded-full shadow-lg"
+        class="bg-pallate-Gunmetal h-20 w-20  cursor-pointer p-2 rounded-full shadow-lg"
         alt={`${firstname.charAt(0).toUpperCase()}  ${lastname
           .charAt(0)
           .toUpperCase()}`}
       />
-      {open && (
-        <div className="border-white  z-50 border-2 text-[11px] absolute text-white p-2 rounded-lg">
-          <ul>
-            {Menu.map((meno) => (
-              <li
-                ref={menuRef}
-                onClick={() => {
-                  if (meno === "LogOut") {
-                    logoutUser();
-                  }
-                  if (meno === "Edit Profile") {
-                    editprofileuser();
-                    // alert("=============")
-                  }
-                  if (meno === "History") {
-                    historyUser();
-                    // alert("=============")
-                  }
-                  if (meno === "Delete Account") {
-                    deleteAccount();
-                    // alert("=============")
-                  }
-                  setOpen(false);
-                }}
-                className="cursor-pointer hover:bg-pallate-Dark_Sky_Blue p-2 rounded-lg"
-                key={meno}
-              >
-                {meno}{" "}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+     {open && (
+  <div className="border-white  bg-pallate-Dark_Sky_Blue bg-opacity-10 z-50 border-2 text-[11px] absolute text-white p-2 rounded-lg">
+    <ul>
+      {Menu.map((meno) => (
+        <li
+          ref={menuRef}
+          onClick={() => {
+            if (meno === "LogOut") {
+              logoutUser();
+            }
+            if (meno === "Edit Profile") {
+              editprofileuser();
+            }
+            if (meno === "History") {
+              historyUser();
+            }
+            if (meno === "Delete Account") {
+              deleteAccount();
+            }
+            setOpen(false);
+          }}
+          className="cursor-pointer items-center text-center justify-center p-1 hover:bg-pallate-Dark_Sky_Blue  rounded-lg"
+          key={meno}
+        >
+          {meno}
+        </li>
+      ))}
+    </ul>
+  </div>
+)}
+
     </div>
   );
 };

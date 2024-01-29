@@ -1,34 +1,34 @@
 // MyAdvertiseContent.js
 
-import React from 'react';
+import React from "react";
 import { FaImage } from "react-icons/fa6";
-import axios from 'axios';
-
+import axios from "axios";
 
 const MyAdvertiseContent = ({ advertiseData }) => {
-    const deleteAdvertisement = (id) => {
-        const token = localStorage.getItem("token");
-      
-        axios.delete(`http://87.107.105.201:8000/advertisement/delete/${id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        })
-        .then((response) => {
-          // Handle the successful deletion
-          console.log("Advertisement deleted successfully");
-        })
-        .catch((error) => {
-          // Handle any errors that occur during the request
-          console.error('Error deleting advertisement:', error);
-        });
-      };
-    const editeAdvertise = (id) => {
-      window.location.href = `/editadvertise/${id}`;
-    }
+  const deleteAdvertisement = (id) => {
+    const token = localStorage.getItem("token");
 
-return (
+    axios
+      .delete(`http://87.107.54.89:8000/advertisement/delete/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        // Handle the successful deletion
+        console.log("Advertisement deleted successfully");
+      })
+      .catch((error) => {
+        // Handle any errors that occur during the request
+        console.error("Error deleting advertisement:", error);
+      });
+  };
+  const editeAdvertise = (id) => {
+    window.location.href = `/editadvertise/${id}`;
+  };
+
+  return (
     <div className="bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal min-h-screen ">
       <div className="overflow-hidden rounded-lg p-10">
         <div className="flex flex-col">
@@ -85,32 +85,44 @@ return (
                     </tr>
                   </thead>
                   <tbody>
-                    {advertiseData.map((item) => ( 
+                    {advertiseData.map((item) => (
                       <tr
-                        key={item.id} className="border-b text-white hover:bg-pallate-Dark_Sky_Blue hover:bg-opacity-20 cursor-pointer">
-                         <td className="text-sm font-bold px-6 py-4 whitespace-nowrap">
-              {item.car_image1 && <img src={item.car_image1} alt="Car" style={{ width: '50px', height: 'auto' }} />}
-            </td>
+                        key={item.id}
+                        className="border-b text-white hover:bg-pallate-Dark_Sky_Blue hover:bg-opacity-20 cursor-pointer"
+                      >
                         <td className="text-sm font-bold px-6 py-4 whitespace-nowrap">
-                        {item.car_name}
+                          {item.car_image1 && (
+                            <img
+                              src={item.car_image1}
+                              alt="Car"
+                              style={{ width: "50px", height: "auto" }}
+                            />
+                          )}
+                        </td>
+                        <td className="text-sm font-bold px-6 py-4 whitespace-nowrap">
+                          {item.car_name}
                         </td>
                         <td className="text-sm font-bold px-6 py-4 whitespace-nowrap">
                           <div className="bg-opacity-20 bg-pallate-Dark_Sky_Blue text-center rounded-2xl">
-                          {item.car_category}
+                            {item.car_category}
                           </div>
                         </td>
                         <td className="text-sm font-bold px-6 py-4 whitespace-nowrap">
-                        {item.start_date}
+                          {item.start_date}
                         </td>
                         <td className="text-sm font-bold px-6 py-4 whitespace-nowrap">
-                        {item.end_date}
+                          {item.end_date}
                         </td>{" "}
                         <td className="text-sm font-bold px-6 py-4 whitespace-nowrap">
-                        {item.price}
+                          {item.price}
                         </td>
                         <td class="px-6 py-4 ">
                           <div class="flex justify-end gap-4">
-                            <a x-data="{ tooltip: 'Delete' }" href="#"  onClick={() => deleteAdvertisement(item.id)}>
+                            <a
+                              x-data="{ tooltip: 'Delete' }"
+                              href="#"
+                              onClick={() => deleteAdvertisement(item.id)}
+                            >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -127,7 +139,11 @@ return (
                                 />
                               </svg>
                             </a>
-                            <a x-data="{ tooltip: 'Edite' }" href="#" onClick={() => editeAdvertise(item.id)}>
+                            <a
+                              x-data="{ tooltip: 'Edite' }"
+                              href="#"
+                              onClick={() => editeAdvertise(item.id)}
+                            >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"

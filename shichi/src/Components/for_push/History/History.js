@@ -3,7 +3,7 @@ import { info } from "./Data";
 import { FaImage } from "react-icons/fa6";
 import { MdDriveFileRenameOutline } from "react-icons/md";
 
-import axios from 'axios';
+import axios from "axios";
 import Footer from "../HomePage/Footer";
 
 const History = () => {
@@ -11,9 +11,8 @@ const History = () => {
   const deleteAdvertisement = (id) => {
     const token = localStorage.getItem("token");
 
-
     axios
-      .delete(`http://87.107.105.201:8000/advertisement/delete/${id}`, {
+      .delete(`http://87.107.54.89:8000/advertisement/delete/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -27,9 +26,9 @@ const History = () => {
         // Handle any errors that occur during the request
         console.error("Error deleting advertisement:", error);
       });
-/*
+    /*
   
-    axios.delete(`http://87.107.105.201:8000/advertisement/delete/${id}`, {
+    axios.delete(`http://87.107.54.89:8000/advertisement/delete/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
@@ -53,13 +52,12 @@ const History = () => {
   const fetchCarImage = async (id) => {
     console.log("enter get image");
     try {
-
       const response = await axios.get(
-        `http://87.107.105.201:8000/carimage/show/${id}/`
+        `http://87.107.54.89:8000/carimage/show/${id}/`
       );
       console.log("image has been get");
-/*
-      const response = await axios.get(`http://87.107.105.201:8000/carimage/show/${id}/`);
+      /*
+      const response = await axios.get(`http://87.107.54.89:8000/carimage/show/${id}/`);
       console.log("image has been get")
 */
       console.log("Image data:", response.data);
@@ -74,7 +72,7 @@ const History = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://87.107.105.201:8000/history/customhistories",
+          "http://87.107.54.89:8000/history/customhistories",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -94,12 +92,11 @@ const History = () => {
             console.log("First car image ID:", firstCarImageId);
 
             if (firstCarImageId !== undefined) {
-
               const imageResponse = await axios.get(
-                `http://87.107.105.201:8000/carimage/show/${firstCarImageId}/`
+                `http://87.107.54.89:8000/carimage/show/${firstCarImageId}/`
               );
-/*
-              const imageResponse = await axios.get(`http://87.107.105.201:8000/carimage/show/${firstCarImageId}/`);
+              /*
+              const imageResponse = await axios.get(`http://87.107.54.89:8000/carimage/show/${firstCarImageId}/`);
 */
               const carImageData = imageResponse.data;
               console.log("Car image data:", carImageData);
@@ -148,7 +145,7 @@ const History = () => {
   console.log(token);
 
   axios
-    .get("http://87.107.105.201:8000/history/customhistories", {
+    .get("http://87.107.54.89:8000/history/customhistories", {
       headers: {
         Authorization: `JWT ${token}`,
         "Content-Type": "application/json",
@@ -158,10 +155,16 @@ const History = () => {
       // Handle the response data
       const data = response.data;
       console.log(data);
+    }).catch((error) => {
+      if(error.response.status === 404){
+        console.log("error 404")
+      }else{
+        console.log("error" ,error.message);
+      }
     });
   //>>>>>>> Develop
-/*
-  axios.get('http://87.107.105.201:8000/history/customhistories',
+  /*
+  axios.get('http://87.107.54.89:8000/history/customhistories',
   {
     headers: {
       Authorization: `JWT ${token}`,
@@ -179,9 +182,6 @@ const History = () => {
 */
 
   return (
-  
-
-    
     <div className="bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal min-h-screen ">
       <div className="overflow-hidden rounded-lg p-10">
         <div className="flex flex-col">
@@ -324,9 +324,7 @@ const History = () => {
           </div>
         </div>
       </div>
-     
     </div>
- 
   );
 };
 

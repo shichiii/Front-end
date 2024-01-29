@@ -13,16 +13,15 @@ import "react-toastify/dist/ReactToastify.css";
 
 import { BsPatchExclamation } from "react-icons/bs";
 const ResetPass = () => {
+  const [successMessage, setSuccessMessage] = useState("");
 
-  const [successMessage, setSuccessMessage] = useState('');
-  
-//develope
-//   const token = localStorage.getItem("token");
-const [confirmpassword, setConfirmpassword] = useState("");
+  //develope
+  //   const token = localStorage.getItem("token");
+  const [confirmpassword, setConfirmpassword] = useState("");
   const [password, setpassword] = useState("");
   const [passwordError, setPasswordError] = useState(false);
   const [passwordLengthError, setPasswordLengthError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
   const [passwordContainsDigitError, setPasswordContainsDigitError] =
     useState(false);
 
@@ -30,43 +29,41 @@ const [confirmpassword, setConfirmpassword] = useState("");
   const validPassowrdContainsDigit = new RegExp(/^(?=.*\d).+$/);
   const extractTokenFromURL = () => {
     const path = window.location.pathname; // Assuming this code is running in a browser environment
-  
+
     // Extract the token from the URL path
-    const token = path.split('/reset/')[1];
-  
+    const token = path.split("/reset/")[1];
+
     return token;
   };
   const extractUidbFromURL = () => {
     const url = window.location.href; // Assuming this code is running in a browser environment
-  
+
     // Extract the uidb from the URL
     const uidbMatch = url.match(/\/reset\/([^/]+)/);
     const uidb = uidbMatch && uidbMatch[1];
-  
+
     return uidb;
   };
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newPassword = password; // Replace 'new_password' with the desired new password
-  
+
     const token = extractTokenFromURL(); // You need to implement the function to extract the token from the URL
-    //const uidb = extractUidbFromURL(); 
-  
-    const apiUrl = `http://87.107.105.201:8000/user/password-reset-confirm/MTg/${token}`;
+    //const uidb = extractUidbFromURL();
+
+    const apiUrl = `http://87.107.54.89:8000/user/password-reset-confirm/MTg/${token}`;
     if (password !== confirmpassword) {
       // setError('Passwords do not match');
       notifypass();
-      console.log("pass")
-      
+      console.log("pass");
     }
     try {
       const response = await axios.post(apiUrl, { new_password: newPassword });
       // setSuccessMessage('Password Changed successfuly!');
       notify();
       setTimeout(() => {
-        navigate('/login');
+        navigate("/login");
       }, 3000);
       // Handle the response as needed
       console.log(response.data);
@@ -74,24 +71,27 @@ const [confirmpassword, setConfirmpassword] = useState("");
       // Handle errors
       notifyfaild();
       // setErrorMessage('Passwords do not match!')
-      
+
       console.error(error);
     }
   };
-  const notify = () => { toast.success(" Reset Password successful !" , {
-    position:
-    toast.POSITION.TOP_RIGHT, autoClose:3000,})
+  const notify = () => {
+    toast.success(" Reset Password successful !", {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 3000,
+    });
   };
-  const notifyfaild = () =>{ toast.error(" Reset Password Faild !" , {
-    position:
-    toast.POSITION.TOP_RIGHT,})
+  const notifyfaild = () => {
+    toast.error(" Reset Password Faild !", {
+      position: toast.POSITION.TOP_RIGHT,
+    });
   };
-  const notifypass = () =>{ toast.error("Password Do Not Match !" , {
-    position:
-    toast.POSITION.TOP_RIGHT,})
+  const notifypass = () => {
+    toast.error("Password Do Not Match !", {
+      position: toast.POSITION.TOP_RIGHT,
+    });
   };
   const handlePasswordconfirm = (event) => {
-    
     if (event.target.value === "") {
       setPasswordError("Please enter password");
     } else {
@@ -155,7 +155,6 @@ const [confirmpassword, setConfirmpassword] = useState("");
     }
   };
 
-
   let navigate = useNavigate();
   const [isLargeScreen, setIsLargeScreen] = useState(true);
 
@@ -175,7 +174,7 @@ const [confirmpassword, setConfirmpassword] = useState("");
   return (
     <div>
       <body>
-      <ToastContainer  position="bottom-left" theme="light" pauseOnHover />
+        <ToastContainer position="bottom-left" theme="light" pauseOnHover />
         <div class="flex items-center justify-center min-h-screen bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal">
           <div class="relative flex flex-col  bg-pallate-Dark_Sky_Blue bg-opacity-20  shadow-2xl rounded-2xl md:flex-row md:space-y-0">
             <div class="flex flex-col justify-center bg-purple-300 bg-opacity-20 rounded-l-2xl border-pallate-Dark_Sky_Blue p-8 md:p-14">
@@ -184,11 +183,6 @@ const [confirmpassword, setConfirmpassword] = useState("");
               </div>
 
               <form className="w-72 text-[40px] pt-7 text-white">
-                
-                  
-              
-               
-
                 <div className="flex items-center  border-b border-pallate-Dark_Sky_Blue py-2 ">
                   <HiLockClosed className="mr-1 group" />{" "}
                   <div className="group flex ">
@@ -286,13 +280,10 @@ const [confirmpassword, setConfirmpassword] = useState("");
                     {errorMessage}
                   </Alert>
                 )} */}
-              <div>
-              
-              </div>
+              <div></div>
               <div className="pt-8">
                 <button
                   disabled={
-                  
                     passwordContainsDigitError ||
                     passwordError ||
                     passwordLengthError ||
@@ -313,8 +304,6 @@ const [confirmpassword, setConfirmpassword] = useState("");
                 alt="img"
                 class="w-[500px]  h-full hidden rounded-r-2xl md:block "
               />
-
-          
             </div>
           </div>
         </div>

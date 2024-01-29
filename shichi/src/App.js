@@ -49,6 +49,7 @@ import Addacr from "./Components/addcar/addcarapp";
 // >>>>>>> Develop
 import AuthContext, { AuthProvider } from "./Context/AuthContext";
 // import Loading from './Components'
+import { ErrorBoundary } from "react-error-boundary";
 
 const PrivateRoute = ({ element }) => {
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -70,7 +71,9 @@ const PrivateRoute = ({ element }) => {
   // }, []);
   const { authTokens, setAuthTokens } = useContext(AuthContext);
 
-  return authTokens ? <Outlet /> : <Navigate to="/" />;
+  return authTokens ? <ErrorBoundary fallback={<div>Something went wrong</div>}>
+  <Outlet />
+</ErrorBoundary> : <Navigate to="/" />;
 };
 
 // const PrivateRoute = () => {
@@ -81,7 +84,7 @@ const PrivateRoute = ({ element }) => {
 function App() {
   return (
     <Router>
-{/* //<<<<<<< feature/v1.0.0/responsive */}
+      {/* //<<<<<<< feature/v1.0.0/responsive */}
       <AuthProvider>
         <Routes>
           <Route element={<PrivateRoute />}>
@@ -89,7 +92,7 @@ function App() {
             <Route exact path="/history" element={<History />} />
             <Route exact path="/car/:id" element={<CarInfoPage />} />
             <Route exact path="/profile/:id" element={<ProfilePage />} />
-            <Route exact path="editadvertise/:id" element={<Editcar/>}/>
+            <Route exact path="editadvertise/:id" element={<Editcar />} />
             <Route exact path="/Advertisement" element={<Advertisement />} />
             <Route exact path="/forgot" element={<ForgotApp />} />
             <Route exact path="/advertise" element={<Addacr />} />
@@ -100,16 +103,17 @@ function App() {
             <Route exact path="/fail" element={<Fail />} />
             <Route exact path="/success" element={<Loading />} />
             <Route exact path="/reset/:token" element={<ResetPass />} />
+            <Route path="/photo" element={<Photo />} />
+
+            <Route exact path="/newcar" element={<Newcar />} />
+            <Route exact path="/about" element={<AboutUs />} />
           </Route>
 
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
 
           <Route exact path="/" element={<Landing />} />
-          <Route path="/photo" element={<Photo />} />
 
-          <Route exact path="/newcar" element={<Newcar />} />
-          <Route exact path="/about" element={<AboutUs/>}/>
           {/* <Route exact path='/Advertisement' element={<Advertisement />} />
 //=======
     <AuthProvider>

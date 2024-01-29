@@ -3,7 +3,8 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useParams } from "react-router-dom";
-function DriverDetail() {
+function DriverDetail({car}) {
+
   const notifyfaild = () => {
     toast.error(" Not Enough Money!", {
       position: toast.POSITION.TOP_RIGHT,
@@ -40,14 +41,13 @@ function DriverDetail() {
   const token = localStorage.getItem("token");
   const handleBuy = async (token, startdate, enddate) => {
     try {
-      const endpoint = "http://87.107.105.201:8000/advertisement/pay/";
+      const endpoint = "http://87.107.54.89:8000/advertisement/pay/";
 
       const payload = {
         ad_id: id,
         start_date: startdate,
-        end_date: enddate,
+        end_date: enddate, 
       };
-      console.log("car id2", id);
       const headers = {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
@@ -67,7 +67,7 @@ function DriverDetail() {
     <div className="w-full h-auto bg-pallate-Dark_Sky_Blue bg-opacity-30 lg:bg-opacity-20 p-5 rounded-2xl">
       <ToastContainer position="bottom-left" theme="light" pauseOnHover />
       <div className="font-bold text-xl mb-4 text-pallate-Dark_Sky_Blue">
-        Driver details
+        Pick a Date for Purchase
       </div>
       <div className="mx-auto">
         <form>
@@ -76,14 +76,18 @@ function DriverDetail() {
               <label className="text-sm">Start Date:</label>
               <input
                 type="date"
+                min={car.start_date}
+                max={enddate || car.end_date} 
                 onChange={handlestartdate}
                 className="rounded-2xl outline-none py-1 px-3 border focus:border-pallate-Dark_Sky_Blue text-pallate-Police_Blue"
               />
             </div>
             <div className="w-5/12 flex flex-col gap-3">
               <label className="text-sm">End Date:</label>
-              <input
+              <input 
                 type="date"
+                min={car.start_date} 
+                max={car.end_date} 
                 onChange={handleenddate}
                 className="rounded-2xl outline-none py-1 px-3 border focus:border-pallate-Dark_Sky_Blue text-pallate-Police_Blue"
               />

@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Category from "./Category";
 import Card from "./Card";
 import Search from "../for_push/HomePage/newsearch";
 import Price from "./Price";
 import axios from "axios";
+import AuthContext from "../../Context/AuthContext";
 const CardApp = () => {
-  const [search, setSearch] = useState(localStorage.getItem("search"));
+  const { search, setSearch } = useContext(AuthContext);
   const [lowerPrice, setLowerPrice] = useState();
   const [upperPrice, setUpperPrice] = useState();
   const [carCategory, setCarCategory] = useState();
@@ -31,7 +32,7 @@ const CardApp = () => {
       if (search?.length > 2) {
         axios
           .get(
-            `http://87.107.105.201:8000/advertisement/search/?search=${search}`
+            `http://87.107.54.89:8000/advertisement/search/?search=${search}`
           )
           .then((response) => {
             setSearchedCars(response.data);
@@ -72,8 +73,8 @@ const CardApp = () => {
           <Card
             search={search}
             searchedCars={searchedCars}
-            setLowerPrice={setLowerPrice}
-            setUpperPrice={setUpperPrice}
+            lowerPrice={lowerPrice}
+            upperPrice={upperPrice}
             carCategory={carCategory}
             carColor={carColor}
             startDate={startDate}

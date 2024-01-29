@@ -11,31 +11,33 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import logo from "../Static/whitelogowithouttext90.svg";
 import logo2 from "../Static/whitelogowithouttext270.svg";
-import { Alert, AlertTitle } from '@material-ui/lab';
+import { Alert, AlertTitle } from "@material-ui/lab";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-import { BsPatchExclamation } from "react-icons/bs";
+import { BsPatchExclamation } from "react-icons/bs"; 
 import { useContext } from "react";
 import AuthContext from "../Context/AuthContext";
 
 const Login = () => {
-  const [successMessage, setSuccessMessage] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setpassword] = useState("");
   const [emailAddressError, setEmailAddressError] = useState(false);
 
-  const {authTokens, setAuthTokens} = useContext(AuthContext)
+  const { authTokens, setAuthTokens } = useContext(AuthContext);
 
-  const notify = () => { toast.success(" Login successful !" , {
-    position:
-    toast.POSITION.TOP_RIGHT, autoClose:3000,})
+  const notify = () => {
+    toast.success(" Login successful !", {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 3000,
+    });
   };
-  const notifyfaild = () =>{ toast.error(" Login Faild !" , {
-    position:
-    toast.POSITION.TOP_RIGHT,})
+  const notifyfaild = () => {
+    toast.error(" Login Faild !", {
+      position: toast.POSITION.TOP_RIGHT,
+    });
   };
   const validEmailAddress = new RegExp(
     /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
@@ -51,7 +53,7 @@ const Login = () => {
       setEmailAddress(event.target.value);
     }
   };
-
+  const token = localStorage.getItem("token");
   const handlePassword = (event) => {
     setpassword(event.target.value);
   };
@@ -60,7 +62,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://87.107.105.201:8000/user/login/",
+        "http://87.107.54.89:8000/user/login/",
         {
           email: emailAddress,
           password: password,
@@ -71,13 +73,13 @@ const Login = () => {
           },
         }
       );
-// <<<<<<< feature/v1.0.0/HistoryForUser
+      // <<<<<<< feature/v1.0.0/HistoryForUser
       // const token = response.data.token;
       // localStorage.setItem("token", token);
       // navigate("/home");
       // console.log(response.data);
       // console.log(token);
-/*// =======
+      /*// =======
 // // <<<<<<< feature/v1.0.0/NewAddAdvertise
 // //       const token = response.data.access;
 // //       localStorage.setItem("token", token);
@@ -91,28 +93,28 @@ const Login = () => {
 //       // console.log(localStorage.setItem('accessTokenCustomer',res.data.access));
 
 // >>>>>>> Develop*/
-      
-//       <<<<<<< feature/v1.0.0/overallfix
+
+      //       <<<<<<< feature/v1.0.0/overallfix
       setAuthTokens(response.data.access);
       notify();
+      console.log("aloooooooooooooooooooooooooooooooooooooooo", token)
       // setSuccessMessage('Login successful!');
       setTimeout(() => {
-        navigate('/home');
+        navigate("/home");
       }, 3000);
-// =======
-//       setAuthTokens(response.data.access);
+      // =======
+      //       setAuthTokens(response.data.access);
 
-//       navigate("/home");
-// >>>>>>> Develop
-      
+      //       navigate("/home");
+      // >>>>>>> Develop
     } catch (error) {
       notifyfaild();
-      setErrorMessage('Login Failed!');
+      setErrorMessage("Login Failed!");
       console.error(error);
     }
   };
   let navigate = useNavigate();
-// <<<<<<< feature/v1.0.0/newloginsignup
+  // <<<<<<< feature/v1.0.0/newloginsignup
   const [isLargeScreen, setIsLargeScreen] = useState(true);
 
   useEffect(() => {
@@ -131,7 +133,7 @@ const Login = () => {
   return (
     <div>
       <body>
-      <ToastContainer  position="bottom-left" theme="light" pauseOnHover />
+        <ToastContainer position="bottom-left" theme="light" pauseOnHover />
         <div class="flex items-center justify-center min-h-screen bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal">
           <div class="relative flex flex-col  bg-transparent  md:bg-pallate-Dark_Sky_Blue md:bg-opacity-20  shadow-2xl rounded-2xl md:flex-row md:space-y-0">
             <div class="flex flex-col justify-center   bg-pallate-Dark_Sky_Blue md:bg-opacity-20 md:bg-purple-300 bg-opacity-20 rounded-2xl border-pallate-Dark_Sky_Blue p-8 md:p-14">
@@ -179,7 +181,7 @@ const Login = () => {
                   </div>
                 </form>
                 <div>
-                {/* {successMessage && (
+                  {/* {successMessage && (
                   <Alert severity="success">
                     <AlertTitle>Success</AlertTitle>
                     {successMessage}
@@ -191,7 +193,7 @@ const Login = () => {
                     {errorMessage}
                   </Alert>
                 )} */}
-              </div>
+                </div>
                 <div>
                   <Link
                     to="/forgot"
@@ -236,9 +238,9 @@ const Login = () => {
           </div>
         </div>
       </body>
-{/* // ======= */}
+      {/* // ======= */}
 
-{/* //   return (
+      {/* //   return (
 //     <div className="bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal">
 //       <div className="flex items-center justify-center h-screen">
 //         <img src={logo} alt="My Logo" class="w-6 mt-52 " />
