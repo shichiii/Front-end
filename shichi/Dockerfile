@@ -2,7 +2,7 @@
 # CMD ["npm", "start"]
 
 #Stage 1
-FROM node:20-alpine as builder
+FROM node:20 as builder
 WORKDIR /app
 COPY package.json .
 COPY package-lock.json .
@@ -10,7 +10,7 @@ COPY . .
 RUN npm install --force
 RUN npm run build
 #Stage 2
-FROM nginx:stable-alpine
+FROM nginx:stable
 # 
 # RUN rm -rf ./*
 COPY --from=builder /app/build /usr/share/nginx/html
