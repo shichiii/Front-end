@@ -4,9 +4,6 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 
 function CommentSection({ refreshComment, setRefreshComment, adv }) {
-  const comment =
-    "Am no an listening depending up believing. Enough around remove to barton agreed regret in or it. Advantage mr estimable be commanded provision. Year well shot deny shew come now had. Shall downs stand marry taken his for out. Do related mr account brandon an up. Wrong for never ready ham these witty him. Our compass see age uncivil matters weather forbade her minutes. Ready how but truth son new under.";
-
   const [comments, setComments] = useState({});
   const [commentsNum, setCommentsNum] = useState(3);
   const [showDelayedComment, setShowDelayedComment] = useState(false);
@@ -55,7 +52,8 @@ function CommentSection({ refreshComment, setRefreshComment, adv }) {
           if (index < commentsNum) {
             return (
               <Comment
-                name="Hazhir"
+                name={`${comment.user_first_name} ${comment.user_last_name}`}
+                image={comment.user_profile_image}
                 comment={comment.text}
                 rating={rating}
                 date={comment.created_date}
