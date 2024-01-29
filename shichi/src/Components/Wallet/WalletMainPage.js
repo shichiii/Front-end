@@ -16,7 +16,7 @@ const WalletApp = () => {
   // const user = localStorage.getItem("user");
   const [amount, setAmount] = useState(10000);
   const [totalBalance, setTotalBalance] = useState(0);
-  const baseURL = "http://87.107.105.201:8000/user/show/";
+  const baseURL = "http://87.107.54.89:8000/user/show/";
   const [wallett, setwallet] = useState("");
 
   useEffect(() => {
@@ -30,59 +30,43 @@ const WalletApp = () => {
       });
     }
   }, [userId]);
-
   const handleSubmit = async () => {
-    // try {
-
-    //   const response = await fetch("https://87.107.105.201:8000/swagger/user/updatewallet/", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({
-    //       userId,
-    //       amount: parseFloat(amount),
-    //     }),
-    //   });
-
-    //   const newLink = await response.json();
-
-    //   window.location.href = newLink;
-    // } catch (error) {
-    //   console.error("Error updating wallet:", error);
-    // }
-    const token = localStorage.getItem("token");
-    const user = null;
-    // console.log("heloooooooooooooooooooooooooo");
-    // console.log(token);
-    if (token !== "null" && token !== null) {
-      // console.log("weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
-      // console.log(token)
-      const user = jwtDecode(token);
-    const response = await axios.put(
-      "http://87.107.105.201:8000/user/updatewallet/" + `${user.user_id}/`,
-      {
-        Wallet: amount,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+    try {
+      const response = await axios.put(
+        `http://87.107.54.89:8000/user/updatewallet/${userId.id}/`,
+        {
+          wallet: amount,
         },
-      }
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+  
+     
+      console.log("Success:", response.data);
+  
+     
+      const link = response.data;
+  
+     
+      window.open(link, "_blank");
+    } catch (error) {
+    
+      console.log("autoeity", `Bearer ${token}`);
+      console.error("Error updating wallet:", error);
+  
       
-      // ).then((response) => {
-      //   console.log(response.data)
-      //   setAmount(response.data);
-      // })
-    );
+      if (error.response) {
+        console.error("Response data in error:", error.response.data);
+      }
+  
+    
     }
-    console.log(
-      "///////////sdfasrfaer/fafsrrfserfsergfsergsertgaerg//////////////$$$$$$$$$$$$$$$$$$$$$$$"
-    );
-    console.log(token);
   };
-
+  
   return (
     <div>
       <div class="bg-gradient-to-t from-pallate-Gunmetal via-pallate-Police_Blue to-pallate-Gunmetal relative lg:py-20 min-h-screen">
@@ -142,7 +126,6 @@ const WalletApp = () => {
           </div>
         </div>
       </div>
-      
     </div>
   );
 };

@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import img from "../../../Static/search.svg";
 import { Navigate, Navigation } from "react-router";
 import { useNavigate } from "react-router-dom";
+import AuthContext from "../../../Context/AuthContext";
 
-const Newsearch = ({ search, setSearch }) => {
-  // let navigate = useNavigate();
-  // function search_new() {
-  //   localStorage.setItem("search", search);
-  //   navigate("/Advertisement");
-  // }
+const Newsearch = () => {
+  const { search, setSearch } = useContext(AuthContext);
+  let navigate = useNavigate();
+  function search_new() {
+    navigate("/Advertisement");
+  }
 
   return (
     <div>
@@ -29,9 +30,9 @@ const Newsearch = ({ search, setSearch }) => {
               viewBox="0 0 24 24"
               stroke="currentColor"
               stroke-width="2"
+              onClick={search_new}
             >
               <path
-                // onClick={search_new}
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
@@ -42,7 +43,7 @@ const Newsearch = ({ search, setSearch }) => {
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            class="w-full bg-transparent rounded-full py-[14px] pl-4 outline-none"
+            class="w-full bg-transparent rounded-full py-[14px] pl-4 outline-none text-white"
           />
           <div class="pr-5">
             <svg

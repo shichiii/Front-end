@@ -17,7 +17,7 @@ function AddComment({ adv, setRefreshComment }) {
     async function handleUserRated() {
       try {
         await axios.get(
-          `http://87.107.105.201:8000/advertisement/is-rated/${userId}/${adv}/`
+          `http://87.107.54.89:8000/advertisement/is-rated/${userId}/${adv}/`
         );
       } catch (ex) {
         console.log("ex: ", ex);
@@ -31,7 +31,7 @@ function AddComment({ adv, setRefreshComment }) {
   function commentHandler() {
     setIsLoading(true);
     axios
-      .post(`http://87.107.105.201:8000/advertisement/create-comment/`, {
+      .post(`http://87.107.54.89:8000/advertisement/create-comment/`, {
         user_id: userId,
         text: comment,
         adv: +adv,
@@ -44,10 +44,9 @@ function AddComment({ adv, setRefreshComment }) {
       });
   }
 
-  async function handleRate(rate) {
-    setRate(rate);
+  async function rateHandler() {
     await axios
-      .post(`http://87.107.105.201:8000/advertisement/create-rate/`, {
+      .post(`http://87.107.54.89:8000/advertisement/create-rate/`, {
         user_id: userId,
         rate: rate,
         adv: +adv,
@@ -63,9 +62,13 @@ function AddComment({ adv, setRefreshComment }) {
       });
   }
 
+  async function handleRate(rate) {
+    setRate(rate);
+  }
+
   useEffect(function () {
     axios
-      .get(`http://87.107.105.201:8000/advertisement/list-rate`)
+      .get(`http://87.107.54.89:8000/advertisement/list-rate`)
       .then((response) => {
         if (
           response.data.find(
@@ -107,17 +110,25 @@ function AddComment({ adv, setRefreshComment }) {
           {hasRated ? (
             <p>You have already rated this car</p>
           ) : (
-            <Rate
-              className="flex flex-col"
-              onSetRating={handleRate}
-              messages={["Very Bad", "Bad", "Okay", "Good", "Very Good"]}
-              size={36}
-            />
-          )}
-          {showMessage ? (
-            <p className="h-6">Your rating was submitted succesfuly!</p>
-          ) : (
-            <p className="h-6"></p>
+            <>
+              <Rate
+                className="flex flex-col mb-0 mt-6"
+                onSetRating={handleRate}
+                messages={["Very Bad", "Bad", "Okay", "Good", "Very Good"]}
+                size={36}
+              />
+              {showMessage ? (
+                <p className="h-6">Your rating was submitted succesfuly!</p>
+              ) : (
+                <button
+                  onClick={rateHandler}
+                  className="p-1 mt-8 bg-pallate-Dark_Sky_Blue hover:bg-transparent hover:text-pallate-Dark_Sky_Blue  text-white font-mono text-[20px]  rounded-[400px] transition-all duration-300 w-3/12 mx-auto"
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Submitting..." : "Submit"}
+                </button>
+              )}
+            </>
           )}
         </div>
       </div>
