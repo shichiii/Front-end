@@ -68,7 +68,7 @@ const Newcar = () => {
 
     return file;
   };
-  const baseURL = "http://87.107.105.201:8000/user/show/";
+  const baseURL = "http://87.107.54.89:8000/user/show/";
 
   const handleDeleteImage = (index) => {
     const updatedImages = [...selectedImages];
@@ -211,7 +211,7 @@ const Newcar = () => {
       formData.append("car_category", category);
       console.log(formData);
       const response = await axios.post(
-        "http://87.107.105.201:8000/advertisement/create/",
+        "http://87.107.54.89:8000/advertisement/create/",
         formData,
         {
           headers: {

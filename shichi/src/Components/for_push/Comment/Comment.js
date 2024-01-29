@@ -4,28 +4,12 @@ import { FaRegThumbsDown, FaRegThumbsUp } from "react-icons/fa";
 import "./animate.css";
 
 function Comment({ image, name, comment, rating, date }) {
-  const [imageUrl, setImageUrl] = useState(
-    "https://tecdn.b-cdn.net/img/new/avatars/1.webp"
-  );
-
-  const handleFileChange = (event) => {
-    const files = event.target.files;
-
-    for (let i = 0; i < files.length; i++) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setImageUrl(reader.result);
-      };
-      reader.readAsDataURL(files[i]);
-    }
-  };
-
   return (
     <div className="flex flex-col h-auto w-full animated fadeInDown bg-pallate-Dark_Sky_Blue bg-opacity-30 lg:bg-opacity-20 rounded-2xl shadow-lg gap-2 p-3 pb-5 duration-300 transition-all">
       <div className="flex flex-row gap-4">
         <img
           // onClick={() => setOpen(!open)}
-          src={imageUrl}
+          src={`http://87.107.54.89:8000${image}`}
           className="w-20 h-20 cursor-pointer p-2 rounded-full"
           alt="Avatar"
         />

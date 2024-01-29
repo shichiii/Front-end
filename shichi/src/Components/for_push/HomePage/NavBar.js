@@ -3,7 +3,7 @@ import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { IoIosNotifications } from "react-icons/io";
 import NavWallet from "../../Wallet/NavWallet";
 
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import { Link, useNavigate } from "react-router-dom"; // Import Link from react-router-dom
 
 import logo from "../../../Static/whitelogo.svg";
 import User from "../../../Components/for_push/HomePage/User";
@@ -18,9 +18,11 @@ const NavBar = () => {
   const [user, setUser] = useState({}); // State to store user information
   const userId = jwtDecode(localStorage.getItem("token")).user_id;
 
-  const { setChatRoomId } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-  const baseURL = "87.107.105.201:8000/user/myshow/";
+  const { setChatRoomName, setSenderId } = useContext(AuthContext);
+
+  const baseURL = "87.107.54.89:8000/user/myshow/";
 
   useEffect(() => {
     // Fetch user information from localStorage
@@ -44,9 +46,11 @@ const NavBar = () => {
 
   const [chatRooms, setChatRooms] = useState([]);
 
+  console.log("chatRooms: ", chatRooms);
+
   useEffect(() => {
     axios
-      .get("http://87.107.105.201:8000/chat/chatroomMembers/", {
+      .get("http://87.107.54.89:8000/chat/chatroomMembers/", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -57,7 +61,11 @@ const NavBar = () => {
       });
   }, []);
 
-  console.log("chatRooms: ", chatRooms);
+  function handleChatRoom(chatRoom) {
+    const adv = +chatRoom.name.split("-")[1];
+    navigate(`/Car/${adv}`);
+    setSenderId(+chatRoom.name.split("-")[0]);
+  }
 
   return (
     <div className="bg-pallate-Gunmetal h-[100px] ">
@@ -108,32 +116,40 @@ const NavBar = () => {
                 aria-orientation="vertical"
                 aria-labelledby="options-menu"
               >
-                <div class="py-1 text-white" role="none">
+                <div
+                  class="py-1 text-white max-h-48 overflow-y-scroll"
+                  role="none"
+                >
                   {chatRooms.length > 0 ? (
                     chatRooms?.map((chatRoom) => {
                       return (
                         <div
                           class="px-4 py-2 text-sm hover:bg-pallate-Dark_Sky_Blue cursor-pointer flex items-center gap-5"
                           role="menuitem"
-                          onClick={() => setChatRoomId(chatRoom.id)}
+                          onClick={() => handleChatRoom(chatRoom)}
                         >
                           <img
-                            src={`http://87.107.105.201:8000${
+                            src={`http://87.107.54.89:8000${
                               chatRoom.sender.id !== userId
                                 ? chatRoom.sender.profile_image
                                 : chatRoom.reciver.profile_image
                             }`}
                             alt="User's Profile Picture"
-                            className="rounded-full object-cover w-[50px]"
+                            className="rounded-full object-cover w-[50px] h-[50px]"
                           />
-                          <span className=" font-bold">
-                            {chatRoom.sender.id !== userId
-                              ? chatRoom.sender.first_name
-                              : chatRoom.reciver.first_name}{" "}
-                            {chatRoom.sender.id !== userId
-                              ? chatRoom.sender.last_name
-                              : chatRoom.reciver.last_name}
-                          </span>
+                          <div className="flex flex-col items-center">
+                            <span className=" font-bold">
+                              {chatRoom.sender.id !== userId
+                                ? chatRoom.sender.first_name
+                                : chatRoom.reciver.first_name}{" "}
+                              {chatRoom.sender.id !== userId
+                                ? chatRoom.sender.last_name
+                                : chatRoom.reciver.last_name}
+                            </span>
+                            <span className=" font-light">
+                              {chatRoom.name.split("-")[3]}
+                            </span>
+                          </div>
                         </div>
                       );
                     })

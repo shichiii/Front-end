@@ -12,7 +12,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 
-const baseURL = "http://87.107.105.201:8000/user/show/";
+const baseURL = "http://87.107.54.89:8000/user/show/";
 
 const User = ({ firstName, lastName, id, avatarPath }) => {
   const navigate = useNavigate();
@@ -63,7 +63,7 @@ const User = ({ firstName, lastName, id, avatarPath }) => {
       // console.log(token)
       const user = jwtDecode(token);
       axios
-        .post("http://87.107.105.201:8000/user/delete/" + `${user.user_id}/`)
+        .post("http://87.107.54.89:8000/user/delete/" + `${user.user_id}/`)
         .then((response) => {
           setUserId(response.data.id);
         });

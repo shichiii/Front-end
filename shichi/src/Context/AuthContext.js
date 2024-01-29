@@ -3,11 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext(null);
 export const AuthProvider = ({ children }) => {
-  console.log(
-    "================================================================================"
-  );
   const storedToken = localStorage.getItem("token");
-  console.log("Stored Token:", storedToken);
   const navigate = useNavigate();
   let initialAuthTokens = null;
   try {
@@ -18,6 +14,9 @@ export const AuthProvider = ({ children }) => {
 
   const [authTokens, setAuthTokens] = useState(initialAuthTokens);
   const [chatRoomId, setChatRoomId] = useState(0);
+  const [senderId, setSenderId] = useState(0);
+  const [chatRoomName, setChatRoomName] = useState(0);
+  const [search, setSearch] = useState();
 
   useEffect(() => {
     localStorage.setItem("token", authTokens);
@@ -36,6 +35,12 @@ export const AuthProvider = ({ children }) => {
     logoutUser,
     chatRoomId,
     setChatRoomId,
+    chatRoomName,
+    setChatRoomName,
+    senderId,
+    setSenderId,
+    search,
+    setSearch,
   };
   return (
     <AuthContext.Provider value={contextData}>{children}</AuthContext.Provider>

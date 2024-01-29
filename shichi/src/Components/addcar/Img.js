@@ -73,7 +73,7 @@ const Img = () => {
         });
 
         axios
-          .post("http://87.107.105.201:8000/carimage/create/", formData, {
+          .post("http://87.107.54.89:8000/carimage/create/", formData, {
             headers: {
               Authorization: `JWT ${token}`,
             },
@@ -103,7 +103,7 @@ const Img = () => {
 
     return file;
   };
-  const baseURL = "http://87.107.105.201:8000/user/show/";
+  const baseURL = "http://87.107.54.89:8000/user/show/";
 
   const handleDeleteImage = (index) => {
     const updatedImages = [...selectedImages];
@@ -240,12 +240,9 @@ const Img = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const response = await fetch("http://87.107.54.89:8000/carimage/list/");
 
-        const response = await fetch(
-          "http://87.107.105.201:8000/carimage/list/"
-        );
-
-       // const response = await fetch('http://87.107.105.201:8000/carimage/list/');
+        // const response = await fetch('http://87.107.54.89:8000/carimage/list/');
 
         const data = await response.json();
         const lastItem = data[data.length - 1];
@@ -297,7 +294,7 @@ const Img = () => {
       formData.append("car_category", category);
 
       const response = await axios.post(
-        "http://87.107.105.201:8000/advertisement/create/",
+        "http://87.107.54.89:8000/advertisement/create/",
         formData,
         {
           headers: {
@@ -307,7 +304,7 @@ const Img = () => {
         }
       );
       console.log(token);
-/*
+      /*
       formData.append('car_images', lastId);
       console.log('id', lastId);
       formData.append('location_geo_width',latitude );
@@ -327,7 +324,7 @@ const Img = () => {
       formData.append('car_fuel', carFuel);
       formData.append('car_category', category);
   
-      const response = await axios.post('http://87.107.105.201:8000/advertisement/create/', formData, {
+      const response = await axios.post('http://87.107.54.89:8000/advertisement/create/', formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
@@ -651,7 +648,7 @@ const Img = () => {
               </div>
               <div className="relative">
                 {/* <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"> */}
-                  {/* <span className="text-pallate-persian_green">
+                {/* <span className="text-pallate-persian_green">
                     <BsCurrencyDollar />
                   </span> */}
                 {/* </div> */}

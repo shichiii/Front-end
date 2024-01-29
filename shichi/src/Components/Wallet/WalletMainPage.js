@@ -16,7 +16,7 @@ const WalletApp = () => {
   // const user = localStorage.getItem("user");
   const [amount, setAmount] = useState(10000);
   const [totalBalance, setTotalBalance] = useState(0);
-  const baseURL = "http://87.107.105.201:8000/user/show/";
+  const baseURL = "http://87.107.54.89:8000/user/show/";
   const [wallett, setwallet] = useState("");
 
   useEffect(() => {
@@ -34,7 +34,7 @@ const WalletApp = () => {
   const handleSubmit = async () => {
     // try {
 
-    //   const response = await fetch("https://87.107.105.201:8000/swagger/user/updatewallet/", {
+    //   const response = await fetch("https://87.107.54.89:8000/swagger/user/updatewallet/", {
     //     method: "POST",
     //     headers: {
     //       "Content-Type": "application/json",
@@ -142,7 +142,6 @@ const WalletApp = () => {
           </div>
         </div>
       </div>
-      
     </div>
   );
 };
