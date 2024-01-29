@@ -159,19 +159,20 @@ const User = ({ firstName, lastName, id, avatarPath }) => {
   });
 
   return (
-    <div className="relative m-10 h-20 w-20">
+    <div className="relative m-10 h-24 w-24">
       <img
         ref={imgRef}
         onClick={() => setOpen(!open)}
         onerror="this.onerror=null;this.src='placeholder_image.jpg'; this.style='display:none;'"
+        
         src={profileImage ? profileImage : "non-existent-url.jpg"}
-        class="bg-pallate-Gunmetal h-20 w-20  cursor-pointer p-2 rounded-full shadow-lg"
+        class="bg-pallate-Gunmetal h-24 w-24  cursor-pointer p-2 rounded-full shadow-lg"
         alt={`${firstname.charAt(0).toUpperCase()}  ${lastname
           .charAt(0)
           .toUpperCase()}`}
       />
      {open && (
-  <div className="border-white  bg-pallate-Dark_Sky_Blue bg-opacity-10 z-50 border-2 text-[11px] absolute text-white p-2 rounded-lg">
+  <div className="border-white  bg-pallate-Dark_Sky_Blue bg-opacity-10 z-50 border-2 text-[11px] absolute text-white p-2 w-24 rounded-lg">
     <ul>
       {Menu.map((meno) => (
         <li
@@ -191,7 +192,7 @@ const User = ({ firstName, lastName, id, avatarPath }) => {
             }
             setOpen(false);
           }}
-          className="cursor-pointer items-center text-center justify-center p-1 hover:bg-pallate-Dark_Sky_Blue  rounded-lg"
+          className="cursor-pointer items-center text-center justify-center p-2 hover:bg-pallate-Dark_Sky_Blue  rounded-lg"
           key={meno}
         >
           {meno}

@@ -10,7 +10,7 @@ COPY . .
 RUN npm install --force
 RUN npm run build
 #Stage 2
-FROM nginx:stable-alpine
+FROM nginx:stable
 # 
 # RUN rm -rf ./*
 COPY --from=builder /app/build /usr/share/nginx/html
