@@ -6,7 +6,7 @@ import CarPickUpLocation from "../Components/for_push/CarInfo/CarPickUpLocation"
 import AddComment from "../Components/for_push/Comment/AddComment";
 import CommentSection from "../Components/for_push/Comment/CommentSection";
 import Navbar from "../Components/for_push/HomePage/NavBar";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 
 import IconChat from "../Components/for_push/ChatPage/IconChat";
@@ -14,13 +14,18 @@ import { jwtDecode } from "jwt-decode";
 import CarImageSlider from "../Components/for_push/CarInfo/CarImageSlider";
 import { MapContainer, Marker, TileLayer } from "react-leaflet";
 import DriverDetail from "../Components/for_push/CarInfo/DriverDetail";
+import AuthContext from "../Context/AuthContext";
 function CarInfoPage() {
   const adv = useParams();
   const [refreshComment, setRefreshComment] = useState(false);
   const [car, setCar] = useState({});
+  const [createdChatRoom, setCreatedChatRoom] = useState(null);
   const userId = jwtDecode(localStorage.getItem("token")).user_id;
 
-  console.log("adv: ", adv);
+  const { chatRoomName, setChatRoomName, chatRoomId, setChatRoomId, senderId } =
+    useContext(AuthContext);
+
+  console.log("chatRoomId: ", chatRoomId);
 
   useEffect(() => {
     axios
@@ -30,18 +35,87 @@ function CarInfoPage() {
       });
   }, [adv]);
 
+  useEffect(
+    function () {
+      setChatRoomName(`${userId}-${adv.id}-${car.owner_id}-${car.car_name}`);
+    },
+    [car]
+  );
+
+  useEffect(
+    function () {
+      console.log("senderId: ", senderId);
+      if (userId && chatRoomName && car.owner_id) {
+        axios
+          .get("http://87.107.54.89:8000/chat/chatroom/chatroom/")
+          .then((response) => {
+            setChatRoomId(
+              userId !== car.owner_id
+                ? response.data.find(
+                    (item) =>
+                      item.name ===
+                        `${userId}-${adv.id}-${car.owner_id}-${car.car_name}` ||
+                      item.name ===
+                        `${car.owner_id}-${adv.id}-${userId}-${car.car_name}`
+                  )?.id
+                : response.data.find(
+                    (item) =>
+                      item.name ===
+                        `${senderId}-${adv.id}-${car.owner_id}-${car.car_name}` ||
+                      item.name ===
+                        `${car.owner_id}-${adv.id}-${senderId}-${car.car_name}`
+                  )?.id
+            );
+          });
+      }
+    },
+    [chatRoomName, chatRoomName, car.owner_id, senderId]
+  );
+
   // useEffect(() => {
-  //   axios
-  //     .post("http://87.107.54.89:8000/chat/chatroom/chatroom/", {
-  //       id: 56,
-  //       name: "56",
-  //       sender: 5,
-  //       reciver: 6,
-  //     })
-  //     .then((response) => {
-  //       console.log("response: ", response);
-  //     });
+
   // }, []);
+
+  useEffect(
+    function () {
+      async function checkRoom() {
+        if (userId && car.owner_id && userId !== car.owner_id) {
+          await axios
+            .get("http://87.107.54.89:8000/chat/chatroom/chatroom/")
+            .then(async (response) => {
+              const result = await response.data.find(
+                (json) =>
+                  json.name ===
+                  `${userId}-${car.id}-${car.owner_id}-${car.car_name}`
+              );
+
+              if (result) {
+                await setCreatedChatRoom(true);
+              } else {
+                await setCreatedChatRoom(false);
+              }
+            });
+          if ((await createdChatRoom) === false) {
+            await axios
+              .post("http://87.107.54.89:8000/chat/chatroom/chatroom/", {
+                name: `${userId}-${car.id}-${car.owner_id}-${car.car_name}`,
+                sender: userId,
+                reciver: car.owner_id,
+              })
+              .then(async (response) => {
+                console.log("chatRoom Created Succesfuly");
+                await setCreatedChatRoom(true);
+                await setChatRoomName(
+                  `${userId}-${car.id}-${car.owner_id}-${car.car_name}`
+                );
+              });
+          }
+        }
+      }
+      checkRoom();
+    },
+    [car, createdChatRoom]
+  );
 
   return (
     <>
@@ -78,14 +152,19 @@ function CarInfoPage() {
           {/* <CarOptionalExtras /> */}
           {/* {car.owner_id === userId ? null : <BookCar adv={adv.id} />} */}
           {car.owner_id === userId ? null : <DriverDetail />}
-          <AddComment adv={adv.id} setRefreshComment={setRefreshComment} />
+          {car.owner_id === userId ? null : (
+            <AddComment adv={adv.id} setRefreshComment={setRefreshComment} />
+          )}
           <CommentSection
             adv={adv.id}
             refreshComment={refreshComment}
             setRefreshComment={setRefreshComment}
           />
         </div>
-        {<IconChat />}
+        {(userId === car.owner_id && senderId === 0) ||
+        chatRoomId === undefined ? null : (
+          <IconChat />
+        )}
       </div>
     </>
   );

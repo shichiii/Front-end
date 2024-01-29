@@ -73,8 +73,8 @@ const CardApp = () => {
           <Card
             search={search}
             searchedCars={searchedCars}
-            setLowerPrice={setLowerPrice}
-            setUpperPrice={setUpperPrice}
+            lowerPrice={lowerPrice}
+            upperPrice={upperPrice}
             carCategory={carCategory}
             carColor={carColor}
             startDate={startDate}

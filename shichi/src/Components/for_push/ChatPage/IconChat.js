@@ -11,19 +11,18 @@ const IconChat = () => {
 
   const closeChat = () => {
     setIsChatOpen(false);
-    setChatRoomId(0);
   };
 
-  useEffect(
-    function () {
-      if (chatRoomId !== 0) {
-        setIsChatOpen(true);
-      } else {
-        setIsChatOpen(false);
-      }
-    },
-    [chatRoomId]
-  );
+  // useEffect(
+  //   function () {
+  //     if (chatRoomId !== 0) {
+  //       setIsChatOpen(true);
+  //     } else {
+  //       setIsChatOpen(false);
+  //     }
+  //   },
+  //   [chatRoomId]
+  // );
 
   return (
     <div className="z-[1000]">
