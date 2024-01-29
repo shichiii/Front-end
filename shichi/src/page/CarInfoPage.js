@@ -161,9 +161,6 @@ function CarInfoPage() {
             setRefreshComment={setRefreshComment}
           />
         </div>
-        {console.log("senderId: ", senderId)}
-        {console.log("userId: ", userId, car.owner_id)}
-        {console.log("chatRoomId: ", chatRoomId)}
         {(userId === car.owner_id && senderId === 0) ||
         chatRoomId === undefined ? null : (
           <IconChat />
