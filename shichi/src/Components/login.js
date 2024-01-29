@@ -15,7 +15,7 @@ import { Alert, AlertTitle } from "@material-ui/lab";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { BsPatchExclamation } from "react-icons/bs"; 
+import { BsPatchExclamation } from "react-icons/bs";
 import { useContext } from "react";
 import AuthContext from "../Context/AuthContext";
 
@@ -97,7 +97,7 @@ const Login = () => {
       //       <<<<<<< feature/v1.0.0/overallfix
       setAuthTokens(response.data.access);
       notify();
-      console.log("aloooooooooooooooooooooooooooooooooooooooo", token)
+      console.log("aloooooooooooooooooooooooooooooooooooooooo", token);
       // setSuccessMessage('Login successful!');
       setTimeout(() => {
         navigate("/home");
@@ -200,6 +200,13 @@ const Login = () => {
                     className="hover:bg-transparent hover:text-white hover:font-bold duration-300 m-3 hover:bg-AteneoBlue-400 focus:bg-AteneoBlue-500 inline-block text-sm text-white align-baseline py-2.5 w-full rounded bg-AteneoBlue-500 text-center focus:text-white"
                   >
                     forgot password?
+                  </Link>
+
+                  <Link
+                    to="/signup"
+                    className="hover:bg-transparent hover:text-white hover:font-bold duration-300 m-3 hover:bg-AteneoBlue-400 focus:bg-AteneoBlue-500 inline-block text-sm text-white align-baseline py-2.5 w-full rounded bg-AteneoBlue-500 text-center focus:text-white"
+                  >
+                    Sign Up?
                   </Link>
 
                   <button
