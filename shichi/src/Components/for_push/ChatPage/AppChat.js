@@ -24,22 +24,29 @@ function App() {
   const [chatReady, setChatReady] = useState(false);
   const WS_URL = `ws://87.107.54.89:8000/ws/chat/${chatRoomId}/?access_token=${authToken}`;
   const client = new W3CWebSocket(WS_URL);
-  useEffect(function () {
-    client.onopen = () => {
-      console.log("WebSocket Client Connected");
-      setChatReady(true);
-    };
+  console.log("reciverName: ", reciverName.split(" ")[1]);
+  useEffect(
+    function () {
+      client.onopen = () => {
+        console.log("WebSocket Client Connected");
+        setChatReady(true);
+      };
 
-    client.onmessage = (message) => {
-      const dataFromServer = JSON.parse(message.data);
-      console.log("dataFromServer: ", dataFromServer);
-      dataFromServer.sender = userId;
-      console.log("messages: ", messages);
-      if (dataFromServer) {
-        setMessages((messages) => [...messages, dataFromServer]);
-      }
-    };
-  }, []);
+      client.onmessage = (message) => {
+        if (reciverName.split(" ")[1]) {
+          const dataFromServer = JSON.parse(message.data);
+          dataFromServer.sender =
+            reciverName.split(" ")[1] === dataFromServer.sender
+              ? reciverId
+              : senderId;
+          if (dataFromServer) {
+            setMessages((messages) => [...messages, dataFromServer]);
+          }
+        }
+      };
+    },
+    [reciverName]
+  );
 
   function sendMessageHandler(message) {
     client.send(JSON.stringify({ message: message }));
