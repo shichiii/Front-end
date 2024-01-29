@@ -77,14 +77,18 @@ function DriverDetail({car}) {
               <label className="text-sm">Start Date:</label>
               <input
                 type="date"
+                min={car.start_date}
+                max={enddate || car.end_date} 
                 onChange={handlestartdate}
                 className="rounded-2xl outline-none py-1 px-3 border focus:border-pallate-Dark_Sky_Blue text-pallate-Police_Blue"
               />
             </div>
             <div className="w-5/12 flex flex-col gap-3">
               <label className="text-sm">End Date:</label>
-              <input
+              <input 
                 type="date"
+                min={car.start_date} 
+                max={car.end_date} 
                 onChange={handleenddate}
                 className="rounded-2xl outline-none py-1 px-3 border focus:border-pallate-Dark_Sky_Blue text-pallate-Police_Blue"
               />
