@@ -8,7 +8,8 @@ describe('Login in your account', () => {
       cy.contains('Login').click();
       cy.wait(5000);
       cy.contains('All Cars').click();
-      cy.get('[data-testid="compact"]').first().click();
+      // cy.contains('Black').click();
+    //   cy.get('[data-testid="economy"]').first().click();
     //   cy.url().should('include', '/wallet/5');
   
       
