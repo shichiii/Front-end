@@ -228,7 +228,7 @@ const Price = ({
               onChange={(e) => setLowerPrice(e.target.value)}
               class="px-4 py-3 w-full rounded-md bg-pallate-Gunmetal bg-opacity-50 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
             >
-              <option value="">Any Price</option>
+              <option value="">Lower Price</option>
               <option value="1000">RM 1000</option>
               <option value="2000">RM 2000</option>
               <option value="3000">RM 3000</option>
@@ -239,7 +239,7 @@ const Price = ({
               onChange={(e) => setUpperPrice(e.target.value)}
               class="px-4 py-3 w-full rounded-md bg-pallate-Gunmetal bg-opacity-50 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
             >
-              <option value="">Any Price</option>
+              <option value="">Upper Price</option>
               <option value="1000">RM 1000</option>
               <option value="2000">RM 2000</option>
               <option value="3000">RM 3000</option>
